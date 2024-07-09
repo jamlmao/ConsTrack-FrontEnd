@@ -1,22 +1,36 @@
 
-
-
+<main class="container1 my-5">
 <div class="Center">
-    <div class="container">
-        <div class="row justify-content-lg-center">
-                <div class="col col-lg-2">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" routerLink="/Client">Client</button>
-                </div>
-                <div class="col col-lg-2">
-                    <button type="button" class="btn btn-secondary btn-block" routerLink="/Admin">Admin</button>
-                </div>
-                <div class="col col-lg-2">
-                    <button type="button" class="btn btn-secondary btn-block" routerLink="/Staff">Staff</button>
-                </div>
-            </div>
+    <div class="Title mb-4">
+        <h2>Constrack V1</h2>
     </div>
-
+    <div class="container mt-2">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-4 my-1">
+                <button type="button" class=" mt-1 btn btn-outline-secondary btn-lg btn-block hover-effect p-3 custom-btn " routerLink="/Client">
+                    <div class="d-flex flex-column align-items-center">
+                        <fa-icon [icon]="faUserTie"></fa-icon>
+                        <span><b>Client</b></span>
+                    </div>
+                
+                </button>
+            </div>
+            <div class="col-12 col-md-4 ">
+                <button type="button" class=" mt-1 btn btn-secondary btn-lg btn-block hover-effect " routerLink="/Admin"> <div class="d-flex flex-column align-items-center">
+                    <fa-icon [icon]="faUserTie"></fa-icon>
+                    <span><b>Admin</b></span>
+                </div></button>
+            </div>
+            <div class="col-12 col-md-4 ">
+                <button type="button" class=" mt-1 btn btn-secondary btn-lg btn-fluid hover-effect " routerLink="/Staff"> <div class="d-flex flex-column align-items-center">
+                    <fa-icon [icon]="faUserTie"></fa-icon>
+                    <span><b>Staff</b></span>
+                </div></button>
+            </div>
+        </div>
+    </div>
 </div>
+</main>
 
 
 <router-outlet></router-outlet>

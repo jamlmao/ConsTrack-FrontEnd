@@ -1,9 +1,43 @@
 
 .Center{
     text-align: center;
-    margin-top: 10%;
-    margin-left: 15%;
-    padding:8%;
+    padding:2%;
+    margin-left: 25%;
     border: 1px solid #000;
-    width: 75vw;
+    width: 50vw;
+    height: 30vh;
 }
+
+@media screen and (max-width: 600px) {
+    .Center {
+        margin-top: 40% ;
+        height: 50vh; 
+        width: 75vw;
+        margin-left: 13%;    /* Increased size for phone screens */
+    }
+    
+    
+}
+
+
+
+
+.hover-effect:hover {
+    background-color: #7a1912; /* Darker shade of the button color */
+    color: #fff; /* White text color */
+}
+
+
+.custom-btn{
+    padding: 100px 200px;
+}
+
+
+.Title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #000;
+}
+
+
+
