@@ -1,36 +1,59 @@
-
-<main class="container1 my-5">
-<div class="Center">
-    <div class="Title mb-4">
-        <h2>Constrack V1</h2>
-    </div>
-    <div class="container mt-2">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-4 my-1">
-                <button type="button" class=" mt-1 btn btn-outline-secondary btn-lg btn-block hover-effect p-3 custom-btn " routerLink="/Client">
-                    <div class="d-flex flex-column align-items-center">
+<div class="con">
+    <main class="container1 py-5">
+        
+    <div class="Center">
+        <p style="background-image: url('assests/bg.jpg');"></p>
+        <img src="assets/Constrack.png" alt="" class="logo">
+        <div class="Title mb-4">
+            
+          
+            <h2 class="badge text-black fw-bolder mb-2 py-1">Constrack V1</h2>
+        </div>
+        <div class="container mt-2">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-4 my-1">
+                    <button type="button" class=" btn btn-outline-danger btn-lg px-5 py-3 fs-6 fw-bolder " routerLink="/Client">
+                        <div class="d-flex flex-column align-items-center">
+                            <fa-icon [icon]="faUserTie"></fa-icon>
+                            <span><b>Client</b></span>
+                        </div>
+                    
+                    </button>
+                </div>
+                <div class="col-12 col-md-4 ">
+                    <button type="button" class=" btn btn-outline-danger btn-lg px-5 py-3 fs-6 fw-bolder " routerLink="/Admin"> <div class="d-flex flex-column align-items-center">
                         <fa-icon [icon]="faUserTie"></fa-icon>
-                        <span><b>Client</b></span>
-                    </div>
-                
-                </button>
-            </div>
-            <div class="col-12 col-md-4 ">
-                <button type="button" class=" mt-1 btn btn-secondary btn-lg btn-block hover-effect " routerLink="/Admin"> <div class="d-flex flex-column align-items-center">
-                    <fa-icon [icon]="faUserTie"></fa-icon>
-                    <span><b>Admin</b></span>
-                </div></button>
-            </div>
-            <div class="col-12 col-md-4 ">
-                <button type="button" class=" mt-1 btn btn-secondary btn-lg btn-fluid hover-effect " routerLink="/Staff"> <div class="d-flex flex-column align-items-center">
-                    <fa-icon [icon]="faUserTie"></fa-icon>
-                    <span><b>Staff</b></span>
-                </div></button>
+                        <span><b>Administrator</b></span>
+                    </div></button>
+                </div>
+                <div class="col-12 col-md-4 ">
+                    <button type="button" class=" btn btn-outline-danger btn-lg px-5 py-3 fs-6 fw-bolder " routerLink="/Staff"> <div class="d-flex flex-column align-items-center">
+                        <fa-icon [icon]="faUserTie"></fa-icon>
+                        <span><b>Staff</b></span>
+                    </div></button>
+                </div>
             </div>
         </div>
+        
     </div>
-</div>
-</main>
-
-
-<router-outlet></router-outlet>
+        
+    </main>
+    <footer class=" py-2 mt-auto">
+        <div class="container px-5">
+            <div class="col-auto"><div class="text-danger small m-0 fw-bolder">Constrack: A Project Framework for Construction Monitoring</div></div>
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto"><div class="small m-0">Copyright &copy; Website 2024</div></div>
+                <div class="col-auto">
+                    <a class="small text-black" >Privacy</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small text-black" >Terms</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small text-black" >Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <router-outlet></router-outlet>
+    </div>
