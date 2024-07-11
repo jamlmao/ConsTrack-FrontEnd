@@ -50,10 +50,11 @@
     height: 200px;
     margin-top: -20px;
     margin-bottom: -20px;
+    margin-left: -20px;
 }
 .con{
     margin: 0px;
     background-size: cover;
     height: 820px;
-    background-image: url(../assets/bgbg.jpg);
+    background-image: url(../assets/arkil.jpg);
 }
