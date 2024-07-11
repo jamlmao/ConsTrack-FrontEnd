@@ -3,14 +3,16 @@
     text-align: center;
     padding:2%;
     margin-left: 25%;
-    border: 1px solid #000;
+    margin-top: 4px;
+    margin-bottom: 200px;
+    
     width: 50vw;
-    height: 30vh;
+    height: 50vh;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     .Center {
-        margin-top: 40% ;
+        margin-top: 20% ;
         height: 50vh; 
         width: 75vw;
         margin-left: 13%;    /* Increased size for phone screens */
@@ -19,6 +21,10 @@
     
 }
 
+.badge {
+    margin-top: -10px;
+}
+    
 
 
 
@@ -27,6 +33,7 @@
     color: #fff; /* White text color */
 }
 
+.com
 
 .custom-btn{
     padding: 100px 200px;
@@ -39,5 +46,15 @@
     color: #000;
 }
 
+.logo{
+    height: 200px;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
 
-
+.con{
+    margin: 0px;
+    background-size: cover;
+    height: 820px;
+    background-image: url(../assets/bgbg.jpg);
+}
