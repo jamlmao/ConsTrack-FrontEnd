@@ -1,0 +1,51 @@
+<p>create-staff-acct works!</p>
+<div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Create Staff</h2>
+      
+      <form (ngSubmit)="onSubmit()" #staffForm="ngForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="staff.name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="staff.email" name="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" [(ngModel)]="staff.password" name="password" required>
+        
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" [(ngModel)]="staff.first_name" name="first_name" required>
+        
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" [(ngModel)]="staff.last_name" name="last_name" required>
+        
+        <label for="sex">Sex:</label>
+        <select id="sex" [(ngModel)]="staff.sex" name="sex" required>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" [(ngModel)]="staff.address" name="address" required>
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" [(ngModel)]="staff.city" name="city" required>
+        
+        <label for="country">Country:</label>
+        <input type="text" id="country" [(ngModel)]="staff.country" name="country" required>
+        
+        <label for="zipcode">Zipcode:</label>
+        <input type="text" id="zipcode" [(ngModel)]="staff.zipcode" name="zipcode" required>
+        
+        <label for="company_name">Company Name:</label>
+        <input type="text" id="company_name" [(ngModel)]="staff.company_name" name="company_name" required>
+        
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" id="phone_number" [(ngModel)]="staff.phone_number" name="phone_number" required>
+        
+        <button type="submit">Create Staff</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<p>admin-dashboard works!</p>
+
+
+<button (click)="openCreateStaffModal()">Create Staff</button>
+<button (click)="logout()">Logout</button>
+<app-create-staff-acct 
+        *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
+</app-create-staff-acct>
+
+
+
+<router-outlet></router-outlet>
+

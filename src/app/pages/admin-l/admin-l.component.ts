@@ -8,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
   imports: [FormsModule, HttpClientModule, RouterModule],
   templateUrl: './admin-l.component.html',
-  styleUrl: './admin-l.component.css'
+  styleUrls: ['./admin-l.component.css']
 })
 export class AdminLComponent {
 
@@ -22,11 +22,29 @@ export class AdminLComponent {
   onLogin() {
     this.http.post('http://127.0.0.1:8000/api/loginA', this.loginObj).subscribe(
       (res: any) => {
-        console.log('API Response:', res); // Log the full response
-        if (res.status) {
+        console.log('API Response:', res); // Log the full response // should delete after development
+        const token = res.token;
+        if (token) {
+          localStorage.setItem('user', JSON.stringify(res));
+          localStorage.setItem('token', token);
+          console.log('Token:', token);
+        } else {
+          console.error('Token not found in the response');
+        }
+  
+        const storedUser = localStorage.getItem('user');
+        console.log('Stored User:', storedUser);
+        if (res.role) {
           if (res.role === 'admin') {
-            console.log('Login successful, navigating to /Staff');
-            this.router.navigateByUrl('/Staff');
+            
+            console.log('Login successful, xd');
+            this.router.navigateByUrl('/admin-dashboard').then(success => {
+              if (success) {
+                console.log('Navigation successful');
+              } else {
+                console.log('Navigation failed');
+              }
+            });
           } else {
             console.log('Login successful, but not an admin');
             // Handle non-admin login if needed
