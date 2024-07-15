@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet, Router, NavigationEnd  } from '@angular/router';
-import { AdminLComponent } from "./pages/admin-l/admin-l.component";
-import { ClientLComponent } from "./pages/client-l/client-l.component";
-import { StaffLComponent } from "./pages/staff-l/staff-l.component";
+import { AdminLComponent } from "./pages/components/Admin/admin-l/admin-l.component";
+import { ClientLComponent } from "./pages/components/Client/client-l/client-l.component";
+import { StaffLComponent } from "./pages/components/Staff/staff-l/staff-l.component";
 import { MenuComponent } from "./pages/menu/menu.component";
 
 @Component({
