@@ -20,20 +20,20 @@
       
                         <div data-mdb-input-init class="form-outline mb-4">
                             <label class="form-label" for="form2Example11">Username</label>
-                          <input type="email"  name="email" class="form-control"
+                          <input type="email"   [(ngModel)] = "loginObj.email" name="email" class="form-control"
                             placeholder="Enter your Username or Email" required>
                           
                         </div>
       
                         <div data-mdb-input-init class="form-outline mb-4">
                             <label class="form-label" for="form2Example22">Password</label>
-                          <input type="password" name="passsword" class="form-control" placeholder="Enter your password" required>
+                          <input type="password" name="passsword" class="form-control" [(ngModel)] = "loginObj.password" placeholder="Enter your password" required>
                           
                         </div>
       
                         <div class="text-center pt-1 mb-5 pb-1">
-                          <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block fa-lg mb-3" type="button">Log
-                            in</button>
+                          <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block fa-lg mb-3" type="button" (click)="onLogin()" >
+                            Login</button>
                           <a class="text-muted" href="#!">Forgot password?</a>
                         </div>
       

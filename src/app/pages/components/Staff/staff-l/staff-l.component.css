@@ -8,7 +8,7 @@
 
     margin: 0px;
     background-size: cover;
-    background-image: url(../assets/bg1.jpg);
+    background-image: url(../../../assets/bg1.jpg);
     }
     
     @media (min-width: 768px) {
