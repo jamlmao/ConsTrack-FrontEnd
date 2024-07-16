@@ -11,11 +11,11 @@ import { StaffDashboardComponent } from './pages/components/Staff/staff-dashboar
 
 export const routes: Routes = [
     {
-        path: '', redirectTo: 'menu',pathMatch: 'full'
+        path: '', redirectTo: 'Constrack',pathMatch: 'full'
 
     },
     {
-        path: 'menu',
+        path: 'Constrack',
         component: MenuComponent,
     },
     {

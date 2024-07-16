@@ -1,2 +1,6 @@
 <p>staff-dashboard works!</p>
 <button (click)="logout()">Logout</button>
+<button (click)="openCreateClientModal()">Create Client</button>
+<app-create-client-acct 
+        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
+</app-create-client-acct>
