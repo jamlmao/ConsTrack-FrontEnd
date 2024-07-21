@@ -38,7 +38,7 @@ export class MenuComponent {
         if (res.role) {
           if (res.role === 'admin') {
             console.log('Login successful, admin');
-            this.router.navigateByUrl('/admin-dashboard').then(success => {
+            this.router.navigateByUrl('/admin').then(success => {
               if (success) {
                 console.log('Navigation to admin dashboard successful');
               } else {
@@ -47,7 +47,7 @@ export class MenuComponent {
             });
           } else if (res.role === 'staff') {
             console.log('Login successful, staff');
-            this.router.navigateByUrl('/staff-dashboard').then(success => {
+            this.router.navigateByUrl('/staff').then(success => {
               if (success) {
                 console.log('Navigation to staff dashboard successful');
               } else {
@@ -56,7 +56,7 @@ export class MenuComponent {
             });
           } else if (res.role === 'client') {
             console.log('Login successful, client');
-            this.router.navigateByUrl('/client-dashboard').then(success => {
+            this.router.navigateByUrl('/client').then(success => {
               if (success) {
                 console.log('Navigation to client dashboard successful');
               } else {
