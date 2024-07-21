@@ -1,4 +1,4 @@
-
+/* 
 .Center{
     text-align: center;
     padding:2%;
@@ -8,8 +8,8 @@
     
     width: 50vw;
     height: 50vh;
-}
-
+} */
+/* 
 @media screen and (max-width: 800px) {
     .Center {
         margin-top: 20% ;
@@ -17,50 +17,74 @@
         width: 75vw;
         margin-left: 13%;  
         padding: 5%;  /* Increased size for phone screens */
-    }
-    
+    /* } */
+   
 
 
-    
-}
+/*     
+} */
 
-.badge {
+/* .badge {
     margin-top: -10px;
 }
-    
+     */
 
 
 
-.hover-effect:hover {
+/* .hover-effect:hover {
     background-color: #7a1912; /* Darker shade of the button color */
-    color: #fff; /* White text color */
-}
+    /* color: #fff; /* White text color */
+/* } */ 
 
-.com
+/* .com
 
 .custom-btn{
     padding: 100px 200px;
-}
+} */
 
 
-.Title {
+/* .Title {
     font-size: 2em;
     font-weight: bold;
     color: #000;
-}
-
+} */
+/* 
 .logo{
     height: 200px;
     margin-top: -20px;
     margin-bottom: -20px;
     margin-left: -20px;
-}
-.con{
+} */
+/* .con{
     margin: 0px;
     background-size: cover;
     height: 100dvh;
     background-image: url(../assets/arkil.jpg);
    
-}
+} */
 
 
+.gradient-custom-2 {
+    background-size: cover;
+    background: #ffffff;
+    
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+
+    margin: 0px;
+    background-size: cover;
+    background-image: url('../assets/bg1.jpg');
+    }
+    
+
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }
