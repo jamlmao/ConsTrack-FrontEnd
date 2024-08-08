@@ -1,0 +1,49 @@
+
+.toolbar {
+    height: 8%;
+    background: rgb(31, 31, 31);
+    
+    
+    
+   }
+   .toolBarButton{
+    padding: 5px;
+    margin: 0;
+    color: rgb(225, 18, 18);
+  
+   }
+  
+   .container{
+    height: 93%;
+    max-width: 100%;
+
+  
+   }
+   .drawer{
+    background-color: rgb(31, 31, 31);
+    width: 200px;
+    border: 20px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    
+   }
+  
+   .profile{
+    font-size: large;
+    align-items: end;
+  
+   }
+   
+   .mat-list-item
+   {
+    margin-right: 1rem;
+    color: white;
+   }
+   .mat-icon{
+    font-size: 25px;
+    margin-right: 1rem;
+    color: rgb(255, 255, 255);
+  
+   }
+   

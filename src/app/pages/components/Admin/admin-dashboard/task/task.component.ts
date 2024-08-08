@@ -1,34 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { CreateStaffAcctComponent } from "../create-staff-acct/create-staff-acct.component";
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { CreateClientAcctComponent } from "../../Staff/create-client-acct/create-client-acct.component";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { FormsModule } from '@angular/forms';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Component } from '@angular/core';
 
+
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { AccountComponent } from "./account/account.component";
-import { HeaderComponent } from "./header/header.component";
-
 import { MatListModule } from "@angular/material/list";
+import { HeaderComponent } from "../header/header.component";
+import { SidenavComponent } from "../sidenav/sidenav.component";
+
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { FormsModule } from '@angular/forms';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-acct.component";
+import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
+
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'app-task',
   standalone: true,
-  imports: [MatListModule,MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, AccountComponent, HeaderComponent],
-  templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css'
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, HeaderComponent, SidenavComponent],
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.css'
 })
-export class AdminDashboardComponent implements OnInit  {
-  faYoutube = faYoutube;
-  faSearch = faSearch;
+export class TaskComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
@@ -69,6 +69,4 @@ export class AdminDashboardComponent implements OnInit  {
     this.isCreateClientModalOpen = false;
     console.log('xd');
   }
-  
-
 }

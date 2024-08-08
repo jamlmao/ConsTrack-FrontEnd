@@ -1,0 +1,53 @@
+
+<mat-toolbar class="toolbar">
+    
+  <div class="toolBarButton text-center">
+      <button (click)="drawer.toggle()" mat-icon-button class="burger">
+          <mat-icon>menu</mat-icon>  
+      </button>
+  </div>
+  <form class="d-flex me-5" action="">
+      <input class="form-control me-2" type="search" placeholder="search">
+      <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
+  <div class="profile-logo dropdown profile">
+          
+      <button class="btn btn-outline-light dropdown-toggle ms-auto" data-bs-toggle="dropdown"> Admin</button>
+      <ul class="dropdown-menu dropdown-menu-dark">
+          <li><a class="dropdown-item" href="#">a</a></li>
+          <li><a class="dropdown-item" href="#">a</a></li>
+          <li><a class="dropdown-item" href="#">a</a></li>
+      </ul>
+      
+</div>
+  
+</mat-toolbar>
+
+
+<mat-drawer-container class="container" hasBackdrop="false">
+  <mat-drawer #drawer class="drawer" mode="side" opened="true">
+      <mat-nav-list>
+  
+          <mat-divider></mat-divider>
+          <h2 matSubheader class="py-2 text-center text-light">ConsTrack</h2>
+          
+          <a mat-list-item class="item" routerLink="/admin/home" routerLinkActive="list-item-active">
+              <div class="d-flex me-5 text-light"><mat-icon>home</mat-icon>Home</div>
+         </a>
+          <a mat-list-item routerLink="/admin/account" routerLinkActive="list-item-active">
+              <div class="d-flex me-5 text-light"><mat-icon>account_circle</mat-icon>Account</div>
+         </a>
+         <a mat-list-item routerLink="/admin/task" routerLinkActive="list-item-active">
+          <div class="d-flex me-5 text-light"><mat-icon>assignment</mat-icon>Task</div>
+     </a>
+          
+          
+      </mat-nav-list>
+  </mat-drawer>
+ 
+
+</mat-drawer-container>
+
+
+
+<router-outlet></router-outlet>

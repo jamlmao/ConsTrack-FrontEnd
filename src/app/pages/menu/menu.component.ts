@@ -2,7 +2,7 @@ import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet, Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-menu',
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
-  faUserTie = faUserTie;
+  faYoutube = faYoutube;
   loginObj: Login;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -38,7 +38,7 @@ export class MenuComponent {
         if (res.role) {
           if (res.role === 'admin') {
             console.log('Login successful, admin');
-            this.router.navigateByUrl('/admin').then(success => {
+            this.router.navigateByUrl('/admin/home').then(success => {
               if (success) {
                 console.log('Navigation to admin dashboard successful');
               } else {
