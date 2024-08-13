@@ -1,14 +1,20 @@
 import { Component, EventEmitter,Output} from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RouterOutlet, Router, RouterModule } from '@angular/router';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+
 @Component({
   selector: 'app-create-client-acct',
   standalone: true,
-  imports: [FormsModule,HttpClientModule],
+  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet],
   templateUrl: './create-client-acct.component.html',
   styleUrl: './create-client-acct.component.css'
 })
 export class CreateClientAcctComponent {
+    faYoutube = faYoutube;
     @Output() close = new EventEmitter<void>();
 
     client: ClientObj; 

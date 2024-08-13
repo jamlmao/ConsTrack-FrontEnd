@@ -2,10 +2,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { RouterOutlet, Router, RouterModule } from '@angular/router';
+
+
 @Component({
   selector: 'app-create-staff-acct',
   standalone: true,
-  imports: [FormsModule,HttpClientModule],
+  imports: [FormsModule,HttpClientModule,RouterOutlet, RouterModule],
   templateUrl: './create-staff-acct.component.html',
   styleUrls: ['./create-staff-acct.component.css']
 })
