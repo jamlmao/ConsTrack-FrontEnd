@@ -1,0 +1,30 @@
+
+
+<mat-nav-list>
+    
+    <mat-divider></mat-divider>
+    <img class="user-image" src="assets/cons.png" alt="Card image cap">
+    <h2 matSubheader class="text-center text-dark">ConsTrack</h2>
+    
+   <a mat-list-item class="item" routerLink="/client/chome" routerLinkActive="list-item-active">
+    <div class="d-flex me-5 text-dark"><mat-icon>home</mat-icon>Home</div>
+</a>
+<a mat-list-item class="item" routerLink="/client/viewproject" routerLinkActive="list-item-active">
+<div class="d-flex me-3 text-dark"><mat-icon>assignment</mat-icon>View Project</div>
+</a>
+<a mat-list-item class="item" routerLink="/client/viewstatus" routerLinkActive="list-item-active">
+<div class="d-flex me-4 text-dark"><mat-icon>assessment</mat-icon>View Status</div>
+</a>
+   <a mat-list-item routerLink="/client/feedback" routerLinkActive="list-item-active">
+    <div class="d-flex me-5 text-dark"><mat-icon>feedback</mat-icon>Feedback</div>
+</a>
+
+
+
+
+    
+</mat-nav-list>
+
+
+
+<router-outlet></router-outlet>

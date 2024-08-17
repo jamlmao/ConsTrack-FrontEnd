@@ -19,13 +19,14 @@ import { FormsModule } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-acct.component";
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
+import { CreateComponent } from "../create/create.component";
 
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, HeaderComponent, SidenavComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, SidenavComponent, CreateComponent, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -70,5 +71,10 @@ export class HomeComponent {
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
     console.log('xd');
+  }
+
+  sideBarOpen=true;
+  sideBarToggler(){
+    this.sideBarOpen = !this.sideBarOpen;
   }
 }

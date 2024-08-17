@@ -1,1 +1,35 @@
-<p>header works11</p>
+
+
+
+<mat-toolbar>
+    <mat-toolbar-row class="justify-content-between">
+    <button mat-icon-button (click)="toggleSidebar()"><mat-icon>menu</mat-icon></button>
+        <div>
+            <ul>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu" type="button" class="user mt-3 d-flex align-items-center text-white border border-light"> 
+                    
+                    Username<mat-icon>keyboard_arrow_down</mat-icon>
+                    <img class="user-image" src="assets/cons.png" alt="Card image cap" >
+                    
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="logout()"  type="button">
+                        <mat-icon class="log">exit_to_app</mat-icon>
+                        Logout
+                    </button>
+                    <button   class="btn btn-outline-dark mx-md-5 mt-2 ">Logout</button>
+                </mat-menu>
+                </li>
+            </ul>
+        </div>
+
+    </mat-toolbar-row>
+    
+</mat-toolbar>
+
+
+
+
+
+<router-outlet></router-outlet>
