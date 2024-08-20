@@ -20,58 +20,89 @@
                
                 <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
                 <div class="form-group input-group">
+                    
                     <h4>Name:</h4>
-                    <input placeholder="Full name" class="form-control" type="text" id="name" [(ngModel)]="client.name" name="name" required>
-                </div> 
+                    <input placeholder="Full name" class="form-control" type="text" id="name" [(ngModel)]="client.name" name="name" #nameControl="ngModel" required>
+                </div> <div *ngIf="nameControl.errors?.['required']" class="text-danger mb-3">Name is required.*</div>
+                
                 <div class="form-group input-group">
                     <h4>Email:</h4>
-                    <input class="form-control" placeholder="Email" type="email" id="email" [(ngModel)]="client.email" name="email" required>
+                    <input class="form-control" placeholder="Email" type="email" id="email" [(ngModel)]="client.email" name="email" #emailControl="ngModel" required>
                 </div> 
+                <div *ngIf="emailControl.errors?.['required']" class="text-danger mb-3">Email is required.*</div>
+
                 <div class="form-group input-group">
                     <h4>Password:</h4>
-                    <input class="form-control" placeholder="Password" type="password" id="password" [(ngModel)]="client.password" name="password" required>
+                    <input class="form-control" placeholder="Password" type="password" id="password" required [(ngModel)]="client.password" name="password" #passwordControl="ngModel" minlength="8" >
                 </div> 
+                
+                
+                
+                <div *ngIf="passwordControl.errors?.['required']" class="text-danger mb-3">Password is required.*</div>
+              
+                <div class="text-red-400 text-danger mb-3" *ngIf="passwordControl?.dirty">
+                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('^(?=.*[A-Z])')}">At least one uppercase
+                                            letter.</div>
+                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(?=.*[a-z])')}">At least one lowercase
+                                            letter.</div>
+                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">At least one
+                                            digit.</div>
+                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(?=.*[!@#$%^&*])')}">At least one
+                                            special
+                                            character.</div>
+                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('.{8,}')}">At least 8 characters
+                                            long.</div>
+                 </div>
+                
                 <div class="form-group input-group">
                     <h4>First Name:</h4>
-                    <input class="form-control" placeholder="First Name" type="first_name" id="first_name" [(ngModel)]="client.first_name" name="first_name" required>
-                </div> 
+                    <input class="form-control" placeholder="First Name" type="first_name" id="first_name" [(ngModel)]="client.first_name" name="first_name" #fnameControl="ngModel" required>
+                </div> <div *ngIf="fnameControl.errors?.['required']" class="text-danger mb-3">First name is required.*</div>
                 <div class="form-group input-group">
                     <h4>Last Name:</h4>
-                    <input class="form-control" placeholder="Last Name" type="last_name" id="last_name" [(ngModel)]="client.last_name" name="last_name" required>
-                </div> 
+                    <input class="form-control" placeholder="Last Name" type="last_name" id="last_name" [(ngModel)]="client.last_name" name="last_name" #lnameControl="ngModel" required>
+                </div> <div *ngIf="lnameControl.errors?.['required']" class="text-danger mb-3">Last name is required.*</div>
                 <div class="form-group input-group">
                     <h4>Sex: </h4>
-                    <select placeholder="Sex" id="sex" [(ngModel)]="client.sex" name="sex" required class="form-control">
+                    <select placeholder="Sex" id="sex" [(ngModel)]="client.sex" name="sex" #sexControl="ngModel" required class="form-control">
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                         </select>
                         
-                </div> 
+                </div> <div *ngIf="sexControl.errors?.['required']" class="text-danger mb-3">Sex is required.*</div>
 
                 <div class="form-group input-group">
                     <h4>Address:</h4>
-                    <input class="form-control" placeholder="Address" type="address" id="address" [(ngModel)]="client.address" name="address" required>
-                </div> 
+                    <input class="form-control" placeholder="Address" type="address" id="address" [(ngModel)]="client.address" name="address" #addressControl="ngModel" required>
+                </div> <div *ngIf="addressControl.errors?.['required']" class="text-danger mb-3">Address is required.*</div>
                 <div class="form-group input-group">
                     <h4>City:</h4>
-                    <input class="form-control" placeholder="City" type="city" id="city" [(ngModel)]="client.city" name="city" required>
-                </div> 
+                    <input class="form-control" placeholder="City" type="city" id="city" [(ngModel)]="client.city" name="city" #cityControl="ngModel" required>
+                </div> <div *ngIf="cityControl.errors?.['required']" class="text-danger mb-3">City is required.*</div>
                 <div class="form-group input-group">
                     <h4>Country:</h4>
-                    <input class="form-control" placeholder="Country" type="country" id="country" [(ngModel)]="client.country" name="country" required>
-                </div> 
+                    <input class="form-control" placeholder="Country" type="country" id="country" [(ngModel)]="client.country" name="country" #countryControl="ngModel" required>
+                </div> <div *ngIf="countryControl.errors?.['required']" class="text-danger mb-3">Country is required.*</div>
                 <div class="form-group input-group">
                     <h4>Zipcode:</h4>
-                    <input class="form-control" placeholder="Zipcode" type="zipcode" id="zipcode" [(ngModel)]="client.zipcode" name="zipcode" required>
-                </div> 
+                    <input class="form-control" placeholder="Zipcode" type="zipcode" id="zipcode" [(ngModel)]="client.zipcode" name="zipcode" #zipcodeControl="ngModel" required>
+                </div> <div *ngIf="zipcodeControl.errors?.['required']" class="text-danger mb-3">Zipcode is required.*</div>
+                <div class="text-red-400 text-danger mb-3" *ngIf="passwordControl?.dirty">
+                    
+                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">Valid Number</div>
+                   
+                 </div>
                 <div class="form-group input-group">
                     <h4>Company Name:</h4>
-                    <input class="form-control" placeholder="Company_Name" type="company_name" id="company_name" [(ngModel)]="client.company_name" name="company_name" required>
-                </div> 
+                    <input class="form-control" placeholder="Company_Name" type="company_name" id="company_name" [(ngModel)]="client.company_name" #companyControl="ngModel" name="company_name" required>
+                </div> <div *ngIf="companyControl.errors?.['required']" class="text-danger mb-3">Company name is required.*</div>
                 <div class="form-group input-group">
                     <h4>Phone Number:</h4>
-                    <input class="form-control" placeholder="Phone_number" type="phone_number" id="phone_number" [(ngModel)]="client.phone_number" name="phone_number" required>
-                </div> 
+                    <input class="form-control" placeholder="Phone_number" type="tel" id="phone_number" [(ngModel)]="client.phone_number" name="phone_number" #noControl="ngModel" min="0" step="1" data-bind="value:replyNumber" required>
+                </div> <div *ngIf="noControl.errors?.['required']" class="text-danger mb-3">Phone number is required.*</div>
+                
+
+                 
                 <div class="d-flex align-items-center justify-content-between py-3">
                 <button type="submit" class="btn btn-outline-dark">Create Client</button>
                 <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>

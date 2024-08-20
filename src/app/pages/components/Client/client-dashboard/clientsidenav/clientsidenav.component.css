@@ -24,26 +24,28 @@
     left: 0;
     height: 100%;
     
+    
    }
   
-   .profile{
-    font-size: large;
-    align-items: end;
-  
-   }
    
    .mat-list-item
    {
-    margin-right: 1rem;
     color: white;
     box-shadow: 0 0 20px #000000;
     border-radius: 10px;
     border-color: #000000;
     
    }
+   
+   .mat-list-item :hover
+   {
+    background-color: #000000;
+    color: black;
+    
+   }
    .mat-icon{
-    font-size: 25px;
-    margin-right: 1rem;
+    font-size: 20px;
+    margin-right: 5px;
     color: rgb(0, 0, 0);
   
    }
@@ -59,7 +61,7 @@
     margin: 50px;
    }
    .user-image{
-    width: 180px;
+    width: 130px;
    }
   
   
@@ -94,4 +96,7 @@
   
   .account{
     width: 20px;
+  }
+  .items{
+    font-size: 13px;
   }

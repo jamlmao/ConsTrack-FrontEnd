@@ -5,21 +5,88 @@
     <mat-drawer-content>
         <app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
         <router-outlet></router-outlet>
-        <div class="d-flex align-items-center justify-content-between py-3 ">
-           
-            
-            <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
+        
+           <section class="">
+            <div class="containers">
+                <div class="title">
+                    <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark">Create Client</button>
                 <app-create-client-acct 
                         *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct> 
+                </app-create-client-acct>
+                    <p>Welcome to your Project</p>
+                    <h1><span>PROJECT</span> DOCUMENTS</h1>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="status"></div>
+                                <div class="project-picture">
+                                    <img class="p" src="assets/cons.png" alt="Card image cap">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="status"></div>
+                                <div class="project-picture">
+                                    <img class="p" src="assets/cons.png" alt="Card image cap">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="status"></div>
+                                <div class="project-picture">
+                                    <img class="p" src="assets/cons.png" alt="Card image cap">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="status"></div>
+                                <div class="project-picture">
+                                    <img class="p" src="assets/cons.png" alt="Card image cap">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                    </div>
+
+                </div>
+               
+                
+                
+
+            </div>
+
+           </section>
+        
             
 
                 
-          </div>
+          
 
        
-          <div class="d-flex align-items-center justify-content-center pb-4">
-                </div>
+          
             
         
         <router-outlet></router-outlet>
