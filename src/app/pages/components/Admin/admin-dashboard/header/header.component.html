@@ -1,1 +1,20 @@
-<p>header works11</p>
+<mat-toolbar class="toolbar justify-content-between">
+    
+    <div class="toolBarButton">
+        <button (click)="drawer.toggle()" mat-icon-button class="burger">
+            <mat-icon>menu</mat-icon>  
+        </button>
+    </div>
+    <form class="d-flex form" action="">
+        <input class="form-control" type="search" placeholder="search">
+        <button class="btn btn-outline-light mx-md-3 " type="submit">Search</button>
+        </form>
+    <div class="profile-logo dropdown profile">
+            
+        <button class="btn btn-outline-light dropdown-toggle justify-content-center" data-bs-toggle="dropdown"> <img src="assets/cons.png"
+            style="width: 16px;" alt="logo">Admin</button>
+        <ul class="dropdown-menu dropdown-menu-dark mt-2 ">
+            <button (click)="logout()"  type="button"  class="btn btn-outline-dark mx-md-5 mt-2 ">Logout</button>
+        </ul>
+    
+</div>

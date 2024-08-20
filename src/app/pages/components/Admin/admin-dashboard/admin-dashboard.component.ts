@@ -26,12 +26,14 @@ import { MatListModule } from "@angular/material/list";
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
+
 export class AdminDashboardComponent implements OnInit  {
   faYoutube = faYoutube;
   faSearch = faSearch;
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
+  
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -44,10 +46,11 @@ export class AdminDashboardComponent implements OnInit  {
     }
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem('user'); // Remove user data from local storage
     this.router.navigateByUrl('/'); // Redirect to login page
   }
+
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
     console.log('Opening Create Staff Modal');

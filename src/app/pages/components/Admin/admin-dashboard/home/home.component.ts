@@ -21,11 +21,10 @@ import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-a
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
 
 
-
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, HeaderComponent, SidenavComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, HeaderComponent, SidenavComponent, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -50,6 +49,8 @@ export class HomeComponent {
     localStorage.removeItem('user'); // Remove user data from local storage
     this.router.navigateByUrl('/'); // Redirect to login page
   }
+
+
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
     console.log('Opening Create Staff Modal');

@@ -1,6 +1,4 @@
 
-
-
 <mat-toolbar class="toolbar">
     
     <div class="toolBarButton">
@@ -17,9 +15,7 @@
             
         <button class="btn btn-outline-light dropdown-toggle ms-auto" data-bs-toggle="dropdown"> Admin</button>
         <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="#">a</a></li>
-            <li><a class="dropdown-item" href="#">a</a></li>
-            <li><a class="dropdown-item" href="#">a</a></li>
+            <button (click)="logout()"  type="button"  class="btn btn-outline-dark mx-md-5 mt-2 ">Logout</button>
         </ul>
         
 </div>
@@ -43,18 +39,7 @@
             
         </mat-nav-list>
     </mat-drawer>
-    <button (click)="openCreateStaffModal()">Create Staff</button>
-<app-create-staff-acct 
-        *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
-</app-create-staff-acct>
-
-        <button (click)="openCreateClientModal()">Create Client</button>
-        <app-create-client-acct 
-                *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-        </app-create-client-acct>
     
-<button (click)="logout()">Logout</button>
-
 </mat-drawer-container>
 
 
