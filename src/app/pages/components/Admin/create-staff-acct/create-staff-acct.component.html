@@ -1,51 +1,96 @@
-<p>create-staff-acct works!</p>
-<div class="modal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>Create Staff</h2>
+
+<div class ="modal">
+  <div class="div modal-content">
+      <span class = "close" (click)="closeModal()">&times;</span>
+
+      <div class="container">
       
-      <form (ngSubmit)="onSubmit()" #staffForm="ngForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" [(ngModel)]="staff.name" name="name" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" [(ngModel)]="staff.email" name="email" required>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" [(ngModel)]="staff.password" name="password" required>
-        
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" [(ngModel)]="staff.first_name" name="first_name" required>
-        
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" [(ngModel)]="staff.last_name" name="last_name" required>
-        
-        <label for="sex">Sex:</label>
-        <select id="sex" [(ngModel)]="staff.sex" name="sex" required>
-          <option value="M">Male</option>
-          <option value="F">Female</option>
-        </select>
-        
-        <label for="address">Address:</label>
-        <input type="text" id="address" [(ngModel)]="staff.address" name="address" required>
-        
-        <label for="city">City:</label>
-        <input type="text" id="city" [(ngModel)]="staff.city" name="city" required>
-        
-        <label for="country">Country:</label>
-        <input type="text" id="country" [(ngModel)]="staff.country" name="country" required>
-        
-        <label for="zipcode">Zipcode:</label>
-        <input type="text" id="zipcode" [(ngModel)]="staff.zipcode" name="zipcode" required>
-        
-        <label for="company_name">Company Name:</label>
-        <input type="text" id="company_name" [(ngModel)]="staff.company_name" name="company_name" required>
-        
-        <label for="phone_number">Phone Number:</label>
-        <input type="text" id="phone_number" [(ngModel)]="staff.phone_number" name="phone_number" required>
-        
-        <button type="submit">Create Staff</button>
-        <button type="button" (click)="closeModal()">Cancel</button>
-      </form>
-    </div>
+          
+          
+          
+          
+          <div class="card bg-light">
+          <article class="card-body mx-auto" style="max-width: 400px;">
+              <h4 class="card-title mt-3 text-center">Create Client Account</h4>
+              <div class="text-center">
+                  <img src="assets/cons.png"
+                    style="width: 185px;" alt="logo">
+                  <h1 class="mt-1 mb-5 pb-1">We are The Constract Team</h1>
+                </div>
+             
+              <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+              <div class="form-group input-group">
+                  <h4>Name:</h4>
+                  <input placeholder="Full name" class="form-control" type="text" id="name" [(ngModel)]="staff.name" name="name" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>Email:</h4>
+                  <input class="form-control" placeholder="Email" type="email" id="email" [(ngModel)]="staff.email" name="email" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>Password:</h4>
+                  <input class="form-control" placeholder="Password" type="password" id="password" [(ngModel)]="staff.password" name="password" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>First Name:</h4>
+                  <input class="form-control" placeholder="First Name" type="first_name" id="first_name" [(ngModel)]="staff.first_name" name="first_name" required>
+              </div> 
+              <div class="form-group input-group">
+                  <input class="form-control" placeholder="Last Name" type="last_name" id="last_name" [(ngModel)]="staff.last_name" name="last_name" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>Sex: </h4>
+                  <select placeholder="Sex" id="sex" [(ngModel)]="staff.sex" name="sex" required class="form-control">
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                      </select>
+                      
+              </div> 
+
+              <div class="form-group input-group">
+                  <h4>Address:</h4>
+                  <input class="form-control" placeholder="Address" type="address" id="address" [(ngModel)]="staff.address" name="address" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>City:</h4>
+                  <input class="form-control" placeholder="City" type="city" id="city" [(ngModel)]="staff.city" name="city" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>Country:</h4>
+                  <input class="form-control" placeholder="Country" type="country" id="country" [(ngModel)]="staff.country" name="country" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>Zipcode:</h4>
+                  <input class="form-control" placeholder="Zipcode" type="zipcode" id="zipcode" [(ngModel)]="staff.zipcode" name="zipcode" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>Company Name:</h4>
+                  <input class="form-control" placeholder="Company_Name" type="company_name" id="company_name" [(ngModel)]="staff.company_name" name="company_name" required>
+              </div> 
+              <div class="form-group input-group">
+                  <h4>Phone Number:</h4>
+                  <input class="form-control" placeholder="Phone_number" type="phone_number" id="phone_number" [(ngModel)]="staff.phone_number" name="phone_number" required>
+              </div> 
+              <div class="d-flex align-items-center justify-content-between py-3">
+              <button type="submit" class="btn btn-outline-dark">Create Client</button>
+              <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+              </div>
+              
+              
+                                                                         
+          </form>
+          </article>
+          </div> <!-- card.// -->
+          
+          </div> 
+  
+ 
+      
+  </div>
 </div>
+
+
+
+
+<router-outlet></router-outlet>
+
