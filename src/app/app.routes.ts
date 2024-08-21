@@ -10,6 +10,17 @@ import { AccountComponent } from './pages/components/Admin/admin-dashboard/accou
 import { HeaderComponent } from './pages/components/Admin/admin-dashboard/header/header.component';
 import { SidenavComponent } from './pages/components/Admin/admin-dashboard/sidenav/sidenav.component';
 import { TaskComponent } from './pages/components/Admin/admin-dashboard/task/task.component';
+import { DocumentsComponent } from './pages/components/Admin/admin-dashboard/documents/documents.component';
+import { ShomeComponent } from './pages/components/Staff/staff-dashboard/shome/shome.component';
+import { ChomeComponent } from './pages/components/Client/client-dashboard/chome/chome.component';
+import { AddComponent } from './pages/components/Admin/admin-dashboard/add/add.component';
+import { FeedbackComponent } from './pages/components/Client/client-dashboard/feedback/feedback.component';
+import { ViewstatusComponent } from './pages/components/Client/client-dashboard/viewstatus/viewstatus.component';
+import { ViewprojectComponent } from './pages/components/Client/client-dashboard/viewproject/viewproject.component';
+import { StaffclientaccComponent } from './pages/components/Staff/staff-dashboard/staffclientacc/staffclientacc.component';
+import { StaffaddComponent } from './pages/components/Staff/staff-dashboard/staffadd/staffadd.component';
+import { StafftaskComponent } from './pages/components/Staff/staff-dashboard/stafftask/stafftask.component';
+import { StaffdocumentsComponent } from './pages/components/Staff/staff-dashboard/staffdocuments/staffdocuments.component';
 
 
 
@@ -43,7 +54,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'admin/account',
+        path: 'admin/accounts',
         component: AccountComponent,
         canActivate: [AuthGuard]
     },
@@ -61,5 +72,64 @@ export const routes: Routes = [
         path: 'admin/task',
         component: TaskComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/document',
+        component: DocumentsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/shome',
+        component: ShomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/chome',
+        component: ChomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/add',
+        component: AddComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/feedback',
+        component: FeedbackComponent,
+        canActivate: [AuthGuard]
     }
+    ,
+    {
+        path: 'client/viewstatus',
+        component: ViewstatusComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/viewproject',
+        component: ViewprojectComponent,
+        canActivate: [AuthGuard]
+    }
+    ,
+    {
+        path: 'staff/users',
+        component: StaffclientaccComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/add',
+        component: StaffaddComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/task',
+        component: StafftaskComponent,
+        canActivate: [AuthGuard]
+    }
+    ,
+    {
+        path: 'staff/documents',
+        component: StaffdocumentsComponent,
+        canActivate: [AuthGuard]
+    }
+
 ];

@@ -29,6 +29,7 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
   styleUrl: './task.component.css'
 })
 export class TaskComponent {
+  
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
@@ -68,5 +69,10 @@ export class TaskComponent {
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
     console.log('xd');
+  }
+
+  sideBarOpen=true;
+  sideBarToggler(){
+    this.sideBarOpen = !this.sideBarOpen;
   }
 }

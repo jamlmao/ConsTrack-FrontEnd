@@ -1,18 +1,22 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter,OnInit,Output} from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-
+import { FormGroup, FormsModule, RequiredValidator,ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet, Router, RouterModule } from '@angular/router';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { CommonModule } from '@angular/common';
+import intlTelInput from 'intl-tel-input';
 
 
 @Component({
   selector: 'app-create-staff-acct',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterOutlet, RouterModule],
+  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './create-staff-acct.component.html',
   styleUrls: ['./create-staff-acct.component.css']
 })
-export class CreateStaffAcctComponent {
+export class CreateStaffAcctComponent implements OnInit {
       @Output() close = new EventEmitter<void>();
 
       staff: StaffObj;
@@ -21,9 +25,20 @@ export class CreateStaffAcctComponent {
         this.staff = new StaffObj();
       }
       
-    ngOnInit() {
-      console.log('CreateStaffAcctComponent initialized');
-    }
+      ngOnInit():void {
+        console.log('Component initialized');
+        const inputElement = document.getElementById('phone_number');
+        if(inputElement){
+          intlTelInput(inputElement,{
+            initialCountry: 'US',
+            separateDialCode: true,
+            utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js'
+  
+          });
+        }
+  
+  
+      }
       closeModal() {
         this.close.emit();
       }
