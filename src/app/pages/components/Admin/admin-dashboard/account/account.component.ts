@@ -32,6 +32,7 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 })
 export class AccountComponent {
  
+  
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
@@ -71,5 +72,10 @@ export class AccountComponent {
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
     console.log('xd');
+  }
+
+  sideBarOpen=true;
+  sideBarToggler(){
+    this.sideBarOpen = !this.sideBarOpen;
   }
 }

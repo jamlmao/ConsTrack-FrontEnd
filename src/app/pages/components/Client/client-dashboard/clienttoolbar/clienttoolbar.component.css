@@ -1,0 +1,112 @@
+
+.mat-toolbar {
+    height: 1px;
+    background-image: linear-gradient(to right, #870000 0%, #190A05  51%, #870000  100%);
+}
+.toolBarButton{
+padding: 5px;
+margin: 0;
+color: white;
+
+}
+
+.container{
+height: 95%;
+max-width: 100%;
+
+
+}
+.drawer{
+background-color: rgb(255, 255, 255);
+width: 200px;
+border: 20px;
+top: 0;
+left: 0;
+height: 100%;
+
+}
+
+.profile{
+font-size: large;
+align-items: end;
+
+}
+
+.mat-list-item
+{
+margin-right: 1rem;
+color: white;
+box-shadow: 0 0 20px #000000;
+border-radius: 10px;
+border-color: #000000;
+
+}
+.mat-icon{
+color: rgb(255, 255, 255);
+
+}
+
+.matSubheader{
+color: white;
+}
+
+.btns{
+margin: 50px;
+}
+form{
+margin: 50px;
+}
+
+
+        
+        
+.btn-grad {
+background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
+width: 150px;
+padding: 5px;
+margin: 2px;
+text-align: center;
+transition: 0.5s;
+font-size: 15px;
+background-size: 200% auto;
+color: white;            
+box-shadow: 0 0 20px #eee;
+border-radius: 10px;
+display: block;
+}
+
+.btn-grad:hover {
+background-position: right center; /* change the direction of the change here */
+color: #fff;
+}
+
+
+.dropdown-menu{
+
+background: #ffffff;
+opacity: 0.9;
+border-color: rgb(255, 255, 255);
+}
+
+.account{
+width: 20px;
+}
+.mat-toolbar{
+width: 100%;
+}
+.user-image{
+width: 40px;
+}
+
+.mat-menu-content{
+width: 100px;
+}
+.mat-menu{
+width: 100px;
+border: #000000;
+}
+
+.log{
+color: rgb(0, 0, 0);
+
+}

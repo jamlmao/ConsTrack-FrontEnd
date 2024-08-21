@@ -1,0 +1,41 @@
+<app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-clientsidenav></app-clientsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        
+        <router-outlet></router-outlet>
+        
+           <div>
+            <main>
+                <h1>Dashboard</h1>
+                <div class="date">
+                    <input type="date">
+                </div>
+
+                <div>
+                    <div>
+                        <span><mat-icon>home</mat-icon></span>
+                        <div class="middle"></div>
+                            <div class="left">
+                                <h3>total users</h3>
+                                <h1>123123</h1>
+                            </div>
+                    </div>
+                </div>
+            </main>
+           </div>
+        
+            
+
+                
+          
+
+       
+          
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
