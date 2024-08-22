@@ -7,13 +7,9 @@
         <router-outlet></router-outlet>
         <div class="d-flex align-items-center justify-content-between py-3 ">
            
-            
-            <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
-                <app-create-client-acct 
-                        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct> 
-            
-
+        
+            <button mat-button (click)="openProjectForm()">Add Project</button>
+                
                 
           </div>
 

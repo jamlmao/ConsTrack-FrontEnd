@@ -5,7 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 
-const baseUrl = 'http://192.168.1.18:8000';
+const baseUrl = 'http://127.0.0.1:8000';
 const loginApi = `${baseUrl}/api/loginA`;
 
 @Component({
