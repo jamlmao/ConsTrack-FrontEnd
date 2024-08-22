@@ -39,6 +39,8 @@ export class CreateStaffAcctComponent implements OnInit {
   
   
       }
+
+      
       closeModal() {
         this.close.emit();
       }

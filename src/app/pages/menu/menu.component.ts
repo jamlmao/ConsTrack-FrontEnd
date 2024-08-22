@@ -4,6 +4,10 @@ import { RouterOutlet, Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
+
+const baseUrl = 'http://127.0.0.1:8000';
+const loginApi = `${baseUrl}/api/loginA`;
+
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -11,17 +15,20 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
+
+
+
 export class MenuComponent {
   faYoutube = faYoutube;
   loginObj: Login;
-
+  
   constructor(private http: HttpClient, private router: Router) {
     this.loginObj = new Login();
   }
 
 
   onLogin() {
-    this.http.post('http://127.0.0.1:8000/api/loginA', this.loginObj).subscribe(
+    this.http.post(loginApi, this.loginObj).subscribe(
       (res: any) => {
         console.log('API Response:', res); // Log the full response // should delete after development
         const token = res.token;
