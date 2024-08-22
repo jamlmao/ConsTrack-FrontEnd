@@ -15,8 +15,9 @@ export class ProjectComponent implements OnInit {
   
   projectForm!: FormGroup;
   showForm = false;
+  clients: any[] = [];
   private apiUrl = 'http://127.0.0.1:8000/api/addproject';
-
+  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -29,12 +30,35 @@ export class ProjectComponent implements OnInit {
       pj_image: [''],
       pj_pdf: ['']
     });
+    this.fetchClients(); // Fetch clients when the component is initialized
   }
 
   openForm(): void {
     this.showForm = true;
   }
 
+  fetchClients(): void {
+    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    console.log('Token:', token);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
+    });
+
+    this.http.get(this.clientsUrl, { headers }).subscribe(
+      (response: any) => {
+        console.log('Full response:', response);
+        this.clients = response;
+        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
+      },
+      error => {
+        console.error('Error fetching clients', error);
+      }
+    );
+  }
  
   onFileChange(event: any, controlName: string): void {
     const file = event.target.files[0];

@@ -4,8 +4,10 @@
       <label for="site_location">Site Location:</label>
       <input id="site_location" formControlName="site_location" type="text" required>
 
-      <label for="client_id">Client ID:</label>
-      <input id="client_id" formControlName="client_id" type="number" required>
+      <label for="client_id">Client:</label>
+      <select id="client_id" formControlName="client_id" required>
+        <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}</option>
+      </select>
 
       <label for="completion_date">Completion Date:</label>
       <input id="completion_date" formControlName="completion_date" type="date" required>
