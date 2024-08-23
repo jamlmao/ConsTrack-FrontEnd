@@ -12,12 +12,16 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
+
   
   projectForm!: FormGroup;
   showForm = false;
   clients: any[] = [];
+
+
   private apiUrl = 'http://127.0.0.1:8000/api/addproject';
   private clientsUrl = 'http://127.0.0.1:8000/api/clients';
+
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -31,6 +35,7 @@ export class ProjectComponent implements OnInit {
       pj_pdf: ['']
     });
     this.fetchClients(); // Fetch clients when the component is initialized
+    
   }
 
   openForm(): void {
@@ -60,6 +65,8 @@ export class ProjectComponent implements OnInit {
     );
   }
  
+ 
+
   onFileChange(event: any, controlName: string): void {
     const file = event.target.files[0];
     if (file) {
@@ -100,6 +107,8 @@ export class ProjectComponent implements OnInit {
       console.warn('No file selected or file is not accessible');
     }
   }
+
+ 
 
   onSubmit(): void {
     if (this.projectForm.valid) {
