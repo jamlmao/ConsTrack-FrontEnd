@@ -5,22 +5,28 @@
     <mat-drawer-content>
         <app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
         <router-outlet></router-outlet>
-        <div class="d-flex align-items-center justify-content-between py-3 ">
-           
-            
-            <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
-                <app-create-client-acct 
-                        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct> 
-            
-
-                
-          </div>
-
        
-          <div class="d-flex align-items-center justify-content-center pb-4">
+        <div class="projects-container">
+            <div *ngFor="let project of projects" class="card project-item" (click)="selectProject(project)">
+                <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
+                <div class="project-details">
+                    <p><strong>Site Location:</strong> {{ project.site_location }}</p>
                 </div>
-            
+                <div *ngIf="selectedProject === project">
+                    <p><strong>Client Name:</strong> {{ project.client.first_name }} {{ project.client.last_name }}</p>
+                    <p><strong>Contact Number:</strong> {{ project.client.phone_number }}</p>
+                    <p><strong>Starting Date:</strong> {{ project.starting_date }}</p>
+                    <p><strong>Completion Date:</strong> {{ project.completion_date }}</p>
+                    <p><strong>Total Budget:</strong> {{ project.totalBudget }}</p>
+                    <p><strong>Project PDF:</strong></p>
+                    <a *ngIf="project.pj_pdf" [href]="'http://localhost:8000' + project.pj_pdf" target="_blank">View PDF</a>
+                    <button>FOR ADDING TASK</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex align-items-center justify-content-center pb-4">
+        </div>
         
         <router-outlet></router-outlet>
     </mat-drawer-content>

@@ -6,21 +6,26 @@
     <mat-drawer-content>
         
         <router-outlet></router-outlet>
-        <div class="d-flex align-items-center justify-content-between py-3 ">
-           
-            <button (click)="openCreateStaffModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Staff</button>
-            <app-create-staff-acct 
-                    *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
-            </app-create-staff-acct>
-            <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
-                <app-create-client-acct 
-                        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct> 
-            
-
-                
+        
+        <div class="projects-container">
+            <div *ngFor="let project of projects" class="project-item">
+              <img [src]="'data:image/jpeg;base64,' + project.pj_image" (click)="selectProject(project)" alt="Project Image">
+            </div>
           </div>
-
+          
+          <div *ngIf="selectedProject" class="project-details">
+            <h2>Project Details</h2>
+            <p><strong>Site Location:</strong> {{ selectedProject.site_location }}</p>
+            <p><strong>Client:</strong> {{ selectedProject.client_id }}</p>
+            <p><strong>Completion Date:</strong> {{ selectedProject.completion_date }}</p>
+            <p><strong>Starting Date:</strong> {{ selectedProject.starting_date }}</p>
+            <p><strong>Total Budget:</strong> {{ selectedProject.totalBudget }}</p>
+            <p><strong>Project Image:</strong></p>
+            <img [src]="'data:image/jpeg;base64,' + selectedProject.pj_image" alt="Project Image">
+            <p><strong>Project PDF:</strong></p>
+            <a [href]="'data:application/pdf;base64,' + selectedProject.pj_pdf" target="_blank">View PDF</a>
+          </div>
+      
        
           <div class="d-flex align-items-center justify-content-center pb-4">
                 </div>
