@@ -31,9 +31,10 @@ export class ShomeComponent implements OnInit {
 
 
   private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
   projects: any[] = [];
   selectedProject: any;
-  user: any;
+  user: any = {};
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
   constructor(private router: Router, private http: HttpClient) { }
@@ -47,6 +48,7 @@ export class ShomeComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
     this.fetchProjects(); // Fetch projects when the component is initialized
+    this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
 
   logout(): void {
@@ -107,6 +109,28 @@ export class ShomeComponent implements OnInit {
 
   selectProject(project: any): void {
     this.selectedProject = project;
+  }
+
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+        console.log('Logged in user:', this.user);
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
   }
 
 }
