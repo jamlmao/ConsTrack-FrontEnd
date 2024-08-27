@@ -17,7 +17,7 @@
   
    }
    .drawer{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(120, 97, 97);
     width: 200px;
     border: 20px;
     top: 0;
@@ -32,15 +32,7 @@
   
    }
    
-   .mat-list-item
-   {
-    margin-right: 1rem;
-    color: white;
-    box-shadow: 0 0 20px #000000;
-    border-radius: 10px;
-    border-color: #000000;
-    
-   }
+   
    .mat-icon{
     font-size: 25px;
     margin-right: 1rem;
@@ -95,3 +87,21 @@
   .account{
     width: 20px;
   }
+  
+  .items{
+    font-style: italic;
+    font-weight: bolder;
+  }
+
+  .item:hover{
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    transform: translate(5%);
+    background-color: #d8d8d8;
+    border-radius: 0 0 0 20px;
+    
+  }
+
+  
+ 

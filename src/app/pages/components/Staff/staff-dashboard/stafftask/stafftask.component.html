@@ -1,9 +1,10 @@
+
+<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
 <mat-drawer-container>
     <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-staffsidenav></app-staffsidenav>
     </mat-drawer>
     <mat-drawer-content>
-        <app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
         <router-outlet></router-outlet>
         <div class="d-flex align-items-center justify-content-between py-3 ">
            

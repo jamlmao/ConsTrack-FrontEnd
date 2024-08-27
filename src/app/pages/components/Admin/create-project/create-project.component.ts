@@ -1,18 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter,OnInit,Output} from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { FormGroup, FormsModule, RequiredValidator,ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { RouterOutlet, Router, RouterModule } from '@angular/router';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
+import intlTelInput from 'intl-tel-input';
 
 @Component({
-  selector: 'app-project',
+  selector: 'app-create-project',
   standalone: true,
-  imports: [FormsModule, RouterOutlet, RouterModule, ReactiveFormsModule, CommonModule, HttpClientModule],
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  templateUrl: './create-project.component.html',
+  styleUrl: './create-project.component.css'
 })
-export class ProjectComponent implements OnInit {
-
+export class CreateProjectComponent {
+  @Output() close = new EventEmitter<void>();
+  
+  closeModal() {
+    this.close.emit();
+  }
   
   project: any = {
     site_location: '',
@@ -126,6 +134,7 @@ export class ProjectComponent implements OnInit {
     this.http.post('http://127.0.0.1:8000/api/addproject', formData, { headers }).subscribe(
       response => {
         console.log('Project added successfully', response);
+        this.closeModal();
       },
       error => {
         console.error('Error adding project', error);

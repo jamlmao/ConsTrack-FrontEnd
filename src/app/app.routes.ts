@@ -21,6 +21,7 @@ import { StaffclientaccComponent } from './pages/components/Staff/staff-dashboar
 import { StaffaddComponent } from './pages/components/Staff/staff-dashboard/staffadd/staffadd.component';
 import { StafftaskComponent } from './pages/components/Staff/staff-dashboard/stafftask/stafftask.component';
 import { StaffdocumentsComponent } from './pages/components/Staff/staff-dashboard/staffdocuments/staffdocuments.component';
+import { StaffprofileComponent } from './pages/components/Staff/staff-dashboard/staffprofile/staffprofile.component';
 
 
 
@@ -129,6 +130,11 @@ export const routes: Routes = [
     {
         path: 'staff/documents',
         component: StaffdocumentsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/profile',
+        component: StaffprofileComponent,
         canActivate: [AuthGuard]
     }
 

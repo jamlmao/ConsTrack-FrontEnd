@@ -21,7 +21,6 @@
     display: block;
   }
   
-  
   .btn-grad:hover {
     background-position: right center; /* change the direction of the change here */
     color: #fff;
@@ -31,17 +30,15 @@
     width: 90%;
     margin: 0 auto;
   }
-
   .title{
     margin-bottom: 50px;
     margin-top: 20px;
     padding-bottom: 40px;
     text-align: center;
     position: relative;
+    
+
   }
-  
-  
-  
 
   .title::before{
     content: '';
