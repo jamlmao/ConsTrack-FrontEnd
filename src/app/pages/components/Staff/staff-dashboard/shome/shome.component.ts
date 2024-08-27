@@ -34,24 +34,61 @@ export class ShomeComponent implements OnInit {
 
   private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
   private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private companyProjectsUrl = 'http://127.0.0.1:8000/api/CompanyProjects';
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
-  isCreateStaffModalOpen = false;
+  projectCount: number | null = null;
   isCreateClientModalOpen = false;
+  isCreateStaffModalOpen = false;
+  staffId: number | null = null; //  store staffId
+
+
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
+    console.log(localStorage.getItem('user'));
     if (userData) {
-      this.user = JSON.parse(userData);
+      try {
+        this.user = JSON.parse(userData);
+        console.log('User data:', this.user);
+  
+        // Detailed logging to inspect the user object
+        console.log('User profile_id property:', this.user.profile_id);
+        if (this.user.profile_id) {
+          console.log('User profile_id property:', this.user.profile_id);
+        } else {
+          console.warn('User profile_id property is undefined');
+        }
+  
+        // Check if user object has profile_id property
+        if (this.user.profile_id) {
+          this.staffId = this.user.profile_id;
+          if (this.staffId !== null) { // Ensure staffId is not null
+            this.getCompanyProjects(this.staffId);
+            console.log('Staff ID:', this.staffId);
+          } else {
+            console.warn('Staff ID is null');
+          }
+        } else {
+          console.warn('Staff ID not found in user data');
+        }
+  
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+      }
     } else {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
     this.fetchProjects(); // Fetch projects when the component is initialized
-    this.getLoggedInUserNameAndId(); //Fetch logged in user
+    this.getLoggedInUserNameAndId(); // Fetch logged in user details
+    // Fetch projects for the logged in staff
   }
+  
+ 
+
 
   logout(): void {
     localStorage.removeItem('user'); // Remove user data from local storage
@@ -135,4 +172,30 @@ export class ShomeComponent implements OnInit {
     );
   }
 
+  getCompanyProjects(staffId: number): void {
+    console.log('Fetching projects for staffId:', staffId); // Log the staffId
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    const url = `${this.companyProjectsUrl}/${staffId}`;
+  
+  
+    this.http.get<{ project_count: number }>(url, { headers })
+      .subscribe(
+        response => {
+          console.log('Project count:', response.project_count)
+          this.projectCount = response.project_count;
+        },
+        error => {
+          console.error('Error fetching projects:', error);
+        }
+      );
+  }
 }

@@ -46,6 +46,8 @@ export class CreateStaffAcctComponent implements OnInit {
       }
 
       onSubmit() {
+        console.log('Form Data:', this.staff);
+      console.log('Phone Number Length:', this.staff.phone_number.length);
         const token = localStorage.getItem('token');
         if (!token) {
           console.error('No auth token found');
