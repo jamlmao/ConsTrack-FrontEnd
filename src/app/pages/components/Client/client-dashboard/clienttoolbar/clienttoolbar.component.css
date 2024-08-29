@@ -42,10 +42,14 @@ border-color: #000000;
 
 }
 .mat-icon{
-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
 
 }
 
+.manub{
+    color: rgb(0, 0, 0);
+    
+    }
 .matSubheader{
 color: white;
 }
