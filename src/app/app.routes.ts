@@ -22,6 +22,7 @@ import { StaffaddComponent } from './pages/components/Staff/staff-dashboard/staf
 import { StafftaskComponent } from './pages/components/Staff/staff-dashboard/stafftask/stafftask.component';
 import { StaffdocumentsComponent } from './pages/components/Staff/staff-dashboard/staffdocuments/staffdocuments.component';
 import { StaffprofileComponent } from './pages/components/Staff/staff-dashboard/staffprofile/staffprofile.component';
+import { TimelineComponent } from './pages/components/Staff/staff-dashboard/timeline/timeline.component';
 
 
 
@@ -135,6 +136,11 @@ export const routes: Routes = [
     {
         path: 'staff/profile',
         component: StaffprofileComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/timelime',
+        component: TimelineComponent,
         canActivate: [AuthGuard]
     }
 

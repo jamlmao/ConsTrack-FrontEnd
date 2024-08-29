@@ -1,0 +1,107 @@
+
+<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-staffsidenav></app-staffsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+        
+        <div class="container-fluid py-4">
+
+        <div class="row">
+            <h1 class="p-4">Timeline</h1>
+            
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+                <div class="timeline ">
+                    <div *ngFor="let item of events" class="timeline-event">
+        
+                       
+                        <div class="timeline-point-track-container">
+                            <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' "></div>
+                            <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' "></div>
+                            
+                        </div>
+                        <div class="timeline-content">
+                            <span>
+                                {{item.content}}
+                            </span>
+                            <span>
+                                {{item.content}}
+                            </span>
+                            <span class="timeline-date">
+                                {{item.date}}
+                            </span>
+                             <span class="timeline-date">
+                                {{item.date}}
+                            </span>
+                
+                        </div>
+                
+                    </div>
+                </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last week</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Today's Users</p>
+                  <h4 class="mb-0">2,300</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">New Clients</p>
+                  <h4 class="mb-0">3,462</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6">
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">weekend</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Sales</p>
+                  <h4 class="mb-0">$103,430</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+
