@@ -121,3 +121,15 @@
     border-left: 8px solid transparent;
     border-right: 0px solid transparent;
   }
+
+  .mb-0{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .mb-1{
+    font-size: 25px;
+    font-weight: bold;
+  }
+  p{
+    font-size: 20px;
+  }

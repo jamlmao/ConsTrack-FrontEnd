@@ -25,65 +25,43 @@
                 </div>
                 <div class="col-auto my-auto">
                   <div class="h-100">
-                    <h5 class="mb-1">
-                        {{ user.name }}
+                    <h5 class="mb-0">
+                        Name: {{ user.name }}
                     </h5>
                     <p class="mb-0 font-weight-normal text-sm">
-                      Staff of Company
+                      Position: Staff of Company
                     </p>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                  <div class="nav-wrapper position-relative end-0">
-                    <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                      <li class="nav-item">
-                          <i class="material-icons text-lg position-relative">home</i>
-                          <span class="ms-1">App</span>
-                      
-                      </li>
-                      <li class="nav-item">
-                        <i class="material-icons text-lg position-relative">email</i>
-                          <span class="ms-1">Messages</span>
-                 
-                      </li>
-                      <li class="nav-item">
-                          <i class="material-icons text-lg position-relative">settings</i>
-                          <span class="ms-1">Settings</span>
-                     
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                
               </div>
               <div class="row">
                 <div class="row">
                  
                   <div class="col-12 col-xl-12 m-3">
                     <div class="card card-plain h-100">
-                      <div class="card-header pb-0 p-3">
+                      <div class="card-header pb-0 p-3 m-3">
                         <div class="row">
-                          <div class="col-md-8 d-flex align-items-center">
-                            <h6 class="mb-0">Profile Information</h6>
-                          </div>
-                          <div class="col-md-4 text-end">
-                            <a href="javascript:;">
-                              <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                            </a>
-                          </div>
+                            
+                         
+                          <h6 class="mb-1">Profile Information</h6>
                         </div>
                       </div>
-                      <div class="card-body p-3">
+                      <div class="card-body p-3 m-2">
+                        
+                        <ul class="list-group">
+                          <li class="list-group-item border-0 ps-0 mb-0 pt-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp; {{ user.name }}</li>
+                          <li class="list-group-item border-0 ps-0 mb-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; 123123123</li>
+                          <li class="list-group-item border-0 ps-0 mb-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ user.email }}</li>
+                          <li class="list-group-item border-0 ps-0 mb-0 text-sm"><strong class="text-dark">Role:</strong> &nbsp; {{ user.role }}</li>
+                          
+                        </ul>
+
+                        
+                        <hr class="horizontal gray-light my-4">
                         <p class="text-sm">
                           This is contrack company
                         </p>
-                        <hr class="horizontal gray-light my-4">
-                        <ul class="list-group">
-                          <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp; {{ user.name }}</li>
-                          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ user.email }}</li>
-                          <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Role:</strong> &nbsp; {{ user.role }}</li>
-                          
-                        </ul>
                       </div>
                     </div>
                   </div>

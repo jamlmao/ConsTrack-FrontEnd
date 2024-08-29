@@ -12,9 +12,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faImages, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
 import { ProjectComponent } from '../../../Admin/project/project.component';
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
@@ -34,11 +34,11 @@ export class TimelineComponent {
   events: any[] = [];
   ngOnInit(){
     this.events=[
-      {image: 'assets/cons.png' ,content: 'ordered', date: '05/12/1212', status: 'R'},
-      {content: 'Processing', date: '05/12/1212', status: 'R'},
-      {content: 'shipped', date: '05/12/1212', status: 'R'},
-      {content: 'delivered', date: '05/12/1212', status: 'R'},
-      {content: 'ordered', date: '05/12/1212', status: ''},
+      {content: '1ST WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
+      {content: '2ND WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
+      {content: '3RD WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
+      {content: '4TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
+      {content: '5TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
 
     ]
   
