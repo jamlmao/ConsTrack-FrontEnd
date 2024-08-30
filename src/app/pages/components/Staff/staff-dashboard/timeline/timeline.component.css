@@ -28,12 +28,17 @@
     color: #fff;
   }
 
+  
+
 .timeline{
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    padding: 1rem;
+   list-style: none;
+   position: relative;
+   width: 7px;
+   margin: 0 auto;
+   padding-top: 20px;
   }
+
+
   .timeline-event{
     display: flex;
     position: relative;
@@ -47,18 +52,39 @@
   .timeline-content{
     flex: 1;
     padding:0 1rem;
+    
+  }
+  .timeline-content:nth-child(odd).box{
+    left: 50px;
+    
+  }
+  .timeline-content:nth-child(even).box{
+    left: -550px;
+    
   }
   .timeline-point-track-container{
     flex: 0;
     display: flex;
     align-items: center;
     flex-direction: column;
+
   }
   .timeline-point{
     display: flex;
     align-self: baseline;
     border: 2px solid black;
+    border-radius: 10%;
+    width: 5rem;
+    height: 1rem;
+    background-color: white;
+  }
+  .timeline-point::nth-child(even)::before{
+    display: flex;
+    align-self: baseline;
+    border: 2px solid black;
     border-radius: 50%;
+    left: -10px;
+    right: -10;
     width: 1rem;
     height: 1rem;
     background-color: white;
@@ -78,4 +104,148 @@
   {
    background-color: rgb(8, 250, 8);
    box-shadow: 0 4px 8px gray;
+  }
+  .heighlights
+  {
+   background-color: rgb(255, 0, 0);
+   box-shadow: 0 4px 8px gray;
+  }
+
+
+  .projects-container {
+ 
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    margin-left: -25px;
+    padding: 20px;
+    align-items: alternate;
+  
+  }
+  .projects-container:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+  
+  
+  .cards {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 0; /* Remove margin to use gap instead */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center; /* Center the content */
+    width: 490px; /* Set the width of the card */
+    height: 400px; /* Set the height of the card */
+    margin: 10px;
+  }
+  
+  .card-image {
+    width: 300px;  /* Set the width of the image */
+    height: 230px; /* Set the height of the image */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .project-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  
+  }
+  
+  .timeline ul li:nth-child(odd).box .cards{
+    left: 50px;
+    
+  }
+  .timeline ul li:nth-child(even).box .cards{
+    left: -550px;
+    
+  }
+
+  .my-card {
+    display: flex;
+    margin: 80px;
+  
+  } 
+  
+  .my-card:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+  
+
+  .time-line{
+    width: 100%;
+    margin: 100px auto;
+    position: relative;
+    
+
+  }
+  .time-line::after{
+    content: "";
+    position: absolute;
+    right: 50%;
+    height: 80%;
+    top: 60px;
+    bottom: 100px;
+    width: 10px;
+    background-color: #000000;
+    
+  }
+
+  .container{
+   width: 50%;
+   position: relative;
+   padding: 10px 20px;
+   
+
+  }
+  .container:nth-child(even){
+    right: -50%;
+ 
+   }
+   .container:nth-child(even)::before{
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 55px;
+    margin-top: 40px;
+    border-top: 10px solid #030303;
+    left: 0;
+    border-left: 0px solid transparent;
+    border-right: 10px solid transparent;
+    
+ 
+   }
+   .container:nth-child(odd)::before{
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 50px;
+    margin-top: 40px;
+    border-top: 10px solid #030303;
+    right: 0;
+    border-left: 10px solid transparent;
+    border-right: 0px solid transparent;
+    z-index: 10;
+    
+ 
+   }
+
+  .text-content{
+    padding: 20px 30px;
+    box-shadow: #000000; 
+    border-radius: 20px;
+  }
+  .text-content h2{
+    font-size: 20px;
+  }
+  *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }

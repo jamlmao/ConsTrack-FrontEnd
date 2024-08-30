@@ -20,11 +20,12 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
+import { EditprofileComponent } from "../../editprofile/editprofile.component";
 
 @Component({
   selector: 'app-staffclientacc',
   standalone: true,
-  imports: [MatTableModule,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent],
+  imports: [MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
   templateUrl: './staffclientacc.component.html',
   styleUrl: './staffclientacc.component.css'
 })
@@ -33,6 +34,8 @@ export class StaffclientaccComponent {
   user: any;
   clients: any[] = [];
   isCreateClientModalOpen = false;
+  
+  isEditModalOpen = false;
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -73,11 +76,6 @@ export class StaffclientaccComponent {
 
   }
 
-
-
-
-
-
   
 
   openCreateClientModal() {
@@ -88,6 +86,16 @@ export class StaffclientaccComponent {
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
+    console.log('xd');
+  }
+  openEditModal() {
+    this.isEditModalOpen = true;
+    console.log('Opening Edit Modal');
+    console.log(this.isEditModalOpen);
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
     console.log('xd');
   }
 

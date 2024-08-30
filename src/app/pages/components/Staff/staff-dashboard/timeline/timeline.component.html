@@ -13,24 +13,70 @@
                     <span>h1</span>
                 </div>
                 <div class="timeline-point-track-container">
-                    <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' "></div>
-                    <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' "></div>
+                    <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+                    <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+                    
                     
                 </div>
-                <div class="timeline-content">
-                    <span>
-                        {{item.content}}
-                    </span>
-                    <span class="timeline-date">
-                        {{item.date}}
-                    </span>
-        
-                </div>
+                        <div class="cards">
+                            <img [src]="" alt="Project Image" class="card-image">
+                            <div class="project-details">
+                                <span>
+                                    {{item.content}}
+                                </span>
+                                <span class="timeline-date">
+                                    {{item.date}}
+                                </span>
+                                <p><strong>Site Location:</strong></p>
+                                <p><strong>Client Name:</strong></p>
+                                <p><strong>Contact Number:</strong></p>
+                                <p><strong>Starting Date:</strong></p>
+                                <p><strong>Completion Date:</strong></p>
+                                <p><strong>Total Budget:</strong></p>
+                                
+                            </div>
+                            
+                        </div>
+
+
+                
         
             </div>
         </div>
-            
         
+
+    <div class="time-line">
+        <div class="container" *ngFor="let item of events" >
+            
+            <div class="text-content">
+                
+                <div class="cards">
+                    <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+            <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+                    
+                    <img [src]="" alt="Project Image" class="card-image">
+                    <div class="project-details">
+                        <span>
+                            {{item.content}}
+                        </span>
+                        <span class="timeline-date">
+                            {{item.date}}
+                        </span>
+                        <p><strong>Site Location:</strong></p>
+                        <p><strong>Client Name:</strong></p>
+                        <p><strong>Contact Number:</strong></p>
+                        <p><strong>Starting Date:</strong></p>
+                        <p><strong>Completion Date:</strong></p>
+                        <p><strong>Total Budget:</strong></p>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+
+    </div>
         <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>
