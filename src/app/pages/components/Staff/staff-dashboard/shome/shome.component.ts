@@ -35,6 +35,7 @@ export class ShomeComponent implements OnInit {
   private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
   private userUrl = 'http://127.0.0.1:8000/api/user/details';
   private companyProjectsUrl = 'http://127.0.0.1:8000/api/CompanyProjects';
+
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
@@ -90,10 +91,9 @@ export class ShomeComponent implements OnInit {
  
 
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
+
+
+
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
     console.log('Opening Create Staff Modal');

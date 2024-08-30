@@ -29,11 +29,11 @@ import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
   styleUrl: './staffclientacc.component.css'
 })
 export class StaffclientaccComponent {
-
+  private fetchClientUrl = 'http://127.0.0.1:8000/api/clients';
   user: any;
-  isCreateStaffModalOpen = false;
+  clients: any[] = [];
   isCreateClientModalOpen = false;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
@@ -43,22 +43,42 @@ export class StaffclientaccComponent {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
+    this.fetchClient(); // Fetch projects when the component is initialized
   }
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
-  openCreateStaffModal() {
-    this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
+
+  
+  fetchClient(): void { 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigateByUrl('/');
+      return;
+    }
+    console.log(token);
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+
+    interface ClientResponse {
+      clients: any[];
+    }
+    
+    this.http.get<ClientResponse>(this.fetchClientUrl, { headers }).subscribe(
+      (response: ClientResponse) => {  
+        this.clients = response.clients;
+        console.log('Client data:', this.clients);
+      }, 
+      (error) => {
+        console.error('Error fetching client data:', error);
+      }
+    );
+
   }
 
-  closeCreateStaffModal() {
-    this.isCreateStaffModalOpen = false;
-    console.log('xd');
-  }
+
+
+
+
+
+  
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
@@ -75,4 +95,7 @@ export class StaffclientaccComponent {
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
+
+
+
 }

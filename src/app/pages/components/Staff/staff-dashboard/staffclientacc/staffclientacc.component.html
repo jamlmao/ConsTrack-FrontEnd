@@ -41,12 +41,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
+                                <tr *ngFor="let client of clients">
+                                    <td>{{ client.first_name }}, {{ client.last_name }}</td>
+                                    <td>{{ client.phone_number }}</td>
+                                    <td>{{ client.address }}, {{ client.city }}</td>
+                                    <td>{{ client.company_name }}</td>
+                                    <td>{{ client.project_status }}</td>
                                     <td>
                                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
                                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>

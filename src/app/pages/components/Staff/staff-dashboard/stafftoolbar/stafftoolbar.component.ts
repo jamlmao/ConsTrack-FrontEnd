@@ -11,7 +11,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
 
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
@@ -29,7 +29,9 @@ export class StafftoolbarComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  constructor(private router: Router) { }
+  private logoutUrl = 'http://127.0.0.1:8000/api/logout';
+
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
@@ -40,12 +42,34 @@ export class StafftoolbarComponent {
       this.router.navigateByUrl('/');
     }
   }
-
+  
   logout(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post(this.logoutUrl, {}, { headers }).subscribe(
+      (response: any) => {
+        console.log('Logout response:', response);
+      },
+      error => {
+        console.error('Error logging out', error);
+      }
+    );
+
+
+
+
     localStorage.removeItem('user'); // Remove user data from local storage
     this.router.navigateByUrl('/'); // Redirect to login page
-  }
 
+  }
   
   
   
