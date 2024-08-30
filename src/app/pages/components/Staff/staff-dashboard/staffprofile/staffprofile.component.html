@@ -40,28 +40,90 @@
                  
                   <div class="col-12 col-xl-12 m-3">
                     <div class="card card-plain h-100">
-                      <div class="card-header pb-0 p-3 m-3">
-                        <div class="row">
-                            
-                         
-                          <h6 class="mb-1">Profile Information</h6>
+                      <div class="card-header pb-0">
+                        <div class="d-flex align-items-center">
+                          <p class="mb-0">Edit Profile</p>
+                          <button type="button"  class="btn btn-success btn-outline-dark text-light items ms-auto m-2">Save</button>
+                          
                         </div>
                       </div>
-                      <div class="card-body p-3 m-2">
+                      <div class="card-body">
+                        <p class="text-uppercase text-sm mb-0">User Information</p>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >Username</label
+                            >
+                            <input class="form-control" type="text" value='{{ user.name }}' />
+                          </div>
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >Email address</label
+                            >
+                            <input class="form-control"  type="email" value='{{ user.email }}' />
+                          </div>
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >First name</label
+                            >
+                            <input class="form-control" type="text" value='{{ user.staff.first_name }}'/>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >Last name</label
+                            >
+                            <input class="form-control" type="text" value='{{ user.staff.last_name }}' />
+                          </div>
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >Company</label
+                            >
+                            <input class="form-control" type="text" value='{{ user.staff.company_name }}' />
+                          </div>
+                        </div>
+                        <hr class="horizontal dark" />
+                        <p class="text-uppercase text-sm mb-0">Contact Information</p>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >Address</label
+                            >
+                            <input class="form-control" 
+                              type="text"
+                              value='{{ user.staff.address }}'
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >Phone Number</label
+                            >
+                            <input class="form-control" 
+                              type="text"
+                              value='{{ user.staff.phone_number }}'
+                            />
+                          </div>
+                          <div class="col-md-4">
+                            <label for="example-text-input" class="form-control-label"
+                              >City</label
+                            >
+                            <input class="form-control"  type="text" value='{{ user.staff.city }}' />
+                          </div>
+                          <div class="col-md-4">
+                            <label for="example-text-input" class="form-control-label"
+                              >Country</label
+                            >
+                            <input class="form-control"  type="text" value='{{ user.staff.country }}' />
+                          </div>
+                          <div class="col-md-4">
+                            <label for="example-text-input" class="form-control-label"
+                              >Postal code</label
+                            >
+                            <input class="form-control"  type="text" value='{{ user.staff.zipcode }}' />
+                          </div>
+                        </div>
+                        <hr class="horizontal dark" />
+                        <p class="text-uppercase text-sm">About me</p>
                         
-                        <ul class="list-group">
-                          <li class="list-group-item border-0 ps-0 mb-0 pt-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp; {{ user.name }}</li>
-                          <li class="list-group-item border-0 ps-0 mb-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; 123123123</li>
-                          <li class="list-group-item border-0 ps-0 mb-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ user.email }}</li>
-                          <li class="list-group-item border-0 ps-0 mb-0 text-sm"><strong class="text-dark">Role:</strong> &nbsp; {{ user.role }}</li>
-                          
-                        </ul>
-
-                        
-                        <hr class="horizontal gray-light my-4">
-                        <p class="text-sm">
-                          This is contrack company
-                        </p>
                       </div>
                     </div>
                   </div>
@@ -71,6 +133,8 @@
               </div>
             </div>
           </div>
+
+        
 
           <footer class="footer m-4  ">
             <div class="container-fluid">
