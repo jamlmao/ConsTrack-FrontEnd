@@ -1,30 +1,160 @@
 import { Routes } from '@angular/router';
-import { AdminLComponent } from './pages/admin-l/admin-l.component';
-import { ClientLComponent } from './pages/client-l/client-l.component';
-import { StaffLComponent } from './pages/staff-l/staff-l.component';
+
 import { MenuComponent } from './pages/menu/menu.component';
+import { AdminDashboardComponent } from './pages/components/Admin/admin-dashboard/admin-dashboard.component';
+import { AuthGuard } from './pages/guard/auth.guard';
+import { StaffDashboardComponent } from './pages/components/Staff/staff-dashboard/staff-dashboard.component';
+import { ClientDashboardComponent } from './pages/components/Client/client-dashboard/client-dashboard.component';
+import { HomeComponent } from './pages/components/Admin/admin-dashboard/home/home.component';
+import { AccountComponent } from './pages/components/Admin/admin-dashboard/account/account.component';
+import { HeaderComponent } from './pages/components/Admin/admin-dashboard/header/header.component';
+import { SidenavComponent } from './pages/components/Admin/admin-dashboard/sidenav/sidenav.component';
+import { TaskComponent } from './pages/components/Admin/admin-dashboard/task/task.component';
+import { DocumentsComponent } from './pages/components/Admin/admin-dashboard/documents/documents.component';
+import { ShomeComponent } from './pages/components/Staff/staff-dashboard/shome/shome.component';
+import { ChomeComponent } from './pages/components/Client/client-dashboard/chome/chome.component';
+import { AddComponent } from './pages/components/Admin/admin-dashboard/add/add.component';
+import { FeedbackComponent } from './pages/components/Client/client-dashboard/feedback/feedback.component';
+import { ViewstatusComponent } from './pages/components/Client/client-dashboard/viewstatus/viewstatus.component';
+import { ViewprojectComponent } from './pages/components/Client/client-dashboard/viewproject/viewproject.component';
+import { StaffclientaccComponent } from './pages/components/Staff/staff-dashboard/staffclientacc/staffclientacc.component';
+import { StaffaddComponent } from './pages/components/Staff/staff-dashboard/staffadd/staffadd.component';
+import { StafftaskComponent } from './pages/components/Staff/staff-dashboard/stafftask/stafftask.component';
+import { StaffdocumentsComponent } from './pages/components/Staff/staff-dashboard/staffdocuments/staffdocuments.component';
+import { StaffprofileComponent } from './pages/components/Staff/staff-dashboard/staffprofile/staffprofile.component';
+import { TimelineComponent } from './pages/components/Staff/staff-dashboard/timeline/timeline.component';
+import { ClientprofileComponent } from './pages/components/Client/client-dashboard/clientprofile/clientprofile.component';
+import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
 
 
 
 export const routes: Routes = [
     {
-        path: '', redirectTo: 'menu',pathMatch: 'full'
+        path: '', redirectTo: 'Constrack',pathMatch: 'full'
 
     },
     {
-        path: 'menu',
+        path: 'Constrack',
         component: MenuComponent,
     },
     {
-        path: 'Client', 
-        component: ClientLComponent,
+        path: 'admin',
+        component: AdminDashboardComponent,
+        canActivate: [AuthGuard]
     },
     {
-        path: 'Admin',
-        component: AdminLComponent
+        path: 'staff',
+        component: StaffDashboardComponent,
+        canActivate: [AuthGuard]
     },
     {
-        path: 'Staff',
-        component: StaffLComponent
+        path: 'client',
+        component: ClientDashboardComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/home',
+        component: HomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/accounts',
+        component: AccountComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/header',
+        component: HeaderComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/sidenav',
+        component: SidenavComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/task',
+        component: TaskComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/document',
+        component: DocumentsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/shome',
+        component: ShomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/chome',
+        component: ChomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/add',
+        component: AddComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/feedback',
+        component: FeedbackComponent,
+        canActivate: [AuthGuard]
     }
+    ,
+    {
+        path: 'client/viewstatus',
+        component: ViewstatusComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/viewproject',
+        component: ViewprojectComponent,
+        canActivate: [AuthGuard]
+    }
+    ,
+    {
+        path: 'staff/users',
+        component: StaffclientaccComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/add',
+        component: StaffaddComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/task',
+        component: StafftaskComponent,
+        canActivate: [AuthGuard]
+    }
+    ,
+    {
+        path: 'staff/documents',
+        component: StaffdocumentsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/profile',
+        component: StaffprofileComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/timelime',
+        component: TimelineComponent,
+        canActivate: [AuthGuard]
+    }
+    ,
+    {
+        path: 'client/profile',
+        component: ClientprofileComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/profile',
+        component: AdminprofileComponent,
+        canActivate: [AuthGuard]
+    }
+
 ];

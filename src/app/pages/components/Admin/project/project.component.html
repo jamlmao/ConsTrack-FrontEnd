@@ -1,0 +1,29 @@
+<h2>Add Project</h2>
+<form (ngSubmit)="onSubmit()">
+  <label for="site_location">Site Location:</label>
+  <input id="site_location" [(ngModel)]="project.site_location" name="site_location" type="text" required>
+
+  <label for="client_id">Client:</label>
+  <select id="client_id" [(ngModel)]="project.client_id" name="client_id" required>
+    <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}</option>
+  </select>
+
+  <label for="completion_date">Completion Date:</label>
+  <input id="completion_date" [(ngModel)]="project.completion_date" name="completion_date" type="date" required>
+
+  <label for="starting_date">Starting Date:</label>
+  <input id="starting_date" [(ngModel)]="project.starting_date" name="starting_date" type="date" required>
+
+  <label for="totalBudget">Total Budget:</label>
+  <input id="totalBudget" [(ngModel)]="project.totalBudget" name="totalBudget" type="number" required>
+
+  <label for="pj_image">Project Image:</label>
+  <input type="file" (change)="onFileChange($event, 'pj_image')">
+
+  <label for="pj_pdf">Project PDF:</label>
+  <input type="file" (change)="onFileChange($event, 'pj_pdf')">
+
+  <button type="submit">Submit</button>
+</form>
+
+<router-outlet></router-outlet>

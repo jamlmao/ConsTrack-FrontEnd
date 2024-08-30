@@ -1,0 +1,37 @@
+
+<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-staffsidenav></app-staffsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+        <div class="timeline">
+            <div *ngFor="let item of events" class="timeline-event">
+
+                <div>
+                    <span>h1</span>
+                </div>
+                <div class="timeline-point-track-container">
+                    <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' "></div>
+                    <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' "></div>
+                    
+                </div>
+                <div class="timeline-content">
+                    <span>
+                        {{item.content}}
+                    </span>
+                    <span class="timeline-date">
+                        {{item.date}}
+                    </span>
+        
+                </div>
+        
+            </div>
+        </div>
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+

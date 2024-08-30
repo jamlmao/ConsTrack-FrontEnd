@@ -1,59 +1,26 @@
 
-.Center{
-    text-align: center;
-    padding:2%;
-    margin-left: 25%;
-    margin-top: 4px;
-    margin-bottom: 200px;
-    
-    width: 50vw;
-    height: 50vh;
-}
 
-@media screen and (max-width: 700px) {
-    .Center {
-        margin-top: 20% ;
-        height: 50vh; 
-        width: 75vw;
-        margin-left: 13%;    /* Increased size for phone screens */
-    }
+.gradient-custom-2 {
+    background-size: cover;
+    background: #ffffff;
     
-    
-}
-
-.badge {
-    margin-top: -10px;
-}
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
     
 
-
-
-.hover-effect:hover {
-    background-color: #7a1912; /* Darker shade of the button color */
-    color: #fff; /* White text color */
-}
-
-.com
-
-.custom-btn{
-    padding: 100px 200px;
-}
-
-
-.Title {
-    font-size: 2em;
-    font-weight: bold;
-    color: #000;
-}
-
-.logo{
-    height: 200px;
-    margin-top: -20px;
-    margin-bottom: -20px;
-}
-.con{
     margin: 0px;
     background-size: cover;
-    height: 820px;
-    background-image: url(../assets/bgbg.jpg);
-}
+    background-image: url('../assets/bg1.jpg');
+    }
+    
+
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }
