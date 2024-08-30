@@ -52,6 +52,7 @@ export class CreateClientAcctComponent implements OnInit {
           return;
         }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        
         this.http.post('http://127.0.0.1:8000/api/registerC', this.client, { headers }).subscribe(
           response => {
             console.log('Clientcreated successfully', response);

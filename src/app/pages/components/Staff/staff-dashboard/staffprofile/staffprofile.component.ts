@@ -49,31 +49,6 @@ export class StaffprofileComponent {
     this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
-  openCreateStaffModal() {
-    this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
-  }
-
-  closeCreateStaffModal() {
-    this.isCreateStaffModalOpen = false;
-    console.log('xd');
-  }
-
-  openCreateClientModal() {
-    this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
-  }
-
-  closeCreateClientModal() {
-    this.isCreateClientModalOpen = false;
-    console.log('xd');
-  }
 
   sideBarOpen=true;
   sideBarToggler(){
@@ -109,6 +84,7 @@ export class StaffprofileComponent {
     this.selectedProject = project;
   }
 
+  
   getLoggedInUserNameAndId(): void {
     const token = localStorage.getItem('token');
     if (!token) {
