@@ -37,9 +37,9 @@
             <div class="">
                
               <div class="project-details">
-                <button (click)="openCreateClientModal()"  type="button" class="btn-grad btn-outline-dark item" style="width: 150px;">  <div class="text-center">Add New Project </div><span></span><mat-icon>add_circle_outline</mat-icon></button>
+                <button (click)="openCreateProjectModal()"  type="button" class="btn-grad btn-outline-dark item" style="width: 150px;">  <div class="text-center">Add New Project </div><span></span><mat-icon>add_circle_outline</mat-icon></button>
                     <app-create-project 
-                            *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
+                            *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
                     </app-create-project>
               </div>
               

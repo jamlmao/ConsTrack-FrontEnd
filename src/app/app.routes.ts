@@ -25,6 +25,7 @@ import { StaffprofileComponent } from './pages/components/Staff/staff-dashboard/
 import { TimelineComponent } from './pages/components/Staff/staff-dashboard/timeline/timeline.component';
 import { ClientprofileComponent } from './pages/components/Client/client-dashboard/clientprofile/clientprofile.component';
 import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
+import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
 
 
 
@@ -154,6 +155,11 @@ export const routes: Routes = [
     {
         path: 'admin/profile',
         component: AdminprofileComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:id',
+        component: ProjectDetailsComponent,
         canActivate: [AuthGuard]
     }
 

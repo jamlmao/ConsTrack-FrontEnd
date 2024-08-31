@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-create-project',
@@ -36,7 +37,7 @@ export class CreateProjectComponent {
   clients: any[] = [];
 
 
-  private apiUrl = 'http://127.0.0.1:8000/api/addproject';
+  private addUrl = 'http://127.0.0.1:8000/api/addproject';
   private clientsUrl = 'http://127.0.0.1:8000/api/clients';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
@@ -44,34 +45,42 @@ export class CreateProjectComponent {
   ngOnInit(): void {
    
     this.fetchClients(); // Fetch clients when the component is initialized
+    console.log('Project data on init:', this.project);
     
   }
 
   openForm(): void {
     this.showForm = true;
   }
-
+  
   fetchClients(): void {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+    const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found in local storage');
       return;
     }
-    console.log('Token:', token);
+  
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
+      'Authorization': `Bearer ${token}`
     });
-
-    this.http.get(this.clientsUrl, { headers }).subscribe(
-      (response: any) => {
+  
+    this.http.get<any>(this.clientsUrl, { headers })
+      .pipe(tap(response => {
         console.log('Full response:', response);
-        this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
-      },
-      error => {
-        console.error('Error fetching clients', error);
-      }
-    );
+        if (response && Array.isArray(response.clients)) {
+          this.clients = response.clients;
+        } else {
+          console.error('Unexpected response format:', response);
+          this.clients = [];
+        }
+        console.log('Fetched clients:', this.clients);
+      }))
+      .subscribe(
+        () => {},
+        error => {
+          console.error('Error fetching clients:', error);
+        }
+      );
   }
  
  
@@ -131,7 +140,7 @@ export class CreateProjectComponent {
       }
     }
 
-    this.http.post('http://127.0.0.1:8000/api/addproject', formData, { headers }).subscribe(
+    this.http.post(this.addUrl, formData, { headers }).subscribe(
       response => {
         console.log('Project added successfully', response);
         this.closeModal();

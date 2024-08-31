@@ -94,3 +94,7 @@ h4,h1{
     padding: 1rem;
     margin-bottom: 1rem;
   }
+
+  option {
+     text-transform: Capitalize
+  }
