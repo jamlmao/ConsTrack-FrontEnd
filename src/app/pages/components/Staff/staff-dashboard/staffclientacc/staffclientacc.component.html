@@ -26,11 +26,13 @@
                         *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
                 </app-create-client-acct>
                                 </div>
+                                
                             </div>
                         </div>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Phone</th>
                                     <th>Address</th>
@@ -42,14 +44,18 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let client of clients">
+                                    <td>{{ client.id }}</td>
                                     <td>{{ client.first_name }}, {{ client.last_name }}</td>
                                     <td>{{ client.phone_number }}</td>
                                     <td>{{ client.address }}, {{ client.city }}</td>
                                     <td>{{ client.company_name }}</td>
                                     <td>{{ client.project_status }}</td>
                                     <td>
-                                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit" (click)="openEditModal()"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <app-editprofile 
+                        *ngIf="isEditModalOpen" (close)="closeEditModal()">
+                </app-editprofile>
                                         <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
                                     </td>
                                 </tr>
