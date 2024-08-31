@@ -8,10 +8,13 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 @Component({
   selector: 'app-create-client-acct',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './create-client-acct.component.html',
   styleUrl: './create-client-acct.component.css'
 })
@@ -56,10 +59,23 @@ export class CreateClientAcctComponent implements OnInit {
         this.http.post('http://127.0.0.1:8000/api/registerC', this.client, { headers }).subscribe(
           response => {
             console.log('Clientcreated successfully', response);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Client created successfully.",
+              showConfirmButton: false,
+              timer: 2000
+            });
+
             this.closeModal();
           },
           error => {
             console.error('Error creating client account', error);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Error creating client account. Something went wrong!",
+            });
           }
         );
       }

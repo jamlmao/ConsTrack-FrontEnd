@@ -1,7 +1,7 @@
 
 <app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
 <mat-drawer-container>
-    <mat-drawer mode="side" [opened]="sideBarOpen">
+    <mat-drawer mode="over" [opened]="sideBarOpen">
         <app-staffsidenav></app-staffsidenav>
     </mat-drawer>
     <mat-drawer-content>

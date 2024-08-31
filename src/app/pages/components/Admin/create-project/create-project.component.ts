@@ -9,10 +9,14 @@ import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 
+
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 @Component({
   selector: 'app-create-project',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './create-project.component.html',
   styleUrl: './create-project.component.css'
 })
@@ -143,10 +147,23 @@ export class CreateProjectComponent {
     this.http.post(this.addUrl, formData, { headers }).subscribe(
       response => {
         console.log('Project added successfully', response);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Project added successfully.",
+          showConfirmButton: false,
+          timer: 2000
+        });
+
         this.closeModal();
       },
       error => {
         console.error('Error adding project', error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error adding project. Something went wrong!",
+        });
       }
     );
   }

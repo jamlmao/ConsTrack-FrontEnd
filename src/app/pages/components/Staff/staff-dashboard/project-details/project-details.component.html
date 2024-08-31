@@ -9,11 +9,124 @@
         
            <section class="">
             <div class="containers">
+
+                
                 <div class="title">
                     
-                    <p>STATEMENT OF WORK ACCOMPLISHMENT</p>
+                    <h2>STATEMENT OF WORK ACCOMPLISHMENT</h2>
                     <h1><span>CONSTRACK</span> COMPANY</h1>
 
+                </div>
+                <div class="content">
+                   
+                        <div class="row">
+                         
+                          <div class="col-12 col-xl-12">
+                            <div class="card card-plain h-100">
+                              
+                              
+                                
+                                <div class="row">
+                                    <div>
+                                        <h2>Timeline </h2>
+                                        <p class="heighlight">Accomplished</p>
+                                        <p class="heighlights text-light">Done Late</p>
+                                    </div>
+                                  <div class="col-md-12">
+                                   
+                                    <div class="timeline">
+                                        
+                                        <div class="">
+                                            
+                                          </div>
+                                        <div *ngFor="let item of events" class="timeline-event ">
+                            
+                                            
+                                            
+                            
+                                           <div class="cards project-item">
+                                                        <div class="project-details">
+                                                            <span>
+                                                                {{item.content}}
+                                                            </span>
+                                                            
+                                                       
+                                                            
+                                                        </div>
+                                                        
+                                            </div>
+                                            <div class="timeline-point-track-container">
+                                                <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+                                                <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+                                                
+                                                
+                                            </div>
+                                            <div class="cardss card-plain h-100">
+            
+                                                <div class="row">
+                                                    
+                                                    <div class="col-md-5">
+                                                        
+                                                        <div class="project-details">
+                                                            
+                                                            <img class="user-image" src="assets/bg.jpg" alt="Card image cap"  class="card-image">
+                                                       
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="project-details">
+                                                            <img class="user-image" src="assets/bg.jpg" alt="Card image cap"  class="card-image">
+                                                        
+                                                            
+                                                       
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        
+                                                            <div class="project-details">
+                                                                <span>
+                                                                    {{item.content}}
+                                                                </span>
+                                                                <span class="timeline-date">
+                                                                    {{item.date}}
+                                                                </span>
+                                                                <p>Budget used: 123123</p>
+                                                                <p>Accomplished Date: {{item.date}}</p>
+                                                                <p>Target Date Date: {{item.date}}</p>
+                                                           
+                                                                
+                                                            </div>
+                                                    </div>
+                                                  </div>
+                                              
+                                                            
+                                                </div>
+                            
+                                                
+                                                    
+                                            
+                                    
+                                        </div>
+                                    </div>
+                                  </div>
+                                 
+                                  
+                                   
+                                 
+                                </div>
+                                <hr class="horizontal dark" />
+                                
+                                
+                              
+                            </div>
+                          </div>
+                          
+                          
+                        </div>
+                      
+                    
                 </div>
                 <div class="container">
                     <div class="table-wrapper">

@@ -22,10 +22,13 @@ import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { EditprofileComponent } from "../../editprofile/editprofile.component";
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 @Component({
   selector: 'app-staffclientacc',
   standalone: true,
-  imports: [MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
+  imports: [SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
   templateUrl: './staffclientacc.component.html',
   styleUrl: './staffclientacc.component.css'
 })
