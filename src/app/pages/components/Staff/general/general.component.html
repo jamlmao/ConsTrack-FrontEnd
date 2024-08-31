@@ -1,0 +1,73 @@
+
+<div class ="modal">
+    <div class="div modal-content">
+        <span class = "close" (click)="closeModal()">&times;</span>
+
+        <div class="container">
+        
+            
+            
+            
+            
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <div class="text-center">
+                    <img src="assets/cons.png"
+                      style="width: 185px;" alt="logo">
+                    <h1 class="mt-1 mb-5 pb-1">We are The Constract Team</h1>
+                    
+                    <h1 class="mt-1 mb-5 pb-1">General</h1>
+                  </div>
+               
+                  <form (ngSubmit)="onSubmit()">
+
+                    
+                        
+                    <div class="form-group input-group">
+                    <label for="site_location">Site Location:</label>
+                    <input class="form-control" id="site_location"  name="site_location" type="text" required>
+                    </div> 
+
+                    <div class="form-group input-group"></div>
+                    <label for="client_id">Client:</label>
+                    <select class="form-control" id="client_id" name="client_id" required>
+                      <option ></option>
+                    </select>
+                  
+                    <div class="form-group input-group">
+                    <label for="completion_date">Completion Date:</label>
+                    <input class="form-control" id="completion_date" name="completion_date" type="date" required>
+                </div>
+                    <div class="form-group input-group">
+                    <label for="starting_date">Starting Date:</label>
+                    <input class="form-control" id="starting_date" name="starting_date" type="date" required>
+                </div>
+                    
+           
+
+                 
+                <div class="d-flex align-items-center justify-content-between py-3">
+                <button type="submit" class="btn btn-outline-dark">Submit</button>
+                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                </div>
+
+
+                
+                
+                                                                           
+            </form>
+            </article>
+            </div> <!-- card.// -->
+            
+            </div> 
+    
+   
+        
+    </div>
+</div>
+
+
+
+
+<router-outlet></router-outlet>
+

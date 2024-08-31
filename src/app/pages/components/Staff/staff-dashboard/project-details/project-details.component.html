@@ -1,82 +1,326 @@
-<!-- 
-<div class ="modal">
-    <div class="div modal-content">
-        <span class = "close" (click)="closeModal()">&times;</span>
 
-        <div class="container">
+<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-staffsidenav></app-staffsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
         
-            
-            
-            
-            
-            <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 400px;">
-                <div class="text-center">
-                    <img src="assets/cons.png"
-                      style="width: 185px;" alt="logo">
-                    <h1 class="mt-1 mb-5 pb-1">We are The Constract Team</h1>
-                  </div>
-               
-                  <form (ngSubmit)="onSubmit()">
-
+           <section class="">
+            <div class="containers">
+                <div class="title">
                     
-                        
-                    <div class="form-group input-group">
-                    <label for="site_location">Site Location:</label>
-                    <input class="form-control" id="site_location" [(ngModel)]="" name="site_location" type="text" required>
-                    </div> 
+                    <p>STATEMENT OF WORK ACCOMPLISHMENT</p>
+                    <h1><span>CONSTRACK</span> COMPANY</h1>
 
-                    <div class="form-group input-group"></div>
-                    <label for="client_id">Client:</label>
-                    <select class="form-control" id="client_id" [(ngModel)]="" name="client_id" required>
-                      <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}, {{ client.last_name }}</option>
-                    </select>
-                  
-                    <div class="form-group input-group">
-                    <label for="completion_date">Completion Date:</label>
-                    <input class="form-control" id="completion_date" [(ngModel)]="" name="completion_date" type="date" required>
                 </div>
-                    <div class="form-group input-group">
-                    <label for="starting_date">Starting Date:</label>
-                    <input class="form-control" id="starting_date" [(ngModel)]="" name="starting_date" type="date" required>
-                </div>
-                    <div class="form-group input-group">
-                    <label for="totalBudget">Total Budget:</label>
-                    <input class="form-control" id="totalBudget" [(ngModel)]="" name="totalBudget" type="number" required>
-                </div>
-                    <div class="form-group input-group">
-                    <label for="pj_image">Project Image:</label>
-                    <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')">
-                </div>
-                    <div class="form-group input-group">
-                    <label for="pj_pdf">Project PDF:</label>
-                    <input class="form-control" type="file" (change)="onFileChange($event, 'pj_pdf')">
-                </div>
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6"><h1 style="font-weight: bold;">PROJECT DETAILS</h1></div>
+                                <div class="col-sm-2">
+                                    <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark">Add Details</button>
+                <app-adddetails 
+                        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
+                </app-adddetails>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
+                <app-addtask 
+                        *ngIf="isTaskOpen" (close)="closeTaskModal()">
+                </app-addtask>
+                                </div>
+                                <div class="col-sm-2" (click)="selectProject(project)">
+                                    <h1>project timeline</h1>
+               
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="3%">ID</th>
+                                    <th width="4%">Item No.</th>
+                                    <th width="20%">Description</th>
+                                    <th width="10%">Project Actual Cost</th>
+                                    <th colspan="3" width="17%">Percentage of Accomplishment</th>
+                                    <th colspan="3" width="17%">Cost of Accomplishment</th>
+                                    <th width="5%"></th>
+
+                                    
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Previous</td>
+                                    <td>This Period</td>
+                                    <td>To Date</td>
+                                    <td>Previous</td>
+                                    <td>This Period</td>
+                                    <td>To Date</td>
+                                    
+                                </tr>
+                                  
+                                  
+                            </tbody>
+
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>General Requirements</td>
+                                    <td>1</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                       
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>Site Works</td>
+                                    <td>1</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                       
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>Architectural</td>
+                                    <td>1</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                       
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                    </td>
+                                </tr>
+                                  
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-10"><h3 style="font-weight: bold;">General Requirements</h3></div>
+                                <div class="col-sm-2">
+                                    <button (click)="openGeneralModal()"   type="button"  class="btn-grad btn-outline-dark">Add Details</button>
+                                    <app-general 
+                        *ngIf="isGeneralOpen" (close)="closeGeneralModal()">
+                                    </app-general>
+                                </div>
+                                
+                                
+                            </div>
+                            
+                        </div>
+                        <table class="table table-bordered">
+                           
+                            <tbody>
+                                <tr>
+                                    <th width="3%"></th>
+                                    <th width="4%"></th>
+                                    <th width="20%"></th>
+                                    <th width="10%"></th>
+                                    <th colspan="3" width="17%"></th>
+                                    <th colspan="3" width="17%"></th>
+                                    <th width="5%"></th>
+                                    
+                                </tr>
+                                  
+                                  
+                            </tbody>
+
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>A.</td>
+                                    <td>Plans and Permit</td>
+                                    <td>1</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                       
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                    </td>
+                                </tr>
+                                  
+                                  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>   
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-10"><h3 style="font-weight: bold;">Site Works</h3></div>
+                                <div class="col-sm-2">
+                                    <button (click)="openSiteModal()"   type="button"  class="btn-grad btn-outline-dark">Add Details</button>
+                                    <app-site 
+                        *ngIf="isSiteOpen" (close)="closeSiteModal()">
+                                    </app-site>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            
+                            <tbody>
+                                <tr>
+                                    <th width="3%"></th>
+                                    <th width="4%"></th>
+                                    <th width="20%"></th>
+                                    <th width="10%"></th>
+                                    <th colspan="3" width="17%"></th>
+                                    <th colspan="3" width="17%"></th>
+                                    <th width="5%"></th>
+                                    
+                                </tr>
+                                
+                                  
+                                  
+                            </tbody>
+
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>A.</td>
+                                    <td>Building Layout</td>
+                                    <td>1</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                       
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                    </td>
+                                </tr>
+                                  
+                                  
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-10"><h3 style="font-weight: bold;">Architectural </h3></div>
+                                <div class="col-sm-2">
+                                    <button  (click)="openArchiModal()"  type="button"  class="btn-grad btn-outline-dark">Add Details</button>
+                                    <app-archi 
+                        *ngIf="isArchiOpen" (close)="closeArchiModal()">
+                                    </app-archi>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            
+                            <tbody>
+                                <tr>
+                                    <th width="3%"></th>
+                                    <th width="4%"></th>
+                                    <th width="20%"></th>
+                                    <th width="10%"></th>
+                                    <th colspan="3" width="17%"></th>
+                                    <th colspan="3" width="17%"></th>
+                                    <th width="5%"></th>
+                                    
+                                </tr>
+                                  
+                                  
+                            </tbody>
+
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>A.</td>
+                                    <td>Tiles</td>
+                                    <td>1</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>100%</td>
+                                    <td>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                       
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                    </td>
+                                </tr>
+                                  
+                                  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+               
+                
+                
+
+            </div>
+
+           </section>
            
-
-                 
-                <div class="d-flex align-items-center justify-content-between py-3">
-                <button type="submit" class="btn btn-outline-dark">Submit</button>
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                </div>
-
-
-                
-                
-                                                                           
-            </form>
-            </article>
-            </div> <!-- card.// -->
-<!--             
-            </div> 
-    
-   
         
-    </div>
-</div>
+            
 
+                
+          
 
-
-
-<router-outlet></router-outlet> -->
-
+       
+          
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

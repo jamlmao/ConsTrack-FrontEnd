@@ -142,7 +142,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'staff/timelime',
+        path: 'staff/timeline',
         component: TimelineComponent,
         canActivate: [AuthGuard]
     }
@@ -160,6 +160,11 @@ export const routes: Routes = [
     {
         path: 'project-details/:id',
         component: ProjectDetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'timeline/:id',
+        component: TimelineComponent,
         canActivate: [AuthGuard]
     }
 
