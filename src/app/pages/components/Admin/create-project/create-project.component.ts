@@ -102,11 +102,11 @@ export class CreateProjectComponent {
         const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === FileReader.DONE) {
-                console.log(`File read successfully: ${file.name}`);
+                // console.log(`File read successfully: ${file.name}`);
                 const base64String = reader.result as string;
                 if (base64String.startsWith('data:')) {
                     const base64Content = base64String.split(',')[1];
-                    console.log(`Base64 Encoded String: ${base64Content}`);
+                    // console.log(`Base64 Encoded String: ${base64Content}`);
                     this.project[field] = base64Content;
                 } else {
                     console.error('The file content is not a valid base64 encoded string.');

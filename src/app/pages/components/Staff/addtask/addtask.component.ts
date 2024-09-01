@@ -110,11 +110,11 @@ export class AddtaskComponent {
         const reader = new FileReader();
         reader.onload = () => {
           if (reader.readyState === FileReader.DONE) {
-            console.log(`File read successfully: ${file.name}`);
+            // console.log(`File read successfully: ${file.name}`);
             const base64String = reader.result as string;
             if (base64String.startsWith('data:')) {
               const base64Content = base64String.split(',')[1];
-              console.log(`Base64 Encoded String: ${base64Content}`);
+              // console.log(`Base64 Encoded String: ${base64Content}`);
               this.task[field] = base64Content;
             } else {
               console.error('The file content is not a valid base64 encoded string.');
@@ -147,11 +147,24 @@ export class AddtaskComponent {
         }
       }).subscribe(response => {
         console.log('Task added successfully', response);
-        Swal.fire('Success', 'Task added successfully', 'success');
-        this.close.emit();
-      }, error => {
-        console.error('Error adding task', error);
-        Swal.fire('Error', 'Error adding task', 'error');
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Project added successfully.",
+          showConfirmButton: true,
+          timer: 2000
+        }).then(() => {
+          window.location.reload();
+        });
+
+        this.closeModal();
+      },  error => {
+        console.error('Error adding project', error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error adding project. Something went wrong!",
+        });
       });
     }
   }
