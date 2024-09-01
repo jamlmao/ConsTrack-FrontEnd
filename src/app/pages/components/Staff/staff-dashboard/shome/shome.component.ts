@@ -22,6 +22,7 @@ import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { SidenavComponent } from "../../../Admin/admin-dashboard/sidenav/sidenav.component";
 import { HeaderComponent } from "../../../Admin/admin-dashboard/header/header.component";
 import { Chart,registerables } from 'chart.js';
+import { take, tap } from 'rxjs';
 Chart.register(...registerables);
 
 @Component({
@@ -54,10 +55,12 @@ export class ShomeComponent implements OnInit {
   chart : any;
   
 
-
+  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
   private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
   private userUrl = 'http://127.0.0.1:8000/api/user/details';
   private companyProjectsUrl = 'http://127.0.0.1:8000/api/CompanyProjects';
+  private projectCountUrl = 'http://127.0.0.1:8000/api/projectsPM';
+  private clientCountUrl = 'http://127.0.0.1:8000/api/clients-count-by-month';
 
   projects: any[] = [];
   selectedProject: any;
@@ -66,7 +69,9 @@ export class ShomeComponent implements OnInit {
   isCreateClientModalOpen = false;
   isCreateStaffModalOpen = false;
   staffId: number | null = null; //  store staffId
-
+  projectsPerMonth: any[] = [];
+  clientsPerMonth: any[] = [];
+  clientCount: number = 0;
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -107,9 +112,11 @@ export class ShomeComponent implements OnInit {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
-    this.fetchProjects(); // Fetch projects when the component is initialized
+    this.fetchProjects(); // Fetch projects 
     this.getLoggedInUserNameAndId(); // Fetch logged in user details
-    // Fetch projects for the logged in staff
+    this.fetchClients(); // Fetch clients 
+    this.fetchProjectsPerMonth(); // Fetch projects per month w
+    this.fetchClientsPerMonth(); // Fetch clients per month 
   }
   
  
@@ -195,7 +202,7 @@ export class ShomeComponent implements OnInit {
       }
     );
   }
-
+  
   canvas:any;
   ctx:any;
   data=[];
@@ -247,4 +254,115 @@ export class ShomeComponent implements OnInit {
         }
       );
   }
+
+  
+  
+    fetchClients(): void {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      this.http.get<any>(this.clientsUrl, { headers })
+        .pipe(
+          tap(response => {
+            console.log('Full response:', response);
+            if (response && Array.isArray(response.clients)) {
+              // Filter out duplicate clients based on the 'id' property
+              const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
+                index === self.findIndex((c) => c.id === client.id)
+              );
+            
+              this.clientCount = uniqueClients.length;
+             
+            } else {
+              console.error('Unexpected response format:', response);
+            
+              this.clientCount = 0;
+            }
+    
+            console.log('Client count:', this.clientCount);
+          }),
+          take(1) // This will ensure the observable completes after the first emission
+        )
+        .subscribe(
+          () => {},
+          error => {
+            console.error('Error fetching clients:', error);
+          }
+        );
+    }
+
+    fetchProjectsPerMonth(): void {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+  
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+  
+      this.http.get<any>(this.projectCountUrl, { headers })
+        .pipe(
+          tap(response => {
+            if (response && Array.isArray(response.projects_per_month)) {
+              this.projectsPerMonth = response.projects_per_month;
+            } else {
+              console.error('Unexpected response format:', response);
+              this.projectsPerMonth = [];
+            }
+            console.log('Projects per month:', this.projectsPerMonth);
+          }),
+          take(1) // This will ensure the observable completes after the first emission
+        )
+        .subscribe(
+          () => {},
+          error => {
+            console.error('Error fetching projects per month:', error);
+          }
+        );
+    }
+
+    fetchClientsPerMonth(): void {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+  
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+  
+      this.http.get<any>(this.clientCountUrl, { headers })
+        .pipe(
+          tap(response => {
+            if (response && Array.isArray(response.clients_per_month)) {
+              this.clientsPerMonth = response.clients_per_month;
+            } else {
+              console.error('Unexpected response format:', response);
+              this.clientsPerMonth = [];
+            }
+            console.log('Clients per month:', this.clientsPerMonth);
+          }),
+          take(1) // This will ensure the observable completes after the first emission
+        )
+        .subscribe(
+          () => {},
+          error => {
+            console.error('Error fetching clients per month:', error);
+          }
+        );
+    }
+    
+
+
+
 }

@@ -38,7 +38,7 @@ export class TimelineComponent {
   events: any[] = [];
   ngOnInit(){
     this.events=[
-      {content: '1ST WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
+      {content: '1ST WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},//details = task name , status = status of the task 
       {content: '2ND WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
       {content: '3RD WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
       {content: '4TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
