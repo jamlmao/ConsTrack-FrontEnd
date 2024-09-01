@@ -15,6 +15,8 @@
                     <img src="assets/cons.png"
                       style="width: 185px;" alt="logo">
                     <h1 class="mt-1 mb-5 pb-1">We are The Constract Team</h1>
+                    
+                    <h1 class="mt-1 mb-5 pb-1">archi</h1>
                   </div>
                
                   <form (ngSubmit)="onSubmit()">
@@ -23,35 +25,24 @@
                         
                     <div class="form-group input-group">
                     <label for="site_location">Site Location:</label>
-                    <input class="form-control" id="site_location" [(ngModel)]="project.site_location" name="site_location" type="text" required>
+                    <input class="form-control" id="site_location"  name="site_location" type="text" required>
                     </div> 
 
                     <div class="form-group input-group"></div>
                     <label for="client_id">Client:</label>
-                    <select class="form-control" id="client_id" [(ngModel)]="project.client_id" name="client_id" required>
-                      <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}, {{ client.last_name }}</option>
+                    <select class="form-control" id="client_id" name="client_id" required>
+                      <option ></option>
                     </select>
                   
                     <div class="form-group input-group">
                     <label for="completion_date">Completion Date:</label>
-                    <input class="form-control" id="completion_date" [(ngModel)]="project.completion_date" name="completion_date" type="date" required>
+                    <input class="form-control" id="completion_date" name="completion_date" type="date" required>
                 </div>
                     <div class="form-group input-group">
                     <label for="starting_date">Starting Date:</label>
-                    <input class="form-control" id="starting_date" [(ngModel)]="project.starting_date" name="starting_date" type="date" required>
+                    <input class="form-control" id="starting_date" name="starting_date" type="date" required>
                 </div>
-                    <div class="form-group input-group">
-                    <label for="totalBudget">Total Budget:</label>
-                    <input class="form-control" id="totalBudget" [(ngModel)]="project.totalBudget" name="totalBudget" type="number" required>
-                </div>
-                    <div class="form-group input-group">
-                    <label for="pj_image">Project Image:</label>
-                    <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')">
-                </div>
-                    <div class="form-group input-group">
-                    <label for="pj_pdf">Project PDF:</label>
-                    <input class="form-control" type="file" (change)="onFileChange($event, 'pj_pdf')">
-                </div>
+                    
            
 
                  

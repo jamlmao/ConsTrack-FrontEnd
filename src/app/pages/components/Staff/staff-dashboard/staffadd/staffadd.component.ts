@@ -16,7 +16,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-import { ProjectComponent } from '../../../Admin/project/project.component';
+
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { CreateProjectComponent } from "../../../Admin/create-project/create-project.component";
@@ -33,33 +33,22 @@ import { FilterPipe } from '../../../../../filter.pipe';
 })
 
 export class StaffaddComponent {
-  
+  projects: any[] = [];
   searchText:any;
   user: any;
-  isCreateStaffModalOpen = false;
-  isCreateClientModalOpen = false;
-  
+
   isCreateProjectModalOpen = false;
+  
 
-  openCreateStaffModal() {
-    this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
+
+  openCreateProjectModal() {
+    this.isCreateProjectModalOpen = true;
+    console.log('Opening Create Staff Project');
+    console.log(this.isCreateProjectModalOpen);
   }
 
-  closeCreateStaffModal() {
-    this.isCreateStaffModalOpen = false;
-    console.log('xd');
-  }
-
-  openCreateClientModal() {
-    this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
-  }
-
-  closeCreateClientModal() {
-    this.isCreateClientModalOpen = false;
+  closeCreateProjectModal() {
+    this.isCreateProjectModalOpen = false;
     console.log('xd');
   }
  
@@ -89,17 +78,10 @@ export class StaffaddComponent {
     this.router.navigateByUrl('/'); // Redirect to login page
   }
   
-  openProjectForm(): void {
-    const dialogRef = this.dialog.open(ProjectComponent, {
-      width: '600px'
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 
-  
+
+
   project: any = {
     site_location: '',
     client_id: '',
@@ -116,9 +98,9 @@ export class StaffaddComponent {
   clients: any[] = [];
 
 
-  private apiUrl = 'http://127.0.0.1:8000/api/addproject';
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
 
+  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
+  
   
 
   openForm(): void {
@@ -131,14 +113,13 @@ export class StaffaddComponent {
       console.error('No token found in local storage');
       return;
     }
-    console.log('Token:', token);
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
     });
 
     this.http.get(this.clientsUrl, { headers }).subscribe(
       (response: any) => {
-        console.log('Full response:', response);
         this.clients = response;
         console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
       },
@@ -149,84 +130,11 @@ export class StaffaddComponent {
   }
  
  
-  onFileChange(event: any, field: string): void {
-    const file = event.target.files[0];
-    if (file) {
-        console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState === FileReader.DONE) {
-                console.log(`File read successfully: ${file.name}`);
-                const base64String = reader.result as string;
-                if (base64String.startsWith('data:')) {
-                    const base64Content = base64String.split(',')[1];
-                    console.log(`Base64 Encoded String: ${base64Content}`);
-                    this.project[field] = base64Content;
-                } else {
-                    console.error('The file content is not a valid base64 encoded string.');
-                }
-            }
-        };
-        reader.onerror = (error) => {
-            console.error('Error reading file:', error);
-        };
-        reader.onabort = () => {
-            console.warn('File reading was aborted');
-        };
-        reader.onloadend = () => {
-            if (reader.error) {
-                console.error('Error occurred during file reading:', reader.error);
-            }
-        };
-        try {
-            reader.readAsDataURL(file);
-        } catch (error) {
-            console.error('Error starting file read:', error);
-        }
-    } else {
-        console.warn('No file selected or file is not accessible');
-    }
-}
- 
-
-  onSubmit(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = { 'Authorization': `Bearer ${token}` };
-
-    const formData = new FormData();
-    for (const key in this.project) {
-      if (this.project.hasOwnProperty(key)) {
-        formData.append(key, this.project[key]);
-      }
-    }
-
-    this.http.post('http://127.0.0.1:8000/api/addproject', formData, { headers }).subscribe(
-      response => {
-        console.log('Project added successfully', response);
-      },
-      error => {
-        console.error('Error adding project', error);
-      }
-    );
-  }
+  
+  
   
 
 
-  openCreateProjectModal() {
-    this.isCreateProjectModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateProjectModalOpen);
-  }
-
-  closeCreateProjectModal() {
-    this.isCreateProjectModalOpen = false;
-    console.log('xd');
-  }
 
   sideBarOpen=true;
   sideBarToggler(){
@@ -237,7 +145,7 @@ export class StaffaddComponent {
   
   private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
   private userUrl = 'http://127.0.0.1:8000/api/user/details';
-  projects: any[] = [];
+
   selectedProject: any;
   userS: any = {};
 
@@ -248,7 +156,6 @@ export class StaffaddComponent {
       return;
     }
 
-    console.log('Token:', token);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -256,7 +163,6 @@ export class StaffaddComponent {
 
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
-        console.log('Full response:', response);
         this.projects = response;
         console.log('Fetched projects:', this.projects);
       },
@@ -266,8 +172,8 @@ export class StaffaddComponent {
     );
   }
 
-  selectProject(project: any): void {
-    this.selectedProject = project;
+  selectProject(project: any) {
+    this.router.navigate(['/project-details', project.id]);
   }
 
   getLoggedInUserNameAndId(): void {

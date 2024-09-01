@@ -23,10 +23,14 @@ import { CreateProjectComponent } from "../../../Admin/create-project/create-pro
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from '../../../../../filter.pipe';
+import { TimelineModule } from "primeng/timeline";
+
+import { CardModule } from "primeng/card";
+
 @Component({
   selector: 'app-timeline',
   standalone: true,
-  imports: [FilterPipe,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent],
+  imports: [CardModule,TimelineModule,FilterPipe,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent],
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.css'
 })
@@ -34,10 +38,10 @@ export class TimelineComponent {
   events: any[] = [];
   ngOnInit(){
     this.events=[
-      {content: '1ST WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
+      {content: '1ST WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},//details = task name , status = status of the task 
       {content: '2ND WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
-      {content: '3RD WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
-      {content: '4TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
+      {content: '3RD WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
+      {content: '4TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
       {content: '5TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
 
     ]

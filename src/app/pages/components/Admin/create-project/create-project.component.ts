@@ -7,11 +7,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
+import { Observable, tap, take } from 'rxjs';
+
+
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-create-project',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './create-project.component.html',
   styleUrl: './create-project.component.css'
 })
@@ -36,7 +41,7 @@ export class CreateProjectComponent {
   clients: any[] = [];
 
 
-  private apiUrl = 'http://127.0.0.1:8000/api/addproject';
+  private addUrl = 'http://127.0.0.1:8000/api/addproject';
   private clientsUrl = 'http://127.0.0.1:8000/api/clients';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
@@ -44,32 +49,47 @@ export class CreateProjectComponent {
   ngOnInit(): void {
    
     this.fetchClients(); // Fetch clients when the component is initialized
+    console.log('Project data on init:', this.project);
     
   }
 
   openForm(): void {
     this.showForm = true;
   }
-
+  
   fetchClients(): void {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+    const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found in local storage');
       return;
     }
-    console.log('Token:', token);
+  
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
+      'Authorization': `Bearer ${token}`
     });
-
-    this.http.get(this.clientsUrl, { headers }).subscribe(
-      (response: any) => {
+  
+    this.http.get<any>(this.clientsUrl, { headers })
+    .pipe(
+      tap(response => {
         console.log('Full response:', response);
-        this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
-      },
+        if (response && Array.isArray(response.clients)) {
+          // Filter out duplicate clients based on the 'id' property
+          const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
+            index === self.findIndex((c) => c.id === client.id)
+          );
+          this.clients = uniqueClients;
+        } else {
+          console.error('Unexpected response format:', response);
+          this.clients = [];
+        }
+        console.log('Fetched clients:', this.clients);
+      }),
+      take(1) // This will ensure the observable completes after the first emission
+    )
+    .subscribe(
+      () => {},
       error => {
-        console.error('Error fetching clients', error);
+        console.error('Error fetching clients:', error);
       }
     );
   }
@@ -82,11 +102,11 @@ export class CreateProjectComponent {
         const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === FileReader.DONE) {
-                console.log(`File read successfully: ${file.name}`);
+                // console.log(`File read successfully: ${file.name}`);
                 const base64String = reader.result as string;
                 if (base64String.startsWith('data:')) {
                     const base64Content = base64String.split(',')[1];
-                    console.log(`Base64 Encoded String: ${base64Content}`);
+                    // console.log(`Base64 Encoded String: ${base64Content}`);
                     this.project[field] = base64Content;
                 } else {
                     console.error('The file content is not a valid base64 encoded string.');
@@ -131,13 +151,28 @@ export class CreateProjectComponent {
       }
     }
 
-    this.http.post('http://127.0.0.1:8000/api/addproject', formData, { headers }).subscribe(
+    this.http.post(this.addUrl, formData, { headers }).subscribe(
       response => {
         console.log('Project added successfully', response);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Project added successfully.",
+          showConfirmButton: true,
+          timer: 2000
+        }).then(() => {
+          window.location.reload();
+        });
+
         this.closeModal();
       },
       error => {
         console.error('Error adding project', error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error adding project. Something went wrong!",
+        });
       }
     );
   }
