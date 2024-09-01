@@ -16,7 +16,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-import { ProjectComponent } from '../../../Admin/project/project.component';
+
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { CreateProjectComponent } from "../../../Admin/create-project/create-project.component";
@@ -78,15 +78,7 @@ export class StaffaddComponent {
     this.router.navigateByUrl('/'); // Redirect to login page
   }
   
-  openProjectForm(): void {
-    const dialogRef = this.dialog.open(ProjectComponent, {
-      width: '600px'
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 
 
 
@@ -106,7 +98,7 @@ export class StaffaddComponent {
   clients: any[] = [];
 
 
-  private addProjectUrl = 'http://127.0.0.1:8000/api/addproject';
+
   private clientsUrl = 'http://127.0.0.1:8000/api/clients';
   
   

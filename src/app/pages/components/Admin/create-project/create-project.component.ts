@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, take } from 'rxjs';
 
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -69,22 +69,29 @@ export class CreateProjectComponent {
     });
   
     this.http.get<any>(this.clientsUrl, { headers })
-      .pipe(tap(response => {
+    .pipe(
+      tap(response => {
         console.log('Full response:', response);
         if (response && Array.isArray(response.clients)) {
-          this.clients = response.clients;
+          // Filter out duplicate clients based on the 'id' property
+          const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
+            index === self.findIndex((c) => c.id === client.id)
+          );
+          this.clients = uniqueClients;
         } else {
           console.error('Unexpected response format:', response);
           this.clients = [];
         }
         console.log('Fetched clients:', this.clients);
-      }))
-      .subscribe(
-        () => {},
-        error => {
-          console.error('Error fetching clients:', error);
-        }
-      );
+      }),
+      take(1) // This will ensure the observable completes after the first emission
+    )
+    .subscribe(
+      () => {},
+      error => {
+        console.error('Error fetching clients:', error);
+      }
+    );
   }
  
  
@@ -151,8 +158,10 @@ export class CreateProjectComponent {
           position: "center",
           icon: "success",
           title: "Project added successfully.",
-          showConfirmButton: false,
+          showConfirmButton: true,
           timer: 2000
+        }).then(() => {
+          window.location.reload();
         });
 
         this.closeModal();
