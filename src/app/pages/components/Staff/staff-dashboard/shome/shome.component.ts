@@ -298,6 +298,13 @@ export class ShomeComponent implements OnInit {
         );
     }
 
+    datayear:any[]=[];
+    datamonth:any[]=[];
+    dataproject:any[]=[];
+    datayear1:any[]=[];
+    datamonth1:any[]=[];
+    dataproject1:any[]=[];
+
     fetchProjectsPerMonth(): void {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -314,9 +321,39 @@ export class ShomeComponent implements OnInit {
           tap(response => {
             if (response && Array.isArray(response.projects_per_month)) {
               this.projectsPerMonth = response.projects_per_month;
+              if(this.projectsPerMonth!=null){ 
+                for(let i = 0; i<this.projectsPerMonth.length; i++)
+                    this.datayear.push(this.projectsPerMonth[i].year);
+
+                  for(let i = 0; i<this.projectsPerMonth.length; i++)
+                    this.datamonth.push(this.projectsPerMonth[i].month);
+
+                  for(let i = 0; i<this.projectsPerMonth.length; i++)
+                    this.dataproject.push(this.projectsPerMonth[i].project_count);
+               }
+               var myChart1 = new Chart('myChart1',{  
+                type: 'line',
+                data:{
+                  labels: this.datamonth,
+                  datasets: [
+                  {
+                    label: 'Projects',
+                    data: this.dataproject,
+                    backgroundColor: 'maroon',
+                  },
+                ],
+            
+                },
+                options:{
+                  aspectRatio: 1,
+                }
+              }
+                
+              )
             } else {
               console.error('Unexpected response format:', response);
               this.projectsPerMonth = [];
+
             }
             console.log('Projects per month:', this.projectsPerMonth);
           }),
@@ -346,6 +383,35 @@ export class ShomeComponent implements OnInit {
           tap(response => {
             if (response && Array.isArray(response.clients_per_month)) {
               this.clientsPerMonth = response.clients_per_month;
+              if(this.clientsPerMonth!=null){ 
+                for(let i = 0; i<this.clientsPerMonth.length; i++)
+                    this.datayear1.push(this.clientsPerMonth[i].year);
+
+                  for(let i = 0; i<this.clientsPerMonth.length; i++)
+                    this.datamonth1.push(this.clientsPerMonth[i].month);
+
+                  for(let i = 0; i<this.clientsPerMonth.length; i++)
+                    this.dataproject1.push(this.clientsPerMonth[i].client_count);
+               }
+               var myChart2 = new Chart('myChart2',{  
+                type: 'bar',
+                data:{
+                  labels: this.datamonth1,
+                  datasets: [
+                  {
+                    label: 'Users',
+                    data: this.dataproject1,
+                    backgroundColor: 'maroon',
+                  },
+                ],
+            
+                },
+                options:{
+                  aspectRatio: 1,
+                }
+              }
+                
+              )
             } else {
               console.error('Unexpected response format:', response);
               this.clientsPerMonth = [];
