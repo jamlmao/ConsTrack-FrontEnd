@@ -142,7 +142,7 @@
                                 <div class="col-sm-2">
                                     <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
                 <app-addtask 
-                        *ngIf="isTaskOpen" (close)="closeTaskModal()">
+                        *ngIf="isTaskOpen"  (close)="closeTaskModal()">
                 </app-addtask>
                                 </div>
                                 <div class="col-sm-2" (click)="selectProject(project)">
