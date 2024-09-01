@@ -18,44 +18,5 @@ import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/creat
   styleUrl: './staffsidenav.component.css'
 })
 export class StaffsidenavComponent {
-  user: any;
-  isCreateStaffModalOpen = false;
-  isCreateClientModalOpen = false;
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-    } else {
-      // If no user data is found, redirect to login
-      this.router.navigateByUrl('/');
-    }
-  }
-
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
-  openCreateStaffModal() {
-    this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
-  }
-
-  closeCreateStaffModal() {
-    this.isCreateStaffModalOpen = false;
-    console.log('xd');
-  }
-
-  openCreateClientModal() {
-    this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
-  }
-
-  closeCreateClientModal() {
-    this.isCreateClientModalOpen = false;
-    console.log('xd');
-  }
+ 
 }

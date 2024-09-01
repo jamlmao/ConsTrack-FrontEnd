@@ -8,11 +8,14 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
   selector: 'app-create-staff-acct',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './create-staff-acct.component.html',
   styleUrls: ['./create-staff-acct.component.css']
 })
@@ -33,7 +36,6 @@ export class CreateStaffAcctComponent implements OnInit {
             initialCountry: 'US',
             separateDialCode: true,
             utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js'
-  
           });
         }
   
@@ -46,6 +48,8 @@ export class CreateStaffAcctComponent implements OnInit {
       }
 
       onSubmit() {
+        console.log('Form Data:', this.staff);
+      console.log('Phone Number Length:', this.staff.phone_number.length);
         const token = localStorage.getItem('token');
         if (!token) {
           console.error('No auth token found');
@@ -55,10 +59,23 @@ export class CreateStaffAcctComponent implements OnInit {
         this.http.post('http://127.0.0.1:8000/api/registerS', this.staff, { headers }).subscribe(
           response => {
             console.log('Staff created successfully', response);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Staff created successfully.",
+              showConfirmButton: false,
+              timer: 2000
+            });
+
             this.closeModal();
           },
           error => {
             console.error('Error creating staff', error);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Error creating staff account. Something went wrong!",
+            });
           }
         );
       }

@@ -21,6 +21,11 @@ import { StaffclientaccComponent } from './pages/components/Staff/staff-dashboar
 import { StaffaddComponent } from './pages/components/Staff/staff-dashboard/staffadd/staffadd.component';
 import { StafftaskComponent } from './pages/components/Staff/staff-dashboard/stafftask/stafftask.component';
 import { StaffdocumentsComponent } from './pages/components/Staff/staff-dashboard/staffdocuments/staffdocuments.component';
+import { StaffprofileComponent } from './pages/components/Staff/staff-dashboard/staffprofile/staffprofile.component';
+import { TimelineComponent } from './pages/components/Staff/staff-dashboard/timeline/timeline.component';
+import { ClientprofileComponent } from './pages/components/Client/client-dashboard/clientprofile/clientprofile.component';
+import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
+import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
 
 
 
@@ -129,6 +134,37 @@ export const routes: Routes = [
     {
         path: 'staff/documents',
         component: StaffdocumentsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/profile',
+        component: StaffprofileComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/timeline',
+        component: TimelineComponent,
+        canActivate: [AuthGuard]
+    }
+    ,
+    {
+        path: 'client/profile',
+        component: ClientprofileComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin/profile',
+        component: AdminprofileComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId',
+        component: ProjectDetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'timeline/:id',
+        component: TimelineComponent,
         canActivate: [AuthGuard]
     }
 

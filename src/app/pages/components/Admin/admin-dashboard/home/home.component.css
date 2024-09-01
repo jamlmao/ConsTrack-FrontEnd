@@ -1,27 +1,14 @@
-.mat-drawer{
-  width: 200px;
+.icon-size{
+  font-size: 50px;
+height: 50px;
+width: 50px;
 }
 
-.mat-drawer-container{
-  height: 100%;
+.mb-0{
+  font-size: 20px;
+  font-weight: bold;
 }
-
-.btn-grad {
-  background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
- width: 150px;
- padding: 5px;
- margin: 2px;
-  text-align: center;
-  transition: 0.5s;
-  font-size: 15px;
-  background-size: 200% auto;
-  color: white;            
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
-  display: block;
-}
-
-.btn-grad:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
+.headline{
+  font-size: 40px;
+  font-weight: bold;
 }

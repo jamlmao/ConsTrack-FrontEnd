@@ -14,7 +14,16 @@ import { CommonModule } from '@angular/common';
 export class ProjectComponent implements OnInit {
 
   
-  projectForm!: FormGroup;
+  project: any = {
+    site_location: '',
+    client_id: '',
+    completion_date: '',
+    starting_date: '',
+    totalBudget: 0,
+    pj_image: null,
+    pj_pdf: null
+  };
+
   showForm = false;
   clients: any[] = [];
 
@@ -25,15 +34,7 @@ export class ProjectComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.projectForm = this.fb.group({
-      site_location: ['', Validators.required],
-      client_id: ['', Validators.required],
-      completion_date: ['', Validators.required],
-      starting_date: ['', Validators.required],
-      totalBudget: ['', Validators.required],
-      pj_image: [''],
-      pj_pdf: ['']
-    });
+   
     this.fetchClients(); // Fetch clients when the component is initialized
     
   }
@@ -66,74 +67,69 @@ export class ProjectComponent implements OnInit {
   }
  
  
-
-  onFileChange(event: any, controlName: string): void {
+  onFileChange(event: any, field: string): void {
     const file = event.target.files[0];
     if (file) {
-      console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === FileReader.DONE) {
-          console.log(`File read successfully: ${file.name}`);
-          const base64String = reader.result as string;
-          if (base64String.startsWith('data:')) {
-            const base64Content = base64String.split(',')[1];
-            console.log(`Base64 Encoded String: ${base64Content}`);
-            this.projectForm.patchValue({
-              [controlName]: base64Content
-            });
-          } else {
-            console.error('The file content is not a valid base64 encoded string.');
-          }
+        console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === FileReader.DONE) {
+                console.log(`File read successfully: ${file.name}`);
+                const base64String = reader.result as string;
+                if (base64String.startsWith('data:')) {
+                    const base64Content = base64String.split(',')[1];
+                    console.log(`Base64 Encoded String: ${base64Content}`);
+                    this.project[field] = base64Content;
+                } else {
+                    console.error('The file content is not a valid base64 encoded string.');
+                }
+            }
+        };
+        reader.onerror = (error) => {
+            console.error('Error reading file:', error);
+        };
+        reader.onabort = () => {
+            console.warn('File reading was aborted');
+        };
+        reader.onloadend = () => {
+            if (reader.error) {
+                console.error('Error occurred during file reading:', reader.error);
+            }
+        };
+        try {
+            reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Error starting file read:', error);
         }
-      };
-      reader.onerror = (error) => {
-        console.error('Error reading file:', error);
-      };
-      reader.onabort = () => {
-        console.warn('File reading was aborted');
-      };
-      reader.onloadend = () => {
-        if (reader.error) {
-          console.error('Error occurred during file reading:', reader.error);
-        }
-      };
-      try {
-        reader.readAsDataURL(file);
-      } catch (error) {
-        console.error('Error starting file read:', error);
-      }
     } else {
-      console.warn('No file selected or file is not accessible');
+        console.warn('No file selected or file is not accessible');
     }
-  }
-
+}
  
 
   onSubmit(): void {
-    if (this.projectForm.valid) {
-      const token = localStorage.getItem('token'); // Retrieve the token from local storage
-      if (!token) {
-        console.error('No token found in local storage');
-        return;
-      }
-
-      console.log('Token:', token); // Log the token for debugging
-
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
-      });
-
-      this.http.post(this.apiUrl, this.projectForm.value, { headers }).subscribe(
-        response => {
-          console.log('Project added successfully', response);
-          this.showForm = false;
-        },
-        error => {
-          console.error('Error adding project', error);
-        }
-      );
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
     }
+
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    const formData = new FormData();
+    for (const key in this.project) {
+      if (this.project.hasOwnProperty(key)) {
+        formData.append(key, this.project[key]);
+      }
+    }
+
+    this.http.post('http://127.0.0.1:8000/api/addproject', formData, { headers }).subscribe(
+      response => {
+        console.log('Project added successfully', response);
+      },
+      error => {
+        console.error('Error adding project', error);
+      }
+    );
   }
 }

@@ -1,60 +1,31 @@
-.mat-drawer{
+.icon-size{
+    font-size: 50px;
+  height: 50px;
+  width: 50px;
+  }
+
+.mb-0{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+.headline{
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+  }
+  .mat-drawer{
     width: 200px;
+    border-radius: 0px 0px 10px;
+    box-shadow: 0 0 10px #000000;
   }
-  
-  .mat-drawer-container{
-    height: 100%;
+  .text-sm{
+    font-size: 17px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
-  
-  .btn-grad {
-    background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
-   width: 150px;
-   padding: 5px;
-   margin: 2px;
-    text-align: center;
-    transition: 0.5s;
-    font-size: 15px;
-    background-size: 200% auto;
-    color: white;            
-    box-shadow: 0 0 20px #eee;
-    border-radius: 10px;
-    display: block;
+
+  h1{
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
-  
-  .btn-grad:hover {
-    background-position: right center; /* change the direction of the change here */
-    color: #fff;
-}
-
-.projects-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Limit to 5 columns */
-  gap: 16px;
-  padding: 16px;
-}
-
-.card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  margin: 0; /* Remove margin to use gap instead */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  text-align: center; /* Center the content */
-  width: 200px; /* Set the width of the card */
-  height: 200px; /* Set the height of the card */
-}
-
-.card-image {
-  width: 180px;  /* Set the width of the image */
-  height: 180px; /* Set the height of the image */
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.project-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
