@@ -30,6 +30,7 @@
     "@sweetalert2/ngx-sweetalert2": "^12.4.0",
     "@types/intl-tel-input": "^18.1.4",
     "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.4",
     "google-libphonenumber": "^3.2.38",
     "int-tel-input": "^1.0.6",
     "intl-tel-input": "^17.0.21",

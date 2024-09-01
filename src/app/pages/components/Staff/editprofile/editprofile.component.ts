@@ -17,6 +17,7 @@ import intlTelInput from 'intl-tel-input';
 export class EditprofileComponent {
   @Output() close = new EventEmitter<void>();
   closeModal() {
+    
     this.close.emit();
   }
   onSubmit() {

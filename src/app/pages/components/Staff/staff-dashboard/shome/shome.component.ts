@@ -21,6 +21,8 @@ import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { SidenavComponent } from "../../../Admin/admin-dashboard/sidenav/sidenav.component";
 import { HeaderComponent } from "../../../Admin/admin-dashboard/header/header.component";
+import { Chart,registerables } from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-shome',
@@ -30,6 +32,27 @@ import { HeaderComponent } from "../../../Admin/admin-dashboard/header/header.co
   styleUrl: './shome.component.css'
 })
 export class ShomeComponent implements OnInit {
+
+  public config: any = {
+    type : 'bar',
+
+    data:{
+      labels: ['jan'],
+      datasets: [
+      {
+        label: 'sales',
+        data: ['1'],
+        backgroundColor: 'blue',
+      },
+    ],
+
+    },
+    options:{
+      aspectRatio: 1,
+    }
+  }
+  chart : any;
+  
 
 
   private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
@@ -48,6 +71,7 @@ export class ShomeComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    
     const userData = localStorage.getItem('user');
     console.log(localStorage.getItem('user'));
     if (userData) {
@@ -138,7 +162,7 @@ export class ShomeComponent implements OnInit {
       (response: any) => {
         console.log('Full response:', response);
         this.projects = response;
-        console.log('Fetched projects:', this.projects);
+        console.log('Fetched projects:', this.projects); 
       },
       error => {
         console.error('Error fetching projects', error);
@@ -172,6 +196,10 @@ export class ShomeComponent implements OnInit {
     );
   }
 
+  canvas:any;
+  ctx:any;
+  data=[];
+
   getCompanyProjects(staffId: number): void {
     console.log('Fetching projects for staffId:', staffId); // Log the staffId
     const token = localStorage.getItem('token');
@@ -192,6 +220,27 @@ export class ShomeComponent implements OnInit {
         response => {
           console.log('Project count:', response.project_count)
           this.projectCount = response.project_count;
+          var myChart = new Chart('myChart',{  
+            type: 'bar',
+            data:{
+              labels: ['jan'],
+              datasets: [
+              {
+                label: 'Projects',
+                data: [this.projectCount],
+                backgroundColor: 'maroon',
+              },
+            ],
+        
+            },
+            options:{
+              aspectRatio: 1,
+            }
+          }
+            
+          )
+
+          
         },
         error => {
           console.error('Error fetching projects:', error);
