@@ -11,7 +11,7 @@
 
                 <div class="title">
                     <p>Welcome to your Projects</p>
-                    <h1><span>PROJECT</span> DETAILS</h1>      
+                    <h1><span>PROJECT</span> LISTS</h1>      
                 </div>
                 <div class="align-items-center">         
                 </div>
@@ -23,28 +23,20 @@
                 </div>
 
             
-          <div class="col-xl-9 col-sm-6 mb-xl-0 mb-3">
-            <div class="card">
+          <div class="col-xl-12 col-sm-6 mb-xl-0 mb-3">
+            <div class="projects-container">
               <div class="card-header">
-                <input class="form-control me-2" type="search" placeholder="Search for projects" [(ngModel)]="searchText">
-                
+                <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText">
+                 <button (click)="openCreateProjectModal()"  type="button" class="btn-grad btn-outline-dark item" style="width: 150px; align-items: center;margin-left: 49px;">  <div class="text-center">Add New Project </div><span></span><mat-icon>add_circle_outline</mat-icon></button>
+                    <app-create-project 
+                            *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
+                    </app-create-project>
               </div>
            
               
             </div>
           </div>
-          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="">
-               
-              <div class="project-details">
-                <button (click)="openCreateProjectModal()"  type="button" class="btn-grad btn-outline-dark item" style="width: 150px;">  <div class="text-center">Add New Project </div><span></span><mat-icon>add_circle_outline</mat-icon></button>
-                    <app-create-project 
-                            *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
-                    </app-create-project>
-              </div>
-              
-            </div>
-          </div>
+         
           
           
         </div>
