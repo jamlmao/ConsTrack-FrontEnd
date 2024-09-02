@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="col-sm-2" (click)="selectProject(project)">
                                     <h1>project timeline</h1>
-               
+                                    
                                 </div>
                                 
                             </div>
@@ -424,7 +424,39 @@
 
            </section>
            
-        
+           <table class="table table-bordered">
+            <thead>
+                <tr>
+                    
+                    <th>Task Name</th>
+                    <th>Category</th>
+                    <th>Starting Date</th>
+                    <th>Completion Date</th>
+                    <th>Allocated Budget</th>
+                    <th>Status</th>
+                    <th>Photo</th>
+                    <th>Document</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of tasks">
+                    <td>{{ task.pt_task_name }}</td>
+                    <td>{{ task.pt_task_desc }}</td>
+                    <td>{{ task.pt_starting_date }}</td>
+                    <td>{{ task.pt_completion_date }}</td>
+                    <td>{{ task.pt_allocated_budget }}</td>
+                    <td>{{ task.pt_status }}</td>
+                    <td>
+                        <img *ngIf="task.pt_photo_task" [src]="'http://localhost:8000' + task.pt_photo_task" alt="Task Photo" width="100">
+                    </td>
+                    <td>
+                        <p>
+                            <a *ngIf="task.pt_file_task" [href]="'http://localhost:8000' + task.pt_file_task" target="_blank">View PDF</a>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
             
 
                 

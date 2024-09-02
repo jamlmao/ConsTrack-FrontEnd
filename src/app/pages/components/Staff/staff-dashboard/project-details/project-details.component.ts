@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from "@angular/material/button";
@@ -39,6 +39,12 @@ import { ArchiComponent } from "../../archi/archi.component";
 export class ProjectDetailsComponent {
 
   events: any[] = [];
+  tasks: any[] = [];
+  projectId: string ="";
+  private TaskUrl = 'http://127.0.0.1:8000/api/projectsTasks/';
+
+
+
   ngOnInit(){
     this.events=[
       {content: '1ST WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
@@ -48,9 +54,20 @@ export class ProjectDetailsComponent {
       {content: '5TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
 
     ]
+
+    this.route.paramMap.subscribe(params => {
+      this.projectId = params.get('projectId') || ''; // Assuming 'projectId' is the parameter name
+      const projectIdNumber = Number(this.projectId);
+      if (!isNaN(projectIdNumber)) {
+        this.fetchProjectTasks(projectIdNumber);
+      } else {
+        console.error('Project ID is not set or is not a number');
+      }
+    });
   
   }
-  constructor(private router: Router, private http: HttpClient) { }
+  
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
   
   isCreateClientModalOpen = false;
   
@@ -133,5 +150,27 @@ export class ProjectDetailsComponent {
     this.router.navigate(['/timeline', project.id]);
   }
 
+  fetchProjectTasks(projectId: number) {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+
+    this.http.get(this.TaskUrl + `${projectId}`,{headers}).subscribe(
+      (response: any) => {
+        this.tasks = response.tasks;
+        console.log('Project tasks:', this.tasks);
+      },
+      (error) => {
+        console.error('Failed to fetch project tasks', error);
+      }
+    );
+  }
 
 }
