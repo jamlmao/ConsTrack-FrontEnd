@@ -23,7 +23,51 @@
       display: block;
     }
     
+    .example-viewport {
+      height: 400px;
+      width: 100%;
+      overflow: auto;
+    }
     
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .sub-item {
+        padding-left: 20px; /* Indent sub-items */
+    }
+
+    .signature-section {
+      margin-top: 50px;
+      width: 100%;
+      display: flex;
+        justify-content: space-between;
+    }
+    .signature-section div {
+        text-align: center;
+        width: 45%;
+    }
+    .signature-section .signature-line {
+        margin-top: 50px;
+        border-top: 1px solid black;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+
+
     .btn-grad:hover {
       background-position: right center; /* change the direction of the change here */
       color: #fff;
