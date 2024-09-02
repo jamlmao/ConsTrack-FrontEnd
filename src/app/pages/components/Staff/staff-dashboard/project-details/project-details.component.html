@@ -242,6 +242,9 @@
                 </div> 
              
             </div>
+
+            <div class="container">
+                <div class="table-wrapper">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -278,22 +281,27 @@
                     </tr>
                 </tbody>
             </table>
-
+            </div>
+            </div>
            </section>
            
 
-                
+           <div class="container">
+            <div class="table-wrapper">       
         <h2>Statement of Work Accomplishment</h2>
-        <table>
+        <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Item No.</th>
-                    <th>Description</th>
-                    <th>Cost</th>
-                    <th>Previous</th>
-                    <th>This Period</th>
-                    <th>To Date</th>
-                    <th>Percentage of Accomplishment</th>
+                    
+
+                    <th width="4%">Item No.</th>
+                    <th width="20%">Description</th>
+                    <th width="10%">Cost</th>
+                    <th width="8%">Previous</th>
+                    <th width="8%">This Period</th>
+                    <th width="8%">To Date</th>
+                    <th width="10%">Percentage of Accomplishment</th>
+                    <th width="5%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -305,7 +313,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td><div>60%</div><mat-progress-bar mode="determinate" value="60" [color]=""></mat-progress-bar></td>
+                        <td>
+                            <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                            <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                           
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                        </td>
                     </tr>
                     <ng-container *ngIf="categorizedTasks[category] && categorizedTasks[category].length">
                         <tr *ngFor="let task of categorizedTasks[category]; let j = index">
@@ -325,17 +339,22 @@
         <div class="signature-section">
             <div>
                 <div class="signature-line"></div>
-                <div>insert here the name</div>
-                <div>Registered Architect</div>
-                <div>License No. ADD A TABLE FOR THE LICENSE NUMBER and render here </div>
+                
+                <div style="margin-left: 140px;">insert here the name</div>
+                <div style="margin-left: 140px;">Registered Architect</div>
+                <div style="margin-left: 140px;">License No. ADD A TABLE FOR THE LICENSE NUMBER and render here
+            </div>
             </div>
             <div>
                 <div class="signature-line"></div>
-                <div>insert here the name</div>
-                <div>Owner</div>
+                <div style="margin-left: 140px;">insert here the name</div>
+                <div style="margin-left: 140px;">Owner</div>
             </div>
+            
         </div>
-       
+    </div>
+
+       </div>
           
             
         

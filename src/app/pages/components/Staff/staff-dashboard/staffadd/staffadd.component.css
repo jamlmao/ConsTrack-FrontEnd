@@ -6,6 +6,21 @@
   .mat-drawer-container{
     height: 100%;
   }
+  .btn-grad1 {
+    background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
+
+    transition: 0.5s;
+    font-size: 15px;
+    background-size: 200% auto;
+    color: white;  
+    height: 40px;
+    color: white;         
+  }
+  
+  .btn-grad1:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+}
   
   .btn-grad {
     background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);

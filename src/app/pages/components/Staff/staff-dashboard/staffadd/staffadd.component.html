@@ -21,22 +21,25 @@
                     
                   </div>
                 </div>
+          
+                <div class="col-12 col-xl-12">
+                  <div class="card card-plain h-100">
+                    <div class="card-header pb-0">
+                      <div class="d-flex align-items-center m-2">
+                        <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText">
+                        <button mat-fab extended class="btn-grad1"  (click)="openCreateProjectModal()" >
+                          <mat-icon>addition</mat-icon>
+                          Add Project
+                        </button>
+                        <app-create-project 
+                        *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
+                </app-create-project>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-            
-          <div class="col-xl-12 col-sm-6 mb-xl-0 mb-3">
-            <div class="projects-container">
-              <div class="card-header">
-                <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText">
-                 <button (click)="openCreateProjectModal()"  type="button" class="btn-grad btn-outline-dark item" style="width: 150px; align-items: center;margin-left: 49px;">  <div class="text-center">Add New Project </div><span></span><mat-icon>add_circle_outline</mat-icon></button>
-                    <app-create-project 
-                            *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
-                    </app-create-project>
-              </div>
-           
-              
-            </div>
-          </div>
-         
+        
           
           
         </div>
@@ -60,7 +63,7 @@
                     <p><strong>Total Budget:</strong> {{ project.totalBudget }}</p>
                     <p><strong>Project PDF:</strong>
                         <a *ngIf="project.pj_pdf" [href]="'http://localhost:8000' + project.pj_pdf" target="_blank">View PDF</a></p>
-                    <button class="btn-grad btn-outline-dark">Add Task</button>
+                    <button  mat-fab extended class="btn-grad1"><mat-icon>addition</mat-icon>Add Task</button>
                 </div>
                 
             </div>

@@ -21,6 +21,7 @@ import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-a
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
 import { CreateComponent } from "../create/create.component";
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 
 @Component({
