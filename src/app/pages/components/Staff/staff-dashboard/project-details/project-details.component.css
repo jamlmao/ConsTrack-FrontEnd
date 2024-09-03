@@ -330,10 +330,11 @@
         
       }
       .card-image {
-        width: 390px;  /* Set the width of the image */
+        width: 370px;  /* Set the width of the image */
         height: 250px; /* Set the height of the image */
         object-fit: cover;
         border-radius: 8px;
+        padding: 10px;
 
       }
       

@@ -64,10 +64,16 @@
                 </div> <div *ngIf="lnameControl.errors?.['required']" class="text-danger mb-3">Last name is required.*</div>
                 <div class="form-group input-group">
                     <h4>Sex: </h4>
-                    <select placeholder="Sex" id="sex" [(ngModel)]="staff.sex" name="sex" #sexControl="ngModel" required class="form-control">
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        </select>
+                    <div class="radio-group" style="margin-left: 20px; font-size: 16px;">
+                        <input type="radio" id="sex" [(ngModel)]="staff.sex" name="sex" #sexControl="ngModel" 
+                               name="satisfy" value="M" checked>
+                        <label for="yes" style="margin-right: 20px;">Male</label>
+        
+                        <input type="radio" id="sex" [(ngModel)]="staff.sex" name="sex" #sexControl="ngModel" 
+                               name="satisfy" value="F">
+                        <label for="no">Female</label>
+                    </div>
+                    
                         
                 </div> <div *ngIf="sexControl.errors?.['required']" class="text-danger mb-3">Sex is required.*</div>
 
@@ -92,8 +98,16 @@
                     <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">Valid Number</div>
                    
                  </div>
+                 <div class="form-group input-group">
+                    <h4>Select Company:</h4>
+                    <select class="form-control" id="company_name" [(ngModel)]="staff.company_name" name="company_name" required>
+                      <option ></option>
+                    </select>
+                   
+                </div> 
+                
                 <div class="form-group input-group">
-                    <h4>Company Name:</h4>
+                    <h4>Input if it is not list:</h4>
                     <input class="form-control" placeholder="Company_Name" type="company_name" id="company_name" [(ngModel)]="staff.company_name" #companyControl="ngModel" name="company_name" required>
                 </div> <div *ngIf="companyControl.errors?.['required']" class="text-danger mb-3">Company name is required.*</div>
                 <div class="form-group input-group">

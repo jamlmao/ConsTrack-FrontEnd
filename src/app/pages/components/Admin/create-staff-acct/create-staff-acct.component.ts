@@ -33,7 +33,7 @@ export class CreateStaffAcctComponent implements OnInit {
         const inputElement = document.getElementById('phone_number');
         if(inputElement){
           intlTelInput(inputElement,{
-            initialCountry: 'US',
+            initialCountry: 'PH',
             separateDialCode: true,
             utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js'
           });

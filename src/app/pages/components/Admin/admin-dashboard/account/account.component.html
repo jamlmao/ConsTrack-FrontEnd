@@ -19,12 +19,21 @@
                     <div class="table-wrapper">
                         <div class="table-title">
                             <div class="row">
-                                <div class="col-sm-10"><h1 style="font-weight: bold;">User Management</h1></div>
+                                <div class="col-sm-8"><h1 style="font-weight: bold;">User Management</h1></div>
                                 <div class="col-sm-2">
-                                    <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark">Create Client</button>
+                                    
+            <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
                 <app-create-client-acct 
                         *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct>
+                </app-create-client-acct> 
+            
+                                </div>
+                                <div class="col-sm-2">
+                                    <button (click)="openCreateStaffModal()"  type="button"  class="btn-grad btn-outline-dark">Create Staff</button>
+            <app-create-staff-acct 
+                    *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
+            </app-create-staff-acct>
+            
                                 </div>
                                 
                             </div>
