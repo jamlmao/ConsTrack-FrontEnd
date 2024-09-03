@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-acct.component";
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
+import { EditprofileComponent } from "../../../Staff/editprofile/editprofile.component";
 
 
 
@@ -26,7 +27,7 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, AccountComponent, HeaderComponent, SidenavComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, AccountComponent, HeaderComponent, SidenavComponent, EditprofileComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
@@ -36,6 +37,7 @@ export class AccountComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
+  isEditModalOpen = false;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -62,6 +64,8 @@ export class AccountComponent {
     this.isCreateStaffModalOpen = false;
     console.log('xd');
   }
+  
+
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
@@ -71,6 +75,17 @@ export class AccountComponent {
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
+    console.log('xd');
+  }
+
+  openEditModal() {
+    this.isEditModalOpen = true;
+    console.log('Opening Edit Modal');
+    console.log(this.isEditModalOpen);
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
     console.log('xd');
   }
 

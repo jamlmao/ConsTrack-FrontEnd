@@ -4,25 +4,78 @@
         <app-sidenav></app-sidenav>
     </mat-drawer>
     <mat-drawer-content>
+        
         <router-outlet></router-outlet>
-        <div class="d-flex align-items-center justify-content-between py-3 ">
-           
-            <button (click)="openCreateStaffModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Staff</button>
-            <app-create-staff-acct 
-                    *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
-            </app-create-staff-acct>
-            <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
-                <app-create-client-acct 
-                        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct> 
-            
+        <div class="row">
+            <div class="container-fluid align-items-center">
 
-                
-          </div>
-
-       
-          <div class="d-flex align-items-center justify-content-center pb-4">
+                <div class="title">
+                    <p>Welcome to your Projects</p>
+                    <h1><span>PROJECT</span> LISTS</h1>      
                 </div>
+                <div class="align-items-center">         
+                </div>
+                  
+                <div class="col-12 col-xl-6">
+                    
+                    
+                  </div>
+                </div>
+          
+                <div class="col-12 col-xl-12">
+                  <div class="card card-plain h-100">
+                    <div class="card-header pb-0">
+                      <div class="d-flex align-items-center m-2">
+                        <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText">
+                        <button mat-fab extended class="btn-grad1"  (click)="openCreateProjectModal()" >
+                          <mat-icon>addition</mat-icon>
+                          Add Project
+                        </button>
+                        <app-create-project 
+                        *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
+                </app-create-project>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+        
+          
+          
+        </div>
+        
+
+        
+        
+
+            
+        <div class="projects-container" style="margin-top: -20px;">
+            
+            
+            <div *ngFor="let project of projects | filter:searchText" class="cards project-item" (click)="selectProject(project)">
+                <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
+                <div class="project-details">
+                    <p><strong>Site Location:</strong> {{ project.site_location }}</p>
+                    <p><strong>Client Name:</strong> {{ project.client.first_name }} {{ project.client.last_name }}</p>
+                    <p><strong>Contact Number:</strong> {{ project.client.phone_number }}</p>
+                    <p><strong>Starting Date:</strong> {{ project.starting_date }}</p>
+                    <p><strong>Completion Date:</strong> {{ project.completion_date }}</p>
+                    <p><strong>Total Budget:</strong> {{ project.totalBudget }}</p>
+                    <p><strong>Project PDF:</strong>
+                        <a *ngIf="project.pj_pdf" [href]="'http://localhost:8000' + project.pj_pdf" target="_blank">View PDF</a></p>
+                    <button  mat-fab extended class="btn-grad1"><mat-icon>addition</mat-icon>Add Task</button>
+                </div>
+                
+            </div>
+        </div>
+       
+        <div class="projects-container">
+            
+        </div>
+          
+            
+                
+                <router-outlet></router-outlet>
             
         
         <router-outlet></router-outlet>
