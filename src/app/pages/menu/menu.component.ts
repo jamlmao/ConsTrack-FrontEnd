@@ -8,6 +8,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
+
 const baseUrl = 'http://127.0.0.1:8000';
 const loginApi = `${baseUrl}/api/loginA`;
 
@@ -55,7 +56,7 @@ export class MenuComponent {
           if (res.role === 'admin') {
             console.log('Login successful, admin');
             Swal.fire({
-              title: "Good job!",
+              title: "Welcome Admin!",
               text: "Logged in Successfully!",
               icon: "success"
             });
@@ -69,9 +70,9 @@ export class MenuComponent {
           } else if (res.role === 'staff') {
             console.log('Login successful, staff');
             Swal.fire({
-              title: "Good job!",
+              title: "Welcome Staff!",
               text: "Logged in Successfully!",
-              icon: "success"
+              icon: "success",
             });
             this.router.navigateByUrl('/staff/shome').then(success => {
               if (success) {
@@ -83,7 +84,7 @@ export class MenuComponent {
           } else if (res.role === 'client') {
             console.log('Login successful, client');
             Swal.fire({
-              title: "Good job!",
+              title: "Welcome Client!",
               text: "Logged in Successfully!",
               icon: "success"
             });
