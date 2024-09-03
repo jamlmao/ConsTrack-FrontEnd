@@ -7,25 +7,68 @@
         
         <router-outlet></router-outlet>
         
-           <div>
-            <main>
-                <h1>Dashboard</h1>
-                <div class="date">
-                    <input type="date">
+        <div class="form-box">
+            <div class="textup">
+                <i class="fa fa-solid fa-clock"></i>
+                It only takes two minutes!!
+            </div>
+            <form>
+                <label for="uname">
+                    <mat-icon>account_circle</mat-icon>
+                    Name
+                </label>
+                <input type="text" id="uname" 
+                       name="uname" required>
+    
+                <label for="email">
+                    <mat-icon>email</mat-icon>
+                    Email Address
+                </label>
+                <input type="email" id="email" 
+                       name="email" required>
+    
+                <label for="phone">
+                    <mat-icon>phone</mat-icon>
+                    Phone No
+                </label>
+                <input type="tel" id="phone" 
+                       name="phone" required>
+    
+                <label>
+                   
+                    Do you satisfy with our service?
+                </label>
+                <div class="radio-group">
+                    <input type="radio" id="yes" 
+                           name="satisfy" value="yes" checked>
+                    <label for="yes">Yes</label>
+    
+                    <input type="radio" id="no" 
+                           name="satisfy" value="no">
+                    <label for="no">No</label>
                 </div>
 
-                <div>
-                    <div>
-                        <span><mat-icon>home</mat-icon></span>
-                        <div class="middle"></div>
-                            <div class="left">
-                                <h3>total users</h3>
-                                <h1>123123</h1>
-                            </div>
-                    </div>
-                </div>
-            </main>
-           </div>
+                <label for="uname">
+                    <i class="fa fa-solid fa-user"></i>
+                    Do you want to create an appointment?
+                </label>
+                <input type="date" id="uname" 
+                       name="uname" required>
+    
+                <label for="msg">
+                    <i class="fa-solid fa-comments" 
+                       style="margin-right: 3px;"></i>
+                    Write your Suggestions:
+                </label>
+                <textarea id="msg" name="msg" 
+                          rows="4" cols="10" required>
+                </textarea>
+                
+                <button type="submit">
+                    Submit
+                </button>
+            </form>
+        </div>
         
             
 
