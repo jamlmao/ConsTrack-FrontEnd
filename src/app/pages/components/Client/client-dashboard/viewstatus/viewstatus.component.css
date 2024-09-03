@@ -6,6 +6,14 @@
   height: 100%;
 }
 
+.mat-drawer{
+  width: 200px;
+}
+
+.mat-drawer-container{
+  height: 100%;
+}
+
 .btn-grad {
   background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
  width: 150px;
@@ -31,7 +39,6 @@
   margin: 0 auto;
 }
 .title{
-  margin-bottom: 50px;
   margin-top: 20px;
   padding-bottom: 40px;
   text-align: center;
@@ -120,4 +127,139 @@
   left: 0;
   border-left: 8px solid transparent;
   border-right: 0px solid transparent;
+}
+span{
+  font-weight: bold;
+  margin: 5px;
+  margin-left: 20px;
+}
+
+
+.timeline{
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 1rem;
+}
+.timeline-event{
+  display: flex;
+  position: relative;
+  min-height: 70px;
+}
+
+.timeline-event:last-child.timeline{
+  min-height: 0;
+}
+
+.timeline-content{
+  flex: 1;
+  padding:0 1rem;
+  
+}
+.timeline-point-track-container{
+  flex: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: -10px;
+  margin-left: 5px;
+}
+.timeline-point{
+  display: flex;
+  align-self: baseline;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 10px;
+  background-color: white;
+}
+.timeline-track{
+  flex-grow: 1;
+  background-color: whitesmoke;
+  width: 2px;
+}
+.timeline-date{
+  font-size: 14px;
+  font-style: italic;
+  padding-left: 5px;
+}
+
+.heighlight
+{
+ background-color: rgb(21, 205, 21);
+ box-shadow: 0 4px 8px gray;
+}
+.heighlights
+{
+ background-color: rgb(240, 8, 8);
+ box-shadow: 0 4px 8px gray;
+}
+
+.cards {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-left: -30px;
+    box-shadow: 5px 0px 10px #000000;
+  background-color: #fff;
+  text-align: center; /* Center the content */
+  width: 20px; /* Set the width of the card */
+  height: 20px; /* Set the height of the card */
+
+}
+
+.card{
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  text-align: center; /* Center the content */
+  
+}
+.cardss{
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 3px;
+    border-radius: 20px;
+    box-shadow: 2px 0px 8px #000000;
+  background-color: #fff;
+  text-align: center; /* Center the content */
+  width: 100%;
+  
+}
+.card-image {
+  width: 110%;  /* Set the width of the image */
+  height: 100%; /* Set the height of the image */
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 5px;
+}
+
+.project-detail {
+  display: flex;
+  margin-top: -10px;
+  margin-left: -5px;
+  align-items: center;
+  font-size: 10px;
+  font-weight: bold;
+  
+
+}
+.project-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  
+
+}
+
+h2, p{
+  font-style: italic;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+
 }

@@ -15,15 +15,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
+
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
 
 @Component({
   selector: 'app-viewproject',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, ClientsidenavComponent, ClienttoolbarComponent],
+  imports: [MatProgressBarModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, ClientsidenavComponent, ClienttoolbarComponent],
   templateUrl: './viewproject.component.html',
   styleUrl: './viewproject.component.css'
 })
@@ -70,7 +70,7 @@ export class ViewprojectComponent {
     console.log('xd');
   }
 
-  sideBarOpen=true;
+  sideBarOpen=false;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }

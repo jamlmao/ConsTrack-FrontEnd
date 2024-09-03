@@ -121,3 +121,8 @@
   border-left: 8px solid transparent;
   border-right: 0px solid transparent;
 }
+span{
+  font-weight: bold;
+  margin: 5px;
+  margin-left: 20px;
+}

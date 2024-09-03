@@ -29,48 +29,22 @@ import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component
 })
 export class ViewstatusComponent {
 
-  user: any;
-  isCreateStaffModalOpen = false;
-  isCreateClientModalOpen = false;
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-    } else {
-      // If no user data is found, redirect to login
-      this.router.navigateByUrl('/');
-    }
+  events: any[] = [];
+  ngOnInit(){
+    this.events=[
+      {content: '1ST ', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},//details = task name , status = status of the task 
+      {content: '2ND ', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
+      {content: '3RD ', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
+      {content: '4TH ', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
+      {content: '5TH ', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
+
+    ]
+  
   }
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
-  openCreateStaffModal() {
-    this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
-  }
-
-  closeCreateStaffModal() {
-    this.isCreateStaffModalOpen = false;
-    console.log('xd');
-  }
-
-  openCreateClientModal() {
-    this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
-  }
-
-  closeCreateClientModal() {
-    this.isCreateClientModalOpen = false;
-    console.log('xd');
-  }
-
-  sideBarOpen=true;
+  sideBarOpen=false;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }

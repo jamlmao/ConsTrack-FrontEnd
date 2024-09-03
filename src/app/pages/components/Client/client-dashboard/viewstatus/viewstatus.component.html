@@ -5,119 +5,139 @@
     </mat-drawer>
     <mat-drawer-content>
         
-        <router-outlet></router-outlet>
         
-           <section class="">
-            <div class="containers">
-                <div class="title">
-                    <p>Welcome to your Project</p>
-                    <h1><span>PROJECT</span> UPDATE</h1>
-
-                </div>
-                <div class="row row-cols-1">
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    
-
-                </div>
-                <div class="row row-cols-1">
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    
-
-                </div>
-                
-                
+        
+            
+        <div class="row">
+            <div class="title">
+                <p>Welcome to your Project</p>
+                <h1><span>PROJECT</span> TIMELINE</h1>
 
             </div>
+            <div class="row">
+             
+              <div class="col-12 col-xl-12 m-3">
+                <div class="card card-plain h-100">
+                  
+                  <div class="card-body">
+                    
+                   
+                    <div class="row">
+                        <div>
+                          
+                            <p class="heighlight">Accomplished</p>
+                            <p class="heighlights text-light">Done Late</p>
+                        </div>
+                      <div class="col-md-12">
+                       
+                        <div class="timeline">
+                            
+                            <div class="">
+                                
+                              </div>
+                            <div *ngFor="let item of events" class="timeline-event ">
+                
+                                
+                                
+                
+                               <div class="cards project-item">
+                                            <div class="project-detail">
+                                               
+                                                    {{item.content}}
+                                                
+                                                
+                                           
+                                                
+                                            </div>
+                                            
+                                </div>
+                                <div class="timeline-point-track-container">
+                                    <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+                                    <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
+                                    
+                                    
+                                </div>
+                                <div class="cardss card-plain h-100">
 
-           </section>
+                                    <div class="row">
+                                        
+                                        <div class="col-md-5">
+                                            
+                                            <div class="project-details">
+                                                
+                                                <img class="user-image" src="assets/bg.jpg" alt="Card image cap"  class="card-image">
+                                           
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="project-details">
+                                                <img class="user-image" src="assets/bg.jpg" alt="Card image cap"  class="card-image">
+                                            
+                                                
+                                           
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            
+                                                <div class="project-details">
+                                                    <span>
+                                                        {{item.content}}
+                                                    </span>
+                                                    <span class="timeline-date">
+                                                        {{item.date}}
+                                                    </span>
+                                                    <p>Budget used: 123123</p>
+                                                    <p>Accomplished Date: {{item.date}}</p>
+                                                    <p>Target Date Date: {{item.date}}</p>
+                                               
+                                                    
+                                                </div>
+                                        </div>
+                                      </div>
+                                  
+                                                
+                                    </div>
+                
+                                    
+                                        
+                                
+                        
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <h1>Documentations</h1>
+                        <div *ngFor="let item of events" class="">
+                
+                                
+                                
+                
+                            
+                             
+                          
+             
+                                 
+                                     
+                             
+                     
+                         </div>
+                      </div>
+                      
+                       
+                     
+                    </div>
+                    <hr class="horizontal dark" />
+                    
+                    
+                  </div>
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
         
             
 
