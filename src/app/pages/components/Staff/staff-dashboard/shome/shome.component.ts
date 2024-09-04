@@ -229,7 +229,7 @@ export class ShomeComponent implements OnInit {
           console.log('Project count:', response.project_count)
           this.projectCount = response.project_count;
           var myChart = new Chart('myChart',{  
-            type: 'bar',
+            type: 'pie',
             data:{
               labels: ['jan'],
               datasets: [
@@ -333,7 +333,7 @@ export class ShomeComponent implements OnInit {
                     this.dataproject.push(this.projectsPerMonth[i].project_count);
                }
                var myChart1 = new Chart('myChart1',{  
-                type: 'line',
+                type: 'bar',
                 data:{
                   labels: this.datamonth,
                   datasets: [
@@ -368,6 +368,8 @@ export class ShomeComponent implements OnInit {
         );
     }
 
+
+    
     fetchClientsPerMonth(): void {
       const token = localStorage.getItem('token');
       if (!token) {

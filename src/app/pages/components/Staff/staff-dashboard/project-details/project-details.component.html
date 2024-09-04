@@ -17,112 +17,60 @@
                     <h1><span>CONSTRACK</span> COMPANY</h1>
 
                 </div>
+               
                 <div class="content">
                    
                         <div class="row">
                          
                           <div class="col-12 col-xl-12">
                             <div class="card card-plain h-100">
-                              
-                              
-                                
                                 <div class="row">
-                                    <div>
-                                        <h2>Timeline </h2>
-                                        <p class="heighlight">Accomplished</p>
-                                        <p class="heighlights text-light">Done Late</p>
-                                    </div>
-                                  <div class="col-md-12">
-                                   
-                                    <div class="timeline">
-                                        
-                                        <div class="">
+                                    <div class="timeline" >
+                                        <div class="container" *ngFor="let task of tasks">
+                                          
+                                          <div class="text-box">
+                                            <img src="assets/bg.jpg" alt="">
+                                            
+                                            
+                                          
+                                                <div class="project-details">
+
+                                                    <span>Task Name:</span>
+                                                       <span style="margin-bottom: 2px; margin-left: 20px;">{{task.pt_task_name}}
+                                                    </span> 
+
+                                                    <span>Task Description:</span>
+                                                       <span style="margin-bottom: 2px; margin-left: 20px;">{{task.pt_task_desc}}
+                                                    </span> 
+                                                   
+                                                    <span>Starting Date:</span>
+                                                       <span style="margin-bottom: 2px; margin-left: 20px;">{{ task.pt_starting_date }}
+                                                    </span> 
+                                                    <span>Completion Date: </span>
+                                                       <span style="margin-bottom: 2px; margin-left: 20px;">{{ task.pt_completion_date }}
+                                                    </span> 
+                                                    <span>Allocated Budget: </span>
+                                                        <span style="margin-bottom: 2px; margin-left: 20px;">{{ task.pt_allocated_budget }}
+                                                    </span>
+                                                    <span>Status: 
+                                                        {{ task.pt_status }}
+                                                    </span>
+                                                    
+          
+                                               
+                                                    
+                                                </div>
+                                               
                                             
                                           </div>
-                                        <div *ngFor="let task of tasks" class="timeline-event ">
-                            
-                                            
-                                            
-                            
-                                           <div class="cards project-item">
-                                                        <div class="project-detailss">
-                                                            <span>
-                                                                {{task.id}}
-                                                            </span>
-                                                            
-                                                       
-                                                            
-                                                        </div>
-                                                        
-                                            </div>
-                                            <div class="timeline-point-track-container">
-                                                <div class="timeline-point" [ngClass]="task.pt_status === 'D' ? 'heighlight' : '' || task.pt_status === 'IP' ? 'heighlights' : '' "></div>
-                                                <div class="timeline-track" [ngClass]="task.pt_status === 'D' ? 'heighlight' : '' || task.pt_status === 'IP' ? 'heighlights' : '' "></div>
-                                                
-                                                
-                                            </div>
-                                            <div class="cardss card-plain h-100">
-            
-                                                <div class="row">
-                                                    
-                                                    <div class="col-md-5">
-                                                        
-                                                        <div class="project-details">
-                                                            
-                                                            <img *ngIf="task.pt_photo_task" [src]="'http://localhost:8000' + task.pt_photo_task" alt="Task Photo" loading="lazy" class="card-image">
-                          
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <div class="project-details">
-                                                            
-                                                            <img *ngIf="task.pt_photo_task" [src]="'http://localhost:8000' + task.pt_photo_task" alt="Task Photo" loading="lazy" class="card-image">
-                          
-                                                            
-                                                       
-                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        
-                                                            <div class="project-details">
-
-                                                                <span>Task Name:
-                                                                    {{task.pt_task_name}}
-                                                                </span>
-                                                               
-                                                                <span> Task Description:
-                                                                    {{task.pt_task_desc}}
-                                                                </span>
-                                                                <span> Starting Date: {{ task.pt_starting_date }}</span>
-                           
-                      
-                            <span>Completion Date:  {{ task.pt_completion_date }}</span>
-                            <span>Allocated Budget:  {{ task.pt_allocated_budget }}</span>
-                            <span>Status: {{ task.pt_status }}</span>
-                                                                
-                                                           
-                                                                
-                                                            </div>
-                                                    </div>
-                                                  </div>
-                                              
-                                                            
-                                                </div>
-                            
-                                                
-                                                    
-                                            
-                                    
                                         </div>
-                                    </div>
-                                  </div>
-                                 
-                                  
-                                   
-                                 
+                                        
+                                      </div>
+
                                 </div>
+                              
+                                
+                               
                                 <hr class="horizontal dark" />
                                 
                                 
@@ -135,7 +83,7 @@
                       
                     
                 </div>
-                <div class="container">
+                <div class="">
                     <div class="table-wrapper">
                         <div class="table-title">
                             <div class="row">
@@ -157,7 +105,7 @@
              
             </div>
 
-            <div class="container">
+            <div class="">
                 <div class="table-wrapper">
             <table class="table table-bordered">
                 <thead>
@@ -202,7 +150,7 @@
            </section>
            
 
-           <div class="container">
+           <div class="">
             <div class="table-wrapper">       
         <h2>Statement of Work Accomplishment</h2>
         <table class="table table-bordered">

@@ -216,162 +216,18 @@
         height: 100%;
       }
       
-      .btn-grad {
-        background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
-       width: 150px;
-       padding: 5px;
-       margin: 2px;
-        text-align: center;
-        transition: 0.5s;
-        font-size: 15px;
-        background-size: 200% auto;
-        color: white;            
-        box-shadow: 0 0 20px #eee;
-        border-radius: 10px;
-        display: block;
-      }
       
-      .btn-grad:hover {
-        background-position: right center; /* change the direction of the change here */
-        color: #fff;
-      }
       
-      .timeline{
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-        padding: 1rem;
-      }
-      .timeline-event{
-        display: flex;
-        position: relative;
-        min-height: 70px;
-      }
-      
-      .timeline-event:last-child.timeline{
-        min-height: 0;
-      }
-      
-      .timeline-content{
-        flex: 1;
-        padding:0 1rem;
-        
-      }
-      .timeline-point-track-container{
-        flex: 0;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        margin-bottom: -30px;
-      }
-      .timeline-point{
-        display: flex;
-        align-self: baseline;
-        border: 1px solid black;
-        border-radius: 50%;
-        width: 1rem;
-        height: 1rem;
-        margin-top: 30px;
-        background-color: white;
-      }
-      .timeline-track{
-        flex-grow: 1;
-        background-color: whitesmoke;
-        width: 2px;
-      }
-      .timeline-date{
-        font-size: 14px;
-        font-style: italic;
-        padding-left: 5px;
-      }
-      
-      .heighlight
-      {
-       background-color: rgb(21, 205, 21);
-       box-shadow: 0 4px 8px gray;
-      }
-      .heighlights
-      {
-       background-color: rgb(240, 8, 8);
-       box-shadow: 0 4px 8px gray;
-      }
-      
-      .cards {
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 10px;
-          box-shadow: 5px 0px 10px #000000;
-        background-color: #fff;
-        text-align: center; /* Center the content */
-        width: 50px; /* Set the width of the card */
-        height: 50px; /* Set the height of the card */
-        margin: 10px;
-      }
-      
-      .card{
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        background-color: #fff;
-        text-align: center; /* Center the content */
-        
-      }
-      .cardss{
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        margin: 10px;
-          border-radius: 20px;
-          box-shadow: 2px 0px 8px #000000;
-        background-color: #fff;
-        text-align: center; /* Center the content */
-        width: 100%;
-        
-      }
-      .card-image {
-        width: 370px;  /* Set the width of the image */
-        height: 250px; /* Set the height of the image */
-        object-fit: cover;
-        border-radius: 8px;
-        padding: 10px;
-
-      }
-      
-      .project-detail {
-        display: flex;
-        margin-top: -10px;
-        margin-left: -5px;
-        align-items: center;
-        font-size: 10px;
-        font-weight: bold;
-        
-      
-      }
       .project-details {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        margin: 10px;
-        
-      
-      }
-      .project-detailss {
-        
-       font-size: 20px;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-
+        align-items: start;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        margin: -15px;
         
       
       }
      
-      h2, p{
-        margin: -3px;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        
-      
-      }
       
       .mat-mdc-progress-bar.mat-accent{
        --mdc-linear-progress-active-indicator-color: #a30707;
@@ -379,4 +235,106 @@
       
       }
 
+      .mat-drawer{
+        width: 200px;
+      }
+      
+      .mat-drawer-container{
+        height: 100%;
+      }
+      
+      .timeline{
+        width: 100%;
+        margin: 100px auto;
+        position: relative;
+      }
+      
+      .container{
+        width: 50%;
+        position: relative;
+        padding: 10px 20px;
+      
+      }
+      
+      .container:nth-child(even){
+        right: -25%;
+      
+      }
+      .container:nth-child(odd){
+        right: 25%;
+      
+      }
+      .container:nth-child(even)::before{
+        content: "";
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        margin-top: 110px;
+        background: rgb(186, 5, 5);
+        top: 0;
+        left: -11.8px;
+        border-radius: 50%;
+        z-index: 10;
+      
+      }
+      .container:nth-child(odd)::before{
+        content: "";
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        background: rgb(186, 5, 5);
+        top: 0;
+        margin-top: 110px;
+        right: -8.5px;
+        border-radius: 50%;
+        z-index: 10;
+      
+      }
+      
+      .container img{
+        position: absolute;
+        width: 300px;
+        height: 220px;
+        border-radius: 10%;
+        right: 10px;
+        top: 10px;
+      
+        z-index: 10;
+      
+      }
+      
+      
+      .text-box{
+        padding: 20px 30px;
+        background: rgb(43, 42, 42);
+        position: relative;
+        border-radius: 10px;
+        font-size: 15px;
+        color: rgb(255, 255, 255);
+        height: 240px;
+        
+      }
+      .timeline::after{
+        content: "";
+        position: absolute;
+        right: 50%;
+        top: 0;
+        margin-top: 120px;
+        margin-bottom: -50px;
+        height: 50%;
+        width: 5px;
+        background: rgb(43, 42, 42);
+        border-radius: 50%;
+        animation: LineAnimated 3s linear forwards;
+      
+      }
+      @keyframes LineAnimated{
+        0%{
+          height: 0;
+        }
+        50%{
+          height: 50%;
+        }
+      }
+      
       
