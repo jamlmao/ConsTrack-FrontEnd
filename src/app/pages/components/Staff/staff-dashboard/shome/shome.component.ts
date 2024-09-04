@@ -170,6 +170,7 @@ export class ShomeComponent implements OnInit {
         console.log('Full response:', response);
         this.projects = response;
         console.log('Fetched projects:', this.projects); 
+       
       },
       error => {
         console.error('Error fetching projects', error);

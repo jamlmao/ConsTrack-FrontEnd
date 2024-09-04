@@ -45,7 +45,7 @@
                                             
                             
                                            <div class="cards project-item">
-                                                        <div class="project-details">
+                                                        <div class="project-detailss">
                                                             <span>
                                                                 {{task.id}}
                                                             </span>
@@ -139,7 +139,7 @@
                     <div class="table-wrapper">
                         <div class="table-title">
                             <div class="row">
-                                <div class="col-sm-6"><h1 style="font-weight: bold;">PROJECT DETAILS</h1></div>
+                                <div class="col-sm-10"><h1 style="font-weight: bold;">PROJECT DETAILS</h1></div>
                                
                                 <div class="col-sm-2">
                                     <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
@@ -147,104 +147,11 @@
                         *ngIf="isTaskOpen"  (close)="closeTaskModal()">
                 </app-addtask>
                                 </div>
-                                <div class="col-sm-2" (click)="selectProject(project)">
-                                    <h1>project timeline</h1>
-                                    
-                                </div>
+                               
                                 
                             </div>
                         </div>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th width="3%">ID</th>
-                                    <th width="4%">Item No.</th>
-                                    <th width="20%">Description</th>
-                                    <th width="10%">Project Actual Cost</th>
-                                    <th colspan="3" width="17%">Percentage of Accomplishment</th>
-                                    <th colspan="3" width="17%">Cost of Accomplishment</th>
-                                    <th width="5%"></th>
-
-                                    
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Previous</td>
-                                    <td>This Period</td>
-                                    <td>To Date</td>
-                                    <td>Previous</td>
-                                    <td>This Period</td>
-                                    <td>To Date</td>
-                                    
-                                </tr>
-                                  
-                                  
-                            </tbody>
-
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>General Requirements</td>
-                                    <td>1</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>
-                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                       
-                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>Site Works</td>
-                                    <td>1</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>
-                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                       
-                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>Architectural</td>
-                                    <td>1</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>100%</td>
-                                    <td>
-                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                        <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                       
-                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                    </td>
-                                </tr>
-                                  
-                            </tbody>
-                        </table>
+                        
                     </div>
                 </div> 
              
@@ -264,6 +171,7 @@
                         <th>Status</th>
                         <th>Photo</th>
                         <th>Document</th>
+                        <th width="5%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -285,6 +193,7 @@
                                 <a *ngIf="task.pt_file_task" [href]="'http://localhost:8000' + task.pt_file_task" target="_blank">View PDF</a>
                             </p>
                         </td>
+                        <td> <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -320,7 +229,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><div>60%</div><mat-progress-bar mode="determinate" value="60" [color]=""></mat-progress-bar></td>
+                        <td><div>60%</div><mat-progress-bar mode="determinate" value="60" color="accent"></mat-progress-bar></td>
                         <td>
                             <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
                             <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
