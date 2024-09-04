@@ -7,7 +7,7 @@
 }
 
 .timeline{
-  width: 1000px;
+  width: 100%;
   margin: 100px auto;
   position: relative;
 }
@@ -58,9 +58,10 @@
   position: absolute;
   width: 300px;
   height: 220px;
-  border-radius: 50%;
-  right: 0px;
-  top: 0px;
+  border-radius: 10%;
+  right: 10px;
+  top: 10px;
+
   z-index: 10;
 
 }
@@ -72,7 +73,7 @@
   border-radius: 10px;
   font-size: 15px;
   color: aliceblue;
-  height: 250px;
+  height: 240px;
   
 }
 .timeline::after{
