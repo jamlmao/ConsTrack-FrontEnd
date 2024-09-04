@@ -15,7 +15,9 @@ export class ProjectComponent implements OnInit {
 
   
   project: any = {
-    site_location: '',
+    site_city: '',
+    site_address: '',
+    project_name: '',
     client_id: '',
     completion_date: '',
     starting_date: '',
@@ -28,7 +30,7 @@ export class ProjectComponent implements OnInit {
   clients: any[] = [];
 
 
-  private apiUrl = 'http://127.0.0.1:8000/api/addproject';
+  private addUrl = 'http://127.0.0.1:8000/api/addproject';
   private clientsUrl = 'http://127.0.0.1:8000/api/clients';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
@@ -123,7 +125,7 @@ export class ProjectComponent implements OnInit {
       }
     }
 
-    this.http.post('http://127.0.0.1:8000/api/addproject', formData, { headers }).subscribe(
+    this.http.post(this.addUrl, formData, { headers }).subscribe(
       response => {
         console.log('Project added successfully', response);
       },

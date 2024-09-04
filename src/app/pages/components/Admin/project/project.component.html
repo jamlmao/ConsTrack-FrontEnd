@@ -1,7 +1,10 @@
 <h2>Add Project</h2>
 <form (ngSubmit)="onSubmit()">
-  <label for="site_location">Site Location:</label>
-  <input id="site_location" [(ngModel)]="project.site_location" name="site_location" type="text" required>
+  <label for="project_name">Project Name:</label>
+  <input id="project_name" [(ngModel)]="project.project_name" name="project_name" type="text" required>
+  <label >Site Location:</label>
+  <input id="site_address" [(ngModel)]="project.site_address" name="site_address" type="text" required>
+  <input id="site_city" [(ngModel)]="project.site_city" name="site_city" type="text" required="">
 
   <label for="client_id">Client:</label>
   <select id="client_id" [(ngModel)]="project.client_id" name="client_id" required>

@@ -28,7 +28,9 @@ export class CreateProjectComponent {
   }
   
   project: any = {
-    site_location: '',
+    site_city: '',
+    site_address: '',
+    project_name: '',
     client_id: '',
     completion_date: '',
     starting_date: '',

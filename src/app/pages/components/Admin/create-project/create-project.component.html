@@ -22,9 +22,17 @@
                     
                         
                     <div class="form-group input-group">
-                    <label for="site_location">Site Location:</label>
-                    <input class="form-control" id="site_location" [(ngModel)]="project.site_location" name="site_location" type="text" required>
+                        <label for="project_name">Project Name:</label>
+                        <input class="form-control" id="project_name" [(ngModel)]="project.project_name" name="project_name" type="text" required>
                     </div> 
+
+                    <div class = "form-group input-group">
+                        <label >Site Location:</label>
+                        <input class="form-control" id="site_address" [(ngModel)]="project.site_address" name="site_address"  placeholder="Address" type="text" required>
+                        <input class="form-control" id="site_city" [(ngModel)]="project.site_city" name="site_city" placeholder="City" type="text" required>
+                        
+                    </div>
+
 
                     <div class="form-group input-group"></div>
                     <label for="client_id">Client:</label>

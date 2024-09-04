@@ -11,7 +11,7 @@
             
             <div class="card bg-light">
             <article class="card-body mx-auto" style="max-width: 400px;">
-                <h4 class="card-title mt-3 text-center">Create Client Account</h4>
+                <h4 class="card-title mt-3 text-center">Add Client Account</h4>
                 <div class="text-center">
                     <img src="assets/cons.png"
                       style="width: 185px;" alt="logo">
@@ -97,10 +97,6 @@
                     <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">Valid Number</div>
                    
                  </div>
-                <div class="form-group input-group">
-                    <h4>Company Name:</h4>
-                    <input class="form-control" placeholder="Company_Name" type="company_name" id="company_name" [(ngModel)]="client.company_name" #companyControl="ngModel" name="company_name" required>
-                </div> <div *ngIf="companyControl.errors?.['required']" class="text-danger mb-3">Company name is required.*</div>
                 <div class="form-group input-group">
                     <h4>Phone Number:</h4>
                     <input class="form-control" placeholder="Phone_number" type="tel" id="phone_number" [(ngModel)]="client.phone_number" name="phone_number" #noControl="ngModel" min="0" step="1" data-bind="value:replyNumber" required>
