@@ -45,11 +45,20 @@ export class ProjectDetailsComponent {
   events: any[] = [];
   tasks: any[] = [];
   sortedTask: any[] = [];
+  totalAllocatedBudgetPerCategory:any[] = [];
+  totalAllocatedBudget: number = 0;
+  percentage: number = 0;
+  previousCost: number = 0;
+  thisperiodCost: number = 0;
+  toDateCost: number = 0;
   projectId: string ="";
   taskImages: { [taskId: number]: string } = {};
   private TaskUrl = 'http://127.0.0.1:8000/api/projectsTasks/'; 
   private SortedUrl ='http://127.0.0.1:8000/api/sortedTask/'
   private ImageUrl = 'http://127.0.0.1:8000/api/PtImages/';
+  private taskByCategoryUrl = 'http://127.0.0.1:8000/api/tasksBycategory/';
+
+
 
   categories: string[] = [
     'GENERAL REQUIREMENTS',
@@ -67,7 +76,7 @@ export class ProjectDetailsComponent {
     'ARCHITECTURAL'
   ];
   categorizedTasks: { [key: string]: any[] } = {};
-
+  SortedTask: any = {};
 
   ngOnInit(){
    
@@ -79,6 +88,7 @@ export class ProjectDetailsComponent {
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
         this.fetchSortedTask(projectIdNumber);
+        this.fetchTaskByCategory(projectIdNumber);
       } else {
         console.error('Project ID is not set or is not a number');
       }
@@ -195,6 +205,9 @@ export class ProjectDetailsComponent {
         this.tasks = response.tasks;
         Swal.close();
         console.log('Project tasks:', this.tasks);
+        this.totalAllocatedBudget = response.totalAllocatedBudget;
+        console.log('Total Allocated Budget:', this.totalAllocatedBudget);
+       
        
       },
       (error) => {
@@ -203,6 +216,33 @@ export class ProjectDetailsComponent {
     );
   }
 
+
+    
+
+  fetchTaskByCategory(projectId: number) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.taskByCategoryUrl + `${projectId}`, { headers }).subscribe(
+    (response: any) => {
+      if (response && response.totalAllocatedBudgetPerCategory) {
+        this.SortedTask = response.totalAllocatedBudgetPerCategory;
+        console.log('Budget:', this.SortedTask);
+      
+        
+        
+      } else {
+        console.error('tasks not found in the response');
+      }
+    }
+    );
+  }
   
  
 

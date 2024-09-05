@@ -96,7 +96,7 @@
 
                     <th width="4%">Item No.</th>
                     <th width="20%">Description</th>
-                    <th width="10%">Cost</th>
+                    <th width="10%">Project Actual Cost</th>
                     <th width="8%">Previous</th>
                     <th width="8%">This Period</th>
                     <th width="8%">To Date</th>
@@ -109,11 +109,14 @@
                     <tr>
                         <td>{{ toRoman(i + 1) }}</td>
                         <td>{{ category }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><div>60%</div><mat-progress-bar mode="determinate" value="60" color="accent"></mat-progress-bar></td>
+                        <td>{{ SortedTask[category]?.totalAllocatedBudget || '-'}}</td>
+                        <td>{{ SortedTask[category]?.previousCost || '-' }}</td>
+                        <td>{{ SortedTask[category]?.thisPeriodCost || '-' }}</td>
+                        <td>{{ SortedTask[category]?.toDateCost || '-' }}</td>
+                        <td>
+                            <div>{{ SortedTask[category]?.percentage || 0 }}%</div>
+                            <mat-progress-bar mode="determinate" [value]="SortedTask[category]?.percentage || 0" color="accent"></mat-progress-bar>
+                        </td>
                         <td>
                             <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
                             <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
@@ -130,9 +133,15 @@
                             <td>{{ task.pt_this_period || '-' }}</td>
                             <td>{{ task.pt_to_date || '-' }}</td>
                             <td>{{ task.pt_percentage_accomplishment || '-' }}</td>
+                            
                         </tr>
                     </ng-container>
                 </ng-container>
+                <tr>
+                    <td colspan="4"><strong>TOTAL</strong></td>
+                    <td><strong>{{ totalAllocatedBudget }}</strong></td>
+                    <td colspan="3"></td>
+                </tr>
             </tbody>
         </table>
         
