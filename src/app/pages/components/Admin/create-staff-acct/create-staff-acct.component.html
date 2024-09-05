@@ -55,21 +55,34 @@
                   
                   </div>
                   <div class="col-md-6">
-                    <label for="example-text-input" class="form-control-label"
-                      >First name</label
-                    >
-                    <input class="form-control" placeholder="First Name" type="first_name" id="first_name" [(ngModel)]="staff.first_name" name="first_name" #fnameControl="ngModel" required>
-                <div *ngIf="fnameControl.errors?.['required']" class="text-danger mb-3">First name is required.*</div>
+                      <label for="example-text-input" class="form-control-label"
+                        >First name</label
+                      >
+                      <input class="form-control" placeholder="First Name" type="first_name" id="first_name" [(ngModel)]="staff.first_name" name="first_name" #fnameControl="ngModel" required>
+                      <div *ngIf="fnameControl.errors?.['required']" class="text-danger mb-3">First name is required.*</div>
                   </div>
                   <div class="col-md-6">
                     <label for="example-text-input" class="form-control-label"
                       >Last name</label
                     >
                     <input class="form-control" placeholder="Last Name" type="last_name" id="last_name" [(ngModel)]="staff.last_name" name="last_name" #lnameControl="ngModel" required>
-                 <div *ngIf="lnameControl.errors?.['required']" class="text-danger mb-3">Last name is required.*</div>
+                 <div *ngIf="lnameControl.errors?.['required']" class="text-danger mb-3">Last name is required.*</div></div>
 
-                 
+                 <div class="col-md-6">
+                    <label for="example-text-input" class="form-control-label"
+                      >Title Name:</label
+                    >
+                    <input class="form-control" placeholder="Engineer or Architect" type="extension_name" id="extension_name" [(ngModel)]="staff.extension_name" name="extension_name" #fnameControl="ngModel" >
+                </div>
+                
+                <div class="col-md-6" *ngIf="staff.extension_name">
+                  <label for="license-number-input" class="form-control-label">License Number:</label>
+                  <input class="form-control" placeholder="Enter License Number" type="text" id="license_number" [(ngModel)]="staff.license_number" name="license_number" #licenseControl="ngModel" required>
+                  <div *ngIf="licenseControl.invalid && (licenseControl.dirty || licenseControl.touched)" class="text-danger">
+                    License number is required.
                   </div>
+                </div>
+
                   <div class="col-md-6">
                     <label for="example-text-input" class="form-control-label"
                       >Sex</label
