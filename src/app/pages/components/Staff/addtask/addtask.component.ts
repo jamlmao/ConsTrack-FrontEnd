@@ -163,7 +163,7 @@ export class AddtaskComponent {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Error adding project. Something went wrong!",
+          text: "Error adding project. might be over the total budget",
         });
       });
     }

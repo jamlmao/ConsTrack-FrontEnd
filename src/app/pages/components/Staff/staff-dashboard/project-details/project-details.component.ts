@@ -47,7 +47,7 @@ export class ProjectDetailsComponent {
   sortedTask: any[] = [];
   projectId: string ="";
   taskImages: { [taskId: number]: string } = {};
-  private TaskUrl = 'http://127.0.0.1:8000/api/projectsTasks/';
+  private TaskUrl = 'http://127.0.0.1:8000/api/projectsTasks/'; 
   private SortedUrl ='http://127.0.0.1:8000/api/sortedTask/'
   private ImageUrl = 'http://127.0.0.1:8000/api/PtImages/';
 
@@ -70,14 +70,7 @@ export class ProjectDetailsComponent {
 
 
   ngOnInit(){
-    this.events=[
-      {content: '1ST WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
-      {content: '2ND WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'R'},
-      {content: '3RD WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
-      {content: '4TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: 'N'},
-      {content: '5TH WEEK', date: '05/12/1212',details: 'lot is prepared in the construction site', status: ''},
-
-    ]
+   
 
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; // Assuming 'projectId' is the parameter name
