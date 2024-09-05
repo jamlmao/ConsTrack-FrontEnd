@@ -224,6 +224,7 @@
         align-items: start;
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         margin: -15px;
+
         
       
       }
@@ -245,7 +246,7 @@
       
       .timeline{
         width: 100%;
-        margin: 100px auto;
+       margin-top: -60px;
         position: relative;
       }
       
@@ -269,7 +270,7 @@
         position: absolute;
         height: 20px;
         width: 20px;
-        margin-top: 110px;
+        margin-top: 220px;
         background: rgb(186, 5, 5);
         top: 0;
         left: -11.8px;
@@ -284,20 +285,31 @@
         width: 20px;
         background: rgb(186, 5, 5);
         top: 0;
-        margin-top: 110px;
+        margin-top: 220px;
         right: -8.5px;
         border-radius: 50%;
         z-index: 10;
       
       }
       
-      .container img{
+      .task{
         position: absolute;
         width: 300px;
         height: 220px;
         border-radius: 10%;
         right: 10px;
         top: 10px;
+      
+        z-index: 10;
+      
+      }
+      .update{
+        position: absolute;
+        width: 300px;
+        height: 220px;
+        border-radius: 10%;
+        right: 10px;
+        top: 240px;
       
         z-index: 10;
       
@@ -311,7 +323,7 @@
         border-radius: 10px;
         font-size: 15px;
         color: rgb(255, 255, 255);
-        height: 240px;
+        height: 470px;
         
       }
       .timeline::after{
@@ -319,13 +331,13 @@
         position: absolute;
         right: 50%;
         top: 0;
-        margin-top: 120px;
+        margin-top: 230px;
         margin-bottom: -50px;
-        height: 50%;
+        height: 75%;
         width: 5px;
+        border-radius: 100px;
         background: rgb(43, 42, 42);
-        border-radius: 50%;
-        animation: LineAnimated 3s linear forwards;
+        animation: LineAnimated 10s linear forwards;
       
       }
       @keyframes LineAnimated{
@@ -337,4 +349,43 @@
         }
       }
       
+      
+      .timeline-point-track-container{
+        flex: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: -10px;
+        margin-left: 5px;
+      }
+      .timeline-point{
+        display: flex;
+        align-self: baseline;
+        border: 1px solid black;
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
+        background-color: white;
+      }
+      .timeline-track{
+        flex-grow: 1;
+        background-color: whitesmoke;
+        width: 2px;
+      }
+      .timeline-date{
+        font-size: 14px;
+        font-style: italic;
+        padding-left: 5px;
+      }
+      
+      .heighlight
+      {
+       background-color: rgb(21, 205, 21);
+       box-shadow: 0 4px 8px gray;
+      }
+      .heighlights
+      {
+       background-color: rgb(240, 8, 8);
+       box-shadow: 0 4px 8px gray;
+      }
       
