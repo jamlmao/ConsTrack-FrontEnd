@@ -4,7 +4,8 @@ import { FormGroup, FormsModule, RequiredValidator,ReactiveFormsModule, FormBuil
 import { RouterOutlet, Router, RouterModule,ActivatedRoute } from '@angular/router';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faYoutube,  } from '@fortawesome/free-brands-svg-icons';
+import { faPlus,faTrashAlt,faAdd } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
@@ -24,6 +25,10 @@ export class AddtaskComponent {
   @Input() projectId: string | null = null;
   @Output() close = new EventEmitter<void>();
 
+  faTrashAlt = faTrashAlt;
+  faPlus = faAdd;
+
+
   private baseUrl = 'http://127.0.0.1:8000/api/addtask/';
   apiUrl: string ='';
 
@@ -35,7 +40,8 @@ export class AddtaskComponent {
     pt_file_task: '',
     pt_allocated_budget: '',
     pt_task_desc: '',
-    project_id: ''
+    project_id: '',
+    resources: []
   };
   
   categories: string[] = [
@@ -72,27 +78,15 @@ export class AddtaskComponent {
       });
     }
 
-    addTask(): void {
-      if (!this.projectId) {
-        console.error('Project ID is not set');
-        return;
-      }
-  
-      // Set the project_id in the task object
-      this.task.project_id = this.projectId;
-  
-      // Example payload for the POST request
-      const payload = this.task;
-  
-      this.http.post(this.apiUrl, payload).subscribe(response => {
-        console.log('Task added successfully', response);
-        Swal.fire('Success', 'Task added successfully', 'success');
-        this.close.emit();
-      }, error => {
-        console.error('Error adding task', error);
-        Swal.fire('Error', 'Error adding task', 'error');
-      });
+    addResource() {
+      this.task.resources.push({ resource_name: '', qty: null, unit_cost: null });
     }
+  
+    removeResource(index: number) {
+      this.task.resources.splice(index, 1);
+    }
+
+    
     
 
     getAddTaskUrl(projectId: string): string {
@@ -140,6 +134,9 @@ export class AddtaskComponent {
 
       // Example payload for the POST request
       const payload = this.task;
+      console.log('Task payload:', payload);
+      
+      console.log('Token:', token);
 
       this.http.post(this.apiUrl, payload, {
         headers: {
@@ -163,7 +160,7 @@ export class AddtaskComponent {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Error adding project. might be over the total budget",
+          text: "Error adding project. over the budget",
         });
       });
     }

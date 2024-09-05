@@ -30,10 +30,6 @@
                 <app-addtask 
                         *ngIf="isTaskOpen"  (close)="closeTaskModal()">
                 </app-addtask>
-                <button (click)="openGeneralModal()"  type="button"  class="btn-grad btn-outline-dark">Add Material</button>
-                <app-general 
-                        *ngIf="isGeneralOpen"  (close)="closeGeneralModal()">
-                </app-general>
                                 </div>
                                
                                 

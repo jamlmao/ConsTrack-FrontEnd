@@ -57,6 +57,9 @@ export class GeneralComponent {
       formGroup.get('ischecked')?.setValue(checkVal);
     });
   }
+
+
+  
   onStatusChange(event:any, index: number) {
     debugger
     if(event.target.value == 'deactive'){
