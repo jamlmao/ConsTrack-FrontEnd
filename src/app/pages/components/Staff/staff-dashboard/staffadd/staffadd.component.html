@@ -6,6 +6,8 @@
     <mat-drawer-content>
         
         <router-outlet></router-outlet>
+
+        
         <div class="row">
             <div class="container-fluid align-items-center">
 
@@ -15,12 +17,14 @@
                 </div>
                 <div class="align-items-center">         
                 </div>
+                
                   
                 <div class="col-12 col-xl-6">
                     
                     
                   </div>
                 </div>
+
           
                 <div class="col-12 col-xl-12">
                   <div class="card card-plain h-100">
@@ -64,11 +68,11 @@
               </div>
               <div class="card-body px-0 pb-2">
                 <div class="table-responsive">
-                  <table class="table align-items-center mb-0">
+                  <table class="table align-items-center mb-0"  id="myTable">
                     <thead>
                       <tr>
-                        <th class=" text-secondary text-xs font-weight-bolder opacity-7">Site Location</th>
-                        <th class=" text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Client Name</th>
+                        <th class=" text-secondary text-xs font-weight-bolder opacity-7">#</th>
+                        <th class=" text-center text-secondary text-xxs font-weight-bolder opacity-7">Client Name</th>
                         <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">Contact Number</th>
                         <th class="text-center text text-secondary text-xxs font-weight-bolder opacity-7">Starting Date</th>
                         <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">Completion Date</th>
@@ -78,21 +82,14 @@
                         <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">View</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let project of projects | filter:searchText" (click)="selectProject(project)">
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">{{ project.site_location }}</h6>
-                            </div>
-                          </div>
+                    <tbody >
+                      <tr *ngFor="let project of projects | filter:searchText; let i = index" (click)="selectProject(project)">
+                       
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ i ++ 1}} </span>
                         </td>
-                        <td>
-                          <div class="avatar-group mt-2">
-                            <h6 class="mb-0 text-sm">{{ project.client.first_name }} {{ project.client.last_name }}</h6>
-                            
-                          </div>
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ project.client.first_name }} {{ project.client.last_name }} </span>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="mb-0 text-sm"> {{ project.client.phone_number }} </span>
@@ -109,7 +106,7 @@
                         <td class="align-middle text-center text-sm">
                           <span class="mb-0 text-sm"> {{ project.status }} </span>
                         </td>
-                        <td class="align-middle">
+                        <td class="align-middle text-center text-sm">
                           <button  mat-fab class="btn-grad1">View</button>
                         </td>
                         
@@ -124,28 +121,7 @@
           </div>
           
         </div>
-        <footer class="footer py-4  ">
-          <div class="container-fluid">
-            <div class="row align-items-center justify-content-lg-between">
-              
-              <div class="col-lg-6">
-                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                 
-                  <li class="nav-item">
-                    <a href="" class="nav-link text-muted" target="_blank">About Us</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="" class="nav-link text-muted" target="_blank">Blog</a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </footer>
-          
+        
             
                 
                 <router-outlet></router-outlet>
