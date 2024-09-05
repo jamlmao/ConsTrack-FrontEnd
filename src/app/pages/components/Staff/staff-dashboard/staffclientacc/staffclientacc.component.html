@@ -29,14 +29,14 @@
                                 
                             </div>
                         </div>
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="myTable">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Phone</th>
                                     <th>Address</th>
-                                    <th>Company</th>
                                     <th>Status</th>
                                     <th>Actions</th>
 
@@ -44,11 +44,11 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let client of clients">
+                                    <td>{{ client }}</td>
                                     <td>{{ client.id }}</td>
                                     <td>{{ client.first_name }}, {{ client.last_name }}</td>
                                     <td>{{ client.phone_number }}</td>
                                     <td>{{ client.address }}, {{ client.city }}</td>
-                                    <td>{{ client.company_name }}</td>
                                     <td>{{ client.project_status }}</td>
                                     <td>
                                         <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
@@ -63,6 +63,12 @@
                                   
                             </tbody>
                         </table>
+                        <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>
+                        
                     </div>
                 </div>    
                
@@ -72,7 +78,16 @@
             </div>
 
            </section>
-        
+           <script>
+            var table=document.getElementById('myTable');
+            var rows=table.getElementsByTagName('tr');
+            var seq=1;
+            for(var i=1;i<rows.length;i++){
+                var cell=document.createElement('td');
+                cell.textContent=seq++;
+                rows[i].insertBefore(cell,rows[i].firstChild);
+            }
+        </script>
             
 
                 
