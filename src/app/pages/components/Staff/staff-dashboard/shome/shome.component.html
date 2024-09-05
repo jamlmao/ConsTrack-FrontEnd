@@ -106,6 +106,21 @@
                   </div>
                 </div>
               </div>
+              <div class="col-lg-4 mt-4 mb-3">
+                <div class="card z-index-2 ">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                    <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                      <div class="chart">
+                        <canvas id="myChart"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h6 class="mb-0 ">Completed/Ongoing Project</h6>
+                    <hr class="dark horizontal">
+                  </div>
+                </div>
+              </div>
               <div class="col-lg-4 col-md-6 mt-4 mb-4">
                 <div class="card z-index-2  ">
                   <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
@@ -122,21 +137,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 mt-4 mb-3">
-                <div class="card z-index-2 ">
-                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                    <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                      <div class="chart">
-                        <canvas id="myChart"></canvas>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <h6 class="mb-0 ">Completed Tasks</h6>
-                    <hr class="dark horizontal">
-                  </div>
-                </div>
-              </div>
+              
             </div>
             <div class="row mb-4">
               <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
@@ -164,13 +165,13 @@
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progress</th>
                           </tr>
                         </thead>
-                        <tbody *ngFor="let project of projects">
+                        <tbody *ngFor="let project of projects; let i = index;">
                           <tr>
                             <td>
                               <div class="d-flex px-2 py-1">
                                 
                                 <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm" style="text-transform: capitalize;">{{ project.site_address }},{{ project.site_city }}</h6>
+                                  <h6 class="mb-0 text-sm" style="text-transform: capitalize;">{{ i ++ 1 }}</h6>
                                 </div>
                               </div>
                             </td>

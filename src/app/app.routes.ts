@@ -26,6 +26,7 @@ import { TimelineComponent } from './pages/components/Staff/staff-dashboard/time
 import { ClientprofileComponent } from './pages/components/Client/client-dashboard/clientprofile/clientprofile.component';
 import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
 import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
+import { TaskdetailsComponent } from './pages/components/Staff/staff-dashboard/taskdetails/taskdetails.component';
 
 
 
@@ -160,6 +161,11 @@ export const routes: Routes = [
     {
         path: 'project-details/:projectId',
         component: ProjectDetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'task-details/:taskId',
+        component: TaskdetailsComponent,
         canActivate: [AuthGuard]
     },
     {

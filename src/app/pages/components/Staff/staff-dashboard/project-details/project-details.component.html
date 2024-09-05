@@ -23,14 +23,23 @@
                     <div class="table-wrapper">
                         <div class="table-title">
                             <div class="row">
-                                <div class="col-sm-10"><h1 style="font-weight: bold;">PROJECT DETAILS</h1></div>
-                               
-                                <div class="col-sm-2">
-                                    <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
-                <app-addtask 
-                        *ngIf="isTaskOpen"  (close)="closeTaskModal()">
-                </app-addtask>
+                                <div class="col-6">
+                                    <h1 style="font-weight: bold; margin: 40px; margin-left: 110px;">PROJECT DETAILS</h1>
+                                    <div class="m-4">
+                                    <h3>Building Type:</h3>
+                                    <h3>Location:</h3>
+                                    <h3>Total Budget:</h3>
+                                    <h3>Target Date Completion:</h3>
+                                    </div>
+
                                 </div>
+                                <div class="col-6">
+                                    
+                                    <img src="assets/bg.jpg" alt="" class="project">
+                                </div>
+
+                               
+                               
                                
                                 
                             </div>
@@ -54,11 +63,11 @@
                         <th>Allocated Budget</th>
                         <th>Status</th>
                         <th>Document</th>
-                        <th width="5%">Action</th>
+                        <th width="7%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let task of tasks">
+                    <tr *ngFor="let task of tasks" (click)="selecttask(task)">
                         <td>{{ task.pt_task_name }}</td>
                         <td>{{ task.pt_task_desc }}</td>
                         <td>{{ task.pt_starting_date }}</td>
@@ -70,7 +79,7 @@
                                 <a *ngIf="task.pt_file_task" [href]="'http://localhost:8000' + task.pt_file_task" target="_blank">View PDF</a>
                             </p>
                         </td>
-                        <td> <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a></td>
+                        <td><button class="btn-grad1 btn-outline-dark">View</button> </td>
                     </tr>
                 </tbody>
             </table>
@@ -80,8 +89,16 @@
            
 
            <div class="containers">
-            <div class="table-wrapper">       
-        <h2>Statement of Work Accomplishment</h2>
+            <div class="table-wrapper">
+                <div class="row">
+                <div class="col-sm-10">      
+        <h2>Statement of Work Accomplishment</h2></div> 
+        <div class="col-sm-2">
+            <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
+<app-addtask 
+*ngIf="isTaskOpen"  (close)="closeTaskModal()">
+</app-addtask></div>
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -157,76 +174,7 @@
     </div>
 
        </div>
-       <div class="row">
-        <div class="title">
-                    
-          
-            <h1><span>Project</span> Timeline</h1>
-
-        </div>
-        
-        
-        <div class="timeline" >
-            
-            
-            <div class="container" *ngFor="let task of tasks">
-              
-              <div class="text-box">
-
-                
-                <img [src]="'http://localhost:8000' + task.update_img" alt="" class="update">
-                <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="" class="task">
-
-                
-                
-                
-              
-                    <div class="project-details">
-                        <span>Starting Date:</span>
-                           <span style="margin-bottom: 30px; margin-left: 20px;">{{ task.pt_starting_date }}
-                        </span> 
-                        <span>Completion Date: </span>
-                        <span style="margin-bottom: 40px; margin-left: 20px;">{{ task.pt_completion_date }}
-                     </span> 
-
-                        <span>Task Name:</span>
-                           <span style="margin-bottom: 2px; margin-left: 20px;">{{task.pt_task_name}}
-                        </span> 
-
-                        <span>Task Description:</span>
-                           <span style="margin-bottom: 2px; margin-left: 20px;">{{task.pt_task_desc}}
-                        </span> 
-                       
-                        
-                        
-                        <span>Allocated Budget: </span>
-                            <span style="margin-bottom: 50px; margin-left: 20px;">{{ task.pt_allocated_budget }}
-                        </span>
-                        
-                        
-                        <span>Completion Date: </span>
-                           <span style="margin-bottom: 40px; margin-left: 20px;">{{ task.pt_completion_date }}
-                        </span> 
-
-                        <span>Status: </span>
-                           <span style="margin-bottom: 2px; margin-left: 20px;">{{ task.pt_status }}
-                            
-                        </span> 
-                        
-                        
-
-                   
-                        
-                    </div>
-                    
-                   
-                
-              </div>
-            </div>
-            
-          </div>
-
-    </div>
+       
           
             
         

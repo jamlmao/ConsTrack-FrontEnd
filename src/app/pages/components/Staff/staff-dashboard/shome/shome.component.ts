@@ -231,12 +231,12 @@ export class ShomeComponent implements OnInit {
           var myChart = new Chart('myChart',{  
             type: 'pie',
             data:{
-              labels: ['jan'],
+              labels: ['Done', 'Ongoing'],
               datasets: [
               {
                 label: 'Projects',
-                data: [this.projectCount],
-                backgroundColor: 'maroon',
+                data: [this.projectCount, 1],
+                backgroundColor: ['maroon', 'black'],
               },
             ],
         

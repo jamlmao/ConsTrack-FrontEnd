@@ -179,6 +179,7 @@ export class ProjectDetailsComponent {
     this.router.navigate(['/timeline', project.id]);
   }
 
+  
 
   fetchProjectTasks(projectId: number) {
     const token = localStorage.getItem('token');
@@ -216,6 +217,7 @@ export class ProjectDetailsComponent {
     );
   }
 
+  
 
     
 
@@ -317,6 +319,8 @@ export class ProjectDetailsComponent {
     }
   }
   
- 
+  selecttask(task: any) {
+    this.router.navigate(['/task-details', task.id]);
+  }
  
 }
