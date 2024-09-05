@@ -23,6 +23,7 @@ export class CreateStaffAcctComponent implements OnInit {
       @Output() close = new EventEmitter<void>();
 
       staff: StaffObj;
+      private registerStaffUrl = 'http://127.0.0.1:8000/api/registerS';
 
       constructor(private http: HttpClient) {
         this.staff = new StaffObj();
@@ -56,7 +57,7 @@ export class CreateStaffAcctComponent implements OnInit {
           return;
         }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        this.http.post('http://127.0.0.1:8000/api/registerS', this.staff, { headers }).subscribe(
+        this.http.post(this.registerStaffUrl, this.staff, { headers }).subscribe(
           response => {
             console.log('Staff created successfully', response);
             Swal.fire({
@@ -93,6 +94,8 @@ export class StaffObj {
   zipcode: string;
   company_name: string;
   phone_number: string;
+  extension_name: string;
+  license_number: string;
   
   constructor(){
     this.email = '';
@@ -100,6 +103,8 @@ export class StaffObj {
     this.first_name = '';
     this.last_name = '';
     this.name = '';
+    this.extension_name = '';
+    this.license_number = '';
     this.sex='';
     this.address='';
     this.city='';
