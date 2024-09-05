@@ -1,144 +1,66 @@
-
 <app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
 <mat-drawer-container>
-
     <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-staffsidenav></app-staffsidenav>
     </mat-drawer>
     <mat-drawer-content>
+        
         <router-outlet></router-outlet>
-        
-           <section class="">
-            <div class="containers">
+        <div class="row">
+            <div class="container-fluid align-items-center">
+
                 <div class="title">
-                    <p>Welcome to your Project</p>
-                    <h1><span>PROJECT</span> DOCUMENTS</h1>
-
+                    <p>Welcome to your Projects</p>
+                    <h1><span>PROJECT</span> LISTS</h1>      
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-
+                <div class="align-items-center">         
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-
+                  
+                <div class="col-12 col-xl-6">
+                    
+                    
+                  </div>
                 </div>
-                
-                
 
-            </div>
-
-           </section>
-        
             
+          
+         
+          
+          
+        </div>
+        
 
+        
+        
+
+            
+        <div class="projects-container" style="margin-top: -20px;">
+            
+            
+            <div *ngFor="let project of projects | filter:searchText" class="cards project-item" (click)="selectProject(project)">
+                <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
+                <div class="project-details">
+                    <p><strong>Site Location:</strong> {{ project.site_location }}</p>
+                    <p><strong>Client Name:</strong> {{ project.client.first_name }} {{ project.client.last_name }}</p>
+                    <p><strong>Contact Number:</strong> {{ project.client.phone_number }}</p>
+                    <p><strong>Starting Date:</strong> {{ project.starting_date }}</p>
+                    <p><strong>Completion Date:</strong> {{ project.completion_date }}</p>
+                    <p><strong>Total Budget:</strong> {{ project.totalBudget }}</p>
+                    <p><strong>Project PDF:</strong>
+                        <a *ngIf="project.pj_pdf" [href]="'http://localhost:8000' + project.pj_pdf" target="_blank">View PDF</a></p>
+                    <button class="btn-grad btn-outline-dark">Add Task</button>
+                </div>
                 
-          
-
+            </div>
+        </div>
        
+        <div class="projects-container">
+            
+        </div>
           
+            
+                
+                <router-outlet></router-outlet>
             
         
         <router-outlet></router-outlet>

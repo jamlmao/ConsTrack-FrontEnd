@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -25,11 +25,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from '../../../../../filter.pipe';
 
 import { take, tap } from 'rxjs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-staffadd',
   standalone: true,
-  imports: [FilterPipe,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent],
+  imports: [MatPaginator,MatPaginatorModule,FilterPipe,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent],
   templateUrl: './staffadd.component.html',
   styleUrl: './staffadd.component.css'
 })
@@ -40,11 +43,8 @@ export class StaffaddComponent {
   user: any;
 
   isCreateProjectModalOpen = false;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
-  
-  
-  private fetchClientUrl = 'http://127.0.0.1:8000/api/clients';
   
   clients: any[] = [];
   isCreateClientModalOpen = false;
@@ -53,9 +53,8 @@ export class StaffaddComponent {
 
   
 
-
   
-  
+  dataSource = new MatTableDataSource<any>();
   
 
 
@@ -76,7 +75,7 @@ export class StaffaddComponent {
 
   ngOnInit(): void {
     
-    this.fetchClients(); // Fetch clients when the component is initialized
+  
     
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -129,55 +128,11 @@ export class StaffaddComponent {
 
 
   
-  fetchClients(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
   
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  
-    this.http.get<any>(this.fetchClientUrl, { headers })
-    .pipe(
-      tap(response => {
-        console.log('Full response:', response);
-        if (response && Array.isArray(response.clients)) {
-          // Filter out duplicate clients based on the 'id' property
-          const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
-            index === self.findIndex((c) => c.id === client.id)
-          );
-          this.clients = uniqueClients;
-        } else {
-          console.error('Unexpected response format:', response);
-          this.clients = [];
-        }
-        console.log('Fetched clients:', this.clients);
-      }),
-      take(1) // This will ensure the observable completes after the first emission
-    )
-    .subscribe(
-      () => {},
-      error => {
-        console.error('Error fetching clients:', error);
-      }
-    );
-  }
 
   
 
-  openCreateClientModal() {
-    this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
-  }
 
-  closeCreateClientModal() {
-    this.isCreateClientModalOpen = false;
-    console.log('xd');
-  }
   openEditModal() {
     this.isEditModalOpen = true;
     console.log('Opening Edit Modal');
@@ -226,6 +181,7 @@ export class StaffaddComponent {
       (response: any) => {
         this.projects = response;
         console.log('Fetched projects:', this.projects);
+        this.project.paginator = this.paginator;
       },
       error => {
         console.error('Error fetching projects', error);
