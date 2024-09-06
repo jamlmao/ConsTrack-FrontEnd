@@ -10,83 +10,98 @@
             
             
             <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 400px;">
-                <div class="text-center">
-                    <img src="assets/cons.png"
-                      style="width: 185px;" alt="logo">
-                    <h1 class="mt-1 mb-5 pb-1">We are The Constract Team</h1>
-                    
-                    <h1 class="mt-1 mb-5 pb-1">Task</h1>
-                  </div>
-               
-                  <form (ngSubmit)="onSubmit()">
-
-                    
+            <article class="card-body mx-auto" style="max-width: 550px;">
+              <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+                <div class="">
+                      
+                    <div class="row">
                         
-                <div class="form-group input-group">
-                    <label for="pt_task_name">Task Name:</label>
-                    <input class="form-control" id="pt_task_name" [(ngModel)]="task.pt_task_name" name="pt_task_name" type="text" required>
-                </div> 
-
-                <div class="form-group input-group">
-                  <label for="pt_task_desc">Task Category:</label>
-                  <select class="form-control" id="pt_task_desc" name="pt_task_desc" [(ngModel)]="task.pt_task_desc" required>
-                    <option value="" disabled selected>Select a category</option>
-                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-                  </select>
-                </div>
-                  
-                    
-                  
-                <div class="form-group input-group">
-                    <label for="pt_starting_date">Starting Date:</label>
-                    <input class="form-control" id="pt_starting_date" name="pt_starting_date" [(ngModel)]="task.pt_starting_date" type="date" required>
-                </div>
-                <div class="form-group input-group">
-                    <label for="pt_completion_date">Completion Date:</label>
-                    <input class="form-control" id="pt_completion_date"[(ngModel)]="task.pt_completion_date"   name="pt_completion_date" type="date" required>
-                </div>
-                
-              
-               <div class="form-group input-group">
-                  <label for="pt_photo_task">Task Image:</label>
-                  <input class="form-control" type="file" (change)="onFileChange($event, 'pt_photo_task')">
-               </div>
-                  <div class="form-group input-group">
-                  <label for="pt_file_task">Task Document:</label>
-                  <input class="form-control" type="file" (change)="onFileChange($event, 'pt_file_task')">
-               </div>
-
-
-                <div class="form-group">
-                  <label for="resources">Resources:</label>
-                  <div id="resources-container">
-                      <div class="resource-item" *ngFor="let resource of task.resources; let i = index" class="d-flex align-items-center mb-2">
-                          <input class="form-control mr-2" type="text" placeholder="Resource Name" [(ngModel)]="resource.resource_name" name="resource_name_{{i}}" required>
-                          <input class="form-control mr-2" type="number" placeholder="Quantity" [(ngModel)]="resource.qty" name="qty_{{i}}" required>
-                          <input class="form-control mr-2" type="number" placeholder="Unit Cost" [(ngModel)]="resource.unit_cost" name="unit_cost_{{i}}" required>  per unit
-                          <button type="button" class="btn btn-danger" (click)="removeResource(i)">
-                            <span class="material-icons">delete</span>
-                          </button>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Task Name:</label
+                        >
+                        <input placeholder="Task Name" class="form-control" type="text" id="pt_task_name" [(ngModel)]="task.pt_task_name" name="pt_task_name" #nameControl="ngModel" required>
+                   
                       </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Task Category:</label
+                        >
+                        <select class="form-control" id="pt_task_desc" name="pt_task_desc" [(ngModel)]="task.pt_task_desc" #emailControl="ngModel" required>
+                          <option value="" disabled selected>Select a category</option>
+                          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                        </select>
+                        
+                    
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Starting Date:</label
+                        >
+                        <input placeholder="Task Name" class="form-control" type="date" id="pt_task_name" [(ngModel)]="task.pt_starting_date" name="pt_task_name" #nameControl="ngModel" required>
+                    
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Completion Date:</label
+                        >
+                        <input placeholder="Task Name" class="form-control" type="date" id="pt_completion_date" [(ngModel)]="task.pt_completion_date" name="pt_completion_date" #comControl="ngModel" required>
+                    
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Task Image:</label
+                        >
+                        <input placeholder="Task Name" class="form-control" type="file" (change)="onFileChange($event, 'pt_photo_task')" required>
+                    
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Task Document:</label
+                        >
+                        <input placeholder="Task Name" class="form-control" type="file" (change)="onFileChange($event, 'pt_file_task')" required>
+                    
+                      </div>
+                      <div class="form-group">
+                        <label for="resources" class="form-control-label">Resources:</label>
+                        <div id="resources-container">
+                            <div class="resource-item" *ngFor="let resource of task.resources; let i = index" class="d-flex align-items-center mb-2">
+                                <input class="form-control mr-2" type="text" placeholder="Resource Name" [(ngModel)]="resource.resource_name" name="resource_name_{{i}}" required>
+                                <input class="form-control mr-2" type="number" placeholder="Quantity" [(ngModel)]="resource.qty" name="qty_{{i}}" required>
+                                <input class="form-control mr-2" type="number" placeholder="Unit Cost" [(ngModel)]="resource.unit_cost" name="unit_cost_{{i}}" required>  per unit
+                                <button type="button" class="btn btn-danger" (click)="removeResource(i)">
+                                  <span class="material-icons">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-dark m-2" (click)="addResource()">
+                          <span class="material-icons">add</span>
+                        </button>
+                    </div>
+    
+                     
+                      
+                      
+                     
+                      
+                     
+    
+                      
+                      
+                      <div class="d-flex align-items-center justify-content-between py-3">
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                        <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    
+    
+                    
                   </div>
-                  <button type="button" class="btn btn-primary mt-2" (click)="addResource()">
-                    <span class="material-icons">add</span>
-                  </button>
-              </div>
-            
-
+                </form>
+                
+               
                  
-                <div class="d-flex align-items-center justify-content-between py-3">
-                <button type="submit" class="btn btn-outline-dark">Submit</button>
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                </div>
-
-
-                
-                
-                                                                           
-            </form>
             </article>
             </div> <!-- card.// -->
             

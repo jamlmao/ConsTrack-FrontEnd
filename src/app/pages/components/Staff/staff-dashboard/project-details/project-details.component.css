@@ -249,6 +249,9 @@
        border-radius: 100px;
       
       }
+    ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+        stroke: grey;
+    }
 
       .mat-drawer{
         width: 200px;
@@ -411,5 +414,14 @@
       {
        background-color: rgb(240, 8, 8);
        box-shadow: 0 4px 8px gray;
+      }
+
+
+      .progress-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      
       }
       
