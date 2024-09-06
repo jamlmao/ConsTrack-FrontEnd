@@ -49,7 +49,7 @@ export class ProjectDetailsComponent {
   events: any[] = [];
   tasks: any[] = [];
   sortedTask: any[] = [];
-  
+  categories: { name: string, path: string }[] = [];
   totalAllocatedBudgetPerCategory:any[] = [];
   totalAllocatedBudget: number = 0;
   percentage: number = 0;
@@ -85,26 +85,6 @@ export class ProjectDetailsComponent {
   //   'ARCHITECTURAL'
   // ];
   
-  categories = [
-    { name: 'GENERAL REQUIREMENTS', path: 'project-details/:projectId/general' },
-    { name: 'SITE WORKS', path: 'project-details/:projectId/site' },
-    { name: 'CONCRETE & MASONRY WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'METAL REINFORCEMENT WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'FORMS & SCAFFOLDINGS', path: 'project-details/:projectId/concrete' },
-    { name: 'FORMS & SCAFFOLDINGS', path: 'project-details/:projectId/concrete' },
-    { name: 'TINSMITHRY WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'PLASTERING WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'PAINTS WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'PLUMBING WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'ELECTRICAL WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'CEILING WORKS', path: 'project-details/:projectId/concrete' },
-    { name: 'ARCHITECTURAL', path: 'project-details/:projectId/concrete' },
-
-
-
-    
-  ];
-
   
 
   categorizedTasks: { [key: string]: any[] } = {};
@@ -123,6 +103,7 @@ export class ProjectDetailsComponent {
         this.fetchSortedTask(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
+        this.initializeCategories();
       } else {
         console.error('Project ID is not set or is not a number');
       }
@@ -133,6 +114,30 @@ export class ProjectDetailsComponent {
     
   
   }
+
+
+
+  initializeCategories(): void {
+    this.categories = [
+      { name: 'GENERAL REQUIREMENTS', path: this.generatePath('general') },
+      { name: 'SITE WORKS', path: this.generatePath('site') },
+      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('concrete') },
+      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('concrete') },
+      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('concrete') },
+      { name: 'TINSMITHRY WORKS', path: this.generatePath('concrete') },
+      { name: 'PLASTERING WORKS', path: this.generatePath('concrete') },
+      { name: 'PAINTS WORKS', path: this.generatePath('concrete') },
+      { name: 'PLUMBING WORKS', path: this.generatePath('concrete') },
+      { name: 'ELECTRICAL WORKS', path: this.generatePath('concrete') },
+      { name: 'CEILING WORKS', path: this.generatePath('concrete') },
+      { name: 'ARCHITECTURAL', path: this.generatePath('concrete') },
+    ];
+  }
+
+  generatePath(category: string): string {
+    return `${category}`;
+  }
+  
   
   constructor(
         private router: Router, 
