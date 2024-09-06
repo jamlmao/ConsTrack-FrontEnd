@@ -385,7 +385,11 @@
         }
       }
       
-      
+      h3 {
+        text-transform: capitalize;
+        
+      }
+
       .timeline-point-track-container{
         flex: 0;
         display: flex;

@@ -25,36 +25,18 @@
                             <div class="row">
                                 <h1 style="font-weight: bold; margin: 20px; align-items: center;">PROJECT DETAILS</h1>
                                 <div class="col-6">
-                                    
-                                    <div class="m-3">
-                                        <div class="progress-container">
-                                            <!-- Circular Progress Spinner -->
-                                            <mat-progress-spinner
-                                              mode="determinate"
-                                              [value]="progress"
-                                             
-                                              diameter="100">
-                                            </mat-progress-spinner>
-                                            <p>{{ progress }}%</p>
-                                            <!-- Progress value display -->
-                                            
-                                          </div>
+                                    <h1 style="font-weight: bold; margin: 40px; margin-left: 110px;">PROJECT DETAILS</h1>
+                                    <div class="m-4">
                                     <h3>Building Type:</h3>
                                     <h3>Location:</h3>
                                     <h3>Total Budget:</h3>
                                     <h3>Target Date Completion:</h3>
-                                    <h3>Engineer/Architech Name:</h3>
-                                    <h3>
-                                        
-                                        <div>Project Progress Percentage: 50%</div>
-                                        <mat-progress-bar mode="determinate" [value]="50" color="accent"></mat-progress-bar>
-                                    </h3>
                                     </div>
 
                                 </div>
                                 <div class="col-6">
                                     
-                                    <img src="assets/bg.jpg" alt="" class="project">
+                                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="project image" class="project" width="400dvh" height="400dvh">
                                 </div>
 
                                

@@ -66,10 +66,11 @@
                         <label for="resources" class="form-control-label">Resources:</label>
                         <div id="resources-container">
                             <div class="resource-item" *ngFor="let resource of task.resources; let i = index" class="d-flex align-items-center mb-2">
-                                <input class="form-control mr-2" type="text" placeholder="Resource Name" [(ngModel)]="resource.resource_name" name="resource_name_{{i}}" required>
-                                <input class="form-control mr-2" type="number" placeholder="Quantity" [(ngModel)]="resource.qty" name="qty_{{i}}" required>
-                                <input class="form-control mr-2" type="number" placeholder="Unit Cost" [(ngModel)]="resource.unit_cost" name="unit_cost_{{i}}" required>  per unit
-                                <button type="button" class="btn btn-danger" (click)="removeResource(i)">
+                                <input class="form-control mr-2  mx-1" type="text" placeholder="Resource Name" [(ngModel)]="resource.resource_name" name="resource_name_{{i}}" required>
+                                <input class="form-control mr-2  mx-1" type="number" placeholder="Quantity" [(ngModel)]="resource.qty" name="qty_{{i}}" required>
+                                <input class="form-control mr-2  mx-1 " type="number" placeholder="Unit Cost Per Piece" [(ngModel)]="resource.unit_cost" name="unit_cost_{{i}}" required> 
+
+                                <button type="button" class="btn btn-danger mx-1" (click)="removeResource(i)">
                                   <span class="material-icons">delete</span>
                                 </button>
                             </div>

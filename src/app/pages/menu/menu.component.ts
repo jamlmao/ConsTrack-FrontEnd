@@ -121,10 +121,10 @@ export class MenuComponent {
 
 }
 export class Login {
-  email: string;
+  username: string;
   password: string;
   constructor(){
-    this.email = '';
+    this.username = '';
     this.password = '';
   }
 }
