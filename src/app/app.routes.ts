@@ -187,7 +187,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'general',
+        path: 'project-details/:projectId/general',
         component: GeneralrequirementComponent,
         canActivate: [AuthGuard]
     },
