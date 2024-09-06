@@ -402,7 +402,7 @@ export class ShomeComponent implements OnInit {
                   labels: this.datamonth1,
                   datasets: [
                   {
-                    label: 'Users',
+                    label: 'Clients',
                     data: this.dataproject1,
                     backgroundColor: 'maroon',
                   },

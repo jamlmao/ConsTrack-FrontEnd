@@ -40,6 +40,7 @@ import { PlumbingComponent } from './pages/components/Staff/categories/plumbing/
 import { ElectricalComponent } from './pages/components/Staff/categories/electrical/electrical.component';
 import { CeilingworksComponent } from './pages/components/Staff/categories/ceilingworks/ceilingworks.component';
 import { ArchitecturalComponent } from './pages/components/Staff/categories/architectural/architectural.component';
+import { WebsiteComponent } from './website/website.component';
 
 
 
@@ -249,6 +250,11 @@ export const routes: Routes = [
     {
         path: 'project-details/:projectId/architectural',
         component: ArchitecturalComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'Constrack/website',
+        component: WebsiteComponent,
         canActivate: [AuthGuard]
     },
 

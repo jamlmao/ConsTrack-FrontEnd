@@ -145,7 +145,7 @@
                   <div class="card-header pb-0">
                     <div class="row">
                       <div class="col-lg-6 col-7 mb-0">
-                        <h1>Projects List Table</h1>
+                        <h1>Engineer/Architect List</h1>
                         
                       </div>
                     </div>
@@ -155,14 +155,11 @@
                       <table class="table align-items-center mb-0">
                         <thead>
                           <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Site Location</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Client Name</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Starting Date</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Completion Date</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Budget</th>
                             
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progress</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Name</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Position</th>
+                           
                           </tr>
                         </thead>
                         <tbody *ngFor="let project of projects; let i = index;">
@@ -175,12 +172,7 @@
                                 </div>
                               </div>
                             </td>
-                            <td>
-                              <div class="avatar-group mt-2">
-                                <h6 class="mb-0 text-sm" style="text-transform: capitalize;">{{ project.client.first_name }} {{ project.client.last_name }}</h6>
-                                
-                              </div>
-                            </td>
+                            
                             <td class="align-middle text-center text-sm">
                               <span class="mb-0 text-sm"> {{ project.starting_date }} </span>
                             </td>
