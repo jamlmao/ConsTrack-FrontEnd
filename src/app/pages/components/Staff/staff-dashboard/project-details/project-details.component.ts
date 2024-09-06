@@ -45,6 +45,7 @@ export class ProjectDetailsComponent {
   events: any[] = [];
   tasks: any[] = [];
   sortedTask: any[] = [];
+  
   totalAllocatedBudgetPerCategory:any[] = [];
   totalAllocatedBudget: number = 0;
   percentage: number = 0;
@@ -57,8 +58,12 @@ export class ProjectDetailsComponent {
   private SortedUrl ='http://127.0.0.1:8000/api/sortedTask/'
   private ImageUrl = 'http://127.0.0.1:8000/api/PtImages/';
   private taskByCategoryUrl = 'http://127.0.0.1:8000/api/tasksBycategory/';
+  private projectDetailsUrl = 'http://127.0.0.1:8000/api/projectD/';
+
+  projectDetails: any = {};
 
 
+  
 
   categories: string[] = [
     'GENERAL REQUIREMENTS',
@@ -78,6 +83,7 @@ export class ProjectDetailsComponent {
   categorizedTasks: { [key: string]: any[] } = {};
   SortedTask: any = {};
 
+
   ngOnInit(){
    
 
@@ -89,6 +95,7 @@ export class ProjectDetailsComponent {
         this.fetchProjectTasks(projectIdNumber);
         this.fetchSortedTask(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
+        this.fetchProjectDetails(projectIdNumber);
       } else {
         console.error('Project ID is not set or is not a number');
       }
@@ -165,21 +172,33 @@ export class ProjectDetailsComponent {
   }
   
   
-  project: any = {
-    site_location: '',
-    client_id: '',
-    completion_date: '',
-    starting_date: '',
-    totalBudget: 0,
-    pj_image: null,
-    pj_pdf: null
-  };
+
 
   selectProject(project: any) {
     this.router.navigate(['/timeline', project.id]);
   }
 
-  
+  fetchProjectDetails(projectId: number) {
+    const token = localStorage.getItem('token');
+
+    if (!token){
+      console.error('No token found in local Storage');
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.projectDetailsUrl + `${projectId}`, { headers }).subscribe(
+      (response: any) => {
+        this.projectDetails = response.project;
+        console.log('Project Details:', this.projectDetails);
+      },
+      (error) => {
+        console.error('Failed to fetch project details', error);
+      }
+    );
+  }
 
   fetchProjectTasks(projectId: number) {
     const token = localStorage.getItem('token');
