@@ -34,16 +34,18 @@
   flex-wrap: wrap;
   margin: 20px;
   padding: 20px;
+  color: white;
+  font-weight: 300;
 
 }
 
 .cards {
-  border: 1px solid #ddd;
+  border: 1px solid #2a2828;
   border-radius: 8px;
   padding: 15px;
   margin: 0; /* Remove margin to use gap instead */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: #292828;
   text-align: center; /* Center the content */
   width: 330px; /* Set the width of the card */
   height: 470px; /* Set the height of the card */

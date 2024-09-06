@@ -40,15 +40,15 @@
             <div *ngFor="let project of projects | filter:searchText" class="cards project-item" (click)="selectProject(project)">
                 <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
                 <div class="project-details">
-                    <p><strong>Site Location:</strong> {{ project.site_location }}</p>
-                    <p><strong>Client Name:</strong> {{ project.client.first_name }} {{ project.client.last_name }}</p>
-                    <p><strong>Contact Number:</strong> {{ project.client.phone_number }}</p>
-                    <p><strong>Starting Date:</strong> {{ project.starting_date }}</p>
-                    <p><strong>Completion Date:</strong> {{ project.completion_date }}</p>
-                    <p><strong>Total Budget:</strong> {{ project.totalBudget }}</p>
-                    <p><strong>Project PDF:</strong>
+                    <p>Project Type: {{ project.project_name }} </p>
+                    <p>Client Name: {{ project.client.first_name }} {{ project.client.last_name }} </p>
+                    <p>Contact Number: {{ project.client.phone_number }} </p>
+                    <p>Starting Date: {{ project.starting_date }} </p>
+                    <p>Completion Date: {{ project.completion_date }} </p>
+                    <p>Total Budget: {{ project.totalBudget }} </p>
+                    <p>Project PDF:
                         <a *ngIf="project.pj_pdf" [href]="'http://localhost:8000' + project.pj_pdf" target="_blank">View PDF</a></p>
-                    <button class="btn-grad btn-outline-dark">Add Task</button>
+                   
                 </div>
                 
             </div>
