@@ -1,0 +1,64 @@
+<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-staffsidenav></app-staffsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        
+        <router-outlet></router-outlet>
+        <div class="row">
+            <div class="container-fluid align-items-center">
+
+                <div class="title">
+                    <p>Welcome to your Projects</p>
+                    <h1><span>PROJECT</span> TASK <span>UPDATE</span></h1>      
+                </div>
+                <div class="align-items-center">         
+                </div>
+                  
+                <div class="projects-container"> 
+                    <!-- ////archi folder tung form -->
+                    <button (click)="openCreateProjectModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task Update</button>
+<app-archi 
+*ngIf="isCreateProjectModalOpen"  (close)="closeCreateProjectModal()">
+</app-archi>
+                </div>
+                </div>
+
+                
+          
+         
+          
+          
+        </div>
+        
+
+        
+        
+
+            
+        <div class="projects-container" style="margin-top: -20px;">
+            
+            
+            <div *ngFor="let project of projects | filter:searchText" class="cards project-item">
+                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
+                <div class="project-details">
+                    <h3><strong>BedRoom/CR/Hallway/Window</strong></h3>
+                    <h3><strong>Date Uploaded</strong></h3>
+                    
+                   
+                </div>
+                
+            </div>
+        </div>
+       
+        
+          
+            
+                
+                <router-outlet></router-outlet>
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -27,6 +27,19 @@ import { ClientprofileComponent } from './pages/components/Client/client-dashboa
 import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
 import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
 import { TaskdetailsComponent } from './pages/components/Staff/staff-dashboard/taskdetails/taskdetails.component';
+import { GeneralrequirementComponent } from './pages/components/Staff/categories/generalrequirement/generalrequirement.component';
+import { SiteworksComponent } from './pages/components/Staff/categories/siteworks/siteworks.component';
+import { ConcreteworksComponent } from './pages/components/Staff/categories/concreteworks/concreteworks.component';
+import { MetalworksComponent } from './pages/components/Staff/categories/metalworks/metalworks.component';
+import { FormsComponent } from './pages/components/Staff/categories/forms/forms.component';
+import { SteelworksComponent } from './pages/components/Staff/categories/steelworks/steelworks.component';
+import { TinsmithryComponent } from './pages/components/Staff/categories/tinsmithry/tinsmithry.component';
+import { PlasteringComponent } from './pages/components/Staff/categories/plastering/plastering.component';
+import { PaintworksComponent } from './pages/components/Staff/categories/paintworks/paintworks.component';
+import { PlumbingComponent } from './pages/components/Staff/categories/plumbing/plumbing.component';
+import { ElectricalComponent } from './pages/components/Staff/categories/electrical/electrical.component';
+import { CeilingworksComponent } from './pages/components/Staff/categories/ceilingworks/ceilingworks.component';
+import { ArchitecturalComponent } from './pages/components/Staff/categories/architectural/architectural.component';
 
 
 
@@ -172,6 +185,71 @@ export const routes: Routes = [
         path: 'timeline/:id',
         component: TimelineComponent,
         canActivate: [AuthGuard]
-    }
+    },
+    {
+        path: 'general',
+        component: GeneralrequirementComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/site',
+        component: SiteworksComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/concrete',
+        component: ConcreteworksComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/metal',
+        component: MetalworksComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/forms',
+        component: FormsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/steel',
+        component: SteelworksComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/tinsmithry',
+        component: TinsmithryComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/plastering',
+        component: PlasteringComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/paint',
+        component: PaintworksComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/plumbing',
+        component: PlumbingComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/electrical',
+        component: ElectricalComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/ceiling',
+        component: CeilingworksComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'project-details/:projectId/architectural',
+        component: ArchitecturalComponent,
+        canActivate: [AuthGuard]
+    },
 
 ];

@@ -243,7 +243,20 @@
       
       }
      
+      .mat-icon{
+       color: #0a0b0b;
+       margin-top: 3px;
+        
       
+      }
+      .eye{
+        color: #0a0b0b;
+        margin-top: 10px;
+        margin-left: 5px;
+         
+       
+       }
+
       .mat-mdc-progress-bar.mat-accent{
        --mdc-linear-progress-active-indicator-color: #a30707;
        border-radius: 100px;

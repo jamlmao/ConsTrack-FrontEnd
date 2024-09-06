@@ -64,21 +64,44 @@ export class ProjectDetailsComponent {
 
 
 
-  categories: string[] = [
-    'GENERAL REQUIREMENTS',
-    'SITE WORKS',
-    'CONCRETE & MASONRY WORKS',
-    'METAL REINFORCEMENT WORKS',
-    'FORMS & SCAFFOLDINGS',
-    'STEEL FRAMING WORK',
-    'TINSMITHRY WORKS',
-    'PLASTERING WORKS',
-    'PAINTS WORKS',
-    'PLUMBING WORKS',
-    'ELECTRICAL WORKS',
-    'CEILING WORKS',
-    'ARCHITECTURAL'
+  // categories: string[] = [
+  //   'GENERAL REQUIREMENTS',
+  //   'SITE WORKS',
+  //   'CONCRETE & MASONRY WORKS',
+  //   'METAL REINFORCEMENT WORKS',
+  //   'FORMS & SCAFFOLDINGS',
+  //   'STEEL FRAMING WORK',
+  //   'TINSMITHRY WORKS',
+  //   'PLASTERING WORKS',
+  //   'PAINTS WORKS',
+  //   'PLUMBING WORKS',
+  //   'ELECTRICAL WORKS',
+  //   'CEILING WORKS',
+  //   'ARCHITECTURAL'
+  // ];
+  
+  categories = [
+    { name: 'GENERAL REQUIREMENTS', path: 'project-details/:projectId/general' },
+    { name: 'SITE WORKS', path: 'project-details/:projectId/site' },
+    { name: 'CONCRETE & MASONRY WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'METAL REINFORCEMENT WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'FORMS & SCAFFOLDINGS', path: 'project-details/:projectId/concrete' },
+    { name: 'FORMS & SCAFFOLDINGS', path: 'project-details/:projectId/concrete' },
+    { name: 'TINSMITHRY WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'PLASTERING WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'PAINTS WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'PLUMBING WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'ELECTRICAL WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'CEILING WORKS', path: 'project-details/:projectId/concrete' },
+    { name: 'ARCHITECTURAL', path: 'project-details/:projectId/concrete' },
+
+
+
+    
   ];
+
+  
+
   categorizedTasks: { [key: string]: any[] } = {};
   SortedTask: any = {};
 
@@ -284,7 +307,7 @@ export class ProjectDetailsComponent {
 
   categorizeTasks() {
     this.categories.forEach(category => {
-      this.categorizedTasks[category] = this.sortedTask.filter(task => task.pt_task_desc === category);
+      this.categorizedTasks[category.name] = this.sortedTask.filter(task => task.pt_task_desc === category.name);
     });
   }
 

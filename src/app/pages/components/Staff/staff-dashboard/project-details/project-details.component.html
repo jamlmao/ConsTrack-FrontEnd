@@ -74,19 +74,20 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        
-                        <th>Task Name</th>
-                        <th>Category</th>
-                        <th>Starting Date</th>
-                        <th>Completion Date</th>
-                        <th>Allocated Budget</th>
-                        <th>Status</th>
-                        <th>Document</th>
-                        <th width="7%">Action</th>
+                        <th width="2%">#</th>
+                        <th width="8%">Task Name</th>
+                        <th width="10%">Category</th>
+                        <th width="4%">Starting Date</th>
+                        <th width="4%">Completion Date</th>
+                        <th width="4%">Allocated Budget</th>
+                        <th width="4%">Status</th>
+                        <th width="4%">Document</th>
+                        <th width="3%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let task of tasks" (click)="selecttask(task)">
+                    <tr *ngFor="let task of tasks  let i = index;" >
+                        <td>{{ i ++ 1 }}</td>
                         <td>{{ task.pt_task_name }}</td>
                         <td>{{ task.pt_task_desc }}</td>
                         <td>{{ task.pt_starting_date }}</td>
@@ -134,27 +135,27 @@
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let category of categories; let i = index">
+                <ng-container *ngFor="let category of categories; let i = index" (click)="selecttask(category)">
                     <tr>
                         <td>{{ toRoman(i + 1) }}</td>
-                        <td>{{ category }}</td>
-                        <td>{{ SortedTask[category]?.totalAllocatedBudget || '-'}}</td>
-                        <td>{{ SortedTask[category]?.previousCost || '-' }}</td>
-                        <td>{{ SortedTask[category]?.thisPeriodCost || '-' }}</td>
-                        <td>{{ SortedTask[category]?.toDateCost || '-' }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ SortedTask[category.name]?.totalAllocatedBudget || '-'}}</td>
+                        <td>{{ SortedTask[category.name]?.previousCost || '-' }}</td>
+                        <td>{{ SortedTask[category.name]?.thisPeriodCost || '-' }}</td>
+                        <td>{{ SortedTask[category.name]?.toDateCost || '-' }}</td>
                         <td>
-                            <div>{{ SortedTask[category]?.percentage || 0 }}%</div>
-                            <mat-progress-bar mode="determinate" [value]="SortedTask[category]?.percentage || 0" color="accent"></mat-progress-bar>
+                            <div>{{ SortedTask[category.name]?.percentage || 0 }}%</div>
+                            <mat-progress-bar mode="determinate" [value]="SortedTask[category.name]?.percentage || 0" color="accent"></mat-progress-bar>
                         </td>
                         <td>
                             <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
                             <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
                            
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                            <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
                         </td>
                     </tr>
-                    <ng-container *ngIf="categorizedTasks[category] && categorizedTasks[category].length">
-                        <tr *ngFor="let task of categorizedTasks[category]; let j = index">
+                    <ng-container *ngIf="categorizedTasks[category.name] && categorizedTasks[category.name].length">
+                        <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
                             <td></td>
                             <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
                             <td>{{ task.pt_allocated_budget }}</td>
