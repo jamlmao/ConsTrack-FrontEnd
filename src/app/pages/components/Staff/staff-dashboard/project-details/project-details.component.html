@@ -27,10 +27,10 @@
                                 <div class="col-6">
                                     <h1 style="font-weight: bold; margin: 40px; margin-left: 110px;">PROJECT DETAILS</h1>
                                     <div class="m-4">
-                                    <h3>Building Type:</h3>
-                                    <h3>Location:</h3>
-                                    <h3>Total Budget:</h3>
-                                    <h3>Target Date Completion:</h3>
+                                    <h3>Building Type:<span style="text-transform: capitalize; font-weight: bold;"> {{projectDetails.project_name}}</span></h3>
+                                    <h3>Location:<span style="text-transform: capitalize; font-weight: bold;"> {{projectDetails.site_address}} {{projectDetails.site_city}} {{projectDetails.site_province}}</span></h3>
+                                    <h3>Total Budget: <span style="text-transform: capitalize; font-weight: bold;">₱{{projectDetails.totalBudget}} </span></h3>
+                                    <h3>Target Date Completion:<span style="text-transform: capitalize; font-weight: bold;">{{projectDetails.completion_date}}</span></h3>
                                     </div>
 
                                 </div>
