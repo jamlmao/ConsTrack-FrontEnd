@@ -12,7 +12,7 @@ import { HeaderComponent } from "../header/header.component";
 import { SidenavComponent } from "../sidenav/sidenav.component";
 
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule, HttpClient,  HttpHeaders } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
@@ -33,12 +33,15 @@ import { EditprofileComponent } from "../../../Staff/editprofile/editprofile.com
 })
 export class AccountComponent {
  
-  
+  users: any[] = [];
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
   isEditModalOpen = false;
-  constructor(private router: Router) { }
+  private baseUrl = 'http://127.0.0.1:8000';
+  private fetchUserUrl = this.baseUrl + '/api/admin/users';
+
+  constructor(private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
@@ -48,7 +51,41 @@ export class AccountComponent {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
+    this.fetchUser(); // Fetch user when the component is initialized
   }
+
+
+  fetchUser(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.get(this.fetchUserUrl, { headers })
+      .subscribe((res: any) => {
+        if (res && Array.isArray(res.users)) {
+          this.users = res.users;
+        } else {
+        }
+      }, error => {
+        console.error(error);
+      });
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   logout(): void {
     localStorage.removeItem('user'); // Remove user data from local storage

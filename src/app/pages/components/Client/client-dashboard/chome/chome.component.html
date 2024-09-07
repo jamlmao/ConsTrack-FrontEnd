@@ -13,15 +13,17 @@
                 <h1><span>PROJECT</span> BLUEPRINT</h1>
 
             </div>
-                <div class="card">
+                <div class="card" *ngFor="let project of projects">
                     
-                    <img src="assets/cons.png" alt="profile_image">
-                    <span>Company Name:</span>
-                    <span>Staff Name:</span>
-                    <span>Site Location:</span>
-                    <span>Starting Date:</span>
-                    <span>Completion Date:</span>
-                    <span>Total Budget:</span>
+                    <img [src]="'http://localhost:8000'+ project.pj_image" alt="profile_image">
+                    <p>Company Name:<span style="text-transform:uppercase;">{{project.project_name}}</span> </p>
+                    <p>Staff Name: <span style="text-transform:uppercase;">{{ project.extension_name === 'Civil Engineer' || project.extension_name === 'Engineer' ? 'Engr. ' + project.first_name : project.first_name }} 
+                        {{ project.last_name }} 
+                        {{ project.extension_name ===   'Architect' ? 'UAP' : '' }}</span> </p>
+                    <p>Site Location:<span style="text-transform:uppercase;">{{project.site_address}} {{project.site_city}} {{project.site_province}} </span></p>
+                    <p>Starting Date:<span>{{project.starting_date}}</span></p>
+                    <p>Completion Date:<span>{{project.completion_date}}</span></p>
+                    <p>Total Budget:<span>{{project.totalBudget}}</span></p>
                     
                     
 

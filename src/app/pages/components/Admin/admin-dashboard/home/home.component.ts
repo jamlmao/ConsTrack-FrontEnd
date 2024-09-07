@@ -33,18 +33,21 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 })
 export class HomeComponent implements OnInit {
 
-
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
-  private companyProjectsUrl = 'http://127.0.0.1:8000/api/CompanyProjects';
+  private baseUrl = 'http://127.0.0.1:8000';
+  private StaffCountUrl = this.baseUrl+'/api/staffCountperMonth';
+  private totalUsersUrl = this.baseUrl+'/api/counts';
+  private userUrl = this.baseUrl+'/api/user/details';
+  private ProjectsCountUrl = this.baseUrl+'/api/projectCount';
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
   projectCount: number | null = null;
   isCreateClientModalOpen = false;
   isCreateStaffModalOpen = false;
-  staffId: number | null = null; //  store staffId
-
+  done_count: number | null = null;
+  ongoing_count: number | null = null;
+  totalUserCount: number | null = null;
+  StaffPerMonth:[] = [];
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -52,50 +55,21 @@ export class HomeComponent implements OnInit {
     const userData = localStorage.getItem('user');
     console.log(localStorage.getItem('user'));
     if (userData) {
-      try {
-        this.user = JSON.parse(userData);
-        console.log('User data:', this.user);
-  
-        // Detailed logging to inspect the user object
-        console.log('User profile_id property:', this.user.profile_id);
-        if (this.user.profile_id) {
-          console.log('User profile_id property:', this.user.profile_id);
-        } else {
-          console.warn('User profile_id property is undefined');
-        }
-  
-        // Check if user object has profile_id property
-        if (this.user.profile_id) {
-          this.staffId = this.user.profile_id;
-          if (this.staffId !== null) { // Ensure staffId is not null
-            this.getCompanyProjects(this.staffId);
-            console.log('Staff ID:', this.staffId);
-          } else {
-            console.warn('Staff ID is null');
-          }
-        } else {
-          console.warn('Staff ID not found in user data');
-        }
-  
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-      }
+      this.user = JSON.parse(userData);
+      console.log('User data:', this.user);
+       
     } else {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
-    this.fetchProjects(); // Fetch projects when the component is initialized
+
     this.getLoggedInUserNameAndId(); // Fetch logged in user details
-    // Fetch projects for the logged in staff
+   this.getCompanyProjects();
+   this.getTotalUsers();
+   this.getStaffCountPerMonth();
   }
   
- 
 
-
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
     console.log('Opening Create Staff Modal');
@@ -123,34 +97,6 @@ export class HomeComponent implements OnInit {
     this.sideBarOpen = !this.sideBarOpen;
   }
 
-  fetchProjects(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    console.log('Token:', token);
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.projectsUrl, { headers }).subscribe(
-      (response: any) => {
-        console.log('Full response:', response);
-        this.projects = response;
-        console.log('Fetched projects:', this.projects);
-      },
-      error => {
-        console.error('Error fetching projects', error);
-      }
-    );
-  }
-
-  selectProject(project: any): void {
-    this.selectedProject = project;
-  }
 
   getLoggedInUserNameAndId(): void {
     const token = localStorage.getItem('token');
@@ -174,8 +120,8 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  getCompanyProjects(staffId: number): void {
-    console.log('Fetching projects for staffId:', staffId); // Log the staffId
+  getTotalUsers(): void {
+    
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found in local storage');
@@ -186,14 +132,77 @@ export class HomeComponent implements OnInit {
       'Authorization': `Bearer ${token}`
     });
   
-    const url = `${this.companyProjectsUrl}/${staffId}`;
+    
   
   
-    this.http.get<{ project_count: number }>(url, { headers })
+    this.http.get<{ totalUserCount: number}>(this.totalUsersUrl, { headers })
       .subscribe(
         response => {
-          console.log('Project count:', response.project_count)
+          console.log('count:', response)
+          this.totalUserCount = response.totalUserCount;
+          
+
+        },
+        error => {
+          console.error('Error fetching projects:', error);
+        }
+      );
+  }
+
+
+  getStaffCountPerMonth(): void {
+      
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+    
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    
+      
+      this.http.get<{ StaffPerMonth: []}>(this.StaffCountUrl, { headers })
+        .subscribe(
+          response => {
+            console.log('Staff count:', response)
+            this.StaffPerMonth = response.StaffPerMonth;
+            
+  
+          },
+          error => {
+            console.error('Error fetching projects:', error);
+          }
+        );
+
+  }
+
+
+
+  getCompanyProjects(): void {
+    
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    
+  
+  
+    this.http.get<{ project_count: number,ongoing_count: number ,done_count: number}>(this.ProjectsCountUrl, { headers })
+      .subscribe(
+        response => {
+          console.log('Project count:', response)
+          this.ongoing_count = response.ongoing_count;
+          this.done_count = response.done_count;
           this.projectCount = response.project_count;
+
         },
         error => {
           console.error('Error fetching projects:', error);
