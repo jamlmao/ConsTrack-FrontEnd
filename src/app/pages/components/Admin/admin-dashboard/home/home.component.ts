@@ -34,7 +34,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 export class HomeComponent implements OnInit {
 
   private baseUrl = 'http://127.0.0.1:8000';
-
+  private StaffCountUrl = this.baseUrl+'/api/staffCountperMonth';
   private totalUsersUrl = this.baseUrl+'/api/counts';
   private userUrl = this.baseUrl+'/api/user/details';
   private ProjectsCountUrl = this.baseUrl+'/api/projectCount';
@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit {
   done_count: number | null = null;
   ongoing_count: number | null = null;
   totalUserCount: number | null = null;
+  StaffPerMonth:[] = [];
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -64,7 +65,8 @@ export class HomeComponent implements OnInit {
 
     this.getLoggedInUserNameAndId(); // Fetch logged in user details
    this.getCompanyProjects();
-   this.getTotalUsers()
+   this.getTotalUsers();
+   this.getStaffCountPerMonth();
   }
   
 
@@ -147,6 +149,34 @@ export class HomeComponent implements OnInit {
       );
   }
 
+
+  getStaffCountPerMonth(): void {
+      
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+    
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    
+      
+      this.http.get<{ StaffPerMonth: []}>(this.StaffCountUrl, { headers })
+        .subscribe(
+          response => {
+            console.log('Staff count:', response)
+            this.StaffPerMonth = response.StaffPerMonth;
+            
+  
+          },
+          error => {
+            console.error('Error fetching projects:', error);
+          }
+        );
+
+  }
 
 
 
