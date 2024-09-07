@@ -30,7 +30,77 @@
                   </div>
                 </div>
               </div>
+              
               <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                  <div class="card-header p-3 pt-2">
+                    <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                      <mat-icon class="icon-size">recent_actors</mat-icon>
+                    </div>
+                    <div class="text-end pt-1">
+                      <p class="text-sm text-capitalize">Staff Accounts</p>
+                      <h1 class="mb-0">{{staffcount}}</h1>
+                    </div>
+                  </div>
+                  <hr class="dark horizontal my-0">
+                  <div class="card-footer p-3">
+                    <p class="mb-0"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                  <div class="card-header p-3 pt-2">
+                    <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                      <mat-icon class="icon-size">recent_actors</mat-icon>
+                    </div>
+                    <div class="text-end pt-1">
+                      <p class="text-sm text-capitalize">Client Accounts</p>
+                      <h1 class="mb-0">{{clientcount}}</h1>
+                    </div>
+                  </div>
+                  <hr class="dark horizontal my-0">
+                  <div class="card-footer p-3">
+                    <p class="mb-0"></p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                  <div class="card-header p-3 pt-2">
+                    <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                      <mat-icon class="icon-size">done_boxed</mat-icon>
+                    </div>
+                    <div class="text-end pt-1">
+                      <p class="text-sm text-capitalize">Total Company</p>
+                      <h1 class="mb-0">{{companycount}}</h1>
+                    </div>
+                  </div>
+                  <hr class="dark horizontal my-0">
+                  <div class="card-footer p-3">
+                    <p class="mb-0"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                  <div class="card-header p-3 pt-2">
+                    <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                      <mat-icon class="icon-size">done_boxed</mat-icon>
+                    </div>
+                    <div class="text-end pt-1">
+                      <p class="text-sm text-capitalize">Delayed Projects</p>
+                      <h1 class="mb-0">{{delayedProjectCount}}</h1>
+                    </div>
+                  </div>
+                  <hr class="dark horizontal my-0">
+                  <div class="card-footer p-3">
+                    <p class="mb-0"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                   <div class="card-header p-3 pt-2">
                     <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
@@ -47,32 +117,15 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+              <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                   <div class="card-header p-3 pt-2">
                     <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
                       <mat-icon class="icon-size">pending</mat-icon>
                     </div>
                     <div class="text-end pt-1">
-                      <p class="text-sm text-capitalize">Pending Projects</p>
+                      <p class="text-sm text-capitalize">Ongoing Projects</p>
                       <h1 class="mb-0">{{ongoing_count}}</h1>
-                    </div>
-                  </div>
-                  <hr class="dark horizontal my-0">
-                  <div class="card-footer p-3">
-                    <p class="mb-0"></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                  <div class="card-header p-3 pt-2">
-                    <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                      <mat-icon class="icon-size">done_boxed</mat-icon>
-                    </div>
-                    <div class="text-end pt-1">
-                      <p class="text-sm text-capitalize">Finished Projects</p>
-                      <h1 class="mb-0">{{done_count}}</h1>
                     </div>
                   </div>
                   <hr class="dark horizontal my-0">
@@ -111,7 +164,7 @@
                   <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                     <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
                       <div class="chart">
-                        <canvas id="myChart1"></canvas>
+                        <canvas id=""></canvas>
                       </div>
                     </div>
                   </div>
@@ -127,7 +180,7 @@
                   <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                     <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
                       <div class="chart">
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart1"></canvas>
                       </div>
                     </div>
                   </div>
@@ -137,6 +190,39 @@
                   </div>
                 </div>
               </div>
+              <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2  ">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                    <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                      <div class="chart">
+                        <canvas id=""></canvas>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h6 class="mb-0 "> Project's Chart </h6>
+                    <hr class="dark horizontal">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2  ">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                    <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                      <div class="chart">
+                        <canvas id=""></canvas>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h6 class="mb-0 "> Project's Chart </h6>
+                    <hr class="dark horizontal">
+                    
+                  </div>
+                </div>
+              </div>
+              
             </div>
             <div class="row mb-4">
               <div class="col-lg-12 col-md-6 mb-md-0 mb-4">

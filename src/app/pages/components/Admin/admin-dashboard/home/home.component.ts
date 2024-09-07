@@ -21,6 +21,9 @@ import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-a
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
 import { CreateComponent } from "../create/create.component";
 
+import { Chart,registerables } from 'chart.js';
+import { first, last, take, tap } from 'rxjs';
+Chart.register(...registerables);
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 
@@ -46,6 +49,14 @@ export class HomeComponent implements OnInit {
   isCreateStaffModalOpen = false;
   done_count: number | null = null;
   ongoing_count: number | null = null;
+  
+  
+  companycount: number | null = null;
+  completedProjectCount: number | null = null;
+  delayedProjectCount: number | null = null;
+  staffcount: number | null = null;
+  totalProjectCount: number | null = null;
+  clientcount: number | null = null;
   totalUserCount: number | null = null;
   StaffPerMonth:[] = [];
 
@@ -135,11 +146,21 @@ export class HomeComponent implements OnInit {
     
   
   
-    this.http.get<{ totalUserCount: number}>(this.totalUsersUrl, { headers })
+    this.http.get<{ totalUserCount: number, companycount: number, staffcount: number, clientcount: number,delayedProjectCount:number}>(this.totalUsersUrl, { headers })
       .subscribe(
         response => {
           console.log('count:', response)
           this.totalUserCount = response.totalUserCount;
+          this.companycount = response.companycount;
+          this.staffcount = response.staffcount;
+          this.clientcount = response.clientcount;
+          
+          this.delayedProjectCount = response.delayedProjectCount;
+
+          
+
+          
+          
           
 
         },
@@ -202,6 +223,27 @@ export class HomeComponent implements OnInit {
           this.ongoing_count = response.ongoing_count;
           this.done_count = response.done_count;
           this.projectCount = response.project_count;
+
+          var myChart = new Chart('myChart1',{  
+            type: 'pie',
+            data:{
+              labels: ['Done', 'Ongoing'],
+              datasets: [
+              {
+                label: 'Projects',
+                data: [this.done_count, this.ongoing_count ],
+                backgroundColor: ['maroon', 'black'],
+              },
+            ],
+        
+            },
+            options:{
+              aspectRatio: 1,
+            }
+          }
+            
+          )
+
 
         },
         error => {
