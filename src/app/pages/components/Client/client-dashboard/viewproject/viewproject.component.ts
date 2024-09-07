@@ -79,8 +79,7 @@ export class ViewprojectComponent {
   
   
       this.fetchAllTask();
-     
-    
+   
     }
 
 
