@@ -287,7 +287,7 @@ export class ShomeComponent implements OnInit {
               datasets: [
               {
                 label: 'Projects',
-                data: [this.projectCount, 1],
+                data: [this.done, this.ongoing ],
                 backgroundColor: ['maroon', 'black'],
               },
             ],
