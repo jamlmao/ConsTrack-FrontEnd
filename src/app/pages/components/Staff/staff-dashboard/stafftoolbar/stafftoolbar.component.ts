@@ -29,7 +29,8 @@ export class StafftoolbarComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  private logoutUrl = 'http://127.0.0.1:8000/api/logout';
+  private baseUrl = 'http://127.0.0.1:8000/';
+  private logoutUrl = this.baseUrl+'api/logout';
 
   constructor(private router: Router, private http: HttpClient) { }
 

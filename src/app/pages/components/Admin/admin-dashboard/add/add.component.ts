@@ -37,6 +37,10 @@ export class AddComponent {
   searchText:any;
   user: any;
 
+  private baseUrl = 'http://127.0.0.1:8000';
+  private clientsUrl = this.baseUrl+'/api/clients';
+  private projectsUrl = this.baseUrl + '/api/admin/projects';
+  private userUrl = this.baseUrl +'/api/user/details';
   isCreateProjectModalOpen = false;
   
 
@@ -101,7 +105,7 @@ export class AddComponent {
 
 
 
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
+ 
   
   
 
@@ -145,8 +149,7 @@ export class AddComponent {
 
 
   
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+ 
 
   selectedProject: any;
   userS: any = {};
@@ -165,8 +168,15 @@ export class AddComponent {
 
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
-        this.projects = response;
-        console.log('Fetched projects:', this.projects);
+        if (Array.isArray(response)) {
+          this.projects = response;
+          console.log('Fetched projects:', this.projects);
+        } else if (response && Array.isArray(response.projects)) {
+          this.projects = response.projects;
+          console.log('Fetched projects:', this.projects);
+        } else {
+          console.error('Expected an array for projects');
+        }
       },
       error => {
         console.error('Error fetching projects', error);
