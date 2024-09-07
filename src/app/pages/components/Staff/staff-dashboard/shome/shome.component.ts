@@ -53,14 +53,14 @@ export class ShomeComponent implements OnInit {
     }
   }
   chart : any;
-  
-  private staffUrl = 'http://127.0.0.1:8000/api/staff-with-extension';
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
-  private companyProjectsUrl = 'http://127.0.0.1:8000/api/CompanyProjects';
-  private projectCountUrl = 'http://127.0.0.1:8000/api/projectsPM';
-  private clientCountUrl = 'http://127.0.0.1:8000/api/clients-count-by-month';
+  private baseUrl ='http://127.0.0.1:8000/'
+  private staffUrl = this.baseUrl+'api/staff-with-extension';
+  private clientsUrl = this.baseUrl+'api/clients';
+  private projectsUrl = this.baseUrl+ 'api/staff/projects';
+  private userUrl = this.baseUrl+'api/user/details';
+  private companyProjectsUrl = this.baseUrl+'api/CompanyProjects';
+  private projectCountUrl = this.baseUrl+'api/projectsPM';
+  private clientCountUrl = this.baseUrl+'api/clients-count-by-month';
 
   projects: any[] = [];
   staff: any[] = [];

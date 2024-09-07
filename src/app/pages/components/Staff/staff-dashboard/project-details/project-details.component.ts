@@ -44,7 +44,7 @@ import Swal from 'sweetalert2';
 
 export class ProjectDetailsComponent {
 
-  progress = 75;
+
 
   events: any[] = [];
   tasks: any[] = [];
@@ -208,9 +208,7 @@ export class ProjectDetailsComponent {
 
   }
 
-  selectProject(project: any) {
-    this.router.navigate(['/timeline', project.id]);
-  }
+ 
 
   fetchProjectDetails(projectId: number) {
     const token = localStorage.getItem('token');
