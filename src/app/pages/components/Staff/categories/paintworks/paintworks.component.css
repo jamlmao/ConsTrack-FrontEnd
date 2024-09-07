@@ -45,8 +45,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     text-align: center; /* Center the content */
-    width: 330px; /* Set the width of the card */
-    height: 290px; /* Set the height of the card */
+    /* Set the width of the card */
+     /* Set the height of the card */
     margin: 10px;
   }
   
