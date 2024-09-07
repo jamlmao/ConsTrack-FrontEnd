@@ -25,6 +25,8 @@ import { FilterPipe } from '../../../../../filter.pipe';
 import { ArchiComponent } from "../../archi/archi.component";
 import { StafftoolbarComponent } from "../../staff-dashboard/stafftoolbar/stafftoolbar.component";
 import { StaffsidenavComponent } from "../../staff-dashboard/staffsidenav/staffsidenav.component";
+
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-generalrequirement',
   standalone: true,
@@ -33,18 +35,26 @@ import { StaffsidenavComponent } from "../../staff-dashboard/staffsidenav/staffs
   styleUrl: './generalrequirement.component.css'
 })
 export class GeneralrequirementComponent {
-  projects: any[] = [];
+  tasks: any[] = [];
   searchText:any;
   user: any;
-
+  selectedTaskId: number | null = null;
   isCreateProjectModalOpen = false;
-  
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private taskUrl = 'http://127.0.0.1:8000/api/tasks/general';
 
 
-  openCreateProjectModal() {
+  sideBarOpen=true;
+  sideBarToggler(){
+    this.sideBarOpen = !this.sideBarOpen;
+  }
+
+  openCreateProjectModal(taskId: number) {
     this.isCreateProjectModalOpen = true;
-    console.log('Opening Create Staff Project');
-    console.log(this.isCreateProjectModalOpen);
+    
+    this.selectedTaskId = taskId;
+    console.log('Selected Task ID:', this.selectedTaskId);
+  
   }
 
   closeCreateProjectModal() {
@@ -68,6 +78,7 @@ export class GeneralrequirementComponent {
     }
     
     this.getLoggedInUserNameAndId(); //Fetch logged in user
+    this.fetchTasks()
   }
 
   
@@ -78,27 +89,7 @@ export class GeneralrequirementComponent {
   }
   
 
-
-
-
-  
-  
-  
-
-
-
- 
-
-
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
-
-  
-
-  
-
-  
-
-  getLoggedInUserNameAndId(): void {
+  fetchTasks(): void {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found in local storage');
@@ -109,20 +100,56 @@ export class GeneralrequirementComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(this.userUrl, { headers }).subscribe(
-      (response: any) => {
-        this.user = response;
-        console.log('Logged in user:', this.user);
-      },
-      error => {
-        console.error('Error fetching user details', error);
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
       }
+    });
+
+    this.http.get<any[]>(this.taskUrl, { headers }).subscribe(
+      (response: any) => {
+        this.tasks = response.tasks ;
+        Swal.close();
+      }
+
     );
+  
+      
+  
+  }
+
+
+
+  selectTask(taskId: number): void {
+    this.selectedTaskId = taskId;
+   
   }
 
   
-  sideBarOpen=true;
-  sideBarToggler(){
-    this.sideBarOpen = !this.sideBarOpen;
+
+  
+
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+       
+      },
+     
+    );
   }
+
 }

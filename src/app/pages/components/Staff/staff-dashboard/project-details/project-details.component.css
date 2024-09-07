@@ -170,7 +170,7 @@
       }
       .table-wrapper {
           width: 100%;
-      font-family: 'Open Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
           
           background: #fff;
           padding: 10px;	
@@ -351,6 +351,8 @@
         
       
       }
+
+    
       
       .text-box{
         padding: 20px 30px;
@@ -385,10 +387,7 @@
         }
       }
       
-      h3 {
-        text-transform: capitalize;
-        
-      }
+      
 
       .timeline-point-track-container{
         flex: 0;
@@ -438,6 +437,3 @@
       
       }
       
-      h3{
-        font-weight: bold;
-      }

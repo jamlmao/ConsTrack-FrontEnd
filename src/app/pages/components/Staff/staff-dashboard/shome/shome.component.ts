@@ -22,7 +22,7 @@ import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { SidenavComponent } from "../../../Admin/admin-dashboard/sidenav/sidenav.component";
 import { HeaderComponent } from "../../../Admin/admin-dashboard/header/header.component";
 import { Chart,registerables } from 'chart.js';
-import { take, tap } from 'rxjs';
+import { first, last, take, tap } from 'rxjs';
 Chart.register(...registerables);
 
 @Component({
@@ -54,7 +54,7 @@ export class ShomeComponent implements OnInit {
   }
   chart : any;
   
-
+  private staffUrl = 'http://127.0.0.1:8000/api/staff-with-extension';
   private clientsUrl = 'http://127.0.0.1:8000/api/clients';
   private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
   private userUrl = 'http://127.0.0.1:8000/api/user/details';
@@ -63,6 +63,7 @@ export class ShomeComponent implements OnInit {
   private clientCountUrl = 'http://127.0.0.1:8000/api/clients-count-by-month';
 
   projects: any[] = [];
+  staff: any[] = [];
   selectedProject: any;
   user: any = {};
   projectCount: number | null = null;
@@ -72,6 +73,8 @@ export class ShomeComponent implements OnInit {
   projectsPerMonth: any[] = [];
   clientsPerMonth: any[] = [];
   clientCount: number = 0;
+  done: number = 0;
+  ongoing: number = 0;
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -117,9 +120,10 @@ export class ShomeComponent implements OnInit {
     this.fetchClients(); // Fetch clients 
     this.fetchProjectsPerMonth(); // Fetch projects per month w
     this.fetchClientsPerMonth(); // Fetch clients per month 
+    this.fetchstaffAccounts(); // Fetch staff accounts
   }
   
- 
+  
 
 
 
@@ -151,6 +155,47 @@ export class ShomeComponent implements OnInit {
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
+
+
+  fetchstaffAccounts():void{
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    console.log('Token:', token);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<any>(this.staffUrl, { headers }).subscribe(
+      (response: any) => {
+        if (Array.isArray(response.staff)) {
+          this.staff = response.staff;
+          console.log('Fetched staff:', this.staff);
+        } else {
+          console.error('Expected an array for staff_with_extension');
+        }
+       
+      },
+      error => {
+        console.error('Error fetching staff', error);
+      }
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   fetchProjects(): void {
     const token = localStorage.getItem('token');
@@ -208,8 +253,10 @@ export class ShomeComponent implements OnInit {
   ctx:any;
   data=[];
 
+
+
   getCompanyProjects(staffId: number): void {
-    console.log('Fetching projects for staffId:', staffId); // Log the staffId
+   
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found in local storage');
@@ -223,11 +270,16 @@ export class ShomeComponent implements OnInit {
     const url = `${this.companyProjectsUrl}/${staffId}`;
   
   
-    this.http.get<{ project_count: number }>(url, { headers })
+    this.http.get<{ project_count: number, done:number, ongoing:number }>(url, { headers })
       .subscribe(
         response => {
+          console.log('prject response:', response);
           console.log('Project count:', response.project_count)
           this.projectCount = response.project_count;
+          this.done = response.done;
+          this.ongoing = response.ongoing;
+      
+
           var myChart = new Chart('myChart',{  
             type: 'pie',
             data:{

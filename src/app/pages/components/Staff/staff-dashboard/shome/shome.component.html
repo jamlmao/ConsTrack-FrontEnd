@@ -55,7 +55,7 @@
                     </div>
                     <div class="text-end pt-1">
                       <p class="text-sm text-capitalize">Pending Projects</p>
-                      <h1 class="mb-0">0</h1>
+                      <h1 class="mb-0">{{ongoing}}</h1>
                     </div>
                   </div>
                   <hr class="dark horizontal my-0">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="text-end pt-1">
                       <p class="text-sm text-capitalize">Finished Projects</p>
-                      <h1 class="mb-0">0</h1>
+                      <h1 class="mb-0">{{done}}</h1>
                     </div>
                   </div>
                   <hr class="dark horizontal my-0">
@@ -162,38 +162,22 @@
                            
                           </tr>
                         </thead>
-                        <tbody *ngFor="let project of projects; let i = index;">
+                        <tbody *ngFor="let staffMember of staff; let i = index;">
                           <tr>
                             <td>
                               <div class="d-flex px-2 py-1">
-                                
                                 <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm" style="text-transform: capitalize;">{{ i ++ 1 }}</h6>
+                                  <h6 class="mb-0 text-sm" style="text-transform: capitalize;">{{ i + 1 }}</h6>
                                 </div>
                               </div>
                             </td>
-                            
                             <td class="align-middle text-center text-sm">
-                              <span class="mb-0 text-sm"> {{ project.starting_date }} </span>
+                              <span class="mb-0 text-sm" style="text-transform: capitalize;">{{ staffMember.first_name }}, {{ staffMember.last_name }}</span>
                             </td>
                             <td class="align-middle text-center text-sm">
-                              <span class="mb-0 text-sm"> {{ project.completion_date }} </span>
-                            </td>
-                            <td class="align-middle text-center text-sm">
-                              <span class="mb-0 text-sm"> {{ project.totalBudget }} </span>
-                            </td>
-                            <td class="align-middle text-center text-sm">
-                              <span class="mb-0 text-sm"> {{ project.status }} </span>
-                            </td>
-                            <td class="align-middle">
-                              <div class="progress-wrapper w-75 mx-auto">
-                                <div class="progress">
-                                  <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                              </div>
+                              <span class="mb-0 text-sm" style="text-transform: capitalize;">{{ staffMember.extension_name }}</span>
                             </td>
                           </tr>
-                          
                         </tbody>
                       </table>
                       

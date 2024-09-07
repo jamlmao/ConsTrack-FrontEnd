@@ -18,10 +18,7 @@
                   
                 <div class="projects-container"> 
                     <!-- ////archi folder tung form -->
-                    <button (click)="openCreateProjectModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task Update</button>
-<app-archi 
-*ngIf="isCreateProjectModalOpen"  (close)="closeCreateProjectModal()">
-</app-archi>
+                  
                 </div>
                 </div>
 
@@ -40,54 +37,33 @@
         <div class="projects-container" style="margin-top: -20px;">
             
             
-            <div class="cards project-item">
+            <div class="cards project-item" *ngFor="let task of tasks">
                 <p><strong>Before:</strong></p>
-                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                <p><strong>After</strong></p>
-                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
+                <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Project Image" class="card-image">
+                
+                <p *ngIf="task.update_img"><strong>After:</strong></p>
+                <img *ngIf="task.update_img" [src]="'http://localhost:8000' + task.update_img" alt="Project Image" class="card-image">
+
                 <div class="project-details">
-                    <p><strong>BedRoom/CR/Hallway/Window</strong></p>
-                    <p><strong>Date Uploaded:</strong></p>
-                    <p><strong>Material used:</strong></p>
-                    <p><strong>Qty:</strong></p>
-                    <p><strong>Cost:</strong></p>
-                    
+                    <p><strong>Task Name: {{ task.pt_task_name }}</strong></p>
+                    <p><strong>Starting Date: {{task.pt_starting_date}}</strong></p>
+                    <p><strong>Resources used:</strong></p>
+                        <ol>
+                        <li *ngFor="let resource of task.resources">
+                            <p><strong>{{ resource.resource_name }}</strong></p>
+                            <p><strong>Qty:</strong> {{ resource.qty }}</p>
+                            <p><strong>Cost:</strong> {{ resource.total_cost }}</p>
+                        </li>
+                        </ol>
                    
                 </div>
-                
+                    <button *ngIf="!task.update_img" (click)="openCreateProjectModal(task.id)"  type="button"  class="btn-grad btn-outline-dark" >Add Task Update</button>
+                <app-archi 
+                *ngIf="isCreateProjectModalOpen" [taskId]="selectedTaskId"  (close)="closeCreateProjectModal()">
+                </app-archi>
             </div>
-            <div class="cards project-item">
-                <p><strong>Before:</strong></p>
-                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                <p><strong>After</strong></p>
-                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                <div class="project-details">
-                    <p><strong>BedRoom/CR/Hallway/Window</strong></p>
-                    <p><strong>Date Uploaded:</strong></p>
-                    <p><strong>Material used:</strong></p>
-                    <p><strong>Qty:</strong></p>
-                    <p><strong>Cost:</strong></p>
-                    
-                   
-                </div>
-                
-            </div>
-            <div class="cards project-item">
-                <p><strong>Before:</strong></p>
-                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                <p><strong>After</strong></p>
-                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                <div class="project-details">
-                    <p><strong>BedRoom/CR/Hallway/Window</strong></p>
-                    <p><strong>Date Uploaded:</strong></p>
-                    <p><strong>Material used:</strong></p>
-                    <p><strong>Qty:</strong></p>
-                    <p><strong>Cost:</strong></p>
-                    
-                   
-                </div>
-                
-            </div>
+            
+    
         </div>
        
         

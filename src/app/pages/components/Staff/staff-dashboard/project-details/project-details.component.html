@@ -19,21 +19,28 @@
                 </div>
                
                 
-                <div class="">
+                <div >
                     <div class="table-wrapper">
                         <div class="table-title">
                             <div class="row">
                                 <h1 style="font-weight: bold; margin: 20px; align-items: center;">PROJECT DETAILS</h1>
+
                                 <div class="col-6">
-                                    
-                                    <div class="m-4" style="font-weight: bold;">
-                                    
-                                    <h3>Building Type: {{projectDetails.project_name}}</h3>
-                                    <h3>Location: {{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</h3>
-                                    <h3>Total Budget: {{projectDetails.totalBudget}}</h3>
-                                    <h3>Target Date Completion: {{projectDetails.completion_date}}</h3>
-                                    <h3>Engineer/Architec: {{100000/projectDetails.totalBudget * 100}}</h3>
-                                    <h3>Progress Percentage: {{totalAllocatedBudget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%<mat-progress-bar mode="determinate" [value]="totalAllocatedBudget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h3>
+                                    <div class="m-4">
+                                        <h4>Building Type:<span style="font-weight: bold; text-transform:uppercase"> {{projectDetails.project_name}}</span></h4>
+                                        <h4> Location:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span> </h4>
+                                        <h4> Total Budget:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.totalBudget }}</span></h4>
+                                        <h4> Target Date Completion:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.completion_date}}</span> </h4>
+                                        <h4>Person In Charge:
+                                            <span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                                                {{ projectDetails.staff_last_name }} 
+                                                {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span>
+                                        </h4>
+
+
+                                        <h4>Progress Percentage: <span style="font-weight: bold;
+                                    ">{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%</span><mat-progress-bar mode="determinate" [value]="totalAllocatedBudget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+                                       
                                     
                                     
 
@@ -56,7 +63,7 @@
                 </div> 
              
             </div>
-
+            
             <div class="">
                 <div class="table-wrapper">
             <table class="table table-bordered">
@@ -132,8 +139,8 @@
                         <td>{{ SortedTask[category.name]?.thisPeriodCost || '-' }}</td>
                         <td>{{ SortedTask[category.name]?.toDateCost || '-' }}</td>
                         <td>
-                            <div>{{ SortedTask[category.name]?.percentage || 0 }}%</div>
-                            <mat-progress-bar mode="determinate" [value]="SortedTask[category.name]?.percentage || 0" color="accent"></mat-progress-bar>
+                            <div>{{ SortedTask[category.name]?.percentage | number: '1.2-2' || 0 }}%</div>
+                            <mat-progress-bar mode="determinate" [value]="SortedTask[category.name]?.percentage  || 0 "  color="accent"></mat-progress-bar>
                         </td>
                         <td>
                             <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
@@ -167,14 +174,16 @@
             <div>
                 <div class="signature-line"></div>
                 
-                <div style="margin-left: 140px;">insert here the name</div>
-                <div style="margin-left: 140px;">Registered Architect</div>
-                <div style="margin-left: 140px;">License No. ADD A TABLE FOR THE LICENSE NUMBER and render here
+                <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                    {{ projectDetails.staff_last_name }} 
+                    {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
+                <div style="margin-left: 140px;"> Registered {{ projectDetails.extension_name }}</div>
+                <div style="margin-left: 140px;">License No. {{ projectDetails.license_number }}
             </div>
             </div>
             <div>
                 <div class="signature-line"></div>
-                <div style="margin-left: 140px;">insert here the name</div>
+                <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
                 <div style="margin-left: 140px;">Owner</div>
             </div>
             
@@ -186,34 +195,52 @@
         <div class="table-wrapper">
             <div class="col-sm-10">      
                 <h2>Resources Table</h2></div> 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th width="2%">#</th>
-                <th width="10%">Task Name</th>
-                <th width="4%">Task ID</th>
-                <th width="8%">Date</th>
-                <th width="8%">Material Used:</th>
-                <th width="4%">Qty:</th>
-                <th width="4%">Cost</th>
-                <th width="4%">Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let task of tasks  let i = index;" >
-                <td>{{ i ++ 1 }}</td>
-                <td>{{ task.pt_task_name }}</td>
-                <td>1</td>
-                <td>{{ task.pt_starting_date }}</td>
-                <td>cement</td>
-                <td>2</td>
-                <td>32</td>
-                <td>64</td>
-                
-           
-            </tr>
-        </tbody>
-    </table>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="2%">#</th>
+                            <th width="10%">Task Name</th>
+                            <th width="8%">Date</th>
+                            <th width="8%">Resources Used:</th>
+                            <th width="4%">Qty:</th>
+                            <th width="4%">Cost</th>
+                            <th width="4%">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of tasks; let i = index;">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ task.pt_task_name }}</td>
+                            <td>{{ task.pt_starting_date }}</td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let resource of task.resources">
+                                        <p><strong>{{ resource.resource_name }}</strong></p>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let resource of task.resources">
+                                        <p><strong>{{ resource.qty }}</strong></p>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let resource of task.resources">
+                                        <p><strong>{{ resource.unit_cost }}</strong></p>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td> <ul>
+                                <li *ngFor="let resource of task.resources">
+                                    <p><strong>{{ resource.total_cost }}</strong></p>
+                                </li>
+                            </ul></td>
+                        </tr>
+                    </tbody>
+                </table>
     </div>
     </div>
           

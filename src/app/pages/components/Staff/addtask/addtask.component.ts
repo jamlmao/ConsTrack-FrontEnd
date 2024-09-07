@@ -10,14 +10,14 @@ import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-addtask',
   standalone: true,
-  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule,MatTooltipModule],
   templateUrl: './addtask.component.html',
   styleUrl: './addtask.component.css'
 })

@@ -16,15 +16,10 @@
                   <form (ngSubmit)="onSubmit()">
 
                     <div class="form-group input-group">
-                      <label for="pj_image">Project Image:</label>
-                      <input class="form-control" type="file" >
+                      <label for="update_image">Updated Image:</label>
+                      <input placeholder="Update" class="form-control" type="file" (change)="onFileChange($event, 'update_image')" required>
                   </div>
                         
-                    <div class="form-group input-group">
-                    <label for="site_location">Update Description:</label>
-                    <input class="form-control" id="site_location"  name="site_location" type="text" required>
-                    </div> 
-
 
                  
                 <div class="d-flex align-items-center justify-content-between py-3">

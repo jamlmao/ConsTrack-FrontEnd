@@ -28,7 +28,7 @@ import { SiteComponent } from "../../site/site.component";
 import { ArchiComponent } from "../../archi/archi.component";
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
 
 
@@ -36,7 +36,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [MatProgressSpinnerModule,MatProgressBarModule,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, SiteComponent, ArchiComponent],
+  imports: [MatProgressSpinnerModule,MatProgressBarModule,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, SiteComponent, ArchiComponent,MatTooltipModule],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css'
 })
@@ -58,33 +58,19 @@ export class ProjectDetailsComponent {
   toDateCost: number = 0;
   projectId: string ="";
   taskImages: { [taskId: number]: string } = {};
-  private TaskUrl = 'http://127.0.0.1:8000/api/projectsTasks/'; 
-  private SortedUrl ='http://127.0.0.1:8000/api/sortedTask/'
-  private ImageUrl = 'http://127.0.0.1:8000/api/PtImages/';
-  private taskByCategoryUrl = 'http://127.0.0.1:8000/api/tasksBycategory/';
-  private projectDetailsUrl = 'http://127.0.0.1:8000/api/projectD/';
+  alltask: any[] = [];
+
+  private url ="http://127.0.0.1:8000";
+  private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
+  private SortedUrl =`${this.url}`+'/api/sortedTask/'
+  private allTask = `${this.url}`+'/api/Alltask';
+  private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
+  private projectDetailsUrl = `${this.url}`+'/api/projectD/';
+
 
   projectDetails: any = {};
 
 
-  
-
-  // categories: string[] = [
-  //   'GENERAL REQUIREMENTS',
-  //   'SITE WORKS',
-  //   'CONCRETE & MASONRY WORKS',
-  //   'METAL REINFORCEMENT WORKS',
-  //   'FORMS & SCAFFOLDINGS',
-  //   'STEEL FRAMING WORK',
-  //   'TINSMITHRY WORKS',
-  //   'PLASTERING WORKS',
-  //   'PAINTS WORKS',
-  //   'PLUMBING WORKS',
-  //   'ELECTRICAL WORKS',
-  //   'CEILING WORKS',
-  //   'ARCHITECTURAL'
-  // ];
-  
   
 
   categorizedTasks: { [key: string]: any[] } = {};
@@ -110,8 +96,8 @@ export class ProjectDetailsComponent {
     });
 
 
-
-    
+    this.fetchAllTask();
+   
   
   }
 
@@ -121,16 +107,16 @@ export class ProjectDetailsComponent {
     this.categories = [
       { name: 'GENERAL REQUIREMENTS', path: this.generatePath('general') },
       { name: 'SITE WORKS', path: this.generatePath('site') },
-      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('concrete') },
-      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('concrete') },
-      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('concrete') },
-      { name: 'TINSMITHRY WORKS', path: this.generatePath('concrete') },
-      { name: 'PLASTERING WORKS', path: this.generatePath('concrete') },
-      { name: 'PAINTS WORKS', path: this.generatePath('concrete') },
-      { name: 'PLUMBING WORKS', path: this.generatePath('concrete') },
-      { name: 'ELECTRICAL WORKS', path: this.generatePath('concrete') },
-      { name: 'CEILING WORKS', path: this.generatePath('concrete') },
-      { name: 'ARCHITECTURAL', path: this.generatePath('concrete') },
+      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('metal') },
+      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('forms') },
+      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('steel') },
+      { name: 'TINSMITHRY WORKS', path: this.generatePath('tinsmithry') },
+      { name: 'PLASTERING WORKS', path: this.generatePath('plastering') },
+      { name: 'PAINTS WORKS', path: this.generatePath('paint') },
+      { name: 'PLUMBING WORKS', path: this.generatePath('plumbing') },
+      { name: 'ELECTRICAL WORKS', path: this.generatePath('electrical') },
+      { name: 'CEILING WORKS', path: this.generatePath('ceiling') },
+      { name: 'ARCHITECTURAL', path: this.generatePath('architectural') },
     ];
   }
 
@@ -138,7 +124,8 @@ export class ProjectDetailsComponent {
     return `${category}`;
   }
   
-  
+ 
+
   constructor(
         private router: Router, 
         private route: ActivatedRoute,
@@ -204,7 +191,22 @@ export class ProjectDetailsComponent {
   }
   
   
+  fetchAllTask() { 
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
 
+    this.http.get(this.allTask, { headers }).subscribe(
+      (response: any) => {
+        this.alltask = response.alltasks;
+        console.log('All tasks:', this.alltask);
+      }
+    );
+
+  }
 
   selectProject(project: any) {
     this.router.navigate(['/timeline', project.id]);

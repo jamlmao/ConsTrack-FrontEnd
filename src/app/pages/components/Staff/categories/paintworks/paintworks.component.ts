@@ -16,7 +16,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-
+import Swal from 'sweetalert2';
 
 import { CreateProjectComponent } from "../../../Admin/create-project/create-project.component";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -34,18 +34,26 @@ import { StaffsidenavComponent } from "../../staff-dashboard/staffsidenav/staffs
   styleUrl: './paintworks.component.css'
 })
 export class PaintworksComponent {
-  projects: any[] = [];
+  tasks: any[] = [];
   searchText:any;
   user: any;
-
+  selectedTaskId: number | null = null;
   isCreateProjectModalOpen = false;
-  
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private taskUrl = 'http://127.0.0.1:8000/api/tasks/paint';
 
 
-  openCreateProjectModal() {
+  sideBarOpen=true;
+  sideBarToggler(){
+    this.sideBarOpen = !this.sideBarOpen;
+  }
+
+  openCreateProjectModal(taskId: number) {
     this.isCreateProjectModalOpen = true;
-    console.log('Opening Create Staff Project');
-    console.log(this.isCreateProjectModalOpen);
+    
+    this.selectedTaskId = taskId;
+    console.log('Selected Task ID:', this.selectedTaskId);
+  
   }
 
   closeCreateProjectModal() {
@@ -69,6 +77,7 @@ export class PaintworksComponent {
     }
     
     this.getLoggedInUserNameAndId(); //Fetch logged in user
+    this.fetchTasks()
   }
 
   
@@ -79,27 +88,7 @@ export class PaintworksComponent {
   }
   
 
-
-
-
-  
-  
-  
-
-
-
- 
-
-
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
-
-  
-
-  
-
-  
-
-  getLoggedInUserNameAndId(): void {
+  fetchTasks(): void {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found in local storage');
@@ -110,20 +99,56 @@ export class PaintworksComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(this.userUrl, { headers }).subscribe(
-      (response: any) => {
-        this.user = response;
-        console.log('Logged in user:', this.user);
-      },
-      error => {
-        console.error('Error fetching user details', error);
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
       }
+    });
+
+    this.http.get<any[]>(this.taskUrl, { headers }).subscribe(
+      (response: any) => {
+        this.tasks = response.tasks ;
+        Swal.close();
+      }
+
     );
+  
+      
+  
+  }
+
+
+
+  selectTask(taskId: number): void {
+    this.selectedTaskId = taskId;
+   
   }
 
   
-  sideBarOpen=true;
-  sideBarToggler(){
-    this.sideBarOpen = !this.sideBarOpen;
+
+  
+
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+       
+      },
+     
+    );
   }
+
 }
