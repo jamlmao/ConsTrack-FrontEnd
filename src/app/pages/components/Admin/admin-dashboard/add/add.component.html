@@ -79,7 +79,7 @@
                       </tr>
                     </thead>
                     <tbody >
-                      <tr *ngFor="let project of projects | filter:searchText; let i = index" (click)="selectProject(project)">
+                      <tr *ngFor="let project of paginatedUsers | filter:searchText; let i = index" (click)="selectProject(project)">
                        
                         <td class="align-middle text-center text-sm">
                           <span class="mb-0 text-sm"> {{ i ++ 1}} </span>
@@ -110,6 +110,11 @@
                       
                     </tbody>
                   </table>
+                  <div class="pagination-controls">
+                    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                    <span style="margin-top: 4px;">Page {{currentPage}} of {{totalPages}}</span>
+                    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                  </div>
                  
                   
                 </div>

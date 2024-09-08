@@ -135,7 +135,8 @@ export class AddComponent {
     );
   }
  
- 
+  
+  
   
   
   
@@ -153,6 +154,10 @@ export class AddComponent {
 
   selectedProject: any;
   userS: any = {};
+  paginatedUsers: any[] = []; // Holds the data for the current page
+  currentPage = 1;
+  rowsPerPage = 1; // Number of rows per page
+  totalPages = 1;
 
   fetchProjects(): void {
     const token = localStorage.getItem('token');
@@ -173,6 +178,8 @@ export class AddComponent {
           console.log('Fetched projects:', this.projects);
         } else if (response && Array.isArray(response.projects)) {
           this.projects = response.projects;
+          this.totalPages = Math.ceil(this.projects.length / this.rowsPerPage);
+          this.updatePaginatedUsers();
           console.log('Fetched projects:', this.projects);
         } else {
           console.error('Expected an array for projects');
@@ -182,6 +189,26 @@ export class AddComponent {
         console.error('Error fetching projects', error);
       }
     );
+  }
+
+  
+  updatePaginatedUsers() {
+    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+    const endIndex = startIndex + this.rowsPerPage;
+    this.paginatedUsers = this.projects.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedUsers();
+    }
+  }
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedUsers();
+    }
   }
 
   selectProject(project: any) {

@@ -53,7 +53,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of users;">
+                                <tr *ngFor="let user of paginatedUsers;">
                                     <td><span style="text-transform: uppercase;">{{user.first_name}}, {{user.last_name}}</span></td>
                                     <td>0{{user.phone_number}}</td>
                                     <td><span style="text-transform: uppercase;">{{user.address}}, {{user.city}} {{user.country}}</span></td>
@@ -73,6 +73,11 @@
                                   
                             </tbody>
                         </table>
+                        <div class="pagination-controls">
+                            <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                            <span style="margin-top: 4px;">Page {{currentPage}} of {{totalPages}}</span>
+                            <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                          </div>
                     </div>
                 </div>    
                

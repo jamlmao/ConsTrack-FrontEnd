@@ -54,6 +54,10 @@ export class AccountComponent {
     this.fetchUser(); // Fetch user when the component is initialized
   }
 
+  paginatedUsers: any[] = []; // Holds the data for the current page
+  currentPage = 1;
+  rowsPerPage = 1; // Number of rows per page
+  totalPages = 1;
 
   fetchUser(): void {
     const token = localStorage.getItem('token');
@@ -69,6 +73,8 @@ export class AccountComponent {
       .subscribe((res: any) => {
         if (res && Array.isArray(res.users)) {
           this.users = res.users;
+          this.totalPages = Math.ceil(this.users.length / this.rowsPerPage);
+          this.updatePaginatedUsers();
         } else {
         }
       }, error => {
@@ -79,6 +85,24 @@ export class AccountComponent {
 
 
 
+  updatePaginatedUsers() {
+    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+    const endIndex = startIndex + this.rowsPerPage;
+    this.paginatedUsers = this.users.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedUsers();
+    }
+  }
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedUsers();
+    }
+  }
 
 
 
