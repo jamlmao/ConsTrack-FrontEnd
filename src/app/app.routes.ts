@@ -41,6 +41,7 @@ import { ElectricalComponent } from './pages/components/Staff/categories/electri
 import { CeilingworksComponent } from './pages/components/Staff/categories/ceilingworks/ceilingworks.component';
 import { ArchitecturalComponent } from './pages/components/Staff/categories/architectural/architectural.component';
 import { WebsiteComponent } from './website/website.component';
+import { ClientupdatesComponent } from './pages/components/Client/client-dashboard/clientupdates/clientupdates.component';
 
 
 
@@ -255,6 +256,11 @@ export const routes: Routes = [
     {
         path: 'Constrack/website',
         component: WebsiteComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'updates',
+        component: ClientupdatesComponent,
         canActivate: [AuthGuard]
     },
 
