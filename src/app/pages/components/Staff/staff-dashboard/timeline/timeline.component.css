@@ -54,47 +54,93 @@
 
 }
 
-.container img{
-  position: absolute;
-  width: 300px;
-  height: 220px;
-  border-radius: 10%;
-  right: 10px;
-  top: 10px;
 
-  z-index: 10;
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f0f0f0;
 }
-
-.text-box{
-  padding: 20px 30px;
-  background: rgb(43, 42, 42);
+.timeline-container {
+  overflow-x: auto;
+  padding: 20px 0;
+}
+.timeline {
+  display: flex;
   position: relative;
-  border-radius: 10px;
-  font-size: 15px;
-  color: aliceblue;
-  height: 240px;
-  
+  min-width: max-content;
+  padding: 20px 0;
 }
-.timeline::after{
-  content: "";
+.task {
+  flex: 0 0 250px;
+  margin-right: 40px;
+  position: relative;
+}
+.task::after {
+  content: '';
   position: absolute;
-  right: 50%;
-  top: 0;
-  margin-top: 50px;
-  margin-bottom: -50px;
-  height: 70%;
-  width: 5px;
-  background: rgb(43, 42, 42);
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 4px solid #2196F3;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 50%;
-  animation: LineAnimated 3s linear forwards;
-
+  z-index: 2;
 }
-@keyframes LineAnimated{
-  0%{
-    height: 0;
+.content {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.task.complete::after {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+.task.complete .content {
+  border-top: 4px solid #4CAF50;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 1em;
+}
+.date {
+  color: #777;
+  font-style: italic;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+p {
+  margin: 0;
+  font-size: 0.9em;
+  flex-grow: 1;
+}
+
+@media (max-width: 600px) {
+  .task {
+      flex: 0 0 200px;
+      margin-right: 20px;
   }
-  70%{
-    height: 70%;
+  h2 {
+      font-size: 0.9em;
+  }
+  .date, p {
+      font-size: 0.8em;
   }
 }
