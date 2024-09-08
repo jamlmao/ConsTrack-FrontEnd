@@ -49,28 +49,74 @@
         
 
             
-        <div class="projects-container" style="margin-top: -20px;">
-            
-            
-            <div *ngFor="let project of projects | filter:searchText" class="cards project-item" (click)="selectProject(project)">
-                <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
-                <div class="project-details">
-                    <p><strong>Site Location:</strong> {{ project.site_location }}</p>
-                    <p><strong>Client Name:</strong> {{ project.client.first_name }} {{ project.client.last_name }}</p>
-                    <p><strong>Contact Number:</strong> {{ project.client.phone_number }}</p>
-                    <p><strong>Starting Date:</strong> {{ project.starting_date }}</p>
-                    <p><strong>Completion Date:</strong> {{ project.completion_date }}</p>
-                    <p><strong>Total Budget:</strong> {{ project.totalBudget }}</p>
-                    <p><strong>Project PDF:</strong>
-                        <a *ngIf="project.pj_pdf" [href]="'http://localhost:8000' + project.pj_pdf" target="_blank">View PDF</a></p>
-                    <button  mat-fab extended class="btn-grad1"><mat-icon>addition</mat-icon>Add Task</button>
-                </div>
-                
-            </div>
-        </div>
+      
        
-        <div class="projects-container">
-            
+        <div class="row mb-4">
+          <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+            <div class="card">
+              <div class="card-header pb-0">
+                <div class="row">
+                  <div class="col-lg-6 col-7 mb-0">
+                    <h1>Projects List Table</h1>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive">
+                  <table class="table align-items-center mb-0"  id="myTable">
+                    <thead>
+                      <tr>
+                        <th class=" text-secondary text-xs font-weight-bolder opacity-7">#</th>
+                        <th class=" text-center text-secondary text-xxs font-weight-bolder opacity-7">Client Name</th>
+                        <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">Project Type</th>
+                        <th class="text-center text text-secondary text-xxs font-weight-bolder opacity-7">Starting Date</th>
+                        <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">Completion Date</th>
+                        <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">Total Budget</th>
+                        
+                        <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">Progress</th>
+                        <th class="text-center text-secondary text-xxs font-weight-bolder opacity-7">View</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let project of projects | filter:searchText; let i = index" (click)="selectProject(project)">
+                       
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ i ++ 1}} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm">{{ project.client.first_name }} {{ project.client.last_name }} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ project.project_name }} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ project.starting_date }} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ project.completion_date }} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ project.totalBudget }} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <span class="mb-0 text-sm"> {{ project.status }} </span>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <button  mat-fab class="btn-grad1">View</button>
+                        </td>
+                        
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                 
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
           
             

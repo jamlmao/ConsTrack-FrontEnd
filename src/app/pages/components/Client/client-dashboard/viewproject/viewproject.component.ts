@@ -56,6 +56,27 @@ export class ViewprojectComponent {
   private SortedUrl =`${this.url}`+'/api/sortedTask/'
   
 
+  initializeCategories(): void {
+    this.categories = [
+      { name: 'assets/spatial.png', path: this.generatePath('general') },
+      { name: 'SITE WORKS', path: this.generatePath('site') },
+      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('metal') },
+      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('forms') },
+      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('steel') },
+      { name: 'TINSMITHRY WORKS', path: this.generatePath('tinsmithry') },
+      { name: 'PLASTERING WORKS', path: this.generatePath('plastering') },
+      { name: 'PAINTS WORKS', path: this.generatePath('paint') },
+      { name: 'PLUMBING WORKS', path: this.generatePath('plumbing') },
+      { name: 'ELECTRICAL WORKS', path: this.generatePath('electrical') },
+      { name: 'CEILING WORKS', path: this.generatePath('ceiling') },
+      { name: 'ARCHITECTURAL', path: this.generatePath('architectural') },
+    ];
+  }
+
+  generatePath(category: string): string {
+    return `${category}`;
+  }
+
   constructor(
     private router: Router, 
     private route: ActivatedRoute,

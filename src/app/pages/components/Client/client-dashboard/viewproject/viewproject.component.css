@@ -213,3 +213,9 @@
     
     }
     
+
+    .icons{
+      width: 60%;
+      align-items: center;
+      justify-content: center;
+    }
