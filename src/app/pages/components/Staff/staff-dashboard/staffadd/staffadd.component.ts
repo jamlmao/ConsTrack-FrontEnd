@@ -163,6 +163,10 @@ export class StaffaddComponent {
 
   selectedProject: any;
   userS: any = {};
+  paginatedUsers: any[] = []; // Holds the data for the current page
+  currentPage = 1;
+  rowsPerPage = 1; // Number of rows per page
+  totalPages = 1;
   
 
   fetchProjects(): void {
@@ -182,11 +186,34 @@ export class StaffaddComponent {
         this.projects = response;
         console.log('Fetched projects:', this.projects);
         this.project.paginator = this.paginator;
+        this.totalPages = Math.ceil(this.projects.length / this.rowsPerPage);
+      this.updatePaginatedUsers();
       },
       error => {
         console.error('Error fetching projects', error);
       }
     );
+  }
+
+  updatePaginatedUsers() {
+    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+    const endIndex = startIndex + this.rowsPerPage;
+    this.paginatedUsers = this.projects.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedUsers();
+    }
+  }
+
+  // Go to the previous page
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedUsers();
+    }
   }
 
   selectProject(project: any) {

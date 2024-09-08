@@ -57,6 +57,10 @@ export class StaffclientaccComponent {
     this.fetchClients(); // Fetch projects when the component is initialized
   }
 
+  paginatedUsers: any[] = []; // Holds the data for the current page
+  currentPage = 1;
+  rowsPerPage = 1; // Number of rows per page
+  totalPages = 1;
 
   
   fetchClients(): void {
@@ -80,6 +84,8 @@ export class StaffclientaccComponent {
             index === self.findIndex((c) => c.id === client.id)
           );
           this.clients = uniqueClients;
+          this.totalPages = Math.ceil(this.clients.length / this.rowsPerPage);
+      this.updatePaginatedUsers();
         } else {
           console.error('Unexpected response format:', response);
           this.clients = [];
@@ -96,6 +102,27 @@ export class StaffclientaccComponent {
     );
   }
 
+
+  updatePaginatedUsers() {
+    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+    const endIndex = startIndex + this.rowsPerPage;
+    this.paginatedUsers = this.clients.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedUsers();
+    }
+  }
+
+  // Go to the previous page
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedUsers();
+    }
+  }
   
 
   openCreateClientModal() {
