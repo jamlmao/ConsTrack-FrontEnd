@@ -39,9 +39,12 @@
 
 
                                         <h4>Progress Percentage: <span style="font-weight: bold;
-                                    ">{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%</span><mat-progress-bar mode="determinate" [value]="totalAllocatedBudget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
-                                       
-                                    
+                                    ">{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%</span><mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+
+                                    <button *ngIf="projectDetails.staff_id === currentUserId && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' " (click)="handleButtonClick(projectIdNumber2)">
+                                        Special Action
+                                    </button>
+                                      
                                     
 
                                     </div>

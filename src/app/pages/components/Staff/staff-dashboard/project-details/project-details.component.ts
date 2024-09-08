@@ -59,6 +59,8 @@ export class ProjectDetailsComponent {
   projectId: string ="";
   taskImages: { [taskId: number]: string } = {};
   alltask: any[] = [];
+  currentUserId: number = 0;
+  projectIdNumber2: number = 0;
 
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
@@ -66,6 +68,7 @@ export class ProjectDetailsComponent {
   private allTask = `${this.url}`+'/api/Alltask';
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
+  private updateProjectUrl = `${this.url}`+'/api/projects/';
 
 
   projectDetails: any = {};
@@ -81,15 +84,17 @@ export class ProjectDetailsComponent {
    
 
     this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId') || ''; // Assuming 'projectId' is the parameter name
+      this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
-      console.log('Project ID:', projectIdNumber);
+      this.projectIdNumber2 = Number(this.projectId);
+      console.log('Project ID:', this.projectIdNumber2);
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
         this.fetchSortedTask(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
         this.initializeCategories();
+     
       } else {
         console.error('Project ID is not set or is not a number');
       }
@@ -224,6 +229,8 @@ export class ProjectDetailsComponent {
     this.http.get(this.projectDetailsUrl + `${projectId}`, { headers }).subscribe(
       (response: any) => {
         this.projectDetails = response.project;
+        this.currentUserId = response.project.staff_id
+        console.log('Current User ID:', this.currentUserId);
         console.log('Project Details:', this.projectDetails);
       },
       (error) => {
@@ -374,4 +381,48 @@ export class ProjectDetailsComponent {
     this.router.navigate(['/task-details', task.id]);
   }
  
+  
+
+
+  handleButtonClick(projectId: number): void {
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+   
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+
+
+    this.http.put(this.updateProjectUrl + `${projectId}/update-status`,{},  { headers }).subscribe(
+      (response: any) => {
+        console.log('Project updated:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Project updated successfully',
+          timer: 2000
+        }).then(() => {
+          window.location.reload();
+        });
+      },
+      error => {
+        console.error('Error updating project', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooopsieee',
+          text: 'Something went wrong',
+        });
+      }
+    );
+  }
+
+  get progressPercentage(): number {
+    return (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
+  }
+
 }

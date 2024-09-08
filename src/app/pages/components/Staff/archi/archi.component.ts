@@ -31,10 +31,10 @@ export class ArchiComponent {
 
 
 
-  tasks: any[] = [];
+  tasks: { [key: string]: string } = {};
   selectedTaskId: number | null = null;
 
-  private updateTaskUrl = 'http://http://127.0.0.1:8000/api/updatetask/';
+  private updateTaskUrl = 'http://127.0.0.1:8000/api/updatetask/';
   apiUrl: string ='';
 
 
@@ -67,11 +67,7 @@ export class ArchiComponent {
             const base64Content = base64String.split(',')[1];
   
             // Ensure tasks is an object with string keys and string values
-            if (typeof this.tasks === 'object' && !Array.isArray(this.tasks)) {
-              (this.tasks as { [key: string]: string })[field] = base64Content;
-            } else {
-              console.error('tasks is not an object or is an array.');
-            }
+            this.tasks[field] = base64Content;
           } else {
             console.error('The file content is not a valid base64 encoded string.');
           }
@@ -94,9 +90,12 @@ export class ArchiComponent {
       return;
     }
 
+    const payload = this.tasks;
+    console.log('Task payload:', payload);
+
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     
-    this.http.post(this.apiUrl,  { headers }).subscribe(response => { 
+    this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
         console.log('Task updated successfully', response);
         Swal.fire({
           position: "center",
