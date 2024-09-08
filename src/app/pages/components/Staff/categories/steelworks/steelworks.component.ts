@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from "@angular/material/button";
@@ -39,8 +39,11 @@ export class SteelworksComponent {
   user: any;
   selectedTaskId: number | null = null;
   isCreateProjectModalOpen = false;
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
-  private taskUrl = 'http://127.0.0.1:8000/api/tasks/steel';
+  projectId: number =0;
+
+  private baseUrl = 'http://127.0.0.1:8000/';
+  private userUrl = this.baseUrl+'api/user/details';
+  private taskUrl = this.baseUrl+'api/tasks/';
 
 
   sideBarOpen=true;
@@ -62,11 +65,12 @@ export class SteelworksComponent {
   }
  
 
-  constructor(private router: Router , public dialog: MatDialog,private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private router: Router , public dialog: MatDialog,private fb: FormBuilder, private route: ActivatedRoute, private http: HttpClient) { }
 
 
   ngOnInit(): void {
     
+
     
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -75,10 +79,22 @@ export class SteelworksComponent {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
+
+    
     
     this.getLoggedInUserNameAndId(); //Fetch logged in user
+    
+
+    this.route.paramMap.subscribe(params => {
+
+      this.projectId = +(params.get('projectId') ?? 0); // Use the appropriate parameter name
+     
+      console.log('Project ID:', this.projectId);
+    });
     this.fetchTasks()
+
   }
+
 
   
 
@@ -89,6 +105,7 @@ export class SteelworksComponent {
   
 
   fetchTasks(): void {
+    console.log('Fetching tasks for project ID:', this.projectId);
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found in local storage');
@@ -99,6 +116,8 @@ export class SteelworksComponent {
       'Authorization': `Bearer ${token}`
     });
 
+    const url = `${this.taskUrl}${this.projectId}/steel`;
+
     Swal.fire({
       title: 'Loading...',
       text: 'Please wait while we load the tasks.',
@@ -108,8 +127,9 @@ export class SteelworksComponent {
       }
     });
 
-    this.http.get<any[]>(this.taskUrl, { headers }).subscribe(
+    this.http.get<any[]>(url, { headers }).subscribe(
       (response: any) => {
+        
         this.tasks = response.tasks ;
         Swal.close();
       }
@@ -150,5 +170,6 @@ export class SteelworksComponent {
      
     );
   }
+
 
 }
