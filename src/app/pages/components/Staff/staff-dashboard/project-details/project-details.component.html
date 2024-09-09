@@ -22,21 +22,35 @@
                 <div >
                     <div class="table-wrapper">
                         <div class="table-title">
+                            
                             <div class="row">
-                                <h1 style="font-weight: bold; margin: 20px; align-items: center;">PROJECT DETAILS</h1>
-
+                                
+                                <h1 style="font-weight: bold; margin: 20px; align-items: center;">PROJECT DETAILS <mat-progress-spinner
+                                    class="justify-content-center" style="margin-left: 130px; margin-bottom: -40px;"
+                                    [mode]="'determinate'"
+                                    [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'"> 
+                                </mat-progress-spinner>{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}</h1>
+                              
+                                  
+                                      
+                                
                                 <div class="col-6">
+                                    
                                     <div class="m-4">
+                                        
                                         <h4>Building Type:<span style="font-weight: bold; text-transform:uppercase"> {{projectDetails.project_name}}</span></h4>
                                         <h4> Location:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span> </h4>
-                                        <h4> Total Budget:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.totalBudget }}</span></h4>
+                                        <h4> Total Budget:<span style="font-weight: bold; text-transform:uppercase">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></h4>
+                                        <h4> Starting Date:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.starting_date}}</span> </h4>
                                         <h4> Target Date Completion:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.completion_date}}</span> </h4>
                                         <h4>Person In Charge:
                                             <span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
                                                 {{ projectDetails.staff_last_name }} 
                                                 {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span>
                                         </h4>
-
+                                        
+                                        <h4> Remaining Budget:<span style="font-weight: bold; text-transform:uppercase">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></h4>
+                                        
 
                                         <h4>Progress Percentage: <span style="font-weight: bold;
                                     ">{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%</span><mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
@@ -44,15 +58,18 @@
                                     <button *ngIf="projectDetails.staff_id === currentUserId && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' " (click)="handleButtonClick(projectIdNumber2)">
                                         Special Action
                                     </button>
+                                   
                                       
                                     
 
                                     </div>
 
                                 </div>
-                                <div class="col-6">
+                                
+                                <div class="col-6" style="margin-top: -0px;">
                                     
-                                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="project image" class="project" width="400dvh" height="400dvh">
+                                    
+                                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="project image" class="project" width="400dvh" height="400dvh" style="margin-top: -100px;">
                                 </div>
 
                                
@@ -84,13 +101,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let task of tasks  let i = index;" >
+                    <tr *ngFor="let task of tasks  let i = index;" (click)="selecttask(task)">
                         <td>{{ i ++ 1 }}</td>
                         <td>{{ task.pt_task_name }}</td>
                         <td>{{ task.pt_task_desc }}</td>
                         <td>{{ task.pt_starting_date }}</td>
                         <td>{{ task.pt_completion_date }}</td>
-                        <td>{{ task.pt_allocated_budget }}</td>
+                        <td>{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
                         <td>{{ task.pt_status }}</td>
                         <td>
                             <p>
@@ -137,17 +154,15 @@
                     <tr>
                         <td>{{ toRoman(i + 1) }}</td>
                         <td>{{ category.name }}</td>
-                        <td>{{ SortedTask[category.name]?.totalAllocatedBudget || '-'}}</td>
-                        <td>{{ SortedTask[category.name]?.previousCost || '-' }}</td>
-                        <td>{{ SortedTask[category.name]?.thisPeriodCost || '-' }}</td>
-                        <td>{{ SortedTask[category.name]?.toDateCost || '-' }}</td>
+                        <td>{{ SortedTask[category.name]?.totalAllocatedBudget | number: '1.2-2' || '-'}}</td>
+                        <td>{{ SortedTask[category.name]?.previousCost | number: '1.2-2' || '-' }}</td>
+                        <td>{{ SortedTask[category.name]?.thisPeriodCost | number: '1.2-2' || '-' }}</td>
+                        <td>{{ SortedTask[category.name]?.toDateCost | number: '1.2-2' || '-' }}</td>
                         <td>
                             <div>{{ SortedTask[category.name]?.percentage | number: '1.2-2' || 0 }}%</div>
                             <mat-progress-bar mode="determinate" [value]="SortedTask[category.name]?.percentage  || 0 "  color="accent"></mat-progress-bar>
                         </td>
                         <td>
-                            <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                            <a class="edit"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
                            
                             <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
                         </td>
@@ -156,10 +171,10 @@
                         <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
                             <td></td>
                             <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                            <td>{{ task.pt_allocated_budget }}</td>
-                            <td>{{ task.pt_previous || '-' }}</td>
-                            <td>{{ task.pt_this_period || '-' }}</td>
-                            <td>{{ task.pt_to_date || '-' }}</td>
+                            <td>{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
+                            <td>{{ task.pt_previous | number: '1.2-2' || '-' }}</td>
+                            <td>{{ task.pt_this_period | number: '1.2-2' || '-' }}</td>
+                            <td>{{ task.pt_to_date | number: '1.2-2' || '-' }}</td>
                             <td>{{ task.pt_percentage_accomplishment || '-' }}</td>
                             
                         </tr>
@@ -167,7 +182,7 @@
                 </ng-container>
                 <tr>
                     <td colspan="4"><strong>TOTAL</strong></td>
-                    <td><strong>{{ totalAllocatedBudget }}</strong></td>
+                    <td><strong> {{ totalAllocatedBudget | number: '1.2-2' }}Php</strong></td>
                     <td colspan="3"></td>
                 </tr>
             </tbody>

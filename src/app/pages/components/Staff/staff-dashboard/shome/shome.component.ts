@@ -387,7 +387,7 @@ export class ShomeComponent implements OnInit {
                var myChart1 = new Chart('myChart1',{  
                 type: 'bar',
                 data:{
-                  labels: this.datamonth,
+                  labels: this.datayear,
                   datasets: [
                   {
                     label: 'Projects',
@@ -451,7 +451,7 @@ export class ShomeComponent implements OnInit {
                var myChart2 = new Chart('myChart2',{  
                 type: 'bar',
                 data:{
-                  labels: this.datamonth1,
+                  labels: this.datayear,
                   datasets: [
                   {
                     label: 'Clients',
