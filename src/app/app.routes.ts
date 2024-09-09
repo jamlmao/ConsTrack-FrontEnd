@@ -122,7 +122,7 @@ export const routes: Routes = [
     }
     ,
     {
-        path: 'client/viewstatus',
+        path: 'client/viewstatus/:projectId',
         component: ViewstatusComponent,
         canActivate: [AuthGuard]
     },
