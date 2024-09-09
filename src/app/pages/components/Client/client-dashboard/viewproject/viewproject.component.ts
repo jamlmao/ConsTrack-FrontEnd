@@ -56,6 +56,10 @@ export class ViewprojectComponent {
   private SortedUrl =`${this.url}`+'/api/sortedTask/'
   
 
+  selecttask(task: any) {
+    this.router.navigate(['/client/task-details', task.id]);
+  }
+
   initializeCategories(): void {
     this.categories = [
       { name: 'assets/spatial.png', path: this.generatePath('general') },

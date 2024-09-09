@@ -42,6 +42,7 @@ import { CeilingworksComponent } from './pages/components/Staff/categories/ceili
 import { ArchitecturalComponent } from './pages/components/Staff/categories/architectural/architectural.component';
 import { WebsiteComponent } from './website/website.component';
 import { ClientupdatesComponent } from './pages/components/Client/client-dashboard/clientupdates/clientupdates.component';
+import { TaskclientupdateComponent } from './pages/components/Client/client-dashboard/taskclientupdate/taskclientupdate.component';
 
 
 
@@ -263,5 +264,9 @@ export const routes: Routes = [
         component: ClientupdatesComponent,
         canActivate: [AuthGuard]
     },
-
+    {
+        path: 'client/task-details/:taskId',
+        component: TaskclientupdateComponent,
+        canActivate: [AuthGuard]
+    },
 ];

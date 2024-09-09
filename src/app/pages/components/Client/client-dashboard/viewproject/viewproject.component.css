@@ -132,6 +132,14 @@ body {
 .task.due .content {
   border-top: 4px solid #f40303;
 }
+.task.complete::after {
+  background-color: #3bf403;
+  border-color: #3bf403;
+}
+.task.complete .content {
+  border-top: 4px solid #3bf403;
+}
+
 img {
   max-width: 100%;
   height: auto;
