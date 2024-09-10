@@ -16,34 +16,23 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
-import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
-import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
-import { EditprofileComponent } from "../../editprofile/editprofile.component";
-import { AdddetailsComponent } from "../../adddetails/adddetails.component";
-import { AddtaskComponent } from "../../addtask/addtask.component";
-import { GeneralComponent } from "../../general/general.component";
-import { SiteComponent } from "../../site/site.component";
-import { ArchiComponent } from "../../archi/archi.component";
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
-
-
+import { StafftoolbarComponent } from "../staff-dashboard/stafftoolbar/stafftoolbar.component";
+import { StaffsidenavComponent } from "../staff-dashboard/staffsidenav/staffsidenav.component";
+import { AddtaskComponent } from "../addtask/addtask.component";
 
 @Component({
-  selector: 'app-project-details',
+  selector: 'app-sowa',
   standalone: true,
-  imports: [MatProgressSpinnerModule,MatProgressBarModule,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, SiteComponent, ArchiComponent,MatTooltipModule],
-  templateUrl: './project-details.component.html',
-  styleUrl: './project-details.component.css'
+  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StafftoolbarComponent, StaffsidenavComponent, AddtaskComponent],
+  templateUrl: './sowa.component.html',
+  styleUrl: './sowa.component.css'
 })
-
-
-export class ProjectDetailsComponent {
-
+export class SowaComponent {
+  
 
 
   events: any[] = [];
@@ -428,5 +417,4 @@ export class ProjectDetailsComponent {
   get progressPercentage(): number {
     return (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
   }
-
-}
+} 

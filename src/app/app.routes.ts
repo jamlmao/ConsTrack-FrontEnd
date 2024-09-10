@@ -43,6 +43,8 @@ import { ArchitecturalComponent } from './pages/components/Staff/categories/arch
 import { WebsiteComponent } from './website/website.component';
 import { ClientupdatesComponent } from './pages/components/Client/client-dashboard/clientupdates/clientupdates.component';
 import { TaskclientupdateComponent } from './pages/components/Client/client-dashboard/taskclientupdate/taskclientupdate.component';
+import { SowaComponent } from './pages/components/Staff/sowa/sowa.component';
+import { ResourcetableComponent } from './pages/components/Staff/resourcetable/resourcetable.component';
 
 
 
@@ -177,6 +179,16 @@ export const routes: Routes = [
     {
         path: 'project-details/:projectId',
         component: ProjectDetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'sowa/:projectId',
+        component: SowaComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'resources/:projectId',
+        component: ResourcetableComponent,
         canActivate: [AuthGuard]
     },
     {
