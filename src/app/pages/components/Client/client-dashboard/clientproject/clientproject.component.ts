@@ -19,18 +19,17 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
-
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-viewproject',
+  selector: 'app-clientproject',
   standalone: true,
   imports: [MatProgressBarModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, ClientsidenavComponent, ClienttoolbarComponent],
-  templateUrl: './viewproject.component.html',
-  styleUrl: './viewproject.component.css'
+  templateUrl: './clientproject.component.html',
+  styleUrl: './clientproject.component.css'
 })
-export class ViewprojectComponent {
-  
+export class ClientprojectComponent {
+
 
 
   events: any[] = [];

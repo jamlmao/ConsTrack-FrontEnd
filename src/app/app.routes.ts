@@ -45,6 +45,7 @@ import { ClientupdatesComponent } from './pages/components/Client/client-dashboa
 import { TaskclientupdateComponent } from './pages/components/Client/client-dashboard/taskclientupdate/taskclientupdate.component';
 import { SowaComponent } from './pages/components/Staff/sowa/sowa.component';
 import { ResourcetableComponent } from './pages/components/Staff/resourcetable/resourcetable.component';
+import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
 
 
 
@@ -131,6 +132,11 @@ export const routes: Routes = [
     {
         path: 'client/viewproject/:projectId',
         component: ViewprojectComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/clientproject/:projectId',
+        component: ClientprojectComponent,
         canActivate: [AuthGuard]
     }
     ,

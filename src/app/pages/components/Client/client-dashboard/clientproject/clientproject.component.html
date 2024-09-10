@@ -1,0 +1,133 @@
+<app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="over" [opened]="sideBarOpen">
+        <app-clientsidenav></app-clientsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        
+        <router-outlet></router-outlet>
+        
+           <section class="">
+             
+
+        
+                
+            
+            
+            
+    
+           
+
+           </section>
+        
+
+           <section class="">
+            <div class="container">
+
+                
+               
+
+                <body >
+                    <main>
+                      
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white py-5">
+                            
+                            <div class="container">
+                                
+                                <a class="navbar-brand"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" >PROJECT DETAILS</a></li>
+                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" >RESOURCES</a></li>
+                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]">TIMELINE UPDATES</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="title">
+                    
+                            <h2>PROJECT DETAILS</h2>
+                            <h1><span>CONSTRACK</span> COMPANY</h1>
+        
+                        </div>
+                
+                        <header class="py-5">
+                            <div class="container px-5 pb-5">
+                                <div class="row gx-5 align-items-center">
+                                    <div class="col-xxl-5">
+                                        
+                                        <div class="text-center text-xxl-start">
+                                            <div class="badge bg-black text-white mb-4"><div class="text-uppercase"> &middot; PROJECT &middot; DETAILS</div></div>
+                                          
+                                            <h4>Building Type:<span style="font-weight: bold; text-transform:uppercase"> {{projectDetails.project_name}}</span></h4>
+                                        <h4> Location:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span> </h4>
+                                        <h4> Total Budget:<span style="font-weight: bold; text-transform:uppercase">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></h4>
+                                        <h4> Starting Date:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.starting_date}}</span> </h4>
+                                        <h4> Target Date Completion:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.completion_date}}</span> </h4>
+                                        <h4>Person In Charge:
+                                            <span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                                                {{ projectDetails.staff_last_name }} 
+                                                {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span>
+                                        </h4>
+                                        
+                                        <h4> Remaining Budget:<span style="font-weight: bold; text-transform:uppercase">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></h4>
+                                        
+
+                                        <h4>Progress Percentage: <span style="font-weight: bold;
+                                    ">{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%</span><mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+
+                                    <button *ngIf="projectDetails.staff_id === currentUserId && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' " (click)="handleButtonClick(projectIdNumber2)">
+                                        Special Action
+                                    </button>
+
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-7">
+                               
+                                        <div class="d-flex justify-content-center mt-3 mt-xxl-0">
+                                            <div class="profile">
+                                               
+                                                <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="project image" class="project" width="550dvh" height="400dvh">
+                                
+                                                
+                                                
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </header>
+                      
+                      
+                    </main>
+                
+                 
+                 
+                </body>
+               
+                
+               
+             
+            </div>
+            
+           
+           </section>
+            
+        
+
+                
+          
+        
+       
+          
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

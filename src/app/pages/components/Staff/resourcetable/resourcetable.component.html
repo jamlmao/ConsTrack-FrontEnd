@@ -99,7 +99,10 @@
                         <tr>
                             <th width="2%">#</th>
                             <th width="10%">Task Name</th>
-                            <th width="8%">Date</th>
+                            <th width="8%">Starting Date</th>
+                            <th width="8%">Estimate Completion Date</th>
+                            
+                            <th width="8%">Status</th>
                             <th width="8%">Resources Used:</th>
                             <th width="4%">Qty:</th>
                             <th width="4%">Cost</th>
@@ -111,6 +114,8 @@
                             <td>{{ i + 1 }}</td>
                             <td>{{ task.pt_task_name }}</td>
                             <td>{{ task.pt_starting_date }}</td>
+                            <td>{{ task.pt_completion_date }}</td>
+                            <td>{{ task.pt_status }}</td>
                             <td>
                                 <ul>
                                     <li *ngFor="let resource of task.resources">

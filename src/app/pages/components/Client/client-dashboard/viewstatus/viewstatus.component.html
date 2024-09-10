@@ -5,7 +5,21 @@
     </mat-drawer>
     <mat-drawer-content>
         
-        
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-5">
+                            
+        <div class="container">
+            
+            <a class="navbar-brand"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" >PROJECT DETAILS</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" >RESOURCES</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]">TIMELINE UPDATES</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
         
         <div class="title">
                     
@@ -15,10 +29,7 @@
         </div>
 
 
-        <div class="d-flex align-items-center justify-content-center pb-4">
-          <p class="mb-0 me-2">Do you want to see updates?</p>
-          <button  type="button"  class="btn btn-outline-primary" [routerLink]="['/client/viewproject', projectDetails.id]" routerLinkActive="">View Updates</button>
-        </div>
+        
         
   
            
@@ -27,7 +38,9 @@
                           <tr>
                               <th width="2%">#</th>
                               <th width="10%">Task Name</th>
-                              <th width="8%">Date</th>
+                              <th width="8%">Starting Date</th>
+                              <th width="8%">Estimate Completion Date</th>
+                              
                               <th width="8%">Status</th>
                               <th width="8%">Resources Used:</th>
                               <th width="4%">Qty:</th>
@@ -40,6 +53,7 @@
                               <td>{{ i + 1 }}</td>
                               <td>{{ task.pt_task_name }}</td>
                               <td>{{ task.pt_starting_date }}</td>
+                              <td>{{ task.pt_completion_date }}</td>
                               <td>{{ task.pt_status }}</td>
                               <td>
                                   <ul>
