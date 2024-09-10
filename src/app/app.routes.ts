@@ -129,7 +129,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'client/viewproject',
+        path: 'client/viewproject/:projectId',
         component: ViewprojectComponent,
         canActivate: [AuthGuard]
     }
