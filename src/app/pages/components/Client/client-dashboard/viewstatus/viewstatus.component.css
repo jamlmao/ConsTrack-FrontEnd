@@ -42,8 +42,38 @@
     position: relative;
   }
   
-  
-  
+  .image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.task-image, .update-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.task-image {
+    z-index: 1;
+}
+
+.update-image {
+    z-index: 2;
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.image-container.swiped .update-image {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.image-container.swiped .task-image {
+    transform: translateX(-100%);
+    opacity: 0;
+}
 
   .title::before{
     content: '';

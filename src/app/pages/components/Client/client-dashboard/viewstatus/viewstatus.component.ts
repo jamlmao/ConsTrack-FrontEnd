@@ -50,7 +50,7 @@ export class ViewstatusComponent {
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
   private SortedUrl =`${this.url}`+'/api/sortedTask/'
-  private allTask = `${this.url}`+'/api/Alltask';
+  private allTask = `${this.url}`+'/api/projectsTasks/';
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
   private updateProjectUrl = `${this.url}`+'/api/projects/';
@@ -78,6 +78,7 @@ export class ViewstatusComponent {
         this.fetchSortedTask(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
+        this.fetchAllTask(projectIdNumber);
         this.initializeCategories();
      
       } else {
@@ -86,7 +87,7 @@ export class ViewstatusComponent {
     });
 
 
-    this.fetchAllTask();
+   
    
   
   }
@@ -181,15 +182,16 @@ export class ViewstatusComponent {
   }
   
   
-  fetchAllTask() { 
+  fetchAllTask(projectId: number) { 
     const token = localStorage.getItem('token'); 
     if (!token) {
       console.error('No token found in local storage');
       return;
     }
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+     console.log ('url:', this.allTask + `${projectId}`);
 
-    this.http.get(this.allTask, { headers }).subscribe(
+    this.http.get(this.allTask + `${projectId}`, { headers }).subscribe(
       (response: any) => {
         this.alltask = response.alltasks;
         console.log('All tasks:', this.alltask);

@@ -49,7 +49,7 @@
 
            <div class="timeline-container">
             <div class="timeline">
-                <div class="task" *ngFor="let task of alltask  let i = index;" [ngClass]="task?.pt_status === 'C' ? 'complete' : '' || task?.pt_status === 'OG' ? 'ongoing' : '' || task?.pt_status === 'D' ? 'due' : ''" (click)="selecttask(task)" >
+                <div class="task" *ngFor="let task of tasks  let i = index;" [ngClass]="task?.pt_status === 'C' ? 'complete' : '' || task?.pt_status === 'OG' ? 'ongoing' : '' || task?.pt_status === 'D' ? 'due' : ''">
                     <div class="content" >
                         <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
                                 
