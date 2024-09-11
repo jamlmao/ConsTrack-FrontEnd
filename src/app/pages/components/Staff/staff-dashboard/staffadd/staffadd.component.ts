@@ -165,7 +165,7 @@ export class StaffaddComponent {
   userS: any = {};
   paginatedUsers: any[] = []; // Holds the data for the current page
   currentPage = 1;
-  rowsPerPage = 1; // Number of rows per page
+  rowsPerPage = 7; // Number of rows per page
   totalPages = 1;
   
 

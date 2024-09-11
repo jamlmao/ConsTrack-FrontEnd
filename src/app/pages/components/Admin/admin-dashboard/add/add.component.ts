@@ -34,6 +34,7 @@ import { HeaderComponent } from "../header/header.component";
 export class AddComponent {
 
   projects: any[] = [];
+  company: any[] = [];
   searchText:any;
   user: any;
 
@@ -64,7 +65,7 @@ export class AddComponent {
 
   ngOnInit(): void {
     
-    this.fetchClients(); // Fetch clients when the component is initialized
+    // this.fetchClients(); // Fetch clients when the component is initialized
     
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -113,27 +114,27 @@ export class AddComponent {
     this.showForm = true;
   }
 
-  fetchClients(): void {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
+  // fetchClients(): void {
+  //   const token = localStorage.getItem('token'); // Retrieve the token from local storage
+  //   if (!token) {
+  //     // console.error('No token found in local storage');
+  //     return;
+  //   }
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
-    });
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
+  //   });
 
-    this.http.get(this.clientsUrl, { headers }).subscribe(
-      (response: any) => {
-        this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
-      },
-      error => {
-        console.error('Error fetching clients', error);
-      }
-    );
-  }
+  //   this.http.get(this.clientsUrl, { headers }).subscribe(
+  //     (response: any) => {
+  //       this.clients = response;
+  //       // console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
+  //     },
+  //     error => {
+  //       // console.error('Error fetching clients', error);
+  //     }
+  //   );
+  // }
  
   
   
@@ -156,7 +157,7 @@ export class AddComponent {
   userS: any = {};
   paginatedUsers: any[] = []; // Holds the data for the current page
   currentPage = 1;
-  rowsPerPage = 1; // Number of rows per page
+  rowsPerPage = 7; // Number of rows per page
   totalPages = 1;
 
   fetchProjects(): void {
