@@ -68,20 +68,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let task of tasks  let i = index;" (click)="selecttask(task)">
+                    <tr *ngFor="let task of tasks  let i = index;">
                         <td>{{ i ++ 1 }}</td>
                         <td>{{ task.pt_task_name }}</td>
                         <td>{{ task.pt_task_desc }}</td>
                         <td>{{ task.pt_starting_date }}</td>
                         <td>{{ task.pt_completion_date }}</td>
                         <td>{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
-                        <td>{{ task.pt_status }}</td>
+                        <td [ngClass]="{
+                            'status-complete': task.pt_status === 'C',
+                            'status-ongoing': task.pt_status === 'OG',
+                            'status-due': task.pt_status === 'D'
+                          }">
+                            {{ getStatusText(task.pt_status) }}
+                          </td>
                         <td>
                             <p>
                                 <a *ngIf="task.pt_file_task" [href]="'http://localhost:8000' + task.pt_file_task" target="_blank">View PDF</a>
                             </p>
                         </td>
-                        <td><button class="btn-grad1 btn-outline-dark">View</button> </td>
+                        <td><button class="btn-grad1 btn-outline-dark"(click)="selecttask(task)">View</button> </td>
                     </tr>
                 </tbody>
             </table>
@@ -101,12 +107,12 @@
                             <th width="10%">Task Name</th>
                             <th width="8%">Starting Date</th>
                             <th width="8%">Estimate Completion Date</th>
-                            
+        
                             <th width="8%">Status</th>
-                            <th width="8%">Resources Used:</th>
-                            <th width="4%">Qty:</th>
-                            <th width="4%">Cost</th>
-                            <th width="4%">Total</th>
+                            <th width="10%">Resources Used:</th>
+                            <th width="5%">Qty:</th>
+                            <th width="10%">Cost</th>
+                            <th width="10%">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,7 +121,13 @@
                             <td>{{ task.pt_task_name }}</td>
                             <td>{{ task.pt_starting_date }}</td>
                             <td>{{ task.pt_completion_date }}</td>
-                            <td>{{ task.pt_status }}</td>
+                            <td [ngClass]="{
+                                'status-complete': task.pt_status === 'C',
+                                'status-ongoing': task.pt_status === 'OG',
+                                'status-due': task.pt_status === 'D'
+                              }">
+                                {{ getStatusText(task.pt_status) }}
+                              </td>
                             <td>
                                 <ul>
                                     <li *ngFor="let resource of task.resources">
@@ -126,7 +138,7 @@
                             <td>
                                 <ul>
                                     <li *ngFor="let resource of task.resources">
-                                        <p><strong>{{ resource.qty }}</strong></p>
+                                        <p><strong>{{resource.qty}}</strong></p>
                                     </li>
                                 </ul>
                             </td>

@@ -208,67 +208,67 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/general',
+        path: 'sowa/:projectId/general',
         component: GeneralrequirementComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/site',
+        path: 'sowa/:projectId/site',
         component: SiteworksComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/concrete',
+        path: 'sowa/:projectId/concrete',
         component: ConcreteworksComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/metal',
+        path: 'sowa/:projectId/metal',
         component: MetalworksComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/forms',
+        path: 'sowa/:projectId/forms',
         component: FormsComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/steel',
+        path: 'sowa/:projectId/steel',
         component: SteelworksComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/tinsmithry',
+        path: 'sowa/:projectId/tinsmithry',
         component: TinsmithryComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/plastering',
+        path: 'sowa/:projectId/plastering',
         component: PlasteringComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/paint',
+        path: 'sowa/:projectId/paint',
         component: PaintworksComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/plumbing',
+        path: 'sowa/:projectId/plumbing',
         component: PlumbingComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/electrical',
+        path: 'sowa/:projectId/electrical',
         component: ElectricalComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/ceiling',
+        path: 'sowa/:projectId/ceiling',
         component: CeilingworksComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId/architectural',
+        path: 'sowa/:projectId/architectural',
         component: ArchitecturalComponent,
         canActivate: [AuthGuard]
     },

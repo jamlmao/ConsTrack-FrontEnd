@@ -7,6 +7,19 @@
     .mat-drawer-container{
       height: 100%;
     }
+
+
+    .status-complete {
+      color: green;
+    }
+    
+    .status-ongoing {
+      color: orange;
+    }
+    
+    .status-due {
+      color: red;
+    }
     
     .btn-grad {
       background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);

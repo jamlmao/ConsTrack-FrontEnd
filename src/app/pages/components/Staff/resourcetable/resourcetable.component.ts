@@ -79,7 +79,7 @@ export class ResourcetableComponent {
       console.log('Project ID:', this.projectIdNumber2);
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
-        this.fetchSortedTask(projectIdNumber);
+        // this.fetchSortedTask(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
         this.initializeCategories();
@@ -90,12 +90,23 @@ export class ResourcetableComponent {
     });
 
 
-    this.fetchAllTask();
+   
    
   
   }
 
-
+getStatusText(status: string): string {
+  switch (status) {
+    case 'C':
+      return 'Complete';
+    case 'OG':
+      return 'Ongoing';
+    case 'D':
+      return 'Due';
+    default:
+      return status;
+  }
+}
 
   initializeCategories(): void {
     this.categories = [
@@ -286,9 +297,6 @@ export class ResourcetableComponent {
     (response: any) => {
       if (response && response.totalAllocatedBudgetPerCategory) {
         this.SortedTask = response.totalAllocatedBudgetPerCategory;
-        console.log('Budget:', this.SortedTask);
-      
-        
         
       } else {
         console.error('tasks not found in the response');
@@ -299,34 +307,7 @@ export class ResourcetableComponent {
   
  
 
-  fetchSortedTask(projectId: number) {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
 
-
-    this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
-      (response: any) => {
-        if (response && response.tasks) {
-          this.sortedTask = response.tasks;
-       
-          this.categorizeTasks();
-          console.log('Sorted tasks:', this.sortedTask);
-        } else {
-          console.error('tasks not found in the response');
-        }
-      },
-      (error) => {
-        console.error('Failed to fetch Sorted tasks', error);
-      }
-    );
-  }
 
 
   categorizeTasks() {
