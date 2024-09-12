@@ -49,47 +49,79 @@
 
            <div class="timeline-container">
             <div class="timeline">
-                <div class="task" *ngFor="let task of tasks  let i = index;" [ngClass]="task?.pt_status === 'C' ? 'complete' : '' || task?.pt_status === 'OG' ? 'ongoing' : '' || task?.pt_status === 'D' ? 'due' : ''" >
-                    <div class="content" >
-                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
-                              </div>
-                              <div class="carousel-item">
-                                <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
-                              </div>
-                              <div class="carousel-item">
-                                <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
-                              </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>
-                          </div>
-                       
-                                
-                
-                        <h2>{{task.pt_task_desc}}</h2>
-                        <h2>{{task.pt_task_name}}</h2>
-                        <p class="date">{{task.pt_starting_date}}</p>
+              <div 
+                class="task" 
+                *ngFor="let task of tasks; let i = index;" 
+                [ngClass]="{
+                  'complete': task?.pt_status === 'C', 
+                  'ongoing': task?.pt_status === 'OG', 
+                  'due': task?.pt_status === 'D'
+                }"
+              >
+                <div class="content">
+                  <!-- Unique id for each carousel -->
+                  <div class="carousel slide" [id]="'carouselExampleIndicators' + i" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                      <button 
+                        type="button" 
+                        [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
+                        [attr.data-bs-slide-to]="0" 
+                        class="active" 
+                        aria-current="true" 
+                        aria-label="Slide 1"
+                      ></button>
+                      <button 
+                        type="button" 
+                        [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
+                        [attr.data-bs-slide-to]="1" 
+                        aria-label="Slide 2"
+                      ></button>
+                      <button 
+                        type="button" 
+                        [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
+                        [attr.data-bs-slide-to]="2" 
+                        aria-label="Slide 3"
+                      ></button>
                     </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
+                      </div>
+                      <div class="carousel-item">
+                        <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
+                      </div>
+                      <div class="carousel-item">
+                        <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
+                      </div>
+                    </div>
+                    <button 
+                      class="carousel-control-prev" 
+                      type="button" 
+                      [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
+                      data-bs-slide="prev"
+                    >
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button 
+                      class="carousel-control-next" 
+                      type="button" 
+                      [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
+                      data-bs-slide="next"
+                    >
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                  <h2>{{task.pt_task_desc}}</h2>
+                  <h2>{{task.pt_task_name}}</h2>
+                  <p class="date">{{task.pt_starting_date}}</p>
                 </div>
-               
-                
-                <!-- More tasks can be added here -->
+              </div>
+              <!-- More tasks can be added here -->
             </div>
-        </div>
+          </div>
+          
             
         
 
