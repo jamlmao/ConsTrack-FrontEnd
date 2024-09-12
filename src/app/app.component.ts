@@ -6,6 +6,7 @@ import { AdminDashboardComponent } from "./pages/components/Admin/admin-dashboar
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { FilterPipe } from './filter.pipe';
 import { AuthService } from './pages/guard/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -31,16 +32,26 @@ export class AppComponent {
   }
 
   resetLogoutTimer() {
+    if (!this.authService.isAuthenticated()) {
+      return;
+    }
     if (this.logoutTimer) {
       clearTimeout(this.logoutTimer);
     }
-    this.logoutTimer = setTimeout(() => this.logout(), 120000); 
-   
+    this.logoutTimer = setTimeout(() => this.logout(), 180000); 
   }
 
   logout() {
     this.ngZone.run(() => {
       this.authService.logout();
+      Swal.fire({
+        title: 'Logged Out',
+        text: 'You have been logged out due to inactivity for 2 minutes.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        this.router.navigate(['/Constrack']);
+      });
     });
   }
 }
