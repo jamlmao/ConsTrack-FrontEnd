@@ -172,6 +172,8 @@ export class TaskclientupdateComponent {
     this.router.navigate(['/project-details', project.id]);
   }
 
+  
+
   getLoggedInUserNameAndId(): void {
     const token = localStorage.getItem('token');
     if (!token) {
