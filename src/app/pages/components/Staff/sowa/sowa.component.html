@@ -65,8 +65,8 @@
 *ngIf="isTaskOpen"  (close)="closeTaskModal()">
 </app-addtask></div>
         </div>
-        <table class="table table-bordered">
-            <thead>
+        <table class="table table-bordered border-dark">
+            <thead class="thead-dark">
                 <tr>
                     
 
@@ -112,10 +112,11 @@
                     </ng-container>
                 </ng-container>
                 <tr>
-                    <td colspan="4"><strong>TOTAL</strong></td>
+                    <td colspan="2"><strong>TOTAL</strong></td>
                     <td><strong> {{ totalAllocatedBudget | number: '1.2-2' }}Php</strong></td>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                 </tr>
+               
             </tbody>
         </table>
         
