@@ -16,24 +16,52 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
+import { MatBadgeModule } from '@angular/material/badge';
+
 
 @Component({
   selector: 'app-clienttoolbar',
   standalone: true,
-  imports: [ MatMenuModule,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent],
+  imports: [ MatBadgeModule,MatMenuModule,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent],
   templateUrl: './clienttoolbar.component.html',
   styleUrl: './clienttoolbar.component.css'
 })
 export class ClienttoolbarComponent {
+
+  messages: any[] = []; // Adjust type according to your JSON structure
+
+  // Example JSON array
+  private initialMessages = [
+    { id: 1, text: 'You have a new message.' },
+    { id: 2, text: 'Your order has been shipped.' },
+    { id: 3, text: 'Reminder: Meeting at 2 PM.' }
+  ];
+
+ 
+
+  loadMessages(): void {
+    // Simulate fetching data from a JSON array
+    this.messages = [...this.initialMessages];
+  }
+
+  markAsRead(message: any): void {
+    const index = this.messages.indexOf(message);
+    if (index > -1) {
+      this.messages.splice(index, 1); // Remove the message from the list
+    }
+  }
+
   @Output() toggleSidebarForMe: EventEmitter<any>= new EventEmitter();
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
   private baseUrl = 'http://127.0.0.1:8000/';
   private logoutUrl = this.baseUrl+'api/logout';
-  constructor(private http: HttpClient,private router: Router) { }
+
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.loadMessages();
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
@@ -42,7 +70,7 @@ export class ClienttoolbarComponent {
       this.router.navigateByUrl('/');
     }
   }
-
+  
   logout(): void {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -62,14 +90,20 @@ export class ClienttoolbarComponent {
         console.error('Error logging out', error);
       }
     );
+
+
+
+
     localStorage.removeItem('user'); // Remove user data from local storage
     this.router.navigateByUrl('/'); // Redirect to login page
 
   }
   
   
+  
   toggleSidebar(){
     this.toggleSidebarForMe.emit();
   }
+
 
 }

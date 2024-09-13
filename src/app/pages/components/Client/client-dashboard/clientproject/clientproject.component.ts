@@ -31,6 +31,16 @@ import Swal from 'sweetalert2';
 export class ClientprojectComponent {
 
 
+  isZoomed = false;
+
+  toggleZoom() {
+    this.isZoomed = !this.isZoomed;
+    const image = document.querySelector('.clickable-image');
+    if (image) {
+      image.classList.toggle('zoomed', this.isZoomed);
+    }
+  }
+
 
   events: any[] = [];
   tasks: any[] = [];

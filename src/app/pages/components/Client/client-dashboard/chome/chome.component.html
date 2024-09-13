@@ -18,8 +18,9 @@
             </div>
                 <div class="card" *ngFor="let project of projects" (click)="selectProject(project)">
                     
-                    <img [src]="'http://localhost:8000'+ project.pj_image" alt="profile_image">
                     <p><span style="text-transform:uppercase" class="text-center">{{project.project_name}}</span> </p>
+                    <p><span style="text-transform:uppercase" class="text-center">{{project.starting_date}} - {{project.completion_date}}</span> </p>
+                    <img [src]="'http://localhost:8000'+ project.pj_image" alt="profile_image">
                     
                     
                     

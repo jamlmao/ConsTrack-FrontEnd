@@ -4,6 +4,23 @@
 <mat-toolbar>
     <mat-toolbar-row class="justify-content-between">
     <button mat-icon-button (click)="toggleSidebar()" class="menu"><mat-icon>menu</mat-icon></button>
+    <mat-icon [matMenuTriggerFor]="notificationMenu" matBadge="{{ messages.length }}" matBadgeColor="accent" style="color: white; margin-left: 90px; margin-right: 0;">notifications</mat-icon>
+
+    <mat-menu #notificationMenu="matMenu">
+      <ng-container *ngIf="messages.length > 0; else noMessages">
+        <button mat-menu-item *ngFor="let message of messages" (click)="markAsRead(message)">
+          <mat-icon>message</mat-icon>
+          <span>{{ message.text }}</span>
+        </button>
+      </ng-container>
+      
+      <ng-template #noMessages>
+        <button mat-menu-item disabled>
+          <mat-icon>info</mat-icon>
+          <span>No new notifications</span>
+        </button>
+      </ng-template>
+    </mat-menu>
         <div>
             <ul>
                 <li>

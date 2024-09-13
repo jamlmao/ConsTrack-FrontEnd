@@ -12,7 +12,19 @@
   
   
   
-  
+    .image-container {
+      position: relative;
+    }
+    
+    .clickable-image {
+      width: 90%;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .clickable-image.zoomed {
+      transform: scale(2); /* Adjust scale to control zoom level */
+    }
     
   
     .title{

@@ -55,6 +55,16 @@
                         <header class="py-5">
                             <div class="container px-5 pb-5">
                                 <div class="row gx-5 align-items-center">
+                                    <div class="col-xxl-7" style="margin-top: -70px;">
+                               
+                                        <div class="d-flex justify-content-center mt-3 mt-xxl-0">
+                                       
+                                            <div class="image-container">
+                                                <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image" (click)="toggleZoom()">
+                                              </div>
+                                        </div>
+                                        
+                                    </div>
                                     <div class="col-xxl-5">
                                         
                                         <div class="text-center text-xxl-start">
@@ -84,21 +94,7 @@
                                            
                                         </div>
                                     </div>
-                                    <div class="col-xxl-7">
-                               
-                                        <div class="d-flex justify-content-center mt-3 mt-xxl-0">
-                                            <div class="profile">
-                                               
-                                                <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="project image" class="project" width="550dvh" height="400dvh">
-                                
-                                                
-                                                
-                                                
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
+                                    
                                    
                                 </div>
                             </div>
