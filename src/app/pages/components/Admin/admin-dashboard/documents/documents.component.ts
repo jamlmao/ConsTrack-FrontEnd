@@ -106,6 +106,9 @@ export class DocumentsComponent {
   clients: any[] = [];
 
 
+  get completeItems() {
+    return this.projects.filter(projects => projects.status === 'C');
+  }
 
  
   
