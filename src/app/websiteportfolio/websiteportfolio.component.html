@@ -1,0 +1,55 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-5">
+    <div class="container">
+        <a class="navbar-brand" href="index.php"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                <li class="nav-item"><a class="nav-link" routerLink="/Constrack/website">Home</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/Constrack/website/portfolio">Projects</a></li>
+                <li class="nav-item"><a class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <div class="container-fluid align-items-center">
+
+        <div class="title">
+            <p>Welcome to your Projects</p>
+            <h1><span>PROJECT</span> LISTS</h1>      
+        </div>
+        <div class="align-items-center">         
+        </div>
+          
+        <div class="col-12 col-xl-6">
+            
+            
+          </div>
+        </div>
+
+    
+  
+ 
+  
+  
+</div>
+
+
+<div class="projects-container">
+
+
+<div class="cards project-item" *ngFor="let project of completeItems">
+    <div *ngIf="project.status === 'Complete'">
+        <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
+        <p>Project Type: {{ project.project_name }} </p>
+      <p>Status: {{ project.status }}</p>
+    
+         
+            <p>Starting Date: {{ project.starting_date }} </p>
+            <p>Completion Date: {{ project.completion_date }} </p>
+            <p>Total Budget: {{ project.totalBudget }} </p>
+           
+    </div>
+  </div>
+</div>

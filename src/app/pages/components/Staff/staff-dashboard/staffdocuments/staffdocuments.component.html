@@ -30,33 +30,28 @@
         </div>
         
 
-        
-        
+        <div class="projects-container">
 
-            
-        <div class="projects-container" style="margin-top: -20px;">
-            
-            
-            <div *ngFor="let project of projects | filter:searchText" class="cards project-item" (click)="selectProject(project)">
+        
+        <div class="cards project-item" *ngFor="let project of completeItems">
+            <div *ngIf="project.status === 'Complete'">
                 <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
-                <div class="project-details">
-                    <p>Project Type: {{ project.project_name }} </p>
-                    <p>Client Name: {{ project.client.first_name }} {{ project.client.last_name }} </p>
-                    <p>Contact Number: {{ project.client.phone_number }} </p>
+                <p>Project Type: {{ project.project_name }} </p>
+              <p>Status: {{ project.status }}</p>
+            
+                 
                     <p>Starting Date: {{ project.starting_date }} </p>
                     <p>Completion Date: {{ project.completion_date }} </p>
                     <p>Total Budget: {{ project.totalBudget }} </p>
-                    <p>Project PDF:
-                        <a *ngIf="project.pj_pdf" [href]="'http://localhost:8000' + project.pj_pdf" target="_blank">View PDF</a></p>
                    
-                </div>
-                
             </div>
+          </div>
         </div>
-       
-        <div class="projects-container">
+        
+
             
-        </div>
+        
+      
           
             
                 

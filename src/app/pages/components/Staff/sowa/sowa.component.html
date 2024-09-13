@@ -65,19 +65,19 @@
 *ngIf="isTaskOpen"  (close)="closeTaskModal()">
 </app-addtask></div>
         </div>
-        <table class="table table-bordered border-dark">
+        <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
                     
 
-                    <th width="4%">Item No.</th>
-                    <th width="20%">Description</th>
-                    <th width="10%">Project Actual Cost</th>
-                    <th width="8%">Previous</th>
-                    <th width="8%">This Period</th>
-                    <th width="8%">To Date</th>
-                    <th width="10%">Percentage of Accomplishment</th>
-                    <th width="5%">Action</th>
+                    <th [width]="40">Item No.</th>
+                    <th [width]="330">Description</th>
+                    <th>Project Actual Cost</th>
+                    <th>Previous</th>
+                    <th>This Period</th>
+                    <th>To Date</th>
+                    <th>Percentage of Accomplishment</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>

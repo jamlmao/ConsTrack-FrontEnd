@@ -46,6 +46,7 @@ import { TaskclientupdateComponent } from './pages/components/Client/client-dash
 import { SowaComponent } from './pages/components/Staff/sowa/sowa.component';
 import { ResourcetableComponent } from './pages/components/Staff/resourcetable/resourcetable.component';
 import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
+import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
 
 
 
@@ -275,7 +276,10 @@ export const routes: Routes = [
     {
         path: 'Constrack/website',
         component: WebsiteComponent,
-        canActivate: [AuthGuard]
+    },
+    {
+        path: 'Constrack/website/portfolio',
+        component: WebsiteportfolioComponent,
     },
     {
         path: 'updates',

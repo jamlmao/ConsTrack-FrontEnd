@@ -15,22 +15,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-
-import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
-import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
-import { CreateProjectComponent } from "../../../Admin/create-project/create-project.component";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Pipe, PipeTransform } from '@angular/core';
-import { FilterPipe } from '../../../../../filter.pipe';
 @Component({
-  selector: 'app-staffdocuments',
+  selector: 'app-websiteportfolio',
   standalone: true,
-  imports: [FilterPipe,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent],
-  templateUrl: './staffdocuments.component.html',
-  styleUrl: './staffdocuments.component.css'
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule],
+  templateUrl: './websiteportfolio.component.html',
+  styleUrl: './websiteportfolio.component.css'
 })
-export class StaffdocumentsComponent {
+export class WebsiteportfolioComponent {
   projects: any[] = [];
   searchText:any;
   user: any;
@@ -57,24 +51,11 @@ export class StaffdocumentsComponent {
   ngOnInit(): void {
     
     this.fetchClients(); // Fetch clients when the component is initialized
-    
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-    } else {
-      // If no user data is found, redirect to login
-      this.router.navigateByUrl('/');
-    }
     this.fetchProjects(); // Fetch projects when the component is initialized
-    this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
 
   
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
   
 
 
@@ -145,18 +126,12 @@ export class StaffdocumentsComponent {
   userS: any = {};
 
   fetchProjects(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
+   
 
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+   
 
-    this.http.get(this.projectsUrl, { headers }).subscribe(
+    this.http.get(this.projectsUrl).subscribe(
       (response: any) => {
         this.projects = response;
         console.log('Fetched projects:', this.projects);
@@ -172,35 +147,9 @@ export class StaffdocumentsComponent {
     return this.projects.filter(projects => projects.status === 'Complete');
   }
 
-  selectProject(project: any) {
-    this.router.navigate(['/project-details', project.id]);
-  }
+ 
 
-  getLoggedInUserNameAndId(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.userUrl, { headers }).subscribe(
-      (response: any) => {
-        this.user = response;
-        console.log('Logged in user:', this.user);
-      },
-      error => {
-        console.error('Error fetching user details', error);
-      }
-    );
-  }
 
   
-  sideBarOpen=true;
-  sideBarToggler(){
-    this.sideBarOpen = !this.sideBarOpen;
-  }
+ 
 }
