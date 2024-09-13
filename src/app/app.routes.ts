@@ -47,6 +47,7 @@ import { SowaComponent } from './pages/components/Staff/sowa/sowa.component';
 import { ResourcetableComponent } from './pages/components/Staff/resourcetable/resourcetable.component';
 import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
 import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
+import { AppointmentComponent } from './pages/components/Staff/staff-dashboard/appointment/appointment.component';
 
 
 
@@ -107,6 +108,11 @@ export const routes: Routes = [
     {
         path: 'staff/shome',
         component: ShomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/appointment',
+        component: AppointmentComponent,
         canActivate: [AuthGuard]
     },
     {
