@@ -39,8 +39,7 @@ export class AppComponent {
       clearTimeout(this.logoutTimer);
     }
     this.logoutTimer = setTimeout(() => this.logout(), 12000); 
-    console.log('Timer reset:', this.logoutTimer);
-    
+ 
   }
 
   logout() {
