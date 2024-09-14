@@ -16,28 +16,28 @@
                   <form (ngSubmit)="onSubmit()">
 
                     
-              <div class="col-md-12">
-                <label for="example-text-input" class="form-control-label"
-                  >Week 1 Updated Image:</label
-                >
-                <input placeholder="Full name" class="form-control" type="file" (change)="onFileChange($event, 'update_img')" required>
-         
-              </div>
-              
+                        <div class="col-md-12">
+                          <label for="example-text-input" class="form-control-label"
+                            >Week 1 Updated Image:</label
+                          >
+                          <input placeholder="Full name" class="form-control" type="file" (change)="onFileChange($event, 'update_img')" required>
+                  
+                        </div>
+                        
 
                         
 
-                 
-                <div class="d-flex align-items-center justify-content-between py-3">
-                <button type="submit" class="btn btn-outline-dark">Submit</button>
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                </div>
+                          
+                          <div class="d-flex align-items-center justify-content-between py-3">
+                          <button type="submit" class="btn btn-outline-dark" [disabled]="!isFileSelected">Submit</button>
+                          <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                          </div>
 
 
                 
                 
                                                                            
-            </form>
+                  </form>
             </article>
             </div> <!-- card.// -->
             

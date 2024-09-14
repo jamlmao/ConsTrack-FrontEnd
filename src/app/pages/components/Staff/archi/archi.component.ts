@@ -18,6 +18,13 @@ import Swal from 'sweetalert2';
   styleUrl: './archi.component.css'
 })
 export class ArchiComponent {
+
+
+  isFileSelected: boolean = false;  // To track if a file is selected
+
+  
+
+
   @Input() taskId: number | null = null;
   @Output() close = new EventEmitter<void>();
   
@@ -58,6 +65,7 @@ export class ArchiComponent {
   onFileChange(event: any, field: string): void {
     const file = event.target.files[0];
     if (file) {
+      this.isFileSelected = true;
       console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
       const reader = new FileReader();
       reader.onload = () => {
@@ -70,12 +78,14 @@ export class ArchiComponent {
             this.tasks[field] = base64Content;
           } else {
             console.error('The file content is not a valid base64 encoded string.');
+            
           }
         }
       };
       reader.readAsDataURL(file);
     } else {
       console.warn('No file selected or file is not accessible');
+      this.isFileSelected = false;  
     }
   }
 
