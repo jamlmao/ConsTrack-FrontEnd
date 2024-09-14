@@ -36,6 +36,7 @@
                     
                             <h2>STATEMENT OF WORK ACCOMPLISHMENT</h2>
                             <h1><span>CONSTRACK</span> COMPANY</h1>
+                            
         
                         </div>
                       
@@ -52,95 +53,105 @@
             
           
            </section>
-           
+          
 
-           <div class="containers">
+        <div class="containers">
             <div class="table-wrapper">
                 <div class="row">
-                <div class="col-sm-10">      
-        <h2>Statement of Work Accomplishment</h2></div> 
-        <div class="col-sm-2">
-            <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
-<app-addtask 
-*ngIf="isTaskOpen"  (close)="closeTaskModal()">
-</app-addtask></div>
-        </div>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    
-
-                    <th [width]="40">Item No.</th>
-                    <th [width]="330">Description</th>
-                    <th>Project Actual Cost</th>
-                    <th>Previous</th>
-                    <th>This Period</th>
-                    <th>To Date</th>
-                    <th>Percentage of Accomplishment</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let category of categories; let i = index" (click)="selecttask(category)">
-                    <tr>
-                        <td>{{ toRoman(i + 1) }}</td>
-                        <td>{{ category.name }}</td>
-                        <td>{{ SortedTask[category.name]?.totalAllocatedBudget | number: '1.2-2' || '-'}}</td>
-                        <td>{{ SortedTask[category.name]?.previousCost | number: '1.2-2' || '-' }}</td>
-                        <td>{{ SortedTask[category.name]?.thisPeriodCost | number: '1.2-2' || '-' }}</td>
-                        <td>{{ SortedTask[category.name]?.toDateCost | number: '1.2-2' || '-' }}</td>
-                        <td>
-                            <div>{{ SortedTask[category.name]?.percentage | number: '1.2-2' || 0 }}%</div>
-                            <mat-progress-bar mode="determinate" [value]="SortedTask[category.name]?.percentage  || 0 "  color="accent"></mat-progress-bar>
-                        </td>
-                        <td>
-                           
-                            <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
-                        </td>
-                    </tr>
-                    <ng-container *ngIf="categorizedTasks[category.name] && categorizedTasks[category.name].length">
-                        <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
-                            <td></td>
-                            <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                            <td>{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
-                            <td>{{ task.pt_previous | number: '1.2-2' || '-' }}</td>
-                            <td>{{ task.pt_this_period | number: '1.2-2' || '-' }}</td>
-                            <td>{{ task.pt_to_date | number: '1.2-2' || '-' }}</td>
-                            <td>{{ task.pt_percentage_accomplishment || '-' }}</td>
-                            
-                        </tr>
-                    </ng-container>
-                </ng-container>
-                <tr>
-                    <td colspan="2"><strong>TOTAL</strong></td>
-                    <td><strong> {{ totalAllocatedBudget | number: '1.2-2' }}Php</strong></td>
-                    <td colspan="4"></td>
-                </tr>
-               
-            </tbody>
-        </table>
-        
-        <div class="signature-section">
-            <div>
-                <div class="signature-line"></div>
-                
-                <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
-                    {{ projectDetails.staff_last_name }} 
-                    {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
-                <div style="margin-left: 140px;"> Registered {{ projectDetails.extension_name }}</div>
-                <div style="margin-left: 140px;">License No. {{ projectDetails.license_number }}
-            </div>
-            </div>
-            <div>
-                <div class="signature-line"></div>
-                <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
-                <div style="margin-left: 140px;">Owner</div>
-            </div>
+                <div class="col-sm-8">      
+                <h2>Statement of Work Accomplishment</h2>
             
+            </div> 
+            <div class="col-2">
+                <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
+            </div>
+            <div class="col-sm-2">
+                <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
+                    <app-addtask 
+                    *ngIf="isTaskOpen"  (close)="closeTaskModal()">
+                    </app-addtask>
+            </div>
         </div>
+
+                <div id="pdfContent">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                
+
+                                <th [width]="40">Item No.</th>
+                                <th [width]="330">Description</th>
+                                <th>Project Actual Cost</th>
+                                <th>Previous</th>
+                                <th>This Period</th>
+                                <th>To Date</th>
+                                <th>Percentage of Accomplishment</th>
+                                <th class="no-pdf">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let category of categories; let i = index" (click)="selecttask(category)">
+                                <tr>
+                                    <td>{{ toRoman(i + 1) }}</td>
+                                    <td>{{ category.name }}</td>
+                                    <td>{{ SortedTask[category.name]?.totalAllocatedBudget | number: '1.2-2' || '-'}}</td>
+                                    <td>{{ SortedTask[category.name]?.previousCost | number: '1.2-2' || '-' }}</td>
+                                    <td>{{ SortedTask[category.name]?.thisPeriodCost | number: '1.2-2' || '-' }}</td>
+                                    <td>{{ SortedTask[category.name]?.toDateCost | number: '1.2-2' || '-' }}</td>
+                                    <td>
+                                        <div>{{ SortedTask[category.name]?.percentage | number: '1.2-2' || 0 }}%</div>
+                                        <mat-progress-bar mode="determinate" [value]="SortedTask[category.name]?.percentage  || 0 "  color="accent"></mat-progress-bar>
+                                    </td>
+                                    <td class="no-pdf">
+                                    
+                                        <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                    </td>
+                                </tr>
+                                <ng-container *ngIf="categorizedTasks[category.name] && categorizedTasks[category.name].length">
+                                    <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
+                                        <td></td>
+                                        <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
+                                        <td>{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
+                                        <td>{{ task.pt_previous | number: '1.2-2' || '-' }}</td>
+                                        <td>{{ task.pt_this_period | number: '1.2-2' || '-' }}</td>
+                                        <td>{{ task.pt_to_date | number: '1.2-2' || '-' }}</td>
+                                        <td>{{ task.pt_percentage_accomplishment || '-' }}</td>
+                                        
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+                            <tr>
+                                <td colspan="2"><strong>TOTAL</strong></td>
+                                <td><strong> {{ totalAllocatedBudget | number: '1.2-2' }}Php</strong></td>
+                                <td colspan="4"></td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                
+                    <div class="signature-section">
+                        <div>
+                            <div class="signature-line"></div>
+                            
+                            <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                                {{ projectDetails.staff_last_name }} 
+                                {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
+                            <div style="margin-left: 140px;"> Registered {{ projectDetails.extension_name }}</div>
+                            <div style="margin-left: 140px;">License No. {{ projectDetails.license_number }}
+                        </div>
+                        </div>
+                        <div>
+                            <div class="signature-line"></div>
+                            <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
+                            <div style="margin-left: 140px;">Owner</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
     </div>
 
-       </div>
+        </div>
    
           
             

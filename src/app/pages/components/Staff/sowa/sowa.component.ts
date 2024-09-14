@@ -24,6 +24,9 @@ import { StafftoolbarComponent } from "../staff-dashboard/stafftoolbar/stafftool
 import { StaffsidenavComponent } from "../staff-dashboard/staffsidenav/staffsidenav.component";
 import { AddtaskComponent } from "../addtask/addtask.component";
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-sowa',
   standalone: true,
@@ -32,6 +35,47 @@ import { AddtaskComponent } from "../addtask/addtask.component";
   styleUrl: './sowa.component.css'
 })
 export class SowaComponent {
+
+
+  generatePDF() {
+    // Temporarily hide elements with the "no-pdf" class before generating the PDF
+    const elements = document.getElementsByClassName('no-pdf');
+    for (let i = 0; i < elements.length; i++) {
+      (elements[i] as HTMLElement).style.display = 'none';
+    }
+  
+    const data = document.getElementById('pdfContent');
+    
+    if (data) {
+      html2canvas(data).then(canvas => {
+        const imgWidth = 295;
+        const pageHeight = 208;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+  
+        const pdf = new jsPDF('l', 'mm', 'a4');
+        let position = 0;
+  
+        const imgData = canvas.toDataURL('image/png');
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+  
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+  
+        pdf.save('statement_of_work.pdf');
+  
+        // Restore the display property of elements with the "no-pdf" class
+        for (let i = 0; i < elements.length; i++) {
+          (elements[i] as HTMLElement).style.display = '';
+        }
+      });
+    }
+  }
   
 
 
