@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </nav>
-                        <div class="title">
+                        <div class="title" style="margin-top: -50px;">
                     
                             <h2>PROJECT DETAILS</h2>
                             <h1><span>CONSTRACK</span> COMPANY</h1>
@@ -59,20 +59,20 @@
            
             <p class="text-sm">
             </p>
-          <div class="col-xl-5 col-sm-6 mb-xl-0 m-4">
-            <div class="text-center text-xxl-start">
+          <div class="col-xl-4 col-sm-6 mb-xl-0 m-4">
+            <div class="text-center text-xxl-start" style="margin-left: 90px;">
                 <div class="badge bg-black text-white mb-4"><div class="text-uppercase"> &middot; PROJECT &middot; DETAILS</div></div>
               
-                <h4>Building Type:<span style="font-weight: bold; text-transform:uppercase"> {{projectDetails.project_name}}</span></h4>
-            <h4> Location:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span> </h4>
-            <h4> Total Budget:<span style="font-weight: bold; text-transform:uppercase">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></h4>
-            <h4> Starting Date:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.starting_date}}</span> </h4>
-            <h4> Target Date Completion:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.completion_date}}</span> </h4>
-            <h4>Person In Charge:
-                <span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
-                    {{ projectDetails.staff_last_name }} 
-                    {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span>
-            </h4>
+                        <h4>Building Type:<span style="font-weight: bold; text-transform:uppercase"> {{projectDetails.project_name}}</span></h4>
+                    <h4> Location:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span> </h4>
+                    <h4> Total Budget:<span style="font-weight: bold; text-transform:uppercase">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></h4>
+                    <h4> Starting Date:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.starting_date}}</span> </h4>
+                    <h4> Target Date Completion:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.completion_date}}</span> </h4>
+                    <h4>Person In Charge:
+                        <span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                            {{ projectDetails.staff_last_name }} 
+                            {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span>
+                    </h4>
             
             <h4> Remaining Budget:<span style="font-weight: bold; text-transform:uppercase">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></h4>
             
@@ -87,11 +87,14 @@
                
             </div>
           </div>
+          <div class="col-1">
+
+          </div>
           <div class="col-xl-5 col-sm-6 mb-xl-0 m-4">
             <div class="d-flex justify-content-center mt-xxl-0">
-                <div class="profile">
+                <div class="profile" style="margin-left: 0px;">
                    
-                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="project image" class="project" width="460dvh" height="355dvh">
+                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="project image" class="project" width="540dvh" height="355dvh">
     
                     
                     
