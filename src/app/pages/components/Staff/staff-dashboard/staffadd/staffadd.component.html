@@ -85,13 +85,13 @@
                          {{ i ++ 1}}
                       </td>
                       <td>
-                       {{ project.client.first_name }} {{ project.client.last_name }} 
+                        <span style="text-transform: uppercase;"> {{ project.client.first_name }} {{ project.client.last_name }} </span>
                       </td>
                       <td>
-                        {{ project.project_name }} 
+                        <span style="text-transform: uppercase;">  {{ project.project_name }} </span>
                       </td>
                       <td >
-                        name ni engineer
+                       <span style="text-transform: uppercase;">{{ project.staff_in_charge.staff_first_name }} {{ project.staff_in_charge.staff_last_name }} </span> 
                      </td>
                       <td >
                          {{ project.starting_date }} 

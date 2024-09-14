@@ -38,7 +38,9 @@ export class AppComponent {
     if (this.logoutTimer) {
       clearTimeout(this.logoutTimer);
     }
-    this.logoutTimer = setTimeout(() => this.logout(), 180000); 
+    this.logoutTimer = setTimeout(() => this.logout(), 12000); 
+    console.log('Timer reset:', this.logoutTimer);
+    
   }
 
   logout() {
@@ -50,7 +52,7 @@ export class AppComponent {
         icon: 'warning',
         confirmButtonText: 'OK'
       }).then(() => {
-        this.router.navigate(['/Constrack']);
+        this.router.navigate(['/']);
       });
     });
   }
