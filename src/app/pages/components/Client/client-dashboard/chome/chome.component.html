@@ -18,10 +18,18 @@
             </div>
                 <div class="card" *ngFor="let project of projects" (click)="selectProject(project)">
                     
-                    <p><span style="text-transform:uppercase" class="text-center">{{project.project_name}}</span> </p>
-                    <p><span style="text-transform:uppercase" class="text-center">{{project.starting_date}} - {{project.completion_date}}</span> </p>
-                    <img [src]="'http://localhost:8000'+ project.pj_image" alt="profile_image">
-                    
+                   <img [src]="'http://localhost:8000'+ project.pj_image" alt="profile_image">
+                    <div class="row">
+
+                        <div class="col-8" style="margin-top: 10px;">
+                            <p><span style="text-transform:uppercase" class="text-center">{{project.project_name}}</span> </p>
+                            <p><span style="text-transform:uppercase" class="text-center">{{project.starting_date}} - {{project.completion_date}}</span> </p>
+                            
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-outline-dark" style="margin-top: 10px;">View</a>
+                        </div>
+                    </div>
                     
                     
 
