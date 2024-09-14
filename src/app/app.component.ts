@@ -26,6 +26,9 @@ export class AppComponent {
   }
 
   setupActivityListeners() {
+    if (!this.authService.isAuthenticated()) {
+      return;
+    }
     ['mousemove', 'keydown', 'click'].forEach(event => {
       window.addEventListener(event, () => this.resetLogoutTimer());
     });
@@ -38,7 +41,8 @@ export class AppComponent {
     if (this.logoutTimer) {
       clearTimeout(this.logoutTimer);
     }
-    this.logoutTimer = setTimeout(() => this.logout(), 12000); 
+    this.logoutTimer = setTimeout(() => this.logout(), 5000); 
+    console.log('Timer reset:',this.logoutTimer);
  
   }
 
@@ -47,7 +51,7 @@ export class AppComponent {
       this.authService.logout();
       Swal.fire({
         title: 'Logged Out',
-        text: 'You have been logged out due to inactivity for 2 minutes.',
+        text: 'You have been logged out due to inactivity.',
         icon: 'warning',
         confirmButtonText: 'OK'
       }).then(() => {
