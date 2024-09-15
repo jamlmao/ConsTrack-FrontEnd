@@ -79,7 +79,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let project of paginatedUsers | filter:searchText; let i = index" (click)="selectProject(project)">
+                    <tr *ngFor="let project of paginatedUsers | filter:searchText; let i = index" >
                        
                       <td >
                          {{ i ++ 1}}
@@ -106,7 +106,9 @@
                         {{ project.status }}
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <button  type="button"  class="btn btn-outline-dark">View</button>
+                        <a class="edit" (click)="openEditModal()"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                        <button  type="button"  class="btn btn-outline-dark" (click)="selectProject(project)">View</button>
+                        
                       </td>
                       
                     </tr>
