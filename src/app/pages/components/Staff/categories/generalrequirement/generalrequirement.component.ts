@@ -57,12 +57,14 @@ export class GeneralrequirementComponent {
     
     this.selectedTaskId = taskId;
     console.log('Selected Task ID:', this.selectedTaskId);
+    this.sideBarOpen = false; 
   
   }
 
   closeCreateProjectModal() {
     this.isCreateProjectModalOpen = false;
     console.log('xd');
+    this.sideBarOpen = true; 
   }
  
 

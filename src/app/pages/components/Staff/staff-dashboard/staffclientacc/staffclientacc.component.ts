@@ -129,21 +129,25 @@ export class StaffclientaccComponent {
     this.isCreateClientModalOpen = true;
     console.log('Opening Create Staff Modal');
     console.log(this.isCreateClientModalOpen);
+    this.sideBarOpen = false; 
   }
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
     console.log('xd');
+    this.sideBarOpen = true; 
   }
   openEditModal() {
     this.isEditModalOpen = true;
     console.log('Opening Edit Modal');
     console.log(this.isEditModalOpen);
+    this.sideBarOpen = false; 
   }
 
   closeEditModal() {
     this.isEditModalOpen = false;
     console.log('xd');
+    this.sideBarOpen = true; 
   }
 
   sideBarOpen=true;

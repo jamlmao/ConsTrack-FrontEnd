@@ -190,11 +190,13 @@ export class SowaComponent {
     this.isTaskOpen = true;
     console.log('Opening Task Modal');
     console.log(this.isTaskOpen);
+    this.sideBarOpen = false; 
   }
 
   closeTaskModal() {
     this.isTaskOpen = false;
     console.log('xd');
+    this.sideBarOpen = true; 
   }
 
   

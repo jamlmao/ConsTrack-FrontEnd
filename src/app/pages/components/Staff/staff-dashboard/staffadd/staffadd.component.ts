@@ -138,11 +138,13 @@ export class StaffaddComponent {
     this.isEditModalOpen = true;
     console.log('Opening Edit Modal');
     console.log(this.isEditModalOpen);
+    this.sideBarOpen = false; 
   }
 
   closeEditModal() {
     this.isEditModalOpen = false;
     console.log('xd');
+    this.sideBarOpen = true; 
   }
 
   sideBarOpen=true;
