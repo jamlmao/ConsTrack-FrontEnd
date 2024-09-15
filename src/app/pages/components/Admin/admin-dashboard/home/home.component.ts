@@ -37,10 +37,15 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 export class HomeComponent implements OnInit {
 
   private baseUrl = 'http://127.0.0.1:8000';
-  private StaffCountUrl = this.baseUrl+'/api/staffCountperMonth';
+  private StaffCountUrl = this.baseUrl+'/api/staff/CountPerMonthA';
   private totalUsersUrl = this.baseUrl+'/api/counts';
   private userUrl = this.baseUrl+'/api/user/details';
   private ProjectsCountUrl = this.baseUrl+'/api/projectCount';
+  private ClientsCountUrl = this.baseUrl+'/api/clients/count-by-month';
+  private CompanyAndProjectCountUrl = this.baseUrl+'/api/projects/count-by-month';
+
+
+
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
@@ -78,6 +83,8 @@ export class HomeComponent implements OnInit {
    this.getCompanyProjects();
    this.getTotalUsers();
    this.getStaffCountPerMonth();
+   this.getClientCountPerMonth();
+   this.getProjectAndCompanyCount();
   }
   
 
@@ -196,6 +203,50 @@ export class HomeComponent implements OnInit {
             console.error('Error fetching projects:', error);
           }
         );
+
+  }
+
+
+
+  
+
+
+
+  getClientCountPerMonth(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<any>(this.ClientsCountUrl, { headers }).subscribe((response)=>{
+      console.log('Clients count:', response)
+    });
+
+  }
+
+
+
+
+
+  getProjectAndCompanyCount(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get<any>(this.CompanyAndProjectCountUrl, { headers }).subscribe((response)=>{
+      console.log('Company and projects:', response)
+    });
 
   }
 
