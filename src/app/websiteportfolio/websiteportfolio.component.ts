@@ -50,7 +50,7 @@ export class WebsiteportfolioComponent {
 
   ngOnInit(): void {
     
-    this.fetchClients(); // Fetch clients when the component is initialized
+   
     this.fetchProjects(); // Fetch projects when the component is initialized
   }
 
@@ -78,35 +78,16 @@ export class WebsiteportfolioComponent {
 
 
 
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
-  
+
+  private baseUrl = 'http://127.0.0.1:8000/';
+
   
 
   openForm(): void {
     this.showForm = true;
   }
 
-  fetchClients(): void {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
-    });
-
-    this.http.get(this.clientsUrl, { headers }).subscribe(
-      (response: any) => {
-        this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
-      },
-      error => {
-        console.error('Error fetching clients', error);
-      }
-    );
-  }
+  
  
  
   
@@ -119,8 +100,7 @@ export class WebsiteportfolioComponent {
 
 
   
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  
 
   selectedProject: any;
   userS: any = {};
@@ -129,9 +109,7 @@ export class WebsiteportfolioComponent {
    
 
 
-   
-
-    this.http.get(this.projectsUrl).subscribe(
+    this.http.get(this.baseUrl + 'api/projects/completed-and-ongoing').subscribe(
       (response: any) => {
         this.projects = response;
         console.log('Fetched projects:', this.projects);
