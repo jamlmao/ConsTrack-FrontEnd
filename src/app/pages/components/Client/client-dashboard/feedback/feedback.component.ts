@@ -19,7 +19,7 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-feedback',
@@ -29,26 +29,61 @@ import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component
   styleUrl: './feedback.component.css'
 })
 export class FeedbackComponent {
-
+  private baseUrl = "http://127.0.0.1:8000/";
+  private appointmentUrl = this.baseUrl + "api/appointments";
   user: any;
+  staffList: any[] = [];
+  staff_id: number = 0;
+  description: string ="";
+  appointment_datetime: string ="";
+  minDateTime: string = ''; 
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  constructor(private router: Router) { }
+  isLoading = false; 
+  constructor(private router: Router,private http: HttpClient) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
+      console.log(this.user);
     } else {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
+    this.fetchStaff();
+
+    const now = new Date();
+    now.setDate(now.getDate() + 1); 
+    this.minDateTime = now.toISOString().slice(0, 16); 
+
   }
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
+
+  fetchStaff() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+
+    this.http.get<any>(this.baseUrl+"api/fetchstaff", { headers })
+      .subscribe((response: any) => {
+        console.log('Staff fetched successfully', response);
+        if (response && Array.isArray(response.staff)) {
+          this.staffList = response.staff; // Assuming the array is in response.data
+        } else {
+          console.error('No staff found or response format is incorrect');
+        }
+      }, error => {
+        console.error('Error fetching staff', error);
+      });
   }
+
+
+
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
     console.log('Opening Create Staff Modal');
@@ -75,4 +110,94 @@ export class FeedbackComponent {
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
-}
+
+
+  onSubmit() {
+    this.isLoading = true;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      this.isLoading = false;
+      return;
+    }
+  
+    // Validate form fields
+    if (!this.staff_id || !this.description || !this.appointment_datetime) {
+      this.isLoading = false;
+      Swal.fire({
+        icon: 'warning',
+        title: 'Incomplete Form',
+        text: 'Please complete all fields before submitting.',
+        showConfirmButton: true
+      });
+      return;
+    }
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  
+    const appointmentDate = new Date(this.appointment_datetime);
+    const formattedDate = `${appointmentDate.getFullYear()}-${String(appointmentDate.getMonth() + 1).padStart(2, '0')}-${String(appointmentDate.getDate()).padStart(2, '0')} ${String(appointmentDate.getHours()).padStart(2, '0')}:${String(appointmentDate.getMinutes()).padStart(2, '0')}:${String(appointmentDate.getSeconds()).padStart(2, '0')}`;
+  
+    const appointmentData = {
+      staff_id: this.staff_id,
+      description: this.description,
+      appointment_datetime: formattedDate,
+    };
+  
+    // Show loading Swal immediately
+    Swal.fire({
+      title: 'Submitting...',
+      text: 'Please wait while we process your request.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  
+    this.http.post(this.appointmentUrl, appointmentData, { headers })
+      .subscribe(
+        response => {
+          console.log('Appointment request sent successfully', response);
+          this.isLoading = false;
+          this.router.navigateByUrl('/client/chome').then(() => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Appointment request sent successfully.',
+              showConfirmButton: false,
+              timer: 2000
+            });
+          });
+          },
+          error => {
+            console.error('Error creating appointment', error);
+            this.isLoading = false;
+          
+            // Handle specific error messages
+            if (error.status === 400 && error.error.message.includes('The appointment date conflicts with another appointment in the same company')) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Duplicate Date',
+                text: 'Please pick another date for the appointment.',
+                showConfirmButton: true
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to create appointment. Please try again.',
+                showConfirmButton: true
+              });
+            }
+          }
+      );
+  }
+    
+
+
+  }
+
+
+

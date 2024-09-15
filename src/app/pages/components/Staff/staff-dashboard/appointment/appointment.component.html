@@ -28,7 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Client ID</th>
+                                   
                                     
                                     <th>Name</th>
                                     <th>Project location</th>
@@ -39,24 +39,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr >
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <tr *ngFor="let appointment of appointments; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ appointment.client_first_name }} {{ appointment.client_last_name }}</td>
+                                    <td>{{ appointment.site_address || 'N/A' }},
+                                        {{ appointment.site_city || 'N/A' }},
+                                        {{ appointment.site_province || 'N/A' }}</td>
+                                    <td>{{ formatDateTime(appointment.appointment_datetime) }}</td>
+                                    <td>{{ appointment.description }}</td>
+                    
                                     <td>
-                                            <button class="btn btn-outline-success" >
-                                                <mat-icon style="margin: 3px;">done</mat-icon>
-                                         
-                                            </button>
-                                            <button class="btn btn-outline-danger" style="margin-top: 4px;">
-                                                <mat-icon style="margin: 3px;">highlight_off</mat-icon>
-                                         
-                                            </button>
-                                        
-                                    </td>
+                                        <button class="btn btn-outline-success" [disabled]="appointment.status !== 'P'" (click)="updateStatus(appointment.id, 'A')">
+                                          <mat-icon style="margin: 3px;">done</mat-icon>
+                                        </button>
+                                        <button class="btn btn-outline-danger" style="margin-top: 4px;" [disabled]="appointment.status !== 'P'" (click)="updateStatus(appointment.id, 'R')">
+                                          <mat-icon style="margin: 3px;">highlight_off</mat-icon>
+                                        </button>
+                                      </td>
                                 </tr>
                                   
                                   
