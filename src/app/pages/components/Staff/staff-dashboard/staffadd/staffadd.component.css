@@ -173,6 +173,13 @@
 		display: none;
 	}
 
+  .eye{
+    color: #0a0b0b;
+    margin-top: 20px;
+    margin-left: 5px;
+     
+   
+   }
   
 
   .pagination-controls {

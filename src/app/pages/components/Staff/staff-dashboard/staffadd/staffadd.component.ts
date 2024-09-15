@@ -28,11 +28,12 @@ import { take, tap } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { EditprojectComponent } from "../../editproject/editproject.component";
 
 @Component({
   selector: 'app-staffadd',
   standalone: true,
-  imports: [MatPaginator,MatPaginatorModule,FilterPipe,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent],
+  imports: [MatPaginator, MatPaginatorModule, FilterPipe, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent, EditprojectComponent],
   templateUrl: './staffadd.component.html',
   styleUrl: './staffadd.component.css'
 })

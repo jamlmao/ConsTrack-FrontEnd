@@ -106,8 +106,12 @@
                         {{ project.status }}
                       </td>
                       <td class="align-middle text-center text-sm">
+                        <a class="view" (click)="selectProject(project)" class="eye"><mat-icon>visibility</mat-icon></a>
                         <a class="edit" (click)="openEditModal()"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
-                        <button  type="button"  class="btn btn-outline-dark" (click)="selectProject(project)">View</button>
+                        <app-editproject 
+                        *ngIf="isEditModalOpen" (close)="closeEditModal()">
+                        </app-editproject>
+                       
                         
                       </td>
                       
