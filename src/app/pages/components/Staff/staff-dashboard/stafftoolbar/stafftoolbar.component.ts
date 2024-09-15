@@ -75,7 +75,7 @@ export class StafftoolbarComponent {
         this.clientCount = response.client_count;
         this.messages = response.appointments.map((appointment: any, index: number) => ({
           id: index + 1,
-          text: `Client ${appointment.client_id} requested a meeting on ${this.formatDate(appointment.appointment_datetime)}`
+          text: `Client ${appointment.first_name}${appointment.last_name} requested a meeting on ${this.formatDate(appointment.appointment_datetime)}`
         }));
         console.log('Messages loaded successfully', this.messages);
       },
