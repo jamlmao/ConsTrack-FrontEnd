@@ -63,11 +63,13 @@ export class StaffaddComponent {
     this.isCreateProjectModalOpen = true;
     console.log('Opening Create Staff Project');
     console.log(this.isCreateProjectModalOpen);
+    this.sideBarOpen = false;
   }
 
   closeCreateProjectModal() {
     this.isCreateProjectModalOpen = false;
     console.log('xd');
+    this.sideBarOpen = true;
   }
  
 

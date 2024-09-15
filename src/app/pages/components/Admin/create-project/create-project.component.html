@@ -10,73 +10,102 @@
             
             
             <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 400px;">
+            <article class="card-body mx-auto" style="max-width: 600px;">
                 
                
-                  <form (ngSubmit)="onSubmit()">
+                  
 
+            <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+                <div class="card-body">
+                    <p class="text-uppercase text-sm mb-0 text-center">Project Details</p>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label for="example-text-input" class="form-control-label"
+                          >Project Name:</label
+                        >
+                        <input class="form-control" [(ngModel)]="project.project_name"  id="project_name"  name="project_name" type="text" required />
+                      </div>
+                      <div class="col-md-4">
+                        <label for="example-text-input" class="form-control-label"
+                          >Barangay:</label
+                        >
+                        <input class="form-control"  id="site_address" [(ngModel)]="project.site_address" name="site_address"  placeholder="Address" type="text" required/>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="example-text-input" class="form-control-label"
+                          >City/Municipality</label
+                        >
+                        <input class="form-control" id="site_city" [(ngModel)]="project.site_city" name="site_city" placeholder="Municipality/City" type="text" required/>
+                      </div>
+                      <div class="col-md-4">
+                        <label for="example-text-input" class="form-control-label"
+                          >Province</label
+                        >
+                        <input class="form-control" id="site_province" [(ngModel)]="project.site_province" name="site_province" placeholder="Province" type="text" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Client</label
+                        >
+                        <select class="form-control" id="client_id" [(ngModel)]="project.client_id" name="client_id" required>
+                            <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}, {{ client.last_name }}</option>
+                          </select>
+                      </div>
+                      <div class="col-md-6" *ngIf="!isLoggedInUserStaff()">
+                        <label for="example-text-input" class="form-control-label"
+                          >Contractor</label
+                        >
+                        <select class="form-control" id="staff_id" [(ngModel)]="project.staff_id" name="staff_id" required>
+                            <option *ngFor="let staff of staff" [value]="staff.id">{{ staff.first_name }}, {{ staff.last_name}} - {{ staff.extension_name }}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Starting Date</label
+                        >
+                        <input class="form-control" id="starting_date" [(ngModel)]="project.starting_date" name="starting_date" type="date" required />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Completion Date</label
+                        >
+                        <input class="form-control" id="completion_date" [(ngModel)]="project.completion_date" name="completion_date" type="date" required />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Total Budget</label
+                        >
+                        <input class="form-control" id="totalBudget" [(ngModel)]="project.totalBudget" name="totalBudget" type="number" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Project Image</label
+                        >
+                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Project PDF</label
+                        >
+                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_pdf')" required/>
+                      </div>
+
+
+
+                      
+                    </div>
+                  
+                   
                     
-                        
-                    <div class="form-group input-group">
-                        <label for="project_name">Project Name:</label>
-                        <input class="form-control" id="project_name" [(ngModel)]="project.project_name" name="project_name" type="text" required>
-                    </div> 
-
-                    <div class = "form-group input-group">
-                        <label >Site Location:</label>
-                        <input class="form-control" id="site_address" [(ngModel)]="project.site_address" name="site_address"  placeholder="Address" type="text" required>
-                        <input class="form-control" id="site_city" [(ngModel)]="project.site_city" name="site_city" placeholder="Municipality/City" type="text" required>
-                        <input class="form-control" id="site_province" [(ngModel)]="project.site_province" name="site_province" placeholder="Province" type="text" required>
-                    </div>
-
-
-                    <div class="form-group input-group"></div>
-                    <label for="client_id">Client:</label>
-                    <select class="form-control" id="client_id" [(ngModel)]="project.client_id" name="client_id" required>
-                      <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}, {{ client.last_name }}</option>
-                    </select>
-
-                   <div class="form-group input-group" *ngIf="!isLoggedInUserStaff()">
-                    <label for="staff_id">Engineer/Architect:</label>
-                    <select class="form-control" id="staff_id" [(ngModel)]="project.staff_id" name="staff_id" required>
-                        <option *ngFor="let staff of staff" [value]="staff.id">{{ staff.first_name }}, {{ staff.last_name}} - {{ staff.extension_name }}</option>
-                    </select>
-                    </div>
-                  
-                  
-                    <div class="form-group input-group">
-                    <label for="completion_date">Completion Date:</label>
-                    <input class="form-control" id="completion_date" [(ngModel)]="project.completion_date" name="completion_date" type="date" required>
-                    </div>
-                    <div class="form-group input-group">
-                    <label for="starting_date">Starting Date:</label>
-                    <input class="form-control" id="starting_date" [(ngModel)]="project.starting_date" name="starting_date" type="date" required>
-                </div>
-                    <div class="form-group input-group">
-                    <label for="totalBudget">Total Budget:</label>
-                    <input class="form-control" id="totalBudget" [(ngModel)]="project.totalBudget" name="totalBudget" type="number" required>
-                </div>
-                    <div class="form-group input-group">
-                    <label for="pj_image">Project Image:</label>
-                    <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')">
-                </div>
-                    <div class="form-group input-group">
-                    <label for="pj_pdf">Project PDF:</label>
-                    <input class="form-control" type="file" (change)="onFileChange($event, 'pj_pdf')">
-                </div>
-           
-
-                 
-                <div class="d-flex align-items-center justify-content-between py-3">
-                <button type="submit" class="btn btn-outline-dark">Submit</button>
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                </div>
-
-
-                
-                
-                                                                           
-            </form>
+                  </div> 
+            <div class="d-flex align-items-center justify-content-between py-3">
+            <button type="submit" class="btn btn-outline-dark">Submit</button>
+            <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+            </div>
+            
+            
+                                                                       
+        </form>
             </article>
             </div> <!-- card.// -->
             
