@@ -84,14 +84,26 @@
                       ></button>
                     </div>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
+                      <div class="carousel-item active" *ngIf="task.pt_photo_task">
                         <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
                       </div>
-                      <div class="carousel-item">
-                        <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
+                      <div class="carousel-item" *ngIf="task.week1_img">
+                        <img [src]="'http://localhost:8000' + task.week1_img" alt="project image">
                       </div>
-                      <div class="carousel-item">
-                        <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
+                      <div class="carousel-item" *ngIf="task.week2_img">
+                        <img [src]="'http://localhost:8000' + task.week2_img" alt="project image">
+                      </div>
+                      <div class="carousel-item" *ngIf="task.week3_img">
+                        <img [src]="'http://localhost:8000' + task.week3_img" alt="project image">
+                      </div>
+                      <div class="carousel-item" *ngIf="task.week4_img">
+                        <img [src]="'http://localhost:8000' + task.week4_img" alt="project image">
+                      </div>
+                      <div class="carousel-item" *ngIf="task.week5_img">
+                        <img [src]="'http://localhost:8000' + task.week5_img" alt="project image">
+                      </div>
+                      <div class="carousel-item" *ngIf="task.update_img">
+                        <img [src]="'http://localhost:8000' + task.update_img" alt="project image">
                       </div>
                     </div>
                     <button 

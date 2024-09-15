@@ -273,7 +273,6 @@ export class ShomeComponent implements OnInit {
     this.http.get<{ project_count: number, done:number, ongoing:number }>(url, { headers })
       .subscribe(
         response => {
-          console.log('prject response:', response);
           console.log('Project count:', response.project_count)
           this.projectCount = response.project_count;
           this.done = response.done;

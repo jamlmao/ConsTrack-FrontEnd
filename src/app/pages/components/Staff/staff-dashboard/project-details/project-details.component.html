@@ -70,8 +70,7 @@
                     <h4> Target Date Completion:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.completion_date}}</span> </h4>
                     <h4>Person In Charge:
                         <span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
-                            {{ projectDetails.staff_last_name }} 
-                            {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span>
+                            {{ projectDetails.staff_last_name }}{{ projectDetails.extension_name ===   'Architect' ? ', UAP' : '' }}</span>
                     </h4>
             
             <h4> Remaining Budget:<span style="font-weight: bold; text-transform:uppercase">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></h4>

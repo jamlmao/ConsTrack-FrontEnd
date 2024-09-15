@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class ArchiComponent {
 
+  isChecklistChecked = false;
 
   isFileSelected: boolean = false;  // To track if a file is selected
 
@@ -45,7 +46,10 @@ export class ArchiComponent {
   apiUrl: string ='';
 
 
-
+  
+  toggleChecklist(event: Event): void {
+    this.isChecklistChecked = (event.target as HTMLInputElement).checked;
+  }
 
 
 
@@ -104,18 +108,17 @@ export class ArchiComponent {
     console.log('Task payload:', payload);
 
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    
-    this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
-        console.log('Task updated successfully', response);
-        Swal.fire({
+    Swal.fire({
           position: "center",
           icon: "success",
-          title: "Project added successfully.",
+          title: "Task updated successfully",
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
           window.location.reload();
         });
+    this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
+        console.log('Task updated successfully', response);
         this.closeModal();
     },error => {
       console.error('Error updating task', error);

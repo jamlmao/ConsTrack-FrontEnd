@@ -145,9 +145,10 @@ export class SowaComponent {
     this.categories = [
       { name: 'GENERAL REQUIREMENTS', path: this.generatePath('general') },
       { name: 'SITE WORKS', path: this.generatePath('site') },
-      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('metal') },
-      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('forms') },
-      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('steel') },
+      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('concrete') },
+      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('metal') },
+      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('forms') },
+      { name: 'STEEL FRAMING WORKS', path: this.generatePath('steel') },
       { name: 'TINSMITHRY WORKS', path: this.generatePath('tinsmithry') },
       { name: 'PLASTERING WORKS', path: this.generatePath('plastering') },
       { name: 'PAINTS WORKS', path: this.generatePath('paint') },
