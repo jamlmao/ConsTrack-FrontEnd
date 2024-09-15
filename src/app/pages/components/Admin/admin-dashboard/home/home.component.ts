@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
 
 
 
+
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit {
   isCreateStaffModalOpen = false;
   done_count: number | null = null;
   ongoing_count: number | null = null;
+  clientsPerMonth: any[] = [];
   
   
   companycount: number | null = null;
@@ -164,7 +166,45 @@ export class HomeComponent implements OnInit {
           
           this.delayedProjectCount = response.delayedProjectCount;
 
-          
+          var myChart10 = new Chart('myChart10',{  
+            type: 'bar',
+            data:{
+              labels: ['2024'],
+              datasets: [
+              {
+                label: 'Company',
+                data: [this.companycount, ],
+                backgroundColor: ['maroon'],
+              },
+            ],
+        
+            },
+            options:{
+              aspectRatio: 1,
+            }
+          }
+            
+          )
+
+          var myChart11 = new Chart('myChart11',{  
+            type: 'bar',
+            data:{
+              labels: ['2024'],
+              datasets: [
+              {
+                label: 'Users',
+                data: [this.totalUserCount, ],
+                backgroundColor: ['maroon'],
+              },
+            ],
+        
+            },
+            options:{
+              aspectRatio: 1,
+            }
+          }
+            
+          )
 
           
           
@@ -209,7 +249,9 @@ export class HomeComponent implements OnInit {
 
 
   
-
+  datayear:any[]=[];
+  datamonth:any[]=[];
+  dataproject:any[]=[];
 
 
   getClientCountPerMonth(): void {
@@ -225,6 +267,39 @@ export class HomeComponent implements OnInit {
 
     this.http.get<any>(this.ClientsCountUrl, { headers }).subscribe((response)=>{
       console.log('Clients count:', response)
+      this.clientsPerMonth = response.clients_per_month;
+      if(this.clientsPerMonth!=null){ 
+        for(let i = 0; i<this.clientsPerMonth.length; i++)
+            this.datayear.push(this.clientsPerMonth[i].year);
+
+          for(let i = 0; i<this.clientsPerMonth.length; i++)
+            this.datamonth.push(this.clientsPerMonth[i].month);
+
+          for(let i = 0; i<this.clientsPerMonth.length; i++)
+            this.dataproject.push(this.clientsPerMonth[i].count);
+       }
+       var myChart2 = new Chart('myChart2',{  
+        type: 'bar',
+        data:{
+          labels: this.datayear,
+          datasets: [
+          {
+            label: 'Clients',
+            data: this.dataproject,
+            backgroundColor: 'maroon',
+          },
+        ],
+    
+        },
+        options:{
+          aspectRatio: 1,
+        }
+      }
+        
+      )
+      
+
+
     });
 
   }
@@ -246,6 +321,7 @@ export class HomeComponent implements OnInit {
 
     this.http.get<any>(this.CompanyAndProjectCountUrl, { headers }).subscribe((response)=>{
       console.log('Company and projects:', response)
+
     });
 
   }
