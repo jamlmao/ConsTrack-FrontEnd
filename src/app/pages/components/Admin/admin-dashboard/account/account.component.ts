@@ -56,7 +56,7 @@ export class AccountComponent {
 
   paginatedUsers: any[] = []; // Holds the data for the current page
   currentPage = 1;
-  rowsPerPage = 1; // Number of rows per page
+  rowsPerPage = 7; // Number of rows per page
   totalPages = 1;
 
   fetchUser(): void {
@@ -73,6 +73,7 @@ export class AccountComponent {
       .subscribe((res: any) => {
         if (res && Array.isArray(res.users)) {
           this.users = res.users;
+          console.log(this.users);
           this.totalPages = Math.ceil(this.users.length / this.rowsPerPage);
           this.updatePaginatedUsers();
         } else {
