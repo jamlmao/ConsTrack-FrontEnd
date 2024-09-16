@@ -43,20 +43,10 @@
       overflow: auto;
     }
     
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table, th, td {
-        border: 1px solid black;
-    }
-    th, td {
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
+    
+    
+    
+    
     .sub-item {
         padding-left: 20px; /* Indent sub-items */
     }
@@ -103,30 +93,24 @@
     
     
   
-    .title::before{
-      content: '';
-      width: 200px;
-      height: 3px;
-      background: rgb(40, 40, 40);
-      opacity: .6;
-      position: absolute;
-      bottom: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+      gap: 20px; /* Space between columns */
+  }
   
-    .title::after{
-      content: '\f005';
-      color: rgb(238, 234, 234);
-      width: 50px;
-      height: 20px;
-      line-height: 20px;
-      position: absolute;
-      left: 50%;
-      background: rgb(155, 151, 151);
-      transform: translateX(-50%);
-      font-size: 15px;
-    }
+  .grid-item h4 {
+      margin-bottom: 0.5rem; /* Adjust margin for headers */
+  }
+  
+  .highlight {
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+  }
+  
+    
   
     .title p{
       font-style: italic;
@@ -165,49 +149,23 @@
   
     
       .table-wrapper {
-          width: 100%;
         font-family: 'Open Sans', sans-serif;
           
-          background: #fff;
-          padding: 10px;	
-          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
       }
       
       
       
       
-      table.table {
-          table-layout: fixed;
-          align-items: center;
-      }
+      
       table.table tr th, table.table tr td {
-          border-color: #e9e9e9;
-          align-items: center;
-          text-align: center; 
-      vertical-align: middle;
+          font-size: 15px;
       }
       
       
-      table.table td a {
-          cursor: pointer;
-          display: inline-block;
-          min-width: 24px;
-      }    
-      table.table td a.edit {
-          color: #FFC107;
-      }
-      table.table td a.delete {
-          color: #E34724;
-      }
-      table.table td i {
-          font-size: 19px;
-      }
-        
+      
+     
       
       
-      table.table td .add {
-          display: none;
-      }
   
     
       .content{
@@ -276,6 +234,25 @@
         position: relative;
       }
       
+
+      .navbar-nav .nav-item .nav-link {
+        transition: color 0.3s ease, background-color 0.3s ease;
+        margin: 10px;
+    }
+    
+    /* Hover Effect */
+    .navbar-nav .nav-item .nav-link:hover {
+        color: #fff; /* Change text color on hover */
+        background-color: #101010; /* Change background color on hover */
+        border-radius: 4px; /* Optional: adds rounded corners */
+    }
+    
+    /* Active Link Highlight */
+    .navbar-nav .nav-item .nav-link.active {
+        color: #fff; /* Change text color for active link */
+        background-color: #101010; /* Highlight color for active link */
+        border-radius: 4px; /* Optional: adds rounded corners */
+    }
      
      
       

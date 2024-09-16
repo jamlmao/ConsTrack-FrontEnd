@@ -3,10 +3,12 @@
     <div class="div modal-content">
         <span class = "close" (click)="closeModal()">&times;</span>
 
-        <div class="container">
+        <div class="container" style="max-width:800px;">
+     
+                
             <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
             <div class="card-body text-center">
-                    <h1 class="mt-1 mb-5 pb-1">Create New Client Account</h1>
+                    <h1 class="mt-1 mb-5 pb-1">Create New Staff Account</h1>
                   
                 <div class="row">
                     
@@ -39,19 +41,7 @@
                 
                 <div *ngIf="passwordControl.errors?.['required']" class="text-danger mb-3">Password is required.*</div>
               
-                <div class="text-red-400 text-danger mb-3" *ngIf="passwordControl?.dirty">
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('^(?=.*[A-Z])')}">At least one uppercase
-                                            letter.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(?=.*[a-z])')}">At least one lowercase
-                                            letter.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">At least one
-                                            digit.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(?=.*[!@#$%^&*])')}">At least one
-                                            special
-                                            character.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('.{8,}')}">At least 8 characters
-                                            long.</div>
-                 </div>
+              
                   
                   </div>
                   <div class="col-md-4">
@@ -187,8 +177,8 @@
                   
                   
                   <div class="d-flex align-items-center justify-content-between py-3">
-                    <button type="submit" class="btn btn-outline-dark">Create Staff</button>
                     <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                    <button type="submit" class="btn btn-outline-dark">Create Staff</button>
                     </div>
                 </div>
                 

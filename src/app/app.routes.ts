@@ -48,7 +48,6 @@ import { ResourcetableComponent } from './pages/components/Staff/resourcetable/r
 import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
 import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
 import { AppointmentComponent } from './pages/components/Staff/staff-dashboard/appointment/appointment.component';
-import { AdminappointmentComponent } from './pages/components/Admin/admin-dashboard/adminappointment/adminappointment.component';
 
 
 
@@ -104,12 +103,6 @@ export const routes: Routes = [
     {
         path: 'admin/document',
         component: DocumentsComponent,
-        canActivate: [AuthGuard]
-    },
-
-    {
-        path: 'admin/appointment',
-        component: AdminappointmentComponent,
         canActivate: [AuthGuard]
     },
     

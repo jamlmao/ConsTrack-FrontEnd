@@ -20,22 +20,28 @@
                             
                             <div class="container">
                                 
-                                <a class="navbar-brand"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
+                               
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" >PROJECT DETAILS</a></li>
-                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/sowa', projectDetails.id]" >SOWA</a></li>
-                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/resources', projectDetails.id]">RESOURCES</a></li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/sowa', projectDetails.id]" routerLinkActive="active">SOWA</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/resources', projectDetails.id]" routerLinkActive="active">RESOURCES</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </nav>
                 
-                        <div class="title" style="margin-top: -50px;">
+                        <div class="title" style="margin-top: -30px;">
                     
                 
-                            <h1><span>CONSTRACK</span> COMPANY</h1>
+                            <h1><span>STATEMENT OF</span> WORK ACCOMPLISHMENT</h1>
                             
         
                         </div>
@@ -55,7 +61,7 @@
            </section>
           
 
-        <div class="containers">
+        <div class="containers" style="margin-top: -50px;">
             <div class="table-wrapper">
                 <div class="row">
                 <div class="col-sm-8">      
@@ -74,13 +80,7 @@
         </div>
 
                 <div id="pdfContent">
-                    <div class="title1">
                     
-                        <h3 style="text-transform: uppercase; font-weight: bold;">STATEMENT OF WORK ACCOMPLISHMENT</h3>
-                    
-                        
-    
-                    </div>
                     <div>
                         <h4 style="margin-bottom: 0px;">
                             Building:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>

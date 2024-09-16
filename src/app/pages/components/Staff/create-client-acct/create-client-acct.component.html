@@ -39,19 +39,7 @@
                 
                 <div *ngIf="passwordControl.errors?.['required']" class="text-danger mb-3">Password is required.*</div>
               
-                <div class="text-red-400 text-danger mb-3" *ngIf="passwordControl?.dirty">
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('^(?=.*[A-Z])')}">At least one uppercase
-                                            letter.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(?=.*[a-z])')}">At least one lowercase
-                                            letter.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">At least one
-                                            digit.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(?=.*[!@#$%^&*])')}">At least one
-                                            special
-                                            character.</div>
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('.{8,}')}">At least 8 characters
-                                            long.</div>
-                 </div>
+                
                   
                   </div>
                   <div class="col-md-4">
@@ -150,8 +138,8 @@
                   
                   
                   <div class="d-flex align-items-center justify-content-between py-3">
-                    <button type="submit" class="btn btn-outline-dark">Create Client</button>
                     <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                    <button type="submit" class="btn btn-outline-dark">Create Client</button>
                     </div>
                 </div>
                 
