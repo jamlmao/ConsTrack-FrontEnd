@@ -22,7 +22,12 @@
     border-radius: 10px;
     display: block;
   }
-  
+  .table td {
+    text-align: center; /* Align the content of td elements to the right */
+    padding: 8px; /* Add some padding for better spacing */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
   
   .status-complete {
     color: green;
