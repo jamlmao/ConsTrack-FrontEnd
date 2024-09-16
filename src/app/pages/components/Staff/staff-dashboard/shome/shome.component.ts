@@ -24,6 +24,7 @@ import { HeaderComponent } from "../../../Admin/admin-dashboard/header/header.co
 import { Chart,registerables } from 'chart.js';
 import { first, last, take, tap } from 'rxjs';
 Chart.register(...registerables);
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-shome',
@@ -61,7 +62,7 @@ export class ShomeComponent implements OnInit {
   private companyProjectsUrl = this.baseUrl+'api/CompanyProjects';
   private projectCountUrl = this.baseUrl+'api/projectsPM';
   private clientCountUrl = this.baseUrl+'api/clients-count-by-month';
-
+ 
   projects: any[] = [];
   staff: any[] = [];
   selectedProject: any;
@@ -79,7 +80,7 @@ export class ShomeComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    
+    this.showLoading();
     const userData = localStorage.getItem('user');
     console.log(localStorage.getItem('user'));
     if (userData) {
@@ -124,8 +125,20 @@ export class ShomeComponent implements OnInit {
   }
   
   
+  showLoading() {
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
 
-
+  hideLoading() {
+    Swal.close();
+  }
 
 
 
@@ -175,6 +188,7 @@ export class ShomeComponent implements OnInit {
         if (Array.isArray(response.staff)) {
           this.staff = response.staff;
           console.log('Fetched staff:', this.staff);
+          this.hideLoading();
         } else {
           console.error('Expected an array for staff_with_extension');
         }
@@ -215,7 +229,7 @@ export class ShomeComponent implements OnInit {
         console.log('Full response:', response);
         this.projects = response;
         console.log('Fetched projects:', this.projects); 
-       
+        this.hideLoading();
       },
       error => {
         console.error('Error fetching projects', error);
@@ -242,6 +256,7 @@ export class ShomeComponent implements OnInit {
       (response: any) => {
         this.user = response;
         console.log('Logged in user:', this.user);
+        this.hideLoading();
       },
       error => {
         console.error('Error fetching user details', error);
@@ -277,7 +292,7 @@ export class ShomeComponent implements OnInit {
           this.projectCount = response.project_count;
           this.done = response.done;
           this.ongoing = response.ongoing;
-      
+          this.hideLoading();
 
           var myChart = new Chart('myChart',{  
             type: 'pie',
@@ -331,6 +346,7 @@ export class ShomeComponent implements OnInit {
               );
             
               this.clientCount = uniqueClients.length;
+              this.hideLoading();
              
             } else {
               console.error('Unexpected response format:', response);
@@ -378,7 +394,7 @@ export class ShomeComponent implements OnInit {
               this.datayear = [];
               this.datamonth = [];
               this.dataproject = [];
-    
+              this.hideLoading();
               // Create an object to aggregate project counts by year and month
               const aggregatedData: { [key: string]: { year: number, month: string, project_count: number } } = {};
     
@@ -453,7 +469,7 @@ export class ShomeComponent implements OnInit {
           response => {
             if (response && Array.isArray(response.clients_per_month)) {
               this.clientsPerMonth = response.clients_per_month;
-    
+              this.hideLoading();
               // Clear arrays before pushing new data
               this.datayear1 = [];
               this.datamonth1 = [];

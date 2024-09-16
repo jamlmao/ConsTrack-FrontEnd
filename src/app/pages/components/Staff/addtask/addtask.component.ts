@@ -147,7 +147,7 @@ export class AddtaskComponent {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Project added successfully.",
+          title: "successfully added successfully.",
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
@@ -156,11 +156,11 @@ export class AddtaskComponent {
 
         this.closeModal();
       },  error => {
-        console.error('Error adding project', error);
+        console.error('Error adding task', error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Error adding project. over the budget",
+          text: "Error adding task. over the budget",
         });
       });
     }

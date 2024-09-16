@@ -67,7 +67,7 @@ export class ViewprojectComponent {
 
   ngOnInit(){
    
-
+    this.showLoading();
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
@@ -91,8 +91,20 @@ export class ViewprojectComponent {
    
   
   }
+  showLoading() {
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
 
-
+  hideLoading() {
+    Swal.close();
+  }
 
   initializeCategories(): void {
     this.categories = [
@@ -195,6 +207,7 @@ export class ViewprojectComponent {
       (response: any) => {
         this.alltask = response.alltasks;
         console.log('All tasks:', this.alltask);
+        this.hideLoading();
       }
     );
 
@@ -219,6 +232,7 @@ export class ViewprojectComponent {
         this.currentUserId = response.project.staff_id
         console.log('Current User ID:', this.currentUserId);
         console.log('Project Details:', this.projectDetails);
+        this.hideLoading();
       },
       (error) => {
         console.error('Failed to fetch project details', error);
@@ -253,6 +267,7 @@ export class ViewprojectComponent {
         console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
         console.log('Total Allocated Budget:', this.totalAllocatedBudget);
+        this.hideLoading();
        
        
       },
@@ -285,7 +300,7 @@ export class ViewprojectComponent {
       if (response && response.totalAllocatedBudgetPerCategory) {
         this.SortedTask = response.totalAllocatedBudgetPerCategory;
         console.log('Budget:', this.SortedTask);
-      
+        this.hideLoading();
         
         
       } else {
@@ -313,7 +328,7 @@ export class ViewprojectComponent {
       (response: any) => {
         if (response && response.tasks) {
           this.sortedTask = response.tasks;
-       
+          this.hideLoading();
           this.categorizeTasks();
           console.log('Sorted tasks:', this.sortedTask);
         } else {
