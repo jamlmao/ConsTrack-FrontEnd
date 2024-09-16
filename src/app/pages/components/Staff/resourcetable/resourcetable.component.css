@@ -83,6 +83,7 @@
     }
     table, th, td {
         border: 1px solid black;
+        text-transform: uppercase;
     }
     th, td {
         padding: 8px;
@@ -356,11 +357,11 @@
       }
       .timeline-point{
         display: flex;
-        align-self: baseline;
+        align-items: center;
         border: 1px solid black;
-        width: 100px;
-        height: 100px;
-        margin-top: 10px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
         background-color: white;
       }
       .timeline-track{
@@ -377,12 +378,14 @@
       .heighlight
       {
        background-color: rgb(21, 205, 21);
-       box-shadow: 0 4px 8px gray;
       }
       .heighlights
       {
        background-color: rgb(240, 8, 8);
-       box-shadow: 0 4px 8px gray;
+      }
+      .heighlightss
+      {
+       background-color: orange;
       }
 
 

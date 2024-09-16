@@ -79,7 +79,7 @@
                     <tbody>
                         <tr *ngFor="let task of tasks; let i = index;">
                             <td>{{ i + 1 }}</td>
-                            <td>{{ task.pt_task_name }}</td>
+                            <td><div class="timeline-point" [ngClass]="task?.pt_status === 'D' ? 'heighlights': '' || task?.pt_status === 'C' ? 'heighlight': ''|| task?.pt_status === 'OG' ? 'heighlightss': '' "></div>{{ task.pt_task_name }}</td>
                             <td>{{ task.pt_task_desc }}</td>
                             <td>{{ task.pt_starting_date }}</td>
                             <td>{{ task.pt_completion_date }}</td>
