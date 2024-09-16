@@ -37,18 +37,23 @@
                                 <a class="navbar-brand"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" >PROJECT DETAILS</a></li>
-                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" >RESOURCES</a></li>
-                                        <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]">TIMELINE UPDATES</a></li>
+                                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" routerLinkActive="active">SOWA</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]" routerLinkActive="active">TIMELINE UPDATES</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </nav>
                         <div class="title">
                     
-                            <h2>PROJECT DETAILS</h2>
-                            <h1><span>CONSTRACK</span> COMPANY</h1>
+                            <h1><span>PROJECT</span> DETAILS</h1>
         
                         </div>
                 
@@ -56,8 +61,14 @@
                             <div class="container">
                                 <div class="row gx-5 align-items-center">
                                     <div class="col-xxl-7" style="margin-top: -70px;">
+                                        
+                                        <div class="justify-content-between">
+                                            
+                                        </div>
                                
+                                        
                                         <div class="d-flex justify-content-center ">
+                                            
                                        
                                             <div class="image-container">
                                                 <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image" (click)="toggleZoom()" style="width: 600px;">
@@ -68,8 +79,13 @@
                                     <div class="col-xxl-5">
                                         
                                         <div class="text-center text-xxl-start">
-                                            <div class="badge bg-black text-white mb-4"><div class="text-uppercase"> &middot; PROJECT &middot; DETAILS</div></div>
-                                          
+                                            <h4>Progress Percentage: <span style="font-weight: bold; margin-left: 0px;
+                                                ">{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%</span><mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+            
+                                                <button *ngIf="projectDetails.staff_id === currentUserId && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' " (click)="handleButtonClick(projectIdNumber2)">
+                                                    Special Action
+                                                </button>
+                                            
                                             <h4>Building Type:<span style="font-weight: bold; text-transform:uppercase"> {{projectDetails.project_name}}</span></h4>
                                         <h4> Location:<span style="font-weight: bold; text-transform:uppercase">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span> </h4>
                                         <h4> Total Budget:<span style="font-weight: bold; text-transform:uppercase">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></h4>
@@ -83,12 +99,6 @@
                                         <h4> Remaining Budget:<span style="font-weight: bold; text-transform:uppercase">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></h4>
                                         
 
-                                        <h4>Progress Percentage: <span style="font-weight: bold;
-                                    ">{{projectDetails.total_used_budget/projectDetails.totalBudget * 100 | number: '1.2-2'}}%</span><mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
-
-                                    <button *ngIf="projectDetails.staff_id === currentUserId && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' " (click)="handleButtonClick(projectIdNumber2)">
-                                        Special Action
-                                    </button>
 
                                            
                                         </div>

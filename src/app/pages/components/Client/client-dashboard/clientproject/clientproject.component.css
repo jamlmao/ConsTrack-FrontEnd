@@ -43,32 +43,6 @@
     
     
     
-  
-    .title::before{
-      content: '';
-      width: 200px;
-      height: 3px;
-      background: rgb(40, 40, 40);
-      opacity: .6;
-      position: absolute;
-      bottom: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  
-    .title::after{
-      content: '\f005';
-      color: rgb(238, 234, 234);
-      width: 50px;
-      height: 20px;
-      line-height: 20px;
-      position: absolute;
-      left: 50%;
-      background: rgb(155, 151, 151);
-      transform: translateX(-50%);
-      font-size: 15px;
-    }
-  
     .title p{
       font-style: italic;
       font-weight: 700;
@@ -86,6 +60,44 @@
     }
   
     
+    
+  
+
+    .navbar-nav .nav-item .nav-link {
+      transition: color 0.3s ease, background-color 0.3s ease;
+      margin: 10px;
+  }
+  
+  /* Hover Effect */
+  .navbar-nav .nav-item .nav-link:hover {
+      color: #fff; /* Change text color on hover */
+      background-color: #101010; /* Change background color on hover */
+      border-radius: 4px; /* Optional: adds rounded corners */
+  }
+  
+  /* Active Link Highlight */
+  .navbar-nav .nav-item .nav-link.active {
+      color: #fff; /* Change text color for active link */
+      background-color: #101010; /* Highlight color for active link */
+      border-radius: 4px; /* Optional: adds rounded corners */
+  }
+   
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+      gap: 20px; /* Space between columns */
+  }
+  
+  .grid-item h4 {
+      margin-bottom: 0.5rem; /* Adjust margin for headers */
+  }
+  
+  .highlight {
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+  }
   
       
   body {

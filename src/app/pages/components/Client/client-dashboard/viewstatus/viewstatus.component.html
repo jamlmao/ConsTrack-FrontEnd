@@ -11,11 +11,17 @@
             
             <a class="navbar-brand"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="projectDetails && projectDetails.id">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" >PROJECT DETAILS</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" >RESOURCES</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]">TIMELINE UPDATES</a></li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" routerLinkActive="active">SOWA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]" routerLinkActive="active">TIMELINE UPDATES</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -33,57 +39,61 @@
         
   
            
-                  <table class="table table-bordered">
-                      <thead>
-                          <tr>
-                              <th width="2%">#</th>
-                              <th width="10%">Task Name</th>
-                              <th width="8%">Starting Date</th>
-                              <th width="8%">Estimate Completion Date</th>
-                              
-                              <th width="8%">Status</th>
-                              <th width="8%">Resources Used:</th>
-                              <th width="4%">Qty:</th>
-                              <th width="4%">Cost</th>
-                              <th width="4%">Total</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let task of tasks; let i = index;">
-                              <td>{{ i + 1 }}</td>
-                              <td>{{ task.pt_task_name }}</td>
-                              <td>{{ task.pt_starting_date }}</td>
-                              <td>{{ task.pt_completion_date }}</td>
-                              <td>{{ task.pt_status }}</td>
-                              <td>
-                                  <ul>
-                                      <li *ngFor="let resource of task.resources">
-                                          <p><strong>{{ resource.resource_name }}</strong></p>
-                                      </li>
-                                  </ul>
-                              </td>
-                              <td>
-                                  <ul>
-                                      <li *ngFor="let resource of task.resources">
-                                          <p><strong>{{ resource.qty }}</strong></p>
-                                      </li>
-                                  </ul>
-                              </td>
-                              <td>
-                                  <ul>
-                                      <li *ngFor="let resource of task.resources">
-                                          <p><strong>{{ resource.unit_cost }}</strong></p>
-                                      </li>
-                                  </ul>
-                              </td>
-                              <td> <ul>
-                                  <li *ngFor="let resource of task.resources">
-                                      <p><strong>{{ resource.total_cost }}</strong></p>
-                                  </li>
-                              </ul></td>
-                          </tr>
-                      </tbody>
-                  </table>
+        <div class="table-responsive" style="margin-top: -70px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="2%">#</th>
+                        <th width="10%">Task Name</th>
+                        <th width="8%">Starting Date</th>
+                        <th width="8%">Estimate Completion Date</th>
+                        <th width="8%">Status</th>
+                        <th width="8%">Resources Used:</th>
+                        <th width="4%">Qty:</th>
+                        <th width="4%">Cost</th>
+                        <th width="4%">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of tasks; let i = index;">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ task.pt_task_name }}</td>
+                        <td>{{ task.pt_starting_date }}</td>
+                        <td>{{ task.pt_completion_date }}</td>
+                        <td>{{ task.pt_status }}</td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let resource of task.resources">
+                                    <p><strong>{{ resource.resource_name }}</strong></p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let resource of task.resources">
+                                    <p><strong>{{ resource.qty }}</strong></p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let resource of task.resources">
+                                    <p><strong>{{ resource.unit_cost }}</strong></p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let resource of task.resources">
+                                    <p><strong>{{ resource.total_cost }}</strong></p>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
       
         
             

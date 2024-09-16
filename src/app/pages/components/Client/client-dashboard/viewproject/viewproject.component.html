@@ -16,16 +16,21 @@
                         <a class="navbar-brand"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder" *ngIf="projectDetails && projectDetails.id">
-                                <li class="nav-item"><a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" >PROJECT DETAILS</a></li>
-                                <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" >RESOURCES</a></li>
-                                <li class="nav-item"><a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]">TIMELINE UPDATES</a></li>
-                            </ul>
-                        </div>
+                          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
+                              <li class="nav-item">
+                                  <a class="nav-link" [routerLink]="['/client/clientproject', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" routerLinkActive="active">SOWA</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" [routerLink]="['/client/viewproject', projectDetails.id]" routerLinkActive="active">TIMELINE UPDATES</a>
+                              </li>
+                          </ul>
+                      </div>
                     </div>
                 </nav>
                 <div class="title">
-                    <p>Welcome to your Project</p>
                     <h1><span>PROJECT</span> TIMELINE</h1>
 
                 </div>
@@ -47,7 +52,7 @@
            </section>
         
 
-           <div class="timeline-container">
+           <div class="timeline-container" style="margin-top: -50px;">
             <div class="timeline">
               <div 
                 class="task" 
