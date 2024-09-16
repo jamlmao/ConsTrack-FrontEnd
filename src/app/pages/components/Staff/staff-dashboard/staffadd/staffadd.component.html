@@ -131,8 +131,12 @@
                       <td >
                        {{ project.totalBudget }}
                       </td>
-                      <td>
-                        {{ project.status }}
+                      <td [ngClass]="{
+                        'status-complete': project.status === 'Complete',
+                        'status-ongoing': project.status === 'Ongoing',
+                        'status-due': project.status === 'Due'
+                      }">
+                        {{ getStatusText(project.status) }}
                       </td>
                       <td class="align-middle text-center text-sm">
                         <a class="view" (click)="selectProject(project)" class="eye"><mat-icon>visibility</mat-icon></a>

@@ -8,6 +8,7 @@
     height: 100%;
   }
   
+  
   .btn-grad {
     background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
    width: 150px;

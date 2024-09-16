@@ -52,7 +52,18 @@ export class StaffaddComponent {
   
   isEditModalOpen = false;
 
-  
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'C':
+        return 'Complete';
+      case 'OG':
+        return 'Ongoing';
+      case 'D':
+        return 'Due';
+      default:
+        return status;
+    }
+  }
 
   
   dataSource = new MatTableDataSource<any>();

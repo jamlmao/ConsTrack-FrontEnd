@@ -8,6 +8,9 @@
       height: 100%;
     }
 
+    *{
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
 
     .status-complete {
       color: green;

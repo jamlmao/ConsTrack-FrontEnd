@@ -24,6 +24,19 @@
   }
   
   
+  .status-complete {
+    color: green;
+  }
+  
+  .status-ongoing {
+    color: orange;
+  }
+  
+  .status-due {
+    color: red;
+  }
+
+  
   .btn-grad:hover {
     background-position: right center; /* change the direction of the change here */
     color: #fff;
