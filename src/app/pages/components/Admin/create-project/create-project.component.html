@@ -21,9 +21,16 @@
                     <div class="row">
                       <div class="col-md-12">
                         <label for="example-text-input" class="form-control-label"
-                          >Project Name:</label
+                          >Project Type:</label
                         >
-                        <input class="form-control" [(ngModel)]="project.project_name"  id="project_name"  name="project_name" type="text" required />
+                        <select class="form-control" id="project_name" [(ngModel)]="project.project_name" name="project_name"  required>
+                          <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Institutional">Institutional</option>
+                            <option value="Industrial">Industrial</option>
+                          
+                        </select>
+                    
                       </div>
                       <div class="col-md-4">
                         <label for="example-text-input" class="form-control-label"
@@ -83,12 +90,7 @@
                         >
                         <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
                       </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Project PDF</label
-                        >
-                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_pdf')" required/>
-                      </div>
+                      
 
 
 
@@ -99,8 +101,9 @@
                     
                   </div> 
             <div class="d-flex align-items-center justify-content-between py-3">
+              <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
             <button type="submit" class="btn btn-outline-dark">Submit</button>
-            <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+            
             </div>
             
             

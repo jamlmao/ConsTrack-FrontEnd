@@ -26,18 +26,31 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { take, tap } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FilterPipe } from '../../../../../filter.pipe';
 
 @Component({
   selector: 'app-appointment',
   standalone: true,
-  imports: [MatPaginatorModule,SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
+  imports: [FilterPipe,MatPaginatorModule,SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
   templateUrl: './appointment.component.html',
   styleUrl: './appointment.component.css'
 })
 export class AppointmentComponent {
+  searchText:any;
 
   sideBarOpen=true;
   appointments: any[] = [];
+  uniqueClients: string[] = []; 
+  getUniqueClientNames(appointments: any[]): string[] {
+    const namesSet = new Set<string>();
+    appointments.forEach(appointment => {
+      if (appointment.client_first_name) {
+        namesSet.add(appointment.client_first_name);
+      }
+    });
+    return Array.from(namesSet);
+  }
+  
 
   private baseUrl = "http://127.0.0.1:8000/";
 
@@ -50,6 +63,8 @@ export class AppointmentComponent {
 
   ngOnInit(): void {
     this.fetchAppointments();
+    this.uniqueClients = this.getUniqueClientNames(this.appointments);
+
   }
 
 
