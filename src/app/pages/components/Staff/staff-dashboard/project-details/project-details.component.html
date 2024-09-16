@@ -39,20 +39,20 @@
                         </nav>
                        
                 
-                        <div class="title" style="margin-top: -50px;">
+                        <div class="title" style="margin-top: -30px;">
                     
                             <h1><span>PROJECT</span> DETAILS</h1>
         
                         </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;  margin-left: 40px; margin-right: 40px; margin-top: -60px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;  margin-left: 200px; margin-right: 200px; margin-top: -60px;">
                             <h4 style="font-weight: bold;">
-                              Progress
+                             
                             </h4>
                             <span style="font-weight: bold; font-size: 35px;">
                               {{ (projectDetails.total_used_budget / projectDetails.totalBudget * 100) | number: '1.2-2' }}%
                             </span>
                           </div>
-                          <h4  style="font-weight: bold; margin: 40px; margin-top: 0px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+                          <h4  style="font-weight: bold; margin-left: 200px; margin-right: 200px; margin-top: 0px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
                                    
                           
                           
@@ -71,7 +71,7 @@
            
            </section>
 
-           <div class="container">
+           <div class="container" style="margin-top: 40px;">
             <div class="row gx-5 align-items-center">
                 <div class="col-xxl-7">
            
@@ -96,7 +96,7 @@
                 
                                 <h4>Total Budget:</h4>
                                 <p><span class="highlight">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></p>
-                                
+
                                 <h4>Remaining Budget:</h4>
                                 <p><span class="highlight">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></p>
                             </div>
