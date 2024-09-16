@@ -363,53 +363,68 @@ export class ShomeComponent implements OnInit {
         console.error('No token found in local storage');
         return;
       }
-  
+    
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-  
+    
       this.http.get<any>(this.projectCountUrl, { headers })
         .pipe(
           tap(response => {
             if (response && Array.isArray(response.projects_per_month)) {
               this.projectsPerMonth = response.projects_per_month;
-              if(this.projectsPerMonth!=null){ 
-                for(let i = 0; i<this.projectsPerMonth.length; i++)
-                    this.datayear.push(this.projectsPerMonth[i].year);
-
-                  for(let i = 0; i<this.projectsPerMonth.length; i++)
-                    this.datamonth.push(this.projectsPerMonth[i].month);
-
-                  for(let i = 0; i<this.projectsPerMonth.length; i++)
-                    this.dataproject.push(this.projectsPerMonth[i].project_count);
-               }
-               var myChart1 = new Chart('myChart1',{  
+    
+              // Clear previous data arrays
+              this.datayear = [];
+              this.datamonth = [];
+              this.dataproject = [];
+    
+              // Create an object to aggregate project counts by year and month
+              const aggregatedData: { [key: string]: { year: number, month: string, project_count: number } } = {};
+    
+              // Iterate over the projects and aggregate counts by year and month
+              this.projectsPerMonth.forEach(item => {
+                const key = `${item.year}-${item.month}`; // Create a unique key combining year and month
+                if (!aggregatedData[key]) {
+                  aggregatedData[key] = { year: item.year, month: item.month, project_count: item.project_count };
+                } else {
+                  aggregatedData[key].project_count += item.project_count; // Aggregate the project counts
+                }
+              });
+    
+              // Prepare the chart data
+              const labels = [];
+              const data = [];
+              for (const key in aggregatedData) {
+                const item = aggregatedData[key];
+                labels.push(`${item.month} ${item.year}`); // X-axis label as month-year
+                data.push(item.project_count); // Y-axis value as aggregated project count
+              }
+    
+              // Create the bar chart for projects per month
+              var myChart1 = new Chart('myChart1', {
                 type: 'bar',
-                data:{
-                  labels: this.datayear,
+                data: {
+                  labels: labels, // X-axis labels (Month-Year)
                   datasets: [
-                  {
-                    label: 'Projects',
-                    data: this.dataproject,
-                    backgroundColor: 'maroon',
-                  },
-                ],
-            
+                    {
+                      label: 'Projects',
+                      data: data, // Y-axis values (project counts)
+                      backgroundColor: 'maroon',
+                    },
+                  ],
                 },
-                options:{
+                options: {
                   aspectRatio: 1,
                 }
-              }
-                
-              )
+              });
             } else {
               console.error('Unexpected response format:', response);
               this.projectsPerMonth = [];
-
             }
             console.log('Projects per month:', this.projectsPerMonth);
           }),
-          take(1) // This will ensure the observable completes after the first emission
+          take(1)
         )
         .subscribe(
           () => {},
@@ -418,6 +433,7 @@ export class ShomeComponent implements OnInit {
           }
         );
     }
+    
 
 
     
@@ -427,60 +443,72 @@ export class ShomeComponent implements OnInit {
         console.error('No token found in local storage');
         return;
       }
-  
+    
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-  
+    
       this.http.get<any>(this.clientCountUrl, { headers })
-        .pipe(
-          tap(response => {
+        .subscribe(
+          response => {
             if (response && Array.isArray(response.clients_per_month)) {
               this.clientsPerMonth = response.clients_per_month;
-              if(this.clientsPerMonth!=null){ 
-                for(let i = 0; i<this.clientsPerMonth.length; i++)
-                    this.datayear1.push(this.clientsPerMonth[i].year);
-
-                  for(let i = 0; i<this.clientsPerMonth.length; i++)
-                    this.datamonth1.push(this.clientsPerMonth[i].month);
-
-                  for(let i = 0; i<this.clientsPerMonth.length; i++)
-                    this.dataproject1.push(this.clientsPerMonth[i].client_count);
-               }
-               var myChart2 = new Chart('myChart2',{  
+    
+              // Clear arrays before pushing new data
+              this.datayear1 = [];
+              this.datamonth1 = [];
+              this.dataproject1 = [];
+    
+              // Define the type for aggregatedData
+              const aggregatedData: { [key: string]: { year: number, month: string, client_count: number } } = {};
+    
+              // Aggregate client counts by year and month
+              this.clientsPerMonth.forEach(item => {
+                const key = `${item.year}-${item.month}`; // Combine year and month for the key
+                if (!aggregatedData[key]) {
+                  aggregatedData[key] = { year: item.year, month: item.month, client_count: item.client_count };
+                } else {
+                  aggregatedData[key].client_count += item.client_count;
+                }
+              });
+    
+              // Prepare chart data
+              const labels = [];
+              const data = [];
+              for (const key in aggregatedData) {
+                const item = aggregatedData[key];
+                labels.push(`${item.month} ${item.year}`); // Use month-year as labels
+                data.push(item.client_count); // Use aggregated client_count
+              }
+    
+              // Create the bar chart
+              var myChart2 = new Chart('myChart2', {
                 type: 'bar',
-                data:{
-                  labels: this.datayear,
+                data: {
+                  labels: labels, // X-axis labels (Month-Year)
                   datasets: [
-                  {
-                    label: 'Clients',
-                    data: this.dataproject1,
-                    backgroundColor: 'maroon',
-                  },
-                ],
-            
+                    {
+                      label: 'Clients',
+                      data: data, // Y-axis values (client counts)
+                      backgroundColor: 'maroon',
+                    }
+                  ]
                 },
-                options:{
+                options: {
                   aspectRatio: 1,
                 }
-              }
-                
-              )
+              });
             } else {
               console.error('Unexpected response format:', response);
-              this.clientsPerMonth = [];
             }
-            console.log('Clients per month:', this.clientsPerMonth);
-          }),
-          take(1) // This will ensure the observable completes after the first emission
-        )
-        .subscribe(
-          () => {},
+          },
           error => {
             console.error('Error fetching clients per month:', error);
           }
         );
     }
+    
+    
     
 
 
