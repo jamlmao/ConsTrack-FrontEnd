@@ -76,6 +76,7 @@ export class ShomeComponent implements OnInit {
   clientCount: number = 0;
   done: number = 0;
   ongoing: number = 0;
+  due: number = 0;  
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -285,24 +286,28 @@ export class ShomeComponent implements OnInit {
     const url = `${this.companyProjectsUrl}/${staffId}`;
   
   
-    this.http.get<{ project_count: number, done:number, ongoing:number }>(url, { headers })
+    this.http.get<{ project_count: number, done:number, ongoing:number, due:number}>(url, { headers })
       .subscribe(
         response => {
           console.log('Project count:', response.project_count)
           this.projectCount = response.project_count;
           this.done = response.done;
+          this.due = response.due;
+          console.log('Done:', this.done);
+          console.log('Ongoing:', response.ongoing);
+          console.log('due', response.due);
           this.ongoing = response.ongoing;
           this.hideLoading();
 
           var myChart = new Chart('myChart',{  
             type: 'pie',
             data:{
-              labels: ['Done', 'Ongoing'],
+              labels: ['Done', 'Ongoing', 'Due'],
               datasets: [
               {
                 label: 'Projects',
-                data: [this.done, this.ongoing ],
-                backgroundColor: ['maroon', 'black'],
+                data: [this.done, this.ongoing,this.due],
+                backgroundColor: ['green', 'skyblue', 'red' ],
               },
             ],
         
