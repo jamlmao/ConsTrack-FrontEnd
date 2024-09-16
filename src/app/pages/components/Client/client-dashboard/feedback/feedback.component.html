@@ -13,12 +13,13 @@
                 It only takes two minutes!!
             </div>
             <form (ngSubmit)="onSubmit()">
+              
                 <div>
                   <label for="staff_id">
                     <i class="fa fa-solid fa-user"></i>
                     Select Staff:
                   </label>
-                  <select id="staff_id" [(ngModel)]="staff_id" name="staff_id" required style="text-transform: uppercase;">
+                  <select  class="form-control" id="staff_id" [(ngModel)]="staff_id" name="staff_id" required style="text-transform: uppercase;">
                     <option *ngFor="let staff of staffList" [value]="staff.id">
                             {{ staff.extension_name === 'Civil Engineer' || staff.extension_name === 'Engineer' ? 'Engr. ' + staff.first_name : staff.first_name }} 
                             {{ staff.last_name }} 
