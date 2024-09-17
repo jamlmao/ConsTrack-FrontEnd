@@ -40,7 +40,6 @@ import { EditprojectComponent } from "../../editproject/editproject.component";
 
 export class StaffaddComponent {
   projects: any[] = [];
-  searchText:any;
   user: any;
 
   isCreateProjectModalOpen = false;
@@ -183,6 +182,10 @@ export class StaffaddComponent {
   currentPage = 1;
   rowsPerPage = 1; // Number of rows per page
   totalPages = 1;
+  filteredProjects: any[] = [];
+  searchText: string = ''; 
+  
+pageSize: number = 1; // Example page siz
   
 
   fetchProjects(): void {
@@ -203,6 +206,7 @@ export class StaffaddComponent {
         console.log('Fetched projects:', this.projects);
         this.project.paginator = this.paginator;
         this.totalPages = Math.ceil(this.projects.length / this.rowsPerPage);
+        this.filteredProjects = this.projects;
       this.updatePaginatedUsers();
       },
       error => {
@@ -211,12 +215,33 @@ export class StaffaddComponent {
     );
   }
 
+  // Filter the entire dataset based on search text
+  filterData() {
+    this.filteredProjects = this.projects.filter(project =>
+      project.client.first_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.client.last_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.project_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.starting_date.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.completion_date.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.status.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.staff_in_charge.staff_first_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.staff_in_charge.staff_last_name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+
+    // Reset to the first page after filtering
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.filteredProjects.length / this.rowsPerPage);
+    this.updatePaginatedUsers();
+  }
+
+  // Update the paginated users to be displayed for the current page
   updatePaginatedUsers() {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
     const endIndex = startIndex + this.rowsPerPage;
-    this.paginatedUsers = this.projects.slice(startIndex, endIndex);
+    this.paginatedUsers = this.filteredProjects.slice(startIndex, endIndex);
   }
 
+  // Go to the next page
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -230,6 +255,11 @@ export class StaffaddComponent {
       this.currentPage--;
       this.updatePaginatedUsers();
     }
+  }
+
+  // Function to handle changes in the search text input
+  onSearchTextChange() {
+    this.filterData(); // Call filterData whenever the search input changes
   }
 
   selectProject(project: any) {

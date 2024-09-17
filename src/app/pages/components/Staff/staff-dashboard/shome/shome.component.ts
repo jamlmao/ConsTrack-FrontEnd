@@ -432,7 +432,7 @@ export class ShomeComponent implements OnInit {
                     {
                       label: 'Projects',
                       data: data, // Y-axis values (project counts)
-                      backgroundColor: 'maroon',
+                      backgroundColor: 'yellow',
                     },
                   ],
                 },
@@ -512,7 +512,7 @@ export class ShomeComponent implements OnInit {
                     {
                       label: 'Clients',
                       data: data, // Y-axis values (client counts)
-                      backgroundColor: 'maroon',
+                      backgroundColor: 'cyan',
                     }
                   ]
                 },
