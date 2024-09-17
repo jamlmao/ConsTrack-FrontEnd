@@ -76,13 +76,24 @@ export class ProjectDetailsComponent {
   projectDetails: any = {};
 
 
-  
+  totalBudget: number = 100; // Example value
+  totalUsedBudget: number = 75; // Example value
+  radius: number = 45; // Circle's radius
+  circumference: number = 0; // Will be calculated
+  usedBudgetPercentage: number = 0;
+  strokeDashOffset: number = 0;
 
   categorizedTasks: { [key: string]: any[] } = {};
   SortedTask: any = {};
 
 
+  calculateProgress() {
+    // Calculate the circle's circumference
+    
+  }
+
   ngOnInit(){
+    this.calculateProgress();
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
@@ -239,6 +250,13 @@ export class ProjectDetailsComponent {
       (response: any) => {
         this.projectDetails = response.project;
         console.log('Project Details:', this.projectDetails);
+        this.circumference = 2 * Math.PI * this.radius;
+    
+    // Calculate the used percentage
+    this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
+
+    // Calculate the stroke-dashoffset based on the percentage
+    this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
       },
       (error) => {
         console.error('Failed to fetch project details', error);
