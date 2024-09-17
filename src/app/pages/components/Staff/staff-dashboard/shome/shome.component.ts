@@ -61,6 +61,7 @@ export class ShomeComponent implements OnInit {
   private userUrl = this.baseUrl+'api/user/details';
   private companyProjectsUrl = this.baseUrl+'api/CompanyProjects';
   private projectCountUrl = this.baseUrl+'api/projectsPM';
+  private ProjectYearUrl = this.baseUrl+'api/projectsY';
   private clientCountUrl = this.baseUrl+'api/clients-count-by-month';
  
   projects: any[] = [];
@@ -123,6 +124,7 @@ export class ShomeComponent implements OnInit {
     this.fetchProjectsPerMonth(); // Fetch projects per month w
     this.fetchClientsPerMonth(); // Fetch clients per month 
     this.fetchstaffAccounts(); // Fetch staff accounts
+    this.fetchProjectsPerYear(); // Fetch projects per year
   }
   
   
@@ -271,6 +273,16 @@ export class ShomeComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
+
+
+
   getCompanyProjects(staffId: number): void {
    
     const token = localStorage.getItem('token');
@@ -378,6 +390,93 @@ export class ShomeComponent implements OnInit {
     datayear1:any[]=[];
     datamonth1:any[]=[];
     dataproject1:any[]=[];
+
+
+    projectsStatusPerMonth: any[] = [];
+
+
+    fetchProjectsPerYear(): void {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+  
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+  
+      this.http.get<any>(this.ProjectYearUrl, { headers })
+        .pipe(
+          tap(response => {
+            if (response && Array.isArray(response.projects_status_per_month)) {
+              this.projectsStatusPerMonth = response.projects_status_per_month;
+  
+              // Clear previous data arrays
+              this.datayear = [];
+              this.datamonth = [];
+              this.dataproject = [];
+              this.hideLoading();
+  
+              // Create an object to aggregate project counts by year
+              const aggregatedData: { [key: string]: { year: number, project_count: number } } = {};
+  
+              // Iterate over the projects and aggregate counts by year
+              this.projectsStatusPerMonth.forEach(item => {
+                const key = `${item.year}`; // Create a unique key for the year
+                if (!aggregatedData[key]) {
+                  aggregatedData[key] = { year: item.year, project_count: item.project_count };
+                } else {
+                  aggregatedData[key].project_count += item.project_count; // Aggregate the project counts
+                }
+              });
+  
+              // Prepare the chart data
+              const labels = [];
+              const data = [];
+              for (const key in aggregatedData) {
+                const item = aggregatedData[key];
+                labels.push(`${item.year}`); // X-axis label as year
+                data.push(item.project_count); // Y-axis value as aggregated project count
+              }
+  
+              // Create the bar chart for projects per year
+              var myChart6 = new Chart('myChart6', {
+                type: 'bar',
+                data: {
+                  labels: labels, // X-axis labels (Year)
+                  datasets: [
+                    {
+                      label: 'Projects',
+                      data: data, // Y-axis values (project counts)
+                      backgroundColor: 'blue',
+                    },
+                  ],
+                },
+                options: {
+                  aspectRatio: 1,
+                }
+              });
+            } else {
+              console.error('Unexpected response format:', response);
+              this.projectsStatusPerMonth = [];
+            }
+            console.log('Projects per year:', this.projectsStatusPerMonth);
+          }),
+          take(1)
+        )
+        .subscribe(
+          () => {},
+          error => {
+            console.error('Error fetching projects per year:', error);
+          }
+        );
+    }
+
+
+
+    
+
 
     fetchProjectsPerMonth(): void {
       const token = localStorage.getItem('token');
