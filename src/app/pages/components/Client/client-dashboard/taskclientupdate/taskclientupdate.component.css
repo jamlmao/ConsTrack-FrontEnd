@@ -78,31 +78,7 @@
   
   }
   
-  .title::before{
-    content: '';
-    width: 200px;
-    height: 3px;
-    background: rgb(40, 40, 40);
-    opacity: .6;
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
   
-  .title::after{
-    content: '\f005';
-    color: rgb(238, 234, 234);
-    width: 50px;
-    height: 20px;
-    line-height: 20px;
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    background: rgb(155, 151, 151);
-    transform: translateX(-50%);
-    font-size: 15px;
-  }
   
   .title p{
     font-style: italic;

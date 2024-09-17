@@ -197,7 +197,7 @@ export class TaskclientupdateComponent {
   }
 
   
-  sideBarOpen=false;
+  sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }

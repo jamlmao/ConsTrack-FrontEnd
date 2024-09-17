@@ -142,7 +142,7 @@ export class ViewprojectComponent {
   isArchiOpen = false;
   
 
-  sideBarOpen=false;
+  sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
@@ -384,7 +384,7 @@ export class ViewprojectComponent {
   }
   
   selecttask(task: any) {
-    this.router.navigate(['/task-details', task.id]);
+    this.router.navigate(['/client/task-details', task.id]);
   }
  
   

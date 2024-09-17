@@ -1,6 +1,6 @@
 <app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
 <mat-drawer-container>
-    <mat-drawer mode="over" [opened]="sideBarOpen">
+    <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-clientsidenav></app-clientsidenav>
     </mat-drawer>
     <mat-drawer-content>
@@ -13,7 +13,6 @@
                             
                     <div class="container">
                         
-                        <a class="navbar-brand"><span class="fw-bolder text-primary text-black">ConsTrack Team</span></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
@@ -31,7 +30,6 @@
                     </div>
                 </nav>
                 <div class="title">
-                  <p>Welcome to your Projects</p>
                     <h1><span>PROJECT</span> TIMELINE</h1>
 
                 </div>
@@ -53,7 +51,7 @@
            </section>
         
 
-           <div class="timeline-container" style="margin-top: -50px;">
+           <div class="timeline-container justify-content-between justify-content-center" style="margin-top: -50px;">
             <div class="timeline">
               <div 
                 class="task" 
@@ -64,77 +62,36 @@
                   'due': task?.pt_status === 'D'
                 }"
               >
-                <div class="content">
-                  <!-- Unique id for each carousel -->
-                  <div class="carousel slide" [id]="'carouselExampleIndicators' + i" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                      <button 
-                        type="button" 
-                        [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
-                        [attr.data-bs-slide-to]="0" 
-                        class="active" 
-                        aria-current="true" 
-                        aria-label="Slide 1"
-                      ></button>
-                      <button 
-                        type="button" 
-                        [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
-                        [attr.data-bs-slide-to]="1" 
-                        aria-label="Slide 2"
-                      ></button>
-                      <button 
-                        type="button" 
-                        [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
-                        [attr.data-bs-slide-to]="2" 
-                        aria-label="Slide 3"
-                      ></button>
-                    </div>
-                    <div class="carousel-inner">
-                      <div class="carousel-item active" *ngIf="task.pt_photo_task">
-                        <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="project image">
-                      </div>
-                      <div class="carousel-item" *ngIf="task.week1_img">
-                        <img [src]="'http://localhost:8000' + task.week1_img" alt="project image">
-                      </div>
-                      <div class="carousel-item" *ngIf="task.week2_img">
-                        <img [src]="'http://localhost:8000' + task.week2_img" alt="project image">
-                      </div>
-                      <div class="carousel-item" *ngIf="task.week3_img">
-                        <img [src]="'http://localhost:8000' + task.week3_img" alt="project image">
-                      </div>
-                      <div class="carousel-item" *ngIf="task.week4_img">
-                        <img [src]="'http://localhost:8000' + task.week4_img" alt="project image">
-                      </div>
-                      <div class="carousel-item" *ngIf="task.week5_img">
-                        <img [src]="'http://localhost:8000' + task.week5_img" alt="project image">
-                      </div>
-                      <div class="carousel-item" *ngIf="task.update_img">
-                        <img [src]="'http://localhost:8000' + task.update_img" alt="project image">
-                      </div>
-                    </div>
-                    <button 
-                      class="carousel-control-prev" 
-                      type="button" 
-                      [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
-                      data-bs-slide="prev"
-                    >
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button 
-                      class="carousel-control-next" 
-                      type="button" 
-                      [attr.data-bs-target]="'#carouselExampleIndicators' + i" 
-                      data-bs-slide="next"
-                    >
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
+              <div class="content">
+                <div class="row">
+                  <div class="col-lg-3" style="margin-left: 20px; font-size: 20px;">
+                    <p class="date">Task Category:</p>
+                <p class="date">Task Name:</p>
+                <p class="date">Status:</p>
+                <p class="date">Starting Date:</p>
+                <p class="date">Completion Date:</p>
+
+
                   </div>
-                  <h2>{{task.pt_task_desc}}</h2>
-                  <h2>{{task.pt_task_name}}</h2>
-                  <p class="date">{{task.pt_starting_date}}</p>
+                  <div class="col-lg-5" style="font-size: 20px;">
+                 
+                <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_task_desc}}</p>
+                <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_task_name}}</p>
+                <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_status}}</p>
+                <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_starting_date}}</p>
+                <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_completion_date}}</p>
+
+                  </div>
+                  <div class="col-lg-3" (click)="selecttask(task)">
+                    <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-image" style="width: 250px; height: 143px; margin-left: 60px;">
+                             
+
+                  </div>
+
                 </div>
+                <!-- Unique id for each carousel -->
+                
+              </div>
               </div>
               <!-- More tasks can be added here -->
             </div>
