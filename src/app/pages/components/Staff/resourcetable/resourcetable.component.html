@@ -81,8 +81,8 @@
                             <td>{{ i + 1 }}</td>
                             <td><div class="timeline-point" [ngClass]="task?.pt_status === 'D' ? 'heighlights': '' || task?.pt_status === 'C' ? 'heighlight': ''|| task?.pt_status === 'OG' ? 'heighlightss': '' "></div>{{ task.pt_task_name }}</td>
                             <td>{{ task.pt_task_desc }}</td>
-                            <td>{{ task.pt_starting_date }}</td>
-                            <td>{{ task.pt_completion_date }}</td>
+                            <td>{{ task.pt_starting_date  | date:'yyyy-MM-dd'}}</td>
+                            <td>{{ task.pt_completion_date | date:'yyyy-MM-dd' }}</td>
                             <td [ngClass]="{
                                 'status-complete': task.pt_status === 'C',
                                 'status-ongoing': task.pt_status === 'OG',
