@@ -15,64 +15,14 @@
                     <p>Welcome to your Projects</p>
                     <h1><span>PROJECT</span> LISTS</h1>      
                 </div>
-                <div class="align-items-center">         
-                </div>
+             
                 
                   
-                <div class="col-12 col-xl-6">
-                    
-                    
-                  </div>
+           
                 </div>
 
           
-                <div class="col-12 col-xl-12" style="margin-top: -90px;">
-                  <div >
-                    <div class="card-header pb-0">
-                      <div class="d-flex align-items-center m-2">
-                        <div class="col-md-7 m-2">
-                          <label for="example-text-input" class="form-control-label"
-                            >Search:</label
-                          >
-                          <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText">
-                        </div>
-                        
-                        
-                        <div class="col-md-2">
-                          <label for="example-text-input" class="form-control-label"
-                            >Project Type:</label
-                          >
-                          <select class="form-control" id="client_id" [(ngModel)]="searchText" required>
-                            <option value="" disabled selected>Select Project Type</option>
-                            <option value="Residential">Residential</option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="Institutional">Institutional</option>
-                            <option value="Industrial">Industrial</option>
-                          </select>
-                        </div>
-                        <div class="col-md-2 m-2">
-                          <label for="example-text-input" class="form-control-label"
-                            >Progress:</label
-                          >
-                          <select class="form-control" id="client_id" [(ngModel)]="searchText" required>
-                            <option value="" disabled selected>Select Status</option>
-                              <option>Ongoing</option>
-                              <option>Complete</option>
-                              <option>Due</option>
-                            </select>
-                        </div>
-                        <h4 style="margin-top: 7px;"> </h4>
-                        <button class="btn btn-outline-dark"  (click)="openCreateProjectModal()" >
-                          <mat-icon style="margin-top: 3px;">addition</mat-icon>
-                       
-                        </button>
-                        <app-create-project 
-                        *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
-                </app-create-project>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+               
 
         
           
@@ -83,11 +33,52 @@
         
         
 
-        <div class="container">
+        <div class="container" style="margin-top: -90px;">
+          <div class="d-flex align-items-center m-2">
+            <div class="col-md-7 m-2">
+              <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                >Search:</label
+              >
+              <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText">
+            </div>
+            
+            
+            <div class="col-md-2">
+              <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                >Project Type:</label
+              >
+              <select class="form-control" id="client_id" [(ngModel)]="searchText" required style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                <option value="" disabled selected>Select Project Type</option>
+                <option value="Residential">Residential</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Institutional">Institutional</option>
+                <option value="Industrial">Industrial</option>
+              </select>
+            </div>
+            <div class="col-md-2 m-2">
+              <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                >Progress:</label
+              >
+              <select class="form-control" id="client_id" [(ngModel)]="searchText" required >
+                <option value="" disabled selected>Select Status</option>
+                  <option>Ongoing</option>
+                  <option>Complete</option>
+                  <option>Due</option>
+                </select>
+            </div>
+            <h4 style="margin-top: 7px;"> </h4>
+            <button class="btn btn-outline-dark"  (click)="openCreateProjectModal()" >
+              <mat-icon style="margin-top: 3px;">addition</mat-icon>
+           
+            </button>
+            <app-create-project 
+            *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
+    </app-create-project>
+          </div>
           <div class="table-wrapper">
               <div class="table-title">
                   <div class="row">
-                      <div class="col-sm-10"><h1 style="font-weight: bold;">Project Lists Table</h1></div>
+                      <div class="col-sm-10"><h1 style="font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif;">Project's Table</h1></div>
                      
                       
                   </div>
@@ -140,11 +131,7 @@
                       </td>
                       <td class="align-middle text-center text-sm">
                         <a class="view" (click)="selectProject(project)" class="eye"><mat-icon>visibility</mat-icon></a>
-                        <a class="edit" (click)="openEditModal()"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
-                        <app-editproject 
-                        *ngIf="isEditModalOpen" (close)="closeEditModal()">
-                        </app-editproject>
-                       
+                        
                         
                       </td>
                       

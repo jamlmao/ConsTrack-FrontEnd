@@ -142,7 +142,7 @@
                         </ng-container>
                             <tr>
                                 <td colspan="2"><strong>TOTAL</strong></td>
-                                <td style="text-align: right;"><strong> {{ totalAllocatedBudget | number: '1.2-2' }}Php</strong></td>
+                                <td style="text-align: right;"><strong> {{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
                                 <td colspan="4"></td>
                             </tr>
                         
@@ -153,17 +153,17 @@
                         <div>
                             <div class="signature-line"></div>
                             
-                            <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                            <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
                                 {{ projectDetails.staff_last_name }} 
                                 {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
-                            <div style="margin-left: 140px;"> Registered {{ projectDetails.extension_name }}</div>
-                            <div style="margin-left: 140px;">License No. {{ projectDetails.license_number }}
+                            <div style="margin-left: 50px;"> Registered {{ projectDetails.extension_name }}</div>
+                            <div style="margin-left: 50px;">License No. {{ projectDetails.license_number }}
                         </div>
                         </div>
                         <div>
                             <div class="signature-line"></div>
-                            <div style="margin-left: 140px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
-                            <div style="margin-left: 140px;">Owner</div>
+                            <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
+                            <div style="margin-left: 50px;">Owner</div>
                         </div>
                         
                     </div>
