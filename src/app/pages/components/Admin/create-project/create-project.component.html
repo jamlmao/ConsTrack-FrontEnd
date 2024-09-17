@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <p class="text-uppercase text-sm mb-0 text-center">Project Details</p>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <label for="example-text-input" class="form-control-label"
                           >Project Type:</label
                         >
@@ -31,6 +31,12 @@
                           
                         </select>
                     
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Project Name:</label
+                        >
+                        <input class="form-control"  id="site_address" [(ngModel)]="project.site_address" name="site_address"  placeholder="Address" type="text" required/>
                       </div>
                       <div class="col-md-4">
                         <label for="example-text-input" class="form-control-label"

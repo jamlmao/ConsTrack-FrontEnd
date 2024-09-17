@@ -15,15 +15,40 @@
 
                 <body >
                     <main>
-                        
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white py-5">
+                      
+                       
+                       
+                
+                        <div class="title" style="margin-top: 20px;">
+                           
+                    
+                            <h1><span>STATEMENT OF</span> WORK ACCOMPLISH </h1>
+        
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;  margin-left: 200px; margin-right: 200px; margin-top: -60px;">
+                            <h4 style="font-weight: bold;">
+                             
+                            </h4>
+                            <span style="font-weight: bold; font-size: 35px;">
+                              <!-- {{ (projectDetails.total_used_budget / projectDetails.totalBudget * 100) | number: '1.2-2' }}% -->
+                            </span>
+                          </div>
+                          <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: 0px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+                          <div class="d-flex justify-content-center ">
+                   
+                            <div class="image-container">
+                                <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image" style="width: 800px; height: 500px;">
+                              </div>
+                        </div>
+                          
+                          <nav class="navbar navbar-expand-lg navbar-light bg-white py-5">
                             
                             <div class="container">
                                 
-                               
+
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder" *ngIf="projectDetails && projectDetails.id">
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 180px;margin-top: -46px;">
+                                    <ul class="navbar-nav mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
                                         <li class="nav-item">
                                             <a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
                                         </li>
@@ -35,19 +60,125 @@
                                         </li>
                                     </ul>
                                 </div>
+                                
+                                  
                             </div>
                         </nav>
-                
-                        <div class="title" style="margin-top: -30px;">
-                    
-                            <p>Welcome to your Projects</p>
-                            <h1><span>STATEMENT OF</span> WORK ACCOMPLISHMENT</h1>
-                            
-        
-                        </div>
-                      
+                          
                     </main>
-                
+
+                    <div class="containers">
+                        <div class="table-wrapper">
+                            <div class="row">
+                            <div class="col-sm-8">      
+                            
+                        
+                        </div> 
+                        <div class="col-2">
+                            <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
+                        </div>
+                        <div class="col-sm-2">
+                            <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
+                                <app-addtask 
+                                *ngIf="isTaskOpen"  (close)="closeTaskModal()">
+                                </app-addtask>
+                        </div>
+                    </div>
+            
+                            <div id="pdfContent">
+                                
+                                <div>
+                                    <h4 style="margin-bottom: 0px;">
+                                        Building:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
+                                    </h4>
+                                    <h4 style="margin-bottom: 0px;">
+                                        Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
+                                    </h4>
+                                    <h4 style="margin-bottom: 0px;">
+                                        Location:&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</a>
+                                    </h4>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            
+            
+                                            <th [width]="40">Item No.</th>
+                                            <th [width]="330">Description</th>
+                                            <th>Project Actual Cost</th>
+                                            <th>Previous</th>
+                                            <th>This Period</th>
+                                            <th>To Date</th>
+                                            <th>Percentage of Accomplishment</th>
+                                            <th class="no-pdf">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let category of categories; let i = index" (click)="selecttask(category)">
+                                            <ng-container *ngIf="SortedTask[category.name]?.tasks && SortedTask[category.name].tasks.length > 0">
+                                            <tr>
+                                                <td>{{ toRoman(i + 1) }}</td>
+                                                <td>{{ category.name }}</td>
+                                                <td style="text-align: right;">{{ SortedTask[category.name]?.totalAllocatedBudget ?? '0.00' | number: '1.2-2' }}</td>
+                                                <td style="text-align: right;">{{ SortedTask[category.name]?.previousCost ?? '0.00' | number: '1.2-2' }}</td>
+                                                <td style="text-align: right;">{{ SortedTask[category.name]?.thisPeriodCost ?? '0.00' | number: '1.2-2' }}</td>
+                                                <td style="text-align: right;">{{ SortedTask[category.name]?.toDateCost ?? '0.00' | number: '1.2-2' }}</td>
+                                                <td style="text-align: right;">
+                                                    <div>{{ calculateProgress(category.name) | number: '1.2-2' }}%</div>
+                                                    <mat-progress-bar mode="determinate" [value]="calculateProgress(category.name)" color="accent"></mat-progress-bar>
+                                                </td>
+                                                <td class="no-pdf">
+                                                
+                                                    <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                                </td>
+                                            </tr>
+                                            <ng-container *ngIf="categorizedTasks[category.name] && categorizedTasks[category.name].length">
+                                                <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
+                                                    <td></td>
+                                                    <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
+                                                    <td style="text-align: right;">{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
+                                                    <td style="text-align: right;">{{ task.pt_previous | number: '1.2-2' || '-' }}</td>
+                                                    <td style="text-align: right;">{{ task.pt_this_period | number: '1.2-2' || '-' }}</td>
+                                                    <td style="text-align: right;">{{ task.pt_to_date | number: '1.2-2' || '-' }}</td>
+                                                    <td style="text-align: right;">{{ task.pt_percentage_accomplishment || '-' }}</td>
+                                                    
+                                                </tr>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                        <tr>
+                                            <td colspan="2"><strong>TOTAL</strong></td>
+                                            <td style="text-align: right;"><strong> {{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
+                                            <td colspan="4"></td>
+                                        </tr>
+                                    
+                                    </tbody>
+                                </table>
+                            
+                                <div class="signature-section">
+                                    <div>
+                                        <div class="signature-line"></div>
+                                        
+                                        <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                                            {{ projectDetails.staff_last_name }} 
+                                            {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
+                                        <div style="margin-left: 50px;"> Registered {{ projectDetails.extension_name }}</div>
+                                        <div style="margin-left: 50px;">License No. {{ projectDetails.license_number }}
+                                    </div>
+                                    </div>
+                                    <div>
+                                        <div class="signature-line"></div>
+                                        <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
+                                        <div style="margin-left: 50px;">Owner</div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+            
+                </div>
+            
+                    </div>
+                    
                  
                  
                 </body>
@@ -61,117 +192,7 @@
            </section>
           
 
-        <div class="containers" style="margin-top: -50px;">
-            <div class="table-wrapper">
-                <div class="row">
-                <div class="col-sm-8">      
-                
-            
-            </div> 
-            <div class="col-2">
-                <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
-            </div>
-            <div class="col-sm-2">
-                <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
-                    <app-addtask 
-                    *ngIf="isTaskOpen"  (close)="closeTaskModal()">
-                    </app-addtask>
-            </div>
-        </div>
-
-                <div id="pdfContent">
-                    
-                    <div>
-                        <h4 style="margin-bottom: 0px;">
-                            Building:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
-                        </h4>
-                        <h4 style="margin-bottom: 0px;">
-                            Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
-                        </h4>
-                        <h4 style="margin-bottom: 0px;">
-                            Location:&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</a>
-                        </h4>
-                    </div>
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                            <tr>
-                                
-
-                                <th [width]="40">Item No.</th>
-                                <th [width]="330">Description</th>
-                                <th>Project Actual Cost</th>
-                                <th>Previous</th>
-                                <th>This Period</th>
-                                <th>To Date</th>
-                                <th>Percentage of Accomplishment</th>
-                                <th class="no-pdf">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container *ngFor="let category of categories; let i = index" (click)="selecttask(category)">
-                                <ng-container *ngIf="SortedTask[category.name]?.tasks && SortedTask[category.name].tasks.length > 0">
-                                <tr>
-                                    <td>{{ toRoman(i + 1) }}</td>
-                                    <td>{{ category.name }}</td>
-                                    <td style="text-align: right;">{{ SortedTask[category.name]?.totalAllocatedBudget ?? '0.00' | number: '1.2-2' }}</td>
-                                    <td style="text-align: right;">{{ SortedTask[category.name]?.previousCost ?? '0.00' | number: '1.2-2' }}</td>
-                                    <td style="text-align: right;">{{ SortedTask[category.name]?.thisPeriodCost ?? '0.00' | number: '1.2-2' }}</td>
-                                    <td style="text-align: right;">{{ SortedTask[category.name]?.toDateCost ?? '0.00' | number: '1.2-2' }}</td>
-                                    <td style="text-align: right;">
-                                        <div>{{ calculateProgress(category.name) | number: '1.2-2' }}%</div>
-                                        <mat-progress-bar mode="determinate" [value]="calculateProgress(category.name)" color="accent"></mat-progress-bar>
-                                    </td>
-                                    <td class="no-pdf">
-                                    
-                                        <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
-                                    </td>
-                                </tr>
-                                <ng-container *ngIf="categorizedTasks[category.name] && categorizedTasks[category.name].length">
-                                    <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
-                                        <td></td>
-                                        <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                                        <td style="text-align: right;">{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
-                                        <td style="text-align: right;">{{ task.pt_previous | number: '1.2-2' || '-' }}</td>
-                                        <td style="text-align: right;">{{ task.pt_this_period | number: '1.2-2' || '-' }}</td>
-                                        <td style="text-align: right;">{{ task.pt_to_date | number: '1.2-2' || '-' }}</td>
-                                        <td style="text-align: right;">{{ task.pt_percentage_accomplishment || '-' }}</td>
-                                        
-                                    </tr>
-                                </ng-container>
-                            </ng-container>
-                        </ng-container>
-                            <tr>
-                                <td colspan="2"><strong>TOTAL</strong></td>
-                                <td style="text-align: right;"><strong> {{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
-                                <td colspan="4"></td>
-                            </tr>
-                        
-                        </tbody>
-                    </table>
-                
-                    <div class="signature-section">
-                        <div>
-                            <div class="signature-line"></div>
-                            
-                            <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
-                                {{ projectDetails.staff_last_name }} 
-                                {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
-                            <div style="margin-left: 50px;"> Registered {{ projectDetails.extension_name }}</div>
-                            <div style="margin-left: 50px;">License No. {{ projectDetails.license_number }}
-                        </div>
-                        </div>
-                        <div>
-                            <div class="signature-line"></div>
-                            <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
-                            <div style="margin-left: 50px;">Owner</div>
-                        </div>
-                        
-                    </div>
-                </div>
-
-    </div>
-
-        </div>
+        
    
           
             
