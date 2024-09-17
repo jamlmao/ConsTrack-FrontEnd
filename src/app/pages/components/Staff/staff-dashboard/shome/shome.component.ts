@@ -391,6 +391,12 @@ export class ShomeComponent implements OnInit {
     datamonth1:any[]=[];
     dataproject1:any[]=[];
 
+    datayear12:any[]=[];
+    datamonth12:any[]=[];
+    datadue:any[]=[];
+    datacomplete:any[]=[];
+    dataongoing:any[]=[];
+
 
     projectsStatusPerMonth: any[] = [];
 
@@ -401,60 +407,108 @@ export class ShomeComponent implements OnInit {
         console.error('No token found in local storage');
         return;
       }
-  
+    
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-  
+    
       this.http.get<any>(this.ProjectYearUrl, { headers })
         .pipe(
           tap(response => {
             if (response && Array.isArray(response.projects_status_per_month)) {
               this.projectsStatusPerMonth = response.projects_status_per_month;
-  
+    
               // Clear previous data arrays
-              this.datayear = [];
-              this.datamonth = [];
-              this.dataproject = [];
+              this.datayear12 = [];
+              this.datamonth12 = [];
+              this.datadue = [];
+              this.datacomplete = [];
+              this.dataongoing = [];
               this.hideLoading();
-  
-              // Create an object to aggregate project counts by year
-              const aggregatedData: { [key: string]: { year: number, project_count: number } } = {};
-  
-              // Iterate over the projects and aggregate counts by year
+    
+              // Create an object to aggregate project counts by year and month
+              const aggregatedData: { [key: string]: { year: number, month: string, due: number, complete: number, ongoing: number } } = {};
+    
+              // Iterate over the projects and aggregate counts by year and month
               this.projectsStatusPerMonth.forEach(item => {
-                const key = `${item.year}`; // Create a unique key for the year
+                const key = `${item.year}-${item.month}`; // Create a unique key combining year and month
                 if (!aggregatedData[key]) {
-                  aggregatedData[key] = { year: item.year, project_count: item.project_count };
+                  aggregatedData[key] = { year: item.year, month: item.month, due: item.due, complete: item.complete, ongoing: item.ongoing };
                 } else {
-                  aggregatedData[key].project_count += item.project_count; // Aggregate the project counts
+                  aggregatedData[key].due += item.due;
+                  aggregatedData[key].complete += item.complete;
+                  aggregatedData[key].ongoing += item.ongoing;
                 }
               });
-  
+    
               // Prepare the chart data
               const labels = [];
-              const data = [];
+              const dueData = [];
+              const completeData = [];
+              const ongoingData = [];
+    
               for (const key in aggregatedData) {
                 const item = aggregatedData[key];
-                labels.push(`${item.year}`); // X-axis label as year
-                data.push(item.project_count); // Y-axis value as aggregated project count
+                labels.push(`${item.month} ${item.year}`); // X-axis label as month-year
+                dueData.push(item.due); // Y-axis value for due projects
+                completeData.push(item.complete); // Y-axis value for complete projects
+                ongoingData.push(item.ongoing); // Y-axis value for ongoing projects
               }
-  
-              // Create the bar chart for projects per year
-              var myChart6 = new Chart('myChart6', {
-                type: 'bar',
+    
+              // Create the line chart for projects per month
+              new Chart('myChart12', {
+                type: 'line',
                 data: {
-                  labels: labels, // X-axis labels (Year)
+                  labels: labels, // X-axis labels (Month-Year)
                   datasets: [
                     {
-                      label: 'Projects',
-                      data: data, // Y-axis values (project counts)
-                      backgroundColor: 'blue',
+                      label: 'Due Projects',
+                      data: dueData, // Y-axis values for due projects
+                      borderColor: 'red',
+                      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                      fill: false
                     },
-                  ],
+                    {
+                      label: 'Complete Projects',
+                      data: completeData, // Y-axis values for complete projects
+                      borderColor: 'green',
+                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                      fill: false
+                    },
+                    {
+                      label: 'Ongoing Projects',
+                      data: ongoingData, // Y-axis values for ongoing projects
+                      borderColor: 'blue',
+                      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                      fill: false
+                    }
+                  ]
                 },
                 options: {
-                  aspectRatio: 1,
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: 'top',
+                    },
+                    tooltip: {
+                      callbacks: {
+                        label: (tooltipItem) => {
+                          const datasetLabel = tooltipItem.dataset.label || '';
+                          const value = tooltipItem.raw;
+                          return `${datasetLabel}: ${value}`;
+                        }
+                      }
+                    }
+                  },
+                  scales: {
+                    x: {
+                      beginAtZero: true
+                    },
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
                 }
               });
             } else {
@@ -472,6 +526,7 @@ export class ShomeComponent implements OnInit {
           }
         );
     }
+    
 
 
 
