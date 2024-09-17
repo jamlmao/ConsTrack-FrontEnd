@@ -45,7 +45,7 @@ import Swal from 'sweetalert2';
 export class ProjectDetailsComponent {
 
 
-
+  
   events: any[] = [];
   tasks: any[] = [];
   sortedTask: any[] = [];
@@ -61,6 +61,8 @@ export class ProjectDetailsComponent {
   alltask: any[] = [];
   currentUserId: number = 0;
   projectIdNumber2: number = 0;
+  user: any = {};
+  profileId: number =0;
 
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
@@ -69,7 +71,7 @@ export class ProjectDetailsComponent {
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
   private updateProjectUrl = `${this.url}`+'/api/projects/';
-
+  private userUrl = this.url+'api/user/details';
 
   projectDetails: any = {};
 
@@ -81,7 +83,14 @@ export class ProjectDetailsComponent {
 
 
   ngOnInit(){
-   
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData);
+
+
+      this.profileId = this.user.profile_id; 
+
+    }
 
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
@@ -229,8 +238,6 @@ export class ProjectDetailsComponent {
     this.http.get(this.projectDetailsUrl + `${projectId}`, { headers }).subscribe(
       (response: any) => {
         this.projectDetails = response.project;
-        this.currentUserId = response.project.staff_id
-        console.log('Current User ID:', this.currentUserId);
         console.log('Project Details:', this.projectDetails);
       },
       (error) => {

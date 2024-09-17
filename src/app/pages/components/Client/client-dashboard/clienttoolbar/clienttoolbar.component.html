@@ -4,7 +4,7 @@
 <mat-toolbar>
     <mat-toolbar-row class="justify-content-between">
     <button mat-icon-button (click)="toggleSidebar()" class="menu"><mat-icon style="color: white;">menu</mat-icon></button>
-    <mat-icon [matMenuTriggerFor]="notificationMenu" matBadge="{{ messages.length }}" matBadgeColor="accent" style="color: white; margin-left: 90px; margin-right: 0;">notifications</mat-icon>
+    <!-- <mat-icon [matMenuTriggerFor]="notificationMenu" matBadge="{{ messages.length }}" matBadgeColor="accent" style="color: white; margin-left: 90px; margin-right: 0;">notifications</mat-icon>
 
     <mat-menu #notificationMenu="matMenu">
       <ng-container *ngIf="messages.length > 0; else noMessages">
@@ -20,7 +20,7 @@
           <span>No new notifications</span>
         </button>
       </ng-template>
-    </mat-menu>
+    </mat-menu> -->
         <div>
             <ul>
                 <li>

@@ -118,8 +118,8 @@
                                     <td style="text-align: right;">{{ SortedTask[category.name]?.thisPeriodCost ?? '0.00' | number: '1.2-2' }}</td>
                                     <td style="text-align: right;">{{ SortedTask[category.name]?.toDateCost ?? '0.00' | number: '1.2-2' }}</td>
                                     <td style="text-align: right;">
-                                        <div>{{ SortedTask[category.name]?.percentage ?? 0 | number: '1.2-2' }}%</div>
-                                        <mat-progress-bar mode="determinate" [value]="SortedTask[category.name]?.percentage ?? 0" color="accent"></mat-progress-bar>
+                                        <div>{{ calculateProgress(category.name) | number: '1.2-2' }}%</div>
+                                        <mat-progress-bar mode="determinate" [value]="calculateProgress(category.name)" color="accent"></mat-progress-bar>
                                     </td>
                                     <td class="no-pdf">
                                     

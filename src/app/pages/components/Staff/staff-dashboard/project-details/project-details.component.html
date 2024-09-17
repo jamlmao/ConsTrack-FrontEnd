@@ -114,7 +114,9 @@
                                     {{ projectDetails.staff_last_name }}{{ projectDetails.extension_name === 'Architect' ? ', UAP' : '' }}
                                 </span></p>
                 
-                               
+                                <button *ngIf="projectDetails.staff_id === profileId  && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' "  class="btn-grad btn-outline-dark mt-5" (click)="handleButtonClick(projectIdNumber2)">
+                                    Complete
+                                </button>
                             </div>
                         </div>
                     </div>

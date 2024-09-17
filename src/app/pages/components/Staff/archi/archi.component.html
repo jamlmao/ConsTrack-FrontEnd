@@ -9,7 +9,7 @@
                   <form (ngSubmit)="onSubmit()">
                       <div class="col-md-12">
                         <div class="col-md-12">
-                          <label for="checklist" class="form-control-label">Complete:</label>
+                          <label for="checklist" class="form-control-label">Complete(will autocomplete the task):</label>
                           <input id="checklist" type="checkbox" (change)="toggleChecklist($event)">
                       </div>
                           <label for="example-text-input" class="form-control-label" [hidden]="isChecklistChecked">Update Image:</label>

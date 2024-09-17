@@ -464,4 +464,14 @@ export class SowaComponent {
   get progressPercentage(): number {
     return (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
   }
+
+  calculateProgress(categoryName: string): number {
+    const tasks = this.categorizedTasks[categoryName] || [];
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter(task => task.pt_status === 'C').length;
+
+    return totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
+}
+
+
 } 

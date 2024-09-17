@@ -107,6 +107,18 @@ export class ViewstatusComponent {
     Swal.close();
   }
 
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'C':
+        return 'Complete';
+      case 'OG':
+        return 'Ongoing';
+      case 'D':
+        return 'Due';
+      default:
+        return status;
+    }
+  }
 
   initializeCategories(): void {
     this.categories = [
