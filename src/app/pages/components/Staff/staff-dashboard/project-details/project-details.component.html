@@ -15,17 +15,14 @@
 
                 <body >
                     <main>
-                      
+                        
+
+                        
                        
                        
                 
-                        <div class="title" style="margin-top: 20px;">
-                           
-                    
-                            <h1><span>PROJECT</span> DETAILS</h1>
-        
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;  margin-left: 200px; margin-right: 200px; margin-top: -60px;">
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center;  margin-left: 200px; margin-right: 200px; ">
                             <h4 style="font-weight: bold;">
                              
                             </h4>
@@ -36,8 +33,34 @@
                           <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: 0px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
                           <div class="d-flex justify-content-center ">
                    
-                            <div class="image-container">
-                                <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image" style="width: 800px; height: 500px;">
+                            <div class="carousel slide" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="3000">
+                                <div class="carousel-indicators">
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                </div>
+                              
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active scrollable-image">
+                                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
+                                  </div>
+                                  <div class="carousel-item scrollable-image">
+                                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                  </div>
+                                  <div class="carousel-item scrollable-image">
+                                    <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                  </div>
+                                </div>
+                              
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Previous</span>
+                                </button>
+                              
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Next</span>
+                                </button>
                               </div>
                         </div>
                           
@@ -45,9 +68,10 @@
                             
                             <div class="container">
                                 
+                                
 
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 180px;margin-top: -90px;">
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 100px;margin-top: -90px;">
                                     <ul class="navbar-nav mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
                                         <li class="nav-item">
                                             <a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
@@ -60,7 +84,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="circle" style="margin-right: 180px; margin-top: -50px;">
+                                <div class="circle" style="margin-right: 100px; margin-top: -60px;">
                                     <svg>
                                       <circle cx="50" cy="50" r="45" [ngStyle]="{'stroke-dasharray': circumference + 'px'}"></circle>
                                       <circle cx="50" cy="50" r="45" class="progress" [style.stroke-dashoffset]="strokeDashOffset + 'px'"></circle>
@@ -72,51 +96,62 @@
                                   
                             </div>
                         </nav>
+                        <div class="title">
+                            <h1><span>PROJECT</span> DETAILS</h1>
+
+                        </div>
+                        <div class="title" style="margin-top: 40px;">
+                            
+                           
+                    
+                            
+                            <div class="col-xxl-12" style="margin-left: 200px; font-family: Verdana, Geneva, Tahoma, sans-serif; margin-top: -30px;" >
+                                <div class="text-center text-xxl-start">
+                                    
+                                    <div class="grid-container">
+                                        <div class="grid-item">
+                                            <h4>Project Name:</h4>
+                                            <p><span class="highlight">{{projectDetails.project_type}}</span></p>
+                            
+                                            <h4>Location:</h4>
+                                            <p><span class="highlight">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span></p>
+                            
+                                            <h4>Total Budget:</h4>
+                                            <p><span class="highlight">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></p>
+            
+                                            <h4>Remaining Budget:</h4>
+                                            <p><span class="highlight">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></p>
+                                        </div>
+                                        <div class="grid-item" style="margin-left: -70px;">
+                                            <h4>Project Type:</h4>
+                                            <p><span class="highlight">{{projectDetails.project_name}}</span></p>
+                            
+                                            <h4>Starting Date:</h4>
+                                            <p><span class="highlight">{{projectDetails.starting_date}}</span></p>
+                            
+                                            <h4>Target Date Completion:</h4>
+                                            <p><span class="highlight">{{projectDetails.completion_date}}</span></p>
+                            
+                                            <h4>Person In Charge:</h4>
+                                            <p><span class="highlight">
+                                                {{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                                                {{ projectDetails.staff_last_name }}{{ projectDetails.extension_name === 'Architect' ? ', UAP' : '' }}
+                                            </span></p>
+                            
+                                            <button *ngIf="projectDetails.staff_id === profileId  && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' "  class="btn-grad btn-outline-dark mt-5" (click)="handleButtonClick(projectIdNumber2)">
+                                                Complete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                           
                     </main>
                     <div class="row align-items-center">
                 
                 
-                        <div class="col-xxl-12" style="margin-left: 200px; font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                            <div class="text-center text-xxl-start">
-                                
-                                <div class="grid-container">
-                                    <div class="grid-item">
-                                        <h4>Project Type:</h4>
-                                        <p><span class="highlight">{{projectDetails.project_type}}</span></p>
                         
-                                        <h4>Location:</h4>
-                                        <p><span class="highlight">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</span></p>
-                        
-                                        <h4>Total Budget:</h4>
-                                        <p><span class="highlight">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></p>
-        
-                                        <h4>Remaining Budget:</h4>
-                                        <p><span class="highlight">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></p>
-                                    </div>
-                                    <div class="grid-item" style="margin-left: -70px;">
-                                        <h4>Project Name:</h4>
-                                        <p><span class="highlight">{{projectDetails.project_name}}</span></p>
-                        
-                                        <h4>Starting Date:</h4>
-                                        <p><span class="highlight">{{projectDetails.starting_date}}</span></p>
-                        
-                                        <h4>Target Date Completion:</h4>
-                                        <p><span class="highlight">{{projectDetails.completion_date}}</span></p>
-                        
-                                        <h4>Person In Charge:</h4>
-                                        <p><span class="highlight">
-                                            {{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
-                                            {{ projectDetails.staff_last_name }}{{ projectDetails.extension_name === 'Architect' ? ', UAP' : '' }}
-                                        </span></p>
-                        
-                                        <button *ngIf="projectDetails.staff_id === profileId  && (projectDetails.total_used_budget / projectDetails.totalBudget * 100) >= 95 && projectDetails.status !== 'C' "  class="btn-grad btn-outline-dark mt-5" (click)="handleButtonClick(projectIdNumber2)">
-                                            Complete
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         
                         
                        

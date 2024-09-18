@@ -16,58 +16,79 @@
                 <body >
                     <main>
                       
+                        
                        
                        
                 
-                        <div class="title" style="margin-top: 20px;">
-                           
-                    
-                            <h1><span>STATEMENT OF</span> WORK ACCOMPLISH </h1>
-        
-                        </div>
-                        <div style="display: flex; justify-content: space-between; align-items: center;  margin-left: 200px; margin-right: 200px; margin-top: -60px;">
-                            <h4 style="font-weight: bold;">
-                             
-                            </h4>
-                            <span style="font-weight: bold; font-size: 35px;">
-                              <!-- {{ (projectDetails.total_used_budget / projectDetails.totalBudget * 100) | number: '1.2-2' }}% -->
-                            </span>
-                          </div>
-                          <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: 0px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
-                          <div class="d-flex justify-content-center ">
-                   
-                            <div class="image-container">
-                                <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image" style="width: 800px; height: 500px;">
+                       
+                       
+                
+                        <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: 10px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+                        <div class="d-flex justify-content-center ">
+                 
+                          <div class="carousel slide" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="3000">
+                              <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                               </div>
-                        </div>
-                          
-                          <nav class="navbar navbar-expand-lg navbar-light bg-white py-5">
                             
-                            <div class="container">
-                                
-
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 180px;margin-top: -46px;">
-                                    <ul class="navbar-nav mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
-                                        <li class="nav-item">
-                                            <a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" [routerLink]="['/sowa', projectDetails.id]" routerLinkActive="active">SOWA</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" [routerLink]="['/resources', projectDetails.id]" routerLinkActive="active">RESOURCES</a>
-                                        </li>
-                                    </ul>
+                              <div class="carousel-inner">
+                                <div class="carousel-item active scrollable-image">
+                                  <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
                                 </div>
-                                
-                                  
+                                <div class="carousel-item scrollable-image">
+                                  <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                </div>
+                                <div class="carousel-item scrollable-image">
+                                  <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                </div>
+                              </div>
+                            
+                              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </button>
+                            
+                              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </button>
                             </div>
-                        </nav>
+                      </div>
+                        
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white py-5" style="margin-top: 20px;">
+                          
+                          <div class="container">
+                              
+
+                              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                              <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 100px;margin-top: -90px;">
+                                  <ul class="navbar-nav mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
+                                      <li class="nav-item">
+                                          <a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
+                                      </li>
+                                      <li class="nav-item">
+                                          <a class="nav-link" [routerLink]="['/sowa', projectDetails.id]" routerLinkActive="active">SOWA</a>
+                                      </li>
+                                      <li class="nav-item">
+                                          <a class="nav-link" [routerLink]="['/resources', projectDetails.id]" routerLinkActive="active">RESOURCES</a>
+                                      </li>
+                                  </ul>
+                              </div>
+                            
+                                
+                          </div>
+                      </nav>
+                      <div class="title" style="margin-top: -50px;">
+                        <h1><span>STATEMENT OF</span> WORK ACCOMPLISHMENT</h1>
+
+                    </div>
+                     
                           
                     </main>
 
-                    <div class="containers">
+                    <div class="containers" style="margin-top: -90px;">
                         <div class="table-wrapper">
                             <div class="row">
                             <div class="col-sm-8">      
@@ -88,14 +109,17 @@
                             <div id="pdfContent">
                                 
                                 <div>
+                                    <h2 style="margin-bottom: 0px;" class="text-center">
+                                        <a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_type}}</a>
+                                    </h2>
                                     <h4 style="margin-bottom: 0px;">
-                                        Building:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
+                                        Project Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
                                     </h4>
                                     <h4 style="margin-bottom: 0px;">
-                                        Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
+                                        Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
                                     </h4>
                                     <h4 style="margin-bottom: 0px;">
-                                        Location:&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</a>
+                                        Location:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</a>
                                     </h4>
                                 </div>
                                 <table class="table table-bordered">
@@ -103,14 +127,14 @@
                                         <tr>
                                             
             
-                                            <th [width]="40">Item No.</th>
-                                            <th [width]="330">Description</th>
-                                            <th>Project Actual Cost</th>
-                                            <th>Previous</th>
-                                            <th>This Period</th>
-                                            <th>To Date</th>
-                                            <th>Percentage of Accomplishment</th>
-                                            <th class="no-pdf">Action</th>
+                                            <th style="text-align: center;" [width]="40">Item No.</th>
+                                            <th style="text-align: center;" [width]="300">Description</th>
+                                            <th style="text-align: center;">Project Actual Cost</th>
+                                            <th style="text-align: center;">Previous</th>
+                                            <th style="text-align: center;">This Period</th>
+                                            <th style="text-align: center;">To Date</th>
+                                            <th style="text-align: center;">Percentage of Accomplishment</th>
+                                            <th style="text-align: center;" class="no-pdf">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -147,7 +171,7 @@
                                         </ng-container>
                                     </ng-container>
                                         <tr>
-                                            <td colspan="2"><strong>TOTAL</strong></td>
+                                            <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
                                             <td style="text-align: right;"><strong> {{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
                                             <td colspan="4"></td>
                                         </tr>

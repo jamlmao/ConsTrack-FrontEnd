@@ -42,7 +42,22 @@
       width: 100%;
       overflow: auto;
     }
+
+
+    .image-container {
+      width: 100%; /* Ensures the container takes up full width */
+    }
     
+    .scrollable-image {
+      width: 100%; /* Full width of the container */
+      height: 430px; /* Fixed height */
+      overflow-y: scroll; /* Adds vertical scroll when the content exceeds the height */
+    }
+    
+    .clickable-image {
+      width: 100%; /* Image width will be 100% of the container's width */
+      height: auto; /* Keeps the image's aspect ratio */
+    }
     
     
     
@@ -83,9 +98,7 @@
     }
   
     .title{
-      margin-bottom: 50px;
-      margin-top: 20px;
-      padding-bottom: 30px;
+      margin-top: -100px;
       text-align: center;
       position: relative;
     }

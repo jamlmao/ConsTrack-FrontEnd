@@ -23,9 +23,25 @@
     }
 
 
+    .image-container {
+      width: 100%; /* Ensures the container takes up full width */
+    }
+    
+    .scrollable-image {
+      width: 100%; /* Full width of the container */
+      height: 430px; /* Fixed height */
+      overflow-y: scroll; /* Adds vertical scroll when the content exceeds the height */
+    }
+    
+    .clickable-image {
+      width: 100%; /* Image width will be 100% of the container's width */
+      height: auto; /* Keeps the image's aspect ratio */
+    }
+
+
     .navbar-nav .nav-item .nav-link {
       transition: color 0.3s ease, background-color 0.3s ease;
-      margin: 10px;
+      margin: 2px;
   }
   
   /* Hover Effect */
