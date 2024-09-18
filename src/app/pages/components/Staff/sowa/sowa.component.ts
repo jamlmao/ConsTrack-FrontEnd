@@ -26,11 +26,12 @@ import { AddtaskComponent } from "../addtask/addtask.component";
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { GeneralComponent } from "../general/general.component";
 
 @Component({
   selector: 'app-sowa',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StafftoolbarComponent, StaffsidenavComponent, AddtaskComponent],
+  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StafftoolbarComponent, StaffsidenavComponent, AddtaskComponent, GeneralComponent],
   templateUrl: './sowa.component.html',
   styleUrl: './sowa.component.css'
 })
@@ -471,6 +472,21 @@ export class SowaComponent {
     const completedTasks = tasks.filter(task => task.pt_status === 'C').length;
 
     return totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
+}
+
+isCreateProjectModalOpen = false;
+
+openCreateProjectModal() {
+  this.isCreateProjectModalOpen = true;
+  console.log('Opening Create Staff Project');
+  console.log(this.isCreateProjectModalOpen);
+  this.sideBarOpen = false;
+}
+
+closeCreateProjectModal() {
+  this.isCreateProjectModalOpen = false;
+  console.log('xd');
+  this.sideBarOpen = true;
 }
 
 

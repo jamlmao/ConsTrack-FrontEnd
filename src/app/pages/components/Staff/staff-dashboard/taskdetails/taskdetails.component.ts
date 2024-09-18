@@ -1,203 +1,399 @@
-import { Component } from '@angular/core';
+import { Component,Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
-import { MatDialog } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
+import { MatTableModule } from "@angular/material/table";
+
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import Swal from 'sweetalert2';
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
-import { CreateProjectComponent } from "../../../Admin/create-project/create-project.component";
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { Pipe, PipeTransform } from '@angular/core';
-import { FilterPipe } from '../../../../../filter.pipe';
-import { ArchiComponent } from "../../archi/archi.component";
 
 @Component({
   selector: 'app-taskdetails',
   standalone: true,
-  imports: [FilterPipe, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent, ArchiComponent],
+  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StaffsidenavComponent, StafftoolbarComponent],
   templateUrl: './taskdetails.component.html',
   styleUrl: './taskdetails.component.css'
 })
 export class TaskdetailsComponent {
-  projects: any[] = [];
-  searchText:any;
-  user: any;
-
-  isCreateProjectModalOpen = false;
   
 
+  events: any[] = [];
+  tasks: any[] = [];
+  sortedTask: any[] = [];
+  categories: { name: string, path: string }[] = [];
+  totalAllocatedBudgetPerCategory:any[] = [];
+  totalAllocatedBudget: number = 0;
+  percentage: number = 0;
+  previousCost: number = 0;
+  thisperiodCost: number = 0;
+  toDateCost: number = 0;
+  projectId: string ="";
+  taskImages: { [taskId: number]: string } = {};
+  alltask: any[] = [];
+  currentUserId: number = 0;
+  projectIdNumber2: number = 0;
 
-  openCreateProjectModal() {
-    this.isCreateProjectModalOpen = true;
-    console.log('Opening Create Staff Project');
-    console.log(this.isCreateProjectModalOpen);
-  }
-
-  closeCreateProjectModal() {
-    this.isCreateProjectModalOpen = false;
-    console.log('xd');
-  }
- 
-
-  constructor(private router: Router , public dialog: MatDialog,private fb: FormBuilder, private http: HttpClient) { }
+  private url ="http://127.0.0.1:8000";
+  private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
+  private SortedUrl =`${this.url}`+'/api/sortedTask/'
+  private allTask = `${this.url}`+'/api/Alltask';
+  private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
+  private projectDetailsUrl = `${this.url}`+'/api/projectD/';
+  private updateProjectUrl = `${this.url}`+'/api/projects/';
 
 
-  ngOnInit(): void {
-    
-    this.fetchClients(); // Fetch clients when the component is initialized
-    
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-    } else {
-      // If no user data is found, redirect to login
-      this.router.navigateByUrl('/');
-    }
-    this.fetchProjects(); // Fetch projects when the component is initialized
-    this.getLoggedInUserNameAndId(); //Fetch logged in user
-  }
+  projectDetails: any = {};
+
 
   
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
-  
+  categorizedTasks: { [key: string]: any[] } = {};
+  SortedTask: any = {};
 
 
+  ngOnInit(){
+   
 
-
-  project: any = {
-    site_location: '',
-    client_id: '',
-    completion_date: '',
-    starting_date: '',
-    totalBudget: 0,
-    pj_image: null,
-    pj_pdf: null
-  };
-
-  
-
-  showForm = false;
-  clients: any[] = [];
-
-
-
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
-  
-  
-
-  openForm(): void {
-    this.showForm = true;
-  }
-
-  fetchClients(): void {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
+    this.route.paramMap.subscribe(params => {
+      this.projectId = params.get('projectId') || ''; 
+      const projectIdNumber = Number(this.projectId);
+      this.projectIdNumber2 = Number(this.projectId);
+      console.log('Project ID:', this.projectIdNumber2);
+      if (!isNaN(projectIdNumber)) {
+        this.fetchProjectTasks(projectIdNumber);
+        // this.fetchSortedTask(projectIdNumber);
+        this.fetchTaskByCategory(projectIdNumber);
+        this.fetchProjectDetails(projectIdNumber);
+        this.initializeCategories();
+     
+      } else {
+        console.error('Project ID is not set or is not a number');
+      }
     });
 
-    this.http.get(this.clientsUrl, { headers }).subscribe(
-      (response: any) => {
-        this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
-      },
-      error => {
-        console.error('Error fetching clients', error);
-      }
-    );
+
+   
+   
+  
   }
+
+getStatusText(status: string): string {
+  switch (status) {
+    case 'C':
+      return 'Complete';
+    case 'OG':
+      return 'Ongoing';
+    case 'D':
+      return 'Due';
+    default:
+      return status;
+  }
+}
+
+  initializeCategories(): void {
+    this.categories = [
+      { name: 'GENERAL REQUIREMENTS', path: this.generatePath('general') },
+      { name: 'SITE WORKS', path: this.generatePath('site') },
+      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('metal') },
+      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('forms') },
+      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('steel') },
+      { name: 'TINSMITHRY WORKS', path: this.generatePath('tinsmithry') },
+      { name: 'PLASTERING WORKS', path: this.generatePath('plastering') },
+      { name: 'PAINTS WORKS', path: this.generatePath('paint') },
+      { name: 'PLUMBING WORKS', path: this.generatePath('plumbing') },
+      { name: 'ELECTRICAL WORKS', path: this.generatePath('electrical') },
+      { name: 'CEILING WORKS', path: this.generatePath('ceiling') },
+      { name: 'ARCHITECTURAL', path: this.generatePath('architectural') },
+    ];
+  }
+
+  generatePath(category: string): string {
+    return `${category}`;
+  }
+  
  
- 
+
+  constructor(
+        private router: Router, 
+        private route: ActivatedRoute,
+        private http: HttpClient,) { }
+      
+  isCreateClientModalOpen = false;
   
+  isTaskOpen = false;
+  isGeneralOpen = false;
+  isSiteOpen = false;
+  isArchiOpen = false;
   
-  
 
-
-
- 
-
-
-  
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
-
-  selectedProject: any;
-  userS: any = {};
-
-  fetchProjects(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.projectsUrl, { headers }).subscribe(
-      (response: any) => {
-        this.projects = response;
-        console.log('Fetched projects:', this.projects);
-      },
-      error => {
-        console.error('Error fetching projects', error);
-      }
-    );
-  }
-
-  selectProject(project: any) {
-    this.router.navigate(['/project-details', project.id]);
-  }
-
-  getLoggedInUserNameAndId(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.userUrl, { headers }).subscribe(
-      (response: any) => {
-        this.user = response;
-        console.log('Logged in user:', this.user);
-      },
-      error => {
-        console.error('Error fetching user details', error);
-      }
-    );
-  }
-
-  
   sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
+  }
+
+  
+ 
+
+  openTaskModal() {
+    this.isTaskOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isTaskOpen);
+  }
+
+  closeTaskModal() {
+    this.isTaskOpen = false;
+    console.log('xd');
+  }
+
+  
+  openGeneralModal() {
+    this.isGeneralOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isGeneralOpen);
+  }
+
+  closeGeneralModal() {
+    this.isGeneralOpen = false;
+    console.log('xd');
+  }
+  openSiteModal() {
+    this.isSiteOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isSiteOpen);
+  }
+
+  closeSiteModal() {
+    this.isSiteOpen = false;
+    console.log('xd');
+  }
+  openArchiModal() {
+    this.isArchiOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isArchiOpen);
+  }
+
+  closeArchiModal() {
+    this.isArchiOpen = false;
+    console.log('xd');
+  }
+  
+  
+  fetchAllTask() { 
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+
+    this.http.get(this.allTask, { headers }).subscribe(
+      (response: any) => {
+        this.alltask = response.alltasks;
+        console.log('All tasks:', this.alltask);
+      }
+    );
+
+  }
+
+ 
+
+  fetchProjectDetails(projectId: number) {
+    const token = localStorage.getItem('token');
+
+    if (!token){
+      console.error('No token found in local Storage');
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.projectDetailsUrl + `${projectId}`, { headers }).subscribe(
+      (response: any) => {
+        this.projectDetails = response.project;
+        this.currentUserId = response.project.staff_id
+        console.log('Current User ID:', this.currentUserId);
+        console.log('Project Details:', this.projectDetails);
+      },
+      (error) => {
+        console.error('Failed to fetch project details', error);
+      }
+    );
+  }
+
+  fetchProjectTasks(projectId: number) {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
+
+    this.http.get(this.TaskUrl + `${projectId}`,{headers}).subscribe(
+      (response: any) => {
+        this.tasks = response.tasks;
+        Swal.close();
+        console.log('Project tasks:', this.tasks);
+        this.totalAllocatedBudget = response.totalAllocatedBudget;
+        console.log('Total Allocated Budget:', this.totalAllocatedBudget);
+       
+       
+      },
+      (error) => {
+        console.error('Failed to fetch project tasks', error);
+      }
+    );
+  }
+
+
+  selectProject(project: any) {
+    this.router.navigate(['/sowa', project.id]);
+  }
+  
+
+    
+
+  fetchTaskByCategory(projectId: number) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.taskByCategoryUrl + `${projectId}`, { headers }).subscribe(
+    (response: any) => {
+      if (response && response.totalAllocatedBudgetPerCategory) {
+        this.SortedTask = response.totalAllocatedBudgetPerCategory;
+        
+      } else {
+        console.error('tasks not found in the response');
+      }
+    }
+    );
+  }
+  
+ 
+
+
+
+
+  categorizeTasks() {
+    this.categories.forEach(category => {
+      this.categorizedTasks[category.name] = this.sortedTask.filter(task => task.pt_task_desc === category.name);
+    });
+  }
+
+  toRoman(num: number): string {
+    const romanNumerals: [string, number][] = [
+      ["M", 1000],
+      ["CM", 900],
+      ["D", 500],
+      ["CD", 400],
+      ["C", 100],
+      ["XC", 90],
+      ["L", 50],
+      ["XL", 40],
+      ["X", 10],
+      ["IX", 9],
+      ["V", 5],
+      ["IV", 4],
+      ["I", 1]
+    ];
+    let result = '';
+    for (const [roman, value] of romanNumerals) {
+      while (num >= value) {
+        result += roman;
+        num -= value;
+      }
+    }
+    return result;
+  }
+
+  generateSubItemLabel(index: number): string {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (index < 26) {
+      return letters[index];
+    } else {
+      return (index + 1).toString();
+    }
+  }
+  
+  selecttask(task: any) {
+    this.router.navigate(['/task-details', task.id]);
+  }
+ 
+  
+
+
+  handleButtonClick(projectId: number): void {
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+   
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+
+
+    this.http.put(this.updateProjectUrl + `${projectId}/update-status`,{},  { headers }).subscribe(
+      (response: any) => {
+        console.log('Project updated:', response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Project updated successfully',
+          timer: 2000
+        }).then(() => {
+          window.location.reload();
+        });
+      },
+      error => {
+        console.error('Error updating project', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooopsieee',
+          text: 'Something went wrong',
+        });
+      }
+    );
+  }
+
+  get progressPercentage(): number {
+    return (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
   }
 }

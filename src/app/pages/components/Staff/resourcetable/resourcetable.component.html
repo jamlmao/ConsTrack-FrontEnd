@@ -18,12 +18,17 @@
                       
                         
                        
-                       
+                        <div class="title" >
+                            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-top: -10px;">{{projectDetails.project_name}}</h1>
+                           
+    
+    
+                        </div>
                 
                        
                        
-                
-                        <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: 10px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+                        
+                        <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: -80px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
                         <div class="d-flex justify-content-center ">
                  
                           <div class="carousel slide" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="3000">
@@ -81,76 +86,60 @@
                           </div>
                       </nav>
                       <div class="title" style="margin-top: -50px;">
-                        <h1><span>ACCOMPLISHMENTS</span> TABLE</h1>
+                        <hr style="width: 100%; height: 2px; background-color: black; border: none;">
+                        <h1><span>TASKS</span> TIMELINE</h1>
+                        <hr style="width: 100%; height: 2px; background-color: black; border: none;">
+
 
                     </div>
                      
                           
                     </main>
-
-                    <div class="container">
-                        <div class="table-wrapper">
-                             <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th width="2%">#</th>
-                                            <th width="10%">Task Name</th>
-                                            <th width="10%">Task Category</th>
-                                            <th width="8%">Starting Date</th>
-                                            <th width="8%">Estimate Completion Date</th>
-                        
-                                            <th width="8%">Status</th>
-                                            <th width="10%">Resources Used:</th>
-                                            <th width="5%">Qty:</th>
-                                            <th width="10%">Cost</th>
-                                            <th width="10%">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let task of tasks; let i = index;">
-                                            <td>{{ i + 1 }}</td>
-                                            <td>{{ task.pt_task_name }}</td>
-                                            <td>{{ task.pt_task_desc }}</td>
-                                            <td>{{ task.pt_starting_date  | date:'yyyy-MM-dd'}}</td>
-                                            <td>{{ task.pt_completion_date | date:'yyyy-MM-dd' }}</td>
-                                            <td [ngClass]="{
-                                                'status-complete': task.pt_status === 'C',
-                                                'status-ongoing': task.pt_status === 'OG',
-                                                'status-due': task.pt_status === 'D'
-                                              }">
-                                                {{ getStatusText(task.pt_status) }}
-                                              </td>
-                                            <td>
-                                                <ul>
-                                                    <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                        <p><strong>{{ resource.resource_name }}</strong></p>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                        <p><strong>{{resource.qty}}</strong></p>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                        <p><strong>{{ resource.unit_cost }}</strong></p>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td> <ul>
-                                                <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                    <p><strong>{{ resource.total_cost }}</strong></p>
-                                                </li>
-                                            </ul></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                    </div>
-                    </div>
+                    <div class="timeline-container justify-content-between justify-content-center" style="margin-top: -80px;">
+                        <div class="timeline">
+                          <div 
+                            class="task" 
+                            *ngFor="let task of tasks; let i = index;" 
+                            [ngClass]="{
+                              'complete': task?.pt_status === 'C', 
+                              'ongoing': task?.pt_status === 'OG', 
+                              'due': task?.pt_status === 'D'
+                            }"
+                          >
+                          <div class="content">
+                            <div class="row">
+                              <div class="col-lg-3" style="margin-left: 20px; font-size: 20px;">
+                                <p class="date">Task Category:</p>
+                            <p class="date">Task Name:</p>
+                            <p class="date">Status:</p>
+                            <p class="date">Starting Date:</p>
+                            <p class="date">Completion Date:</p>
+            
+            
+                              </div>
+                              <div class="col-lg-5" style="font-size: 20px;">
+                             
+                            <p class="date" style="font-size: 20px;font-weight: bold; margin-bottom: 2px;">{{task.pt_task_desc}}</p>
+                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_task_name}}</p>
+                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_status}}</p>
+                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_starting_date}}</p>
+                            <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_completion_date}}</p>
+            
+                              </div>
+                              <div class="col-lg-3" (click)="selecttask(task)">
+                                <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-images" style="width: 250px; height: 143px; margin-left: 60px;">
+                                         
+            
+                              </div>
+            
+                            </div>
+                            <!-- Unique id for each carousel -->
+                            
+                          </div>
+                          </div>
+                          <!-- More tasks can be added here -->
+                        </div>
+                      </div>
                  
                  
                 </body>

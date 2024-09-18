@@ -18,12 +18,14 @@
                       
                         
                        
-                       
+                        <div class="title" >
+                            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-top: -10px;">{{projectDetails.project_name}}</h1>
+                           
+    
+    
+                        </div>
                 
-                       
-                       
-                
-                        <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: 10px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
+                        <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: -80px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
                         <div class="d-flex justify-content-center ">
                  
                           <div class="carousel slide" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="3000">
@@ -154,7 +156,12 @@
                                                 <td class="no-pdf">
                                                 
                                                     <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                                    <a class="view" (click)="openCreateProjectModal()" class="eye"><mat-icon>addition</mat-icon></a>
+                                                        <app-general 
+                                                            *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
+                                                        </app-general>
                                                 </td>
+                                              
                                             </tr>
                                             <ng-container *ngIf="categorizedTasks[category.name] && categorizedTasks[category.name].length">
                                                 <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
