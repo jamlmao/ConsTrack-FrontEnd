@@ -50,8 +50,7 @@
     
     .scrollable-image {
       width: 100%; /* Full width of the container */
-      height: 430px; /* Fixed height */
-      overflow-y: scroll; /* Adds vertical scroll when the content exceeds the height */
+      height: 800px; /* Fixed height */
     }
     
     .clickable-image {
