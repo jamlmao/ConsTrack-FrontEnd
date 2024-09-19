@@ -46,63 +46,101 @@
                              <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th width="2%">#</th>
                                             <th width="10%">Task Name</th>
                                             <th width="10%">Task Category</th>
                                             <th width="8%">Starting Date</th>
                                             <th width="8%">Estimate Completion Date</th>
                         
                                             <th width="8%">Status</th>
-                                            <th width="10%">Resources Used:</th>
-                                            <th width="5%">Qty:</th>
-                                            <th width="10%">Cost</th>
-                                            <th width="10%">Total</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let task of tasks; let i = index;">
-                                            <td>{{ i + 1 }}</td>
-                                            <td>{{ task.pt_task_name }}</td>
-                                            <td>{{ task.pt_task_desc }}</td>
-                                            <td>{{ task.pt_starting_date  | date:'yyyy-MM-dd'}}</td>
-                                            <td>{{ task.pt_completion_date | date:'yyyy-MM-dd' }}</td>
-                                            <td [ngClass]="{
-                                                'status-complete': task.pt_status === 'C',
-                                                'status-ongoing': task.pt_status === 'OG',
-                                                'status-due': task.pt_status === 'D'
-                                              }">
-                                                {{ getStatusText(task.pt_status) }}
-                                              </td>
-                                            <td>
-                                                <ul>
-                                                    <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                        <p><strong>{{ resource.resource_name }}</strong></p>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                        <p><strong>{{resource.qty}}</strong></p>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                        <p><strong>{{ resource.unit_cost }}</strong></p>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td> <ul>
-                                                <li *ngFor="let resource of task.resources" style="text-align: left; margin-left: -20px;">
-                                                    <p><strong>{{ resource.total_cost }}</strong></p>
-                                                </li>
-                                            </ul></td>
+                                        <tr>
+                                            <td>Foundation</td>
+                                            <td>Site WORKS</td>
+                                            <td>1212212</td>
+                                            
+                                            <td>1212212</td>
+                                            <td>Ongoing</td>
+                                           
                                         </tr>
                                     </tbody>
                                 </table>
+                                <hr style="width: 100%; height: 2px; background-color: black; border: none;">
+                                <h1>Estimated Materials</h1>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th width="2%">#</th>
+                                            
+                                            <th width="10%">Material name</th>
+                                            <th width="10%">Quantity</th>
+                                            <th width="8%">Cost</th>
+                                            <th width="8%">Total</th>
+                        
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>bakal</td>
+                                            <td>12</td>
+                                            <td>1212212</td>
+                                            
+                                            <td>1212212</td>
+                                            
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr style="width: 100%; height: 2px; background-color: black; border: none;">
+                                <h1>Used Materials</h1>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th width="2%">#</th>
+                                            
+                                            <th width="10%">Date</th>
+                                            <th width="10%">Material name</th>
+                                            <th width="10%">Quantity</th>
+                                            <th width="8%">Cost</th>
+                                            <th width="8%">Total</th>
+                        
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>12/12/12</td>
+                                            <td>bakal</td>
+                                            <td>12</td>
+                                            <td>1212212</td>
+                                            
+                                            <td>1212212</td>
+                                            
+                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="projects-container" style="margin-top: -20px;">
+            
+            
+                                    
+                                </div>
                     </div>
+                    </div>
+                    <div class="cards project-item">
+                        <img src="assets/bg.jpg" alt="Project Image" class="card-image">
+                        <div class="project-details">
+                            <h3><strong>Date:12/12/12</strong></h3>
+                            
+                           
+                        </div>
+                        
                     </div>
                  
                  
