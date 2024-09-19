@@ -12,7 +12,6 @@
             <div class="container-fluid align-items-center">
 
                 <div class="title">
-                    <p>Welcome to your Projects</p>
                     <h1><span>PROJECT</span> LISTS</h1>      
                 </div>
              
@@ -109,7 +108,12 @@
                     <td>{{ project.starting_date }}</td>
                     <td>{{ project.completion_date }}</td>
                     <td>{{ project.totalBudget }}</td>
-                    <td>{{ project.status }}</td>
+                    <td><span [ngClass]="{
+                      'active': project?.status === 'Complete', 
+                      'inactive': project?.status === 'Ongoing',
+                      'inactives': project?.status === 'Due'
+                    }">{{project.status}}</span></td>
+              
                     <td><a (click)="selectProject(project)" class="view">View</a></td>
                   </tr>
                 </tbody>

@@ -11,69 +11,71 @@
             <div class="containers">
                 <div class="title">
                     
-                    <p>Welcome to your Project</p>
                     <h1><span>CONSTRACK</span> ACCOUNTS</h1>
 
                 </div>
-                <div class="container" style="margin-top: -50px;">
-                    <div class="table-wrapper">
-                        <div class="table-title">
-                            <div class="row">
-                                <div class="col-sm-10"><h1 style="font-weight: bold;">Client Management</h1></div>
-                                <div class="col-sm-2">
-                                    <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark">Add New Client</button>
-                <app-create-client-acct 
-                        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct>
-                                </div>
-                                
-                            </div>
+             
+                
+                <div class="table-container">
+                    <div class="header">
+                        <div class="filters">
+                            <button class="view-more" style="padding: 10px; margin-right: 10px;">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                            <input type="text" class="search" placeholder="Search by name..." [(ngModel)]="searchText">
                         </div>
-                        <table class="table table-bordered" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>ID</th>
-                                    
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let client of paginatedUsers; let i = index">
-                                    <td>{{ i ++ 1}}</td>
-                                    <td>{{ client.id }}</td>
-                                    <td>{{ client.first_name }}, {{ client.last_name }}</td>
-                                    <td>{{ client.phone_number }}</td>
-                                    <td>{{ client.address }}, {{ client.city }}</td>
-                                    <td>{{ client.user_status }}</td>
-                                    <td>
-                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                        <a class="edit" (click)="openEditModal()"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
-                                        <app-editprofile 
-                        *ngIf="isEditModalOpen" (close)="closeEditModal()">
-                </app-editprofile>
-                                          </td>
-                                </tr>
-                                  
-                                  
-                            </tbody>
-                        </table>
-                        <div class="pagination-controls">
-                            <button (click)="previousPage()" [disabled]="currentPage === 1" class="pagination-btn">Previous</button>
-                            <span class="pagination-info">Page {{currentPage}} of {{totalPages}}</span>
-                            <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="pagination-btn">Next</button>
-                        </div>
-                        
+                        <div class="dues-info">
                             
-                       
-                        
+                            <button (click)="openCreateClientModal()" class="btn-grad">Add New Account</button>
+                            <app-create-client-acct 
+                            *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
+                    </app-create-client-acct>
+                        </div>
                     </div>
-                </div>    
+            
+                    <table class="responsive-table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>No.</th>
+                            <th>ID</th>
+                            
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of paginatedUsers|filter:searchText; let i = index" >
+                                <td><input type="checkbox"></td>
+                                <td>{{ i ++ 1}}</td>
+                                <td>{{ client.id }}</td>
+                                <td>{{ client.first_name }}, {{ client.last_name }}</td>
+                                <td>{{ client.phone_number }}</td>
+                                <td>{{ client.address }}, {{ client.city }}</td>
+                                <td><span [ngClass]="{
+                                    'active': client?.user_status === 'Active', 
+                                    'inactive': client?.pt_status === 'Not Active'
+                                  }">{{client.user_status}}</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <button class="view-more">View More</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Repeat for other rows -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagination-controls">
+                        <button (click)="previousPage()" [disabled]="currentPage === 1" class="pagination-btn">Previous</button>
+                        <span class="pagination-info">Page {{currentPage}} of {{totalPages}}</span>
+                        <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="pagination-btn">Next</button>
+                    </div>
+                </div>
                
                 
                 

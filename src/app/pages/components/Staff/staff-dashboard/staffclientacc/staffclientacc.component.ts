@@ -26,12 +26,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { take, tap } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FilterPipe } from '../../../../../filter.pipe';
 
 
 @Component({
   selector: 'app-staffclientacc',
   standalone: true,
-  imports: [MatPaginatorModule,SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
+  imports: [FilterPipe,MatPaginatorModule,SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
   templateUrl: './staffclientacc.component.html',
   styleUrl: './staffclientacc.component.css'
 })
@@ -61,6 +62,10 @@ export class StaffclientaccComponent {
   currentPage = 1;
   rowsPerPage = 1; // Number of rows per page
   totalPages = 1;
+  filteredProjects: any[] = [];
+  
+  searchText: any;
+  
 
   
   fetchClients(): void {
@@ -85,6 +90,7 @@ export class StaffclientaccComponent {
           );
           this.clients = uniqueClients;
           this.totalPages = Math.ceil(this.clients.length / this.rowsPerPage);
+          this.filteredProjects = this.clients;
       this.updatePaginatedUsers();
         } else {
           console.error('Unexpected response format:', response);

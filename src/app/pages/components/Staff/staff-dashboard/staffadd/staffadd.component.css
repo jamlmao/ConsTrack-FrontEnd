@@ -221,18 +221,43 @@
 }
 
 
+
+.active {
+  background-color: #00b894;
+  color: rgb(252, 249, 249);
+  border-radius: 20px;
+  padding: 10px;
+}
+.inactive {
+  background-color: #e9e926;
+  color: white;
+  color: rgb(32, 32, 32);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.inactives {
+  background-color: #d83e33;
+  color: white;
+  color: rgb(252, 249, 249);
+  border-radius: 20px;
+  padding: 10px;
+}
+
 /* Action Buttons */
 .view, .edit {
+  background-color: #292a2b;
+  color: white;
+  border: none;
+  padding: 10px 9px;
+  border-radius: 6px;
   cursor: pointer;
-  color: #28282a;
-  border-color: black;
-  text-decoration: none;
-  transition: color 0.3s;
-  cursor: pointer;
+  font-size: 14px;
 }
 
 .view:hover, .edit:hover {
-  color: #333;
+  color: #121212;
+  background-color: #d4cdcd;
 }
 
 .mat-icon {
