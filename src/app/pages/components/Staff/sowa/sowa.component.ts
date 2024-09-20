@@ -83,7 +83,7 @@ export class SowaComponent {
   events: any[] = [];
   tasks: any[] = [];
   sortedTask: any[] = [];
-  categories: { name: string, path: string }[] = [];
+  categories: any[] = [];
   totalAllocatedBudgetPerCategory:any[] = [];
   totalAllocatedBudget: number = 0;
   percentage: number = 0;
@@ -98,7 +98,7 @@ export class SowaComponent {
 
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
-  private SortedUrl =`${this.url}`+'/api/sortedTask/'
+  private SortedUrl =`${this.url}`+'/api/sortedTask2/'
   private allTask = `${this.url}`+'/api/Alltask';
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
@@ -115,7 +115,18 @@ export class SowaComponent {
 
 
   ngOnInit(){
-   
+
+      Swal.fire({
+        title: 'Loading...',
+        text: 'Please wait while we load the tasks.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(null);
+        }
+      });
+
+    
+
 
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
@@ -124,10 +135,9 @@ export class SowaComponent {
       console.log('Project ID:', this.projectIdNumber2);
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
-        this.fetchSortedTask(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
-        this.initializeCategories();
+        this.fetchSortedTask(projectIdNumber);
      
       } else {
         console.error('Project ID is not set or is not a number');
@@ -137,28 +147,16 @@ export class SowaComponent {
 
     this.fetchAllTask();
    
-  
+   
   }
 
 
 
-  initializeCategories(): void {
-    this.categories = [
-      { name: 'GENERAL REQUIREMENTS', path: this.generatePath('general') },
-      { name: 'SITE WORKS', path: this.generatePath('site') },
-      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('concrete') },
-      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('metal') },
-      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('forms') },
-      { name: 'STEEL FRAMING WORKS', path: this.generatePath('steel') },
-      { name: 'TINSMITHRY WORKS', path: this.generatePath('tinsmithry') },
-      { name: 'PLASTERING WORKS', path: this.generatePath('plastering') },
-      { name: 'PAINTS WORKS', path: this.generatePath('paint') },
-      { name: 'PLUMBING WORKS', path: this.generatePath('plumbing') },
-      { name: 'ELECTRICAL WORKS', path: this.generatePath('electrical') },
-      { name: 'CEILING WORKS', path: this.generatePath('ceiling') },
-      { name: 'ARCHITECTURAL', path: this.generatePath('architectural') },
-    ];
+  initializeCategories(categories: any[]): void {
+    this.categories = categories;
   }
+
+
 
   generatePath(category: string): string {
     return `${category}`;
@@ -178,6 +176,14 @@ export class SowaComponent {
   isSiteOpen = false;
   isArchiOpen = false;
   
+
+
+
+
+
+
+
+
 
   sideBarOpen=true;
   sideBarToggler(){
@@ -244,7 +250,7 @@ export class SowaComponent {
     this.http.get(this.allTask, { headers }).subscribe(
       (response: any) => {
         this.alltask = response.alltasks;
-        console.log('All tasks:', this.alltask);
+        // console.log('All tasks:', this.alltask);
       }
     );
 
@@ -287,14 +293,7 @@ export class SowaComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    Swal.fire({
-      title: 'Loading...',
-      text: 'Please wait while we load the tasks.',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading(null);
-      }
-    });
+  
 
     this.http.get(this.TaskUrl + `${projectId}`,{headers}).subscribe(
       (response: any) => {
@@ -346,45 +345,61 @@ export class SowaComponent {
   }
 
 
-  
-  
- 
 
   fetchSortedTask(projectId: number) {
     const token = localStorage.getItem('token');
     
-    if (!token) {
+    if(!token){
       console.error('No token found in local storage');
       return;
     }
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
 
-    this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
-      (response: any) => {
-        if (response && response.tasks) {
-          this.sortedTask = response.tasks;
-       
-          this.categorizeTasks();
-          console.log('Sorted tasks:', this.sortedTask);
-        } else {
-          console.error('tasks not found in the response');
+  this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
+    (response: any) => { 
+      console.log('Full Response:', response); // Log the entire response
+      if (response && response.Category) {
+        const categories = response.Category;
+        this.sortedTask = [];
+
+        for (const categoryName in categories) {
+          if (categories.hasOwnProperty(categoryName)) {
+            const category = categories[categoryName];
+            if (category.tasks) {
+              this.sortedTask.push({
+                id:category.category_id,
+                name: categoryName,
+                tasks: category.tasks,
+                totalAllocatedBudget: category.totalAllocatedBudget,
+                previousCost: category.previousCost,
+                thisPeriodCost: category.thisPeriodCost,
+                toDateCost: category.toDateCost,
+                progress: category.percentage
+              });
+            }
+          }
         }
-      },
-      (error) => {
-        console.error('Failed to fetch Sorted tasks', error);
+
+        console.log('Sorted Task:', this.sortedTask);
+      } else {
+        console.error('Category not found in the response');
       }
-    );
+    },
+    (error) => {
+      console.error('Failed to fetch categories', error);
+    }
+  );
+
+
   }
 
 
-  categorizeTasks() {
-    this.categories.forEach(category => {
-      this.categorizedTasks[category.name] = this.sortedTask.filter(task => task.pt_task_desc === category.name);
-    });
-  }
+  
+
 
   toRoman(num: number): string {
     const romanNumerals: [string, number][] = [
@@ -478,18 +493,20 @@ export class SowaComponent {
 }
 
 isCreateProjectModalOpen = false;
+selectedTaskId: number | null = null;
+selectedCategoryId: number | null = null;
 
-openCreateProjectModal() {
+openCreateProjectModal(categoryId: number){
+  this.selectedCategoryId = categoryId;
   this.isCreateProjectModalOpen = true;
-  console.log('Opening Create Staff Project');
-  console.log(this.isCreateProjectModalOpen);
+  console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
 }
 
 closeCreateProjectModal() {
-  this.isCreateProjectModalOpen = false;
-  console.log('xd');
-  this.sideBarOpen = true;
+   this.isCreateProjectModalOpen = false;
+    this.selectedTaskId = null;
+    this.selectedCategoryId = null;
 }
 
 

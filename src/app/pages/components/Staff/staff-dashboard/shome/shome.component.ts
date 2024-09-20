@@ -191,7 +191,7 @@ export class ShomeComponent implements OnInit {
         if (Array.isArray(response.staff)) {
           this.staff = response.staff;
           console.log('Fetched staff:', this.staff);
-          this.hideLoading();
+         
         } else {
           console.error('Expected an array for staff_with_extension');
         }
@@ -232,7 +232,7 @@ export class ShomeComponent implements OnInit {
         console.log('Full response:', response);
         this.projects = response;
         console.log('Fetched projects:', this.projects); 
-        this.hideLoading();
+    
       },
       error => {
         console.error('Error fetching projects', error);
@@ -259,7 +259,7 @@ export class ShomeComponent implements OnInit {
       (response: any) => {
         this.user = response;
         console.log('Logged in user:', this.user);
-        this.hideLoading();
+
       },
       error => {
         console.error('Error fetching user details', error);
@@ -309,7 +309,7 @@ export class ShomeComponent implements OnInit {
           console.log('Ongoing:', response.ongoing);
           console.log('due', response.due);
           this.ongoing = response.ongoing;
-          this.hideLoading();
+
 
           var myChart = new Chart('myChart',{  
             type: 'pie',
@@ -364,7 +364,7 @@ export class ShomeComponent implements OnInit {
               );
             
               this.clientCount = uniqueClients.length;
-              this.hideLoading();
+    
              
             } else {
               console.error('Unexpected response format:', response);
@@ -529,10 +529,6 @@ export class ShomeComponent implements OnInit {
     
 
 
-
-    
-
-
     fetchProjectsPerMonth(): void {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -554,7 +550,7 @@ export class ShomeComponent implements OnInit {
               this.datayear = [];
               this.datamonth = [];
               this.dataproject = [];
-              this.hideLoading();
+        
               // Create an object to aggregate project counts by year and month
               const aggregatedData: { [key: string]: { year: number, month: string, project_count: number } } = {};
     

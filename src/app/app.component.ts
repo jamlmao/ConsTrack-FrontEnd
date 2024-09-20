@@ -23,15 +23,31 @@ export class AppComponent {
   ngOnInit() {
     this.resetLogoutTimer();
     this.setupActivityListeners();
+   
   }
 
   setupActivityListeners() {
     if (!this.authService.isAuthenticated()) {
       return;
     }
-    ['mousemove', 'keydown', 'click'].forEach(event => {
-      window.addEventListener(event, () => this.resetLogoutTimer());
+    const events = ['mousemove', 'keydown', 'click', 'visibilitychange'];
+
+    events.forEach(event => {
+      window.addEventListener(event, () => this.handleActivityEvent(event));
     });
+  }
+
+
+  handleActivityEvent(event: string) {
+    if (event === 'visibilitychange') {
+      if (document.hidden) {
+        // console.log('Tab is not active');
+      } else {
+        this.resetLogoutTimer();
+      }
+    } else {
+      this.resetLogoutTimer();
+    }
   }
 
   resetLogoutTimer() {
@@ -42,6 +58,7 @@ export class AppComponent {
       clearTimeout(this.logoutTimer);
     }
     this.logoutTimer = setTimeout(() => this.logout(), 21600000); //6hours
+   
 
  
   }

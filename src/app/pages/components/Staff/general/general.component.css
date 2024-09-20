@@ -16,7 +16,16 @@
     border: 1px solid #888;
     width: 60%; /* Could be more or less, depending on screen size */
   }
-  
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+
+  .no-spinner {
+      -moz-appearance: textfield;
+      appearance: textfield;
+  }
   .close {
     color: #000000;
     float: right;
