@@ -29,13 +29,7 @@
                         <h1><span>ACCOMPLISHMENTS</span> TABLE</h1>
                         
 
-                        <button class="btn btn-outline-dark"  (click)="openTaskModal()" >
-                        Update Task
-                         
-                          </button>
-                          <app-archi 
-                          *ngIf="isTaskOpen" (close)="closeTaskModal()">
-                  </app-archi>
+                       
                     </div>
                      
                           
@@ -72,15 +66,21 @@
                     
                         <!-- Estimated Materials Section -->
                         <div class="table-wrapper card p-4 mb-4">
-                            <h2>Estimated Resources</h2>
+                            <h2>Estimated Resources  <button class="btn btn-outline-dark"  (click)="openTaskModal()" >
+                                Update Task
+                                 
+                                  </button>
+                                  <app-archi 
+                                  *ngIf="isTaskOpen" (close)="closeTaskModal()">
+                          </app-archi></h2>
+                            
                             <table class="table modern-table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Material Name</th>
+                                        <th>Resources Name</th>
                                         <th>Quantity</th>
-                                        <th>Cost</th>
-                                        <th>Total</th>
+                                        <th>Used</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,39 +88,15 @@
                                         <td>1</td>
                                         <td>Bakal</td>
                                         <td>12</td>
-                                        <td>1212212</td>
-                                        <td>1212212</td>
+                                        <td>12</td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     
                         <!-- Used Materials Section -->
-                        <div class="table-wrapper card p-4 mb-4">
-                            <h2>Used Resources</h2>
-                            <table class="table modern-table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Material Name</th>
-                                        <th>Quantity</th>
-                                        <th>Cost</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12/12/12</td>
-                                        <td>Bakal</td>
-                                        <td>12</td>
-                                        <td>1212212</td>
-                                        <td>1212212</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        
                     </div>
                     
                     <div class="cards project-item">
