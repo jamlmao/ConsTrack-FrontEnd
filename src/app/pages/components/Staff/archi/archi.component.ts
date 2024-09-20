@@ -24,7 +24,9 @@ export class ArchiComponent {
   isFileSelected: boolean = false;  // To track if a file is selected
 
   
+  
 
+  
 
   @Input() taskId: number | null = null;
   @Output() close = new EventEmitter<void>();

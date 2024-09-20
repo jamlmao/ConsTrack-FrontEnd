@@ -19,10 +19,23 @@
                           <label for="example-text-input" class="form-control-label">Update Image:</label>
                           <input placeholder="Full name" class="form-control" type="file" (change)="onFileChange($event, 'update_img')" required>
                       </div>
+                      <div class="form-group">
+                        <label for="resources" class="form-control-label">Resources:</label>
+                        <div id="resources-container">
+                            <div class="resource-item" class="d-flex align-items-center mb-2">
+                                <input class="form-control mr-2  mx-1" type="text" placeholder="Resource Name"required>
+                                <input class="form-control mr-2  mx-1" type="number" placeholder="Quantity"  required>
+                               
+
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
                     
                       <div class="d-flex align-items-center justify-content-between py-3">
-                          <button type="submit" class="btn btn-outline-dark" [disabled]="!isFileSelected">Submit</button>
-                          <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                        <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                        <button type="submit" class="btn btn-outline-dark" [disabled]="!isFileSelected">Submit</button>
                       </div>
                   </form>
               </article>
