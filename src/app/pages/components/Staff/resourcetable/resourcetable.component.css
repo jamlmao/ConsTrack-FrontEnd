@@ -40,7 +40,41 @@
 
 
 
-  
+   /* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -60px;
+
+}
+
+.pagination-controls button {
+  background-color: #28282a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.pagination-controls span {
+  color: #333;
+  font-weight: bold;
+}
+
     
     
     
