@@ -182,9 +182,9 @@ getStatusText(status: string): string {
         this.tasks = response.tasks;
 
         Swal.close();
-        console.log('Project tasks:', this.tasks);
+        // console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
-        console.log('Total Allocated Budget:', this.totalAllocatedBudget);
+        // console.log('Total Allocated Budget:', this.totalAllocatedBudget);
        
        
       },
