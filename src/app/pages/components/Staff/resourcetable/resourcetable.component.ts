@@ -38,7 +38,7 @@ export class ResourcetableComponent {
   events: any[] = [];
   tasks: any[] = [];
   sortedTask: any[] = [];
-  categories: { name: string, path: string }[] = [];
+  categories: any[] = [];
   totalAllocatedBudgetPerCategory:any[] = [];
   totalAllocatedBudget: number = 0;
   percentage: number = 0;
@@ -53,11 +53,8 @@ export class ResourcetableComponent {
 
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
-  private SortedUrl =`${this.url}`+'/api/sortedTask/'
-  private allTask = `${this.url}`+'/api/Alltask';
-  private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
-  private updateProjectUrl = `${this.url}`+'/api/projects/';
+
 
 
   projectDetails: any = {};
@@ -181,7 +178,9 @@ getStatusText(status: string): string {
 
     this.http.get(this.TaskUrl + `${projectId}`,{headers}).subscribe(
       (response: any) => {
+    
         this.tasks = response.tasks;
+
         Swal.close();
         console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
@@ -206,7 +205,18 @@ getStatusText(status: string): string {
     this.router.navigate(['/task-details', task.id]);
   }
  
-  
+  transformStatus(status: string): string {
+    switch (status) {
+      case 'C':
+        return 'Complete';
+      case 'OG':
+        return 'Ongoing';
+      case 'D':
+        return 'Due';
+      default:
+        return status;
+    }
+  }
 
 
  

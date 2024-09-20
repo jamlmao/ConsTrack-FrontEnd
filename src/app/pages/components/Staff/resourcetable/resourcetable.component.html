@@ -118,10 +118,10 @@
             
                               </div>
                               <div class="col-lg-5" style="font-size: 20px;">
-                             
+                                <p class="date" style="font-size: 20px;font-weight: bold; margin-bottom: 2px;"> {{ task.category?.category_name }}</p>
                             <p class="date" style="font-size: 20px;font-weight: bold; margin-bottom: 2px;">{{task.pt_task_desc}}</p>
                             <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_task_name}}</p>
-                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_status}}</p>
+                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{transformStatus(task.pt_status)}}</p>
                             <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_starting_date}}</p>
                             <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_completion_date}}</p>
             
@@ -144,7 +144,7 @@
                  
                 </body>
                
-                
+              
                
              
             </div>
