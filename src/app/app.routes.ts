@@ -215,71 +215,7 @@ export const routes: Routes = [
         component: TimelineComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'sowa/:projectId/general',
-        component: GeneralrequirementComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/site',
-        component: SiteworksComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/concrete',
-        component: ConcreteworksComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/metal',
-        component: MetalworksComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/forms',
-        component: FormsComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/steel',
-        component: SteelworksComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/tinsmithry',
-        component: TinsmithryComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/plastering',
-        component: PlasteringComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/paint',
-        component: PaintworksComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/plumbing',
-        component: PlumbingComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/electrical',
-        component: ElectricalComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/ceiling',
-        component: CeilingworksComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'sowa/:projectId/architectural',
-        component: ArchitecturalComponent,
-        canActivate: [AuthGuard]
-    },
+
     {
         path: 'Constrack/website',
         component: WebsiteComponent,

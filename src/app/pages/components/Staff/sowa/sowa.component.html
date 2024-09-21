@@ -151,7 +151,7 @@
                                             <mat-progress-bar mode="determinate" [value]="category.progress" color="accent"></mat-progress-bar>
                                           </td>
                                           <td class="no-pdf">
-                                            <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                            <a class="view" [routerLink]="['/task-details', category.id]" class="eye"><mat-icon>visibility</mat-icon></a>
                                             <a class="view" *ngIf="category.progress  !== 100"  (click)="openCreateProjectModal(category.id)" class="eye"><mat-icon>addition</mat-icon></a>
                                             <app-addtask *ngIf="isCreateProjectModalOpen"
                                             [categoryId]="selectedCategoryId!"  
