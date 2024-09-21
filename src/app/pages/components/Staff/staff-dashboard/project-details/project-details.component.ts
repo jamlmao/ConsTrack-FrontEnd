@@ -93,6 +93,16 @@ export class ProjectDetailsComponent {
   }
 
   ngOnInit(){
+    
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
+
     this.calculateProgress();
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -106,49 +116,19 @@ export class ProjectDetailsComponent {
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
-      this.projectIdNumber2 = Number(this.projectId);
-      console.log('Project ID:', this.projectIdNumber2);
+
       if (!isNaN(projectIdNumber)) {
-        this.fetchProjectTasks(projectIdNumber);
-        this.fetchSortedTask(projectIdNumber);
-        this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
-        this.initializeCategories();
-     
       } else {
         console.error('Project ID is not set or is not a number');
       }
     });
 
-
-    this.fetchAllTask();
    
   
   }
 
 
-
-  initializeCategories(): void {
-    this.categories = [
-      { name: 'GENERAL REQUIREMENTS', path: this.generatePath('general') },
-      { name: 'SITE WORKS', path: this.generatePath('site') },
-      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('metal') },
-      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('forms') },
-      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('steel') },
-      { name: 'TINSMITHRY WORKS', path: this.generatePath('tinsmithry') },
-      { name: 'PLASTERING WORKS', path: this.generatePath('plastering') },
-      { name: 'PAINTS WORKS', path: this.generatePath('paint') },
-      { name: 'PLUMBING WORKS', path: this.generatePath('plumbing') },
-      { name: 'ELECTRICAL WORKS', path: this.generatePath('electrical') },
-      { name: 'CEILING WORKS', path: this.generatePath('ceiling') },
-      { name: 'ARCHITECTURAL', path: this.generatePath('architectural') },
-    ];
-  }
-
-  generatePath(category: string): string {
-    return `${category}`;
-  }
-  
  
 
   constructor(
@@ -169,51 +149,6 @@ export class ProjectDetailsComponent {
     this.sideBarOpen = !this.sideBarOpen;
   }
 
-  
- 
-
-  openTaskModal() {
-    this.isTaskOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isTaskOpen);
-  }
-
-  closeTaskModal() {
-    this.isTaskOpen = false;
-    console.log('xd');
-  }
-
-  
-  openGeneralModal() {
-    this.isGeneralOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isGeneralOpen);
-  }
-
-  closeGeneralModal() {
-    this.isGeneralOpen = false;
-    console.log('xd');
-  }
-  openSiteModal() {
-    this.isSiteOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isSiteOpen);
-  }
-
-  closeSiteModal() {
-    this.isSiteOpen = false;
-    console.log('xd');
-  }
-  openArchiModal() {
-    this.isArchiOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isArchiOpen);
-  }
-
-  closeArchiModal() {
-    this.isArchiOpen = false;
-    console.log('xd');
-  }
   
   
   fetchAllTask() { 
@@ -251,12 +186,13 @@ export class ProjectDetailsComponent {
         this.projectDetails = response.project;
         console.log('Project Details:', this.projectDetails);
         this.circumference = 2 * Math.PI * this.radius;
-    
-    // Calculate the used percentage
-    this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
+        
+      // Calculate the used percentage
+      this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
 
-    // Calculate the stroke-dashoffset based on the percentage
-    this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
+      // Calculate the stroke-dashoffset based on the percentage
+      this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
+    Swal.close();
       },
       (error) => {
         console.error('Failed to fetch project details', error);
@@ -264,154 +200,8 @@ export class ProjectDetailsComponent {
     );
   }
 
-  fetchProjectTasks(projectId: number) {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
 
-    Swal.fire({
-      title: 'Loading...',
-      text: 'Please wait while we load the tasks.',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading(null);
-      }
-    });
-
-    this.http.get(this.TaskUrl + `${projectId}`,{headers}).subscribe(
-      (response: any) => {
-        this.tasks = response.tasks;
-        Swal.close();
-        console.log('Project tasks:', this.tasks);
-        this.totalAllocatedBudget = response.totalAllocatedBudget;
-        console.log('Total Allocated Budget:', this.totalAllocatedBudget);
-       
-       
-      },
-      (error) => {
-        console.error('Failed to fetch project tasks', error);
-      }
-    );
-  }
-
-
-  selectProject(project: any) {
-    this.router.navigate(['/sowa', project.id]);
-  }
   
-
-    
-
-  fetchTaskByCategory(projectId: number) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.taskByCategoryUrl + `${projectId}`, { headers }).subscribe(
-    (response: any) => {
-      if (response && response.totalAllocatedBudgetPerCategory) {
-        this.SortedTask = response.totalAllocatedBudgetPerCategory;
-        console.log('Budget:', this.SortedTask);
-      
-        
-        
-      } else {
-        console.error('tasks not found in the response');
-      }
-    }
-    );
-  }
-  
- 
-
-  fetchSortedTask(projectId: number) {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-
-    this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
-      (response: any) => {
-        if (response && response.tasks) {
-          this.sortedTask = response.tasks;
-       
-          this.categorizeTasks();
-          console.log('Sorted tasks:', this.sortedTask);
-        } else {
-          console.error('tasks not found in the response');
-        }
-      },
-      (error) => {
-        console.error('Failed to fetch Sorted tasks', error);
-      }
-    );
-  }
-
-
-  categorizeTasks() {
-    this.categories.forEach(category => {
-      this.categorizedTasks[category.name] = this.sortedTask.filter(task => task.pt_task_desc === category.name);
-    });
-  }
-
-  toRoman(num: number): string {
-    const romanNumerals: [string, number][] = [
-      ["M", 1000],
-      ["CM", 900],
-      ["D", 500],
-      ["CD", 400],
-      ["C", 100],
-      ["XC", 90],
-      ["L", 50],
-      ["XL", 40],
-      ["X", 10],
-      ["IX", 9],
-      ["V", 5],
-      ["IV", 4],
-      ["I", 1]
-    ];
-    let result = '';
-    for (const [roman, value] of romanNumerals) {
-      while (num >= value) {
-        result += roman;
-        num -= value;
-      }
-    }
-    return result;
-  }
-
-  generateSubItemLabel(index: number): string {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    if (index < 26) {
-      return letters[index];
-    } else {
-      return (index + 1).toString();
-    }
-  }
-  
-  selecttask(task: any) {
-    this.router.navigate(['/task-details', task.id]);
-  }
- 
-  
-
 
   handleButtonClick(projectId: number): void {
 

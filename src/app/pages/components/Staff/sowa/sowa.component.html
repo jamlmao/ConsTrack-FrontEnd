@@ -101,10 +101,10 @@
                             <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
                         </div>
                         <div class="col-sm-2">
-                            <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Task</button>
-                                <app-addtask 
+                            <button (click)="openTaskModal()"  type="button"  class="btn-grad btn-outline-dark">Add Category</button>
+                                <app-general 
                                 *ngIf="isTaskOpen"  (close)="closeTaskModal()">
-                                </app-addtask>
+                                </app-general>
                         </div>
                     </div>
             
@@ -126,65 +126,60 @@
                                 </div>
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
-                                        <tr>
-                                            
-            
-                                            <th style="text-align: center;" [width]="40">Item No.</th>
-                                            <th style="text-align: center;" [width]="300">Description</th>
-                                            <th style="text-align: center;">Project Actual Cost</th>
-                                            <th style="text-align: center;">Previous</th>
-                                            <th style="text-align: center;">This Period</th>
-                                            <th style="text-align: center;">To Date</th>
-                                            <th style="text-align: center;">Percentage of Accomplishment</th>
-                                            <th style="text-align: center;" class="no-pdf">Action</th>
-                                        </tr>
+                                      <tr>
+                                        <th style="text-align: center;" [width]="40">Item No.</th>
+                                        <th style="text-align: center;" [width]="300">Description</th>
+                                        <th style="text-align: center;">Project Actual Cost</th>
+                                        <th style="text-align: center;">Previous</th>
+                                        <th style="text-align: center;">This Period</th>
+                                        <th style="text-align: center;">To Date</th>
+                                        <th style="text-align: center;">Percentage of Accomplishment</th>
+                                        <th style="text-align: center;" class="no-pdf">Action</th>
+                                      </tr>
                                     </thead>
                                     <tbody>
-                                        <ng-container *ngFor="let category of categories; let i = index" (click)="selecttask(category)">
-                                            <ng-container *ngIf="SortedTask[category.name]?.tasks && SortedTask[category.name].tasks.length > 0">
-                                            <tr>
-                                                <td>{{ toRoman(i + 1) }}</td>
-                                                <td>{{ category.name }}</td>
-                                                <td style="text-align: right;">{{ SortedTask[category.name]?.totalAllocatedBudget ?? '0.00' | number: '1.2-2' }}</td>
-                                                <td style="text-align: right;">{{ SortedTask[category.name]?.previousCost ?? '0.00' | number: '1.2-2' }}</td>
-                                                <td style="text-align: right;">{{ SortedTask[category.name]?.thisPeriodCost ?? '0.00' | number: '1.2-2' }}</td>
-                                                <td style="text-align: right;">{{ SortedTask[category.name]?.toDateCost ?? '0.00' | number: '1.2-2' }}</td>
-                                                <td style="text-align: right;">
-                                                    <div>{{ calculateProgress(category.name) | number: '1.2-2' }}%</div>
-                                                    <mat-progress-bar mode="determinate" [value]="calculateProgress(category.name)" color="accent"></mat-progress-bar>
-                                                </td>
-                                                <td class="no-pdf">
-                                                
-                                                    <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
-                                                    <a class="view" (click)="openCreateProjectModal()" class="eye"><mat-icon>addition</mat-icon></a>
-                                                        <app-general 
-                                                            *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
-                                                        </app-general>
-                                                </td>
-                                              
-                                            </tr>
-                                            <ng-container *ngIf="categorizedTasks[category.name] && categorizedTasks[category.name].length">
-                                                <tr *ngFor="let task of categorizedTasks[category.name]; let j = index">
-                                                    <td></td>
-                                                    <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                                                    <td style="text-align: right;">{{ task.pt_allocated_budget | number: '1.2-2' }}</td>
-                                                    <td style="text-align: right;">{{ task.pt_previous | number: '1.2-2' || '-' }}</td>
-                                                    <td style="text-align: right;">{{ task.pt_this_period | number: '1.2-2' || '-' }}</td>
-                                                    <td style="text-align: right;">{{ task.pt_to_date | number: '1.2-2' || '-' }}</td>
-                                                    <td style="text-align: right;">{{ task.pt_percentage_accomplishment || '-' }}</td>
-                                                    
-                                                </tr>
-                                            </ng-container>
-                                        </ng-container>
-                                    </ng-container>
+                                      <ng-container *ngFor="let category of sortedTask; let i = index">
                                         <tr>
-                                            <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
-                                            <td style="text-align: right;"><strong> {{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
-                                            <td colspan="4"></td>
+                                          <td>{{ toRoman(i + 1) }}</td>
+                                          <td>{{ category.name }}</td>
+                                          <td style="text-align: right;">{{ category.totalAllocatedBudget | number: '1.2-2' }}</td>
+                                          <td style="text-align: right;">{{ category.previousCost ?? '0.00'| number: '1.2-2' }}</td>
+                                          <td style="text-align: right;">{{ category.thisPeriodCost?? '0.00' | number: '1.2-2' }}</td>
+                                          <td style="text-align: right;">{{ category.toDateCost ?? '0.00'| number: '1.2-2' }}</td>
+                                          <td style="text-align: right;">
+                                            <div>{{category.progress | number: '1.2-2' }}%</div>
+                                            <mat-progress-bar mode="determinate" [value]="category.progress" color="accent"></mat-progress-bar>
+                                          </td>
+                                          <td class="no-pdf">
+                                            <a class="view" [routerLink]="[category.path]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                            <a class="view" *ngIf="category.progress  !== 100"  (click)="openCreateProjectModal(category.id)" class="eye"><mat-icon>addition</mat-icon></a>
+                                            <app-addtask *ngIf="isCreateProjectModalOpen"
+                                            [categoryId]="selectedCategoryId!"  
+                                            (close)="closeCreateProjectModal()"></app-addtask>
+                                          </td>
                                         </tr>
-                                    
+                                        <ng-container *ngIf="category.tasks && category.tasks.length">
+                                          <tr *ngFor="let task of category.tasks; let j = index">
+                                            <td></td>
+                                            <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
+                                            <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
+                                            <td style="text-align: right;">{{ task.pt_previous?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                            <td style="text-align: right;">{{ task.pt_this_period?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                            <td style="text-align: right;">{{ task.pt_to_date?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                            <td style="text-align: right;">
+                                            <div>{{ task.percentage | number: '1.2-2' }}%</div>
+                                            <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
+                                            </td>
+                                          </tr>
+                                        </ng-container>
+                                      </ng-container>
+                                      <tr>
+                                        <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
+                                        <td style="text-align: right;"><strong>{{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
+                                        <td colspan="4"></td>
+                                      </tr>
                                     </tbody>
-                                </table>
+                                  </table>
                             
                                 <div class="signature-section">
                                     <div>

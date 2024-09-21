@@ -25,20 +25,9 @@
                       </div>
                       <div class="col-md-6">
                         <label for="example-text-input" class="form-control-label"
-                          >Task Category:</label
-                        >
-                        <select class="form-control" id="pt_task_desc" name="pt_task_desc" [(ngModel)]="task.pt_task_desc" #emailControl="ngModel" required>
-                          <option value="" disabled selected>Select a category</option>
-                          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-                        </select>
-                        
-                    
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
                           >Starting Date:</label
                         >
-                        <input placeholder="Task Name" class="form-control" type="date" id="pt_task_name" [(ngModel)]="task.pt_starting_date" name="pt_task_name" #nameControl="ngModel" required>
+                        <input placeholder="Task Name" class="form-control" type="date" id="pt_task_name" [(ngModel)]="task.pt_starting_date" name="pt_starting_date" #nameControl="ngModel" required>
                     
                       </div>
                       <div class="col-md-6">

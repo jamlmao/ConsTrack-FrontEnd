@@ -120,7 +120,7 @@
                                             <p><span class="highlight">PHP {{projectDetails.totalBudget | number: '1.2-2'}}</span></p>
             
                                             <h4>Remaining Budget:</h4>
-                                            <p><span class="highlight">Php {{projectDetails.totalBudget - totalAllocatedBudget | number: '1.2-2'}}</span></p>
+                                            <p><span class="highlight">Php {{projectDetails.totalBudget - projectDetails.total_used_budget | number: '1.2-2'}}</span></p>
                                         </div>
                                         <div class="grid-item" style="margin-left: -70px;">
                                             <h4>Project Type:</h4>

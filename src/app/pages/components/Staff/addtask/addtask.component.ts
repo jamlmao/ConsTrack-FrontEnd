@@ -22,6 +22,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
   styleUrl: './addtask.component.css'
 })
 export class AddtaskComponent {
+  @Input() categoryId!: number;
   @Input() projectId: string | null = null;
   @Output() close = new EventEmitter<void>();
 
@@ -29,7 +30,7 @@ export class AddtaskComponent {
   faPlus = faAdd;
 
 
-  private baseUrl = 'http://127.0.0.1:8000/api/addtask/';
+  private baseUrl = 'http://127.0.0.1:8000/api/addtask2/';
   apiUrl: string ='';
 
   task: any = {
@@ -39,25 +40,14 @@ export class AddtaskComponent {
     pt_photo_task: '',
     pt_file_task: '',
     pt_allocated_budget: '',
-    pt_task_desc: '',
     project_id: '',
+    category_id: '',
     resources: []
   };
   
   categories: string[] = [
-    'GENERAL REQUIREMENTS',
-    'SITE WORKS',
-    'CONCRETE & MASONRY WORKS',
-    'METAL REINFORCEMENT WORKS',
-    'FORMS & SCAFFOLDINGS',
-    'STEEL FRAMING WORK',
-    'TINSMITHRY WORKS',
-    'PLASTERING WORKS',
-    'PAINTS WORKS',
-    'PLUMBING WORKS',
-    'ELECTRICAL WORKS',
-    'CEILING WORKS',
-    'ARCHITECTURAL'
+    
+   
   ];
 
 
@@ -131,7 +121,8 @@ export class AddtaskComponent {
 
       // Set the project_id in the task object
       this.task.project_id = this.projectId;
-
+      this.task.category_id = this.categoryId;
+      console.log('Task:', this.task);
       // Example payload for the POST request
       const payload = this.task;
       console.log('Task payload:', payload);
