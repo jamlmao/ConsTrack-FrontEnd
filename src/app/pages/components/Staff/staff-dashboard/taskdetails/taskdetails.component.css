@@ -52,15 +52,6 @@
     color: white;
 }
 
-.badge.ongoing {
-    background-color: #d8db05;
-}
-.badge.complete {
-  background-color: #3ee606;
-}
-.badge.due {
-  background-color: #cf2c27;
-}
 
 .table-wrapper h2 {
     font-size: 1.5rem;
@@ -169,4 +160,16 @@ h3 {
     .card-custom {
         width: 100%; /* Make cards full-width on smaller screens */
     }
+}
+
+.badge-ongoing {
+  background-color: orange;
+}
+
+.badge-complete {
+  background-color: green;
+}
+
+.badge-due {
+  background-color: red;
 }

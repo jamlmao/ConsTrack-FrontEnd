@@ -22,8 +22,8 @@ export class ArchiComponent {
   isChecklistChecked = false;
 
   isFileSelected: boolean = false;  // To track if a file is selected
+  @Input() categoryId!: number;
 
-  
   
 
   
@@ -41,24 +41,75 @@ export class ArchiComponent {
 
 
 
-  tasks: { [key: string]: string } = {};
+  tasks: any = {};
   selectedTaskId: number | null = null;
-
-  private updateTaskUrl = 'http://127.0.0.1:8000/api/updatetask/';
+  private baseUrl = 'http://127.0.0.1:8000/'
+  private updateTaskUrl = this.baseUrl+'api/updatetask/';
+  private resourceUrl = this.baseUrl+'api/tasks/';
   apiUrl: string ='';
+  resources: any[] = [];  
+  usedQty: string | number = '' ;
+  availableQty: number = 0;
+  selectedResource: any = null;
+  resource_id: number | null = null;
 
 
-  
   toggleChecklist(event: Event): void {
     this.isChecklistChecked = (event.target as HTMLInputElement).checked;
   }
 
 
+  validateQty(): void {
+    if (typeof this.usedQty === 'string') {
+      this.usedQty = parseInt(this.usedQty, 10) || 0;
+    }
+    if (this.usedQty > this.availableQty) {
+      this.isFileSelected = false;
+    } else {
+      this.isFileSelected = true;
+    }
+  }
+
+  onResourceChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedResourceId =  Number(selectElement.value);;
+    this.selectedResource = this.resources.find(resource => resource.id === selectedResourceId);
+  
+    if (this.selectedResource) {
+      this.availableQty = this.selectedResource.left_qty; 
+      this.resource_id = this.selectedResource.id;
+    } else {
+      this.availableQty = 0;
+      console.error('Selected resource not found');
+    }
+  }
+
+
+  clearDefaultValue(): void {
+    if (this.usedQty === 0) {
+      this.usedQty = '';
+    }
+  }
 
   ngOnInit(): void {
-
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
    
-    // Extract projectId from the current URL
+    this.route.paramMap.subscribe(params => {
+      this.taskId = Number(params.get('taskId')) || null;
+      const taskIdNumber = Number(this.taskId);
+      console.log('Task ID:', this.taskId);
+      if (!isNaN(taskIdNumber)) {
+        this.selectedTaskId = taskIdNumber;
+        this.fetchResource(taskIdNumber);
+      }
+    });
     this.apiUrl = this.updateTaskUrl + this.taskId;
     console.log('API URL:', this.apiUrl);
    
@@ -96,6 +147,35 @@ export class ArchiComponent {
   }
 
 
+  
+
+
+  fetchResource(taskId: number): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+
+    this.http.get(this.resourceUrl + `${taskId}/resources`, { headers }).subscribe(
+      (response :any) => {
+        this.resources = response.resources;
+        Swal.close();
+        
+        console.log('Resources:', this.resources);
+        this.resources.forEach(resource => {
+          console.log('Resource ID:', resource.id);
+        });
+
+      }
+    );
+
+
+  }
+  
 
 
   onSubmit(): void {
@@ -106,8 +186,26 @@ export class ArchiComponent {
       return;
     }
 
-    const payload = this.tasks;
-    console.log('Task payload:', payload);
+    if (this.resource_id === null || this.usedQty === 0) {
+      console.error('Resource ID or used quantity is missing');
+      return;
+    }
+    const resources = [
+      {
+        resource_id: this.resource_id,
+        used_qty: this.usedQty
+      }
+    ];
+
+    const formData = {
+      task_id: this.selectedTaskId,
+      resources: resources,
+      update_img: this.isChecklistChecked ? 'update_img' : 'placeholder_image'
+    };
+
+    const payload = { ...this.tasks, ...formData };
+    console.log('Payload:', payload);
+
 
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     Swal.fire({

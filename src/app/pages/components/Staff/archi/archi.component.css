@@ -17,6 +17,12 @@
   width: 50%; /* Could be more or less, depending on screen size */
 }
 
+
+.is-invalid {
+  border-color: red;
+}
+
+
 .close {
   color: #000000;
   float: right;
@@ -55,25 +61,32 @@
 
 
 .input-group{
-margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 
 h4,h1{
-color: rgb(137, 16, 16);
+  color: rgb(137, 16, 16);
 }
 
 
 .gradient-custom-2 {
-background-size: cover;
-background: #ffffff;
+  background-size: cover;
+  background: #ffffff;
 
-background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 
 
-margin: 0px;
-background-size: cover;
-background-image: url('../bg1.jpg');
+  margin: 0px;
+  background-size: cover;
+  background-image: url('../bg1.jpg');
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 

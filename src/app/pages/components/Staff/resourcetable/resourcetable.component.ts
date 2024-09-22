@@ -87,8 +87,6 @@ export class ResourcetableComponent {
       console.log('Project ID:', this.projectIdNumber2);
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
-        // this.fetchSortedTask(projectIdNumber);
-        // this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
 
      
@@ -140,23 +138,8 @@ getStatusText(status: string): string {
   
 
   
-  fetchAllTask() { 
-    const token = localStorage.getItem('token'); 
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
 
-    this.http.get(this.allTask, { headers }).subscribe(
-      (response: any) => {
-        this.alltask = response.alltasks;
-        console.log('All tasks:', this.alltask);
-        
-      }
-    );
-
-  }
+ 
 
 
   fetchProjectDetails(projectId: number) {
@@ -208,16 +191,14 @@ getStatusText(status: string): string {
     });
 
 
- 
-
     this.http.get(this.TaskUrl + `${projectId}`,{headers}).subscribe(
 
       (response: any) => {
-    
+        Swal.close();
         this.tasks = response.tasks;
 
-        Swal.close();
-        // console.log('Project tasks:', this.tasks);
+     
+        console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
 
         console.log('Total Allocated Budget:', this.totalAllocatedBudget);

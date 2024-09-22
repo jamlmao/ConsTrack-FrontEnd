@@ -81,7 +81,7 @@ export class SowaComponent {
 
 
   events: any[] = [];
-  tasks: any[] = [];
+  tasks: any = {};
   sortedTask: any[] = [];
   categories: any[] = [];
   totalAllocatedBudgetPerCategory:any[] = [];
@@ -133,6 +133,7 @@ export class SowaComponent {
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
       console.log('Project ID:', this.projectIdNumber2);
+      
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
@@ -158,10 +159,7 @@ export class SowaComponent {
 
 
 
-  generatePath(category: string): string {
-    return `${category}`;
-  }
-  
+
  
 
   constructor(
@@ -312,9 +310,6 @@ export class SowaComponent {
   }
 
 
-  selectProject(project: any) {
-    this.router.navigate(['/sowa', project.id]);
-  }
   
 
     
@@ -378,7 +373,7 @@ export class SowaComponent {
                 previousCost: category.previousCost,
                 thisPeriodCost: category.thisPeriodCost,
                 toDateCost: category.toDateCost,
-                progress: category.percentage
+                progress: category.progress
               });
             }
           }
