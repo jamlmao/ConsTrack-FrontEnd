@@ -93,7 +93,7 @@ getStatusText(status: string): string {
         private http: HttpClient,) { }
       
   isCreateClientModalOpen = false;
-  
+  selectedTaskId: number | null = null;
   isTaskOpen = false;
 
   
@@ -106,13 +106,16 @@ getStatusText(status: string): string {
   
  
 
-  openTaskModal() {
+  openTaskModal(taskId: number) {
+    this.selectedTaskId = taskId;
+    console.log('Selected task ID:', this.selectedTaskId);
     this.isTaskOpen = true;
     console.log('Opening Task Modal');
     console.log(this.isTaskOpen);
   }
 
   closeTaskModal() {
+    this.selectedTaskId = null;
     this.isTaskOpen = false;
     console.log('xd');
   }

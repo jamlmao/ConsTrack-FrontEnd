@@ -373,7 +373,7 @@ export class SowaComponent {
                 previousCost: category.previousCost,
                 thisPeriodCost: category.thisPeriodCost,
                 toDateCost: category.toDateCost,
-                progress: category.percentage
+                progress: category.progress
               });
             }
           }

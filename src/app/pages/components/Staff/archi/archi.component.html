@@ -9,7 +9,7 @@
                   <form (ngSubmit)="onSubmit()">
                       <div class="col-md-12">
                         <div class="col-md-12">
-                          <label for="checklist" class="form-control-label">Complete(will autocomplete the task):</label>
+                          <label for="checklist" class="form-control-label mx-2">Task Complete: </label>
                           <input id="checklist" type="checkbox" (change)="toggleChecklist($event)">
                       </div>
                           <label for="example-text-input" class="form-control-label" [hidden]="isChecklistChecked">Update Image:</label>
@@ -22,20 +22,19 @@
                       <div class="form-group">
                         <label for="resources" class="form-control-label">Resources:</label>
                         <div id="resources-container">
-                            <div class="resource-item" class="d-flex align-items-center mb-2">
-                                <input class="form-control mr-2  mx-1" type="text" placeholder="Resource Name"required>
-                                <input class="form-control mr-2  mx-1" type="number" placeholder="Quantity"  required>
-                               
-
-                                
-                            </div>
+                          <div class="resource-item d-flex align-items-center mb-2">
+                            <select class="form-control mr-2 mx-1" aria-placeholder="Resources" (change)="onResourceChange($event)">
+                                <option value="" disabled selected>Select Resources</option>
+                              <option *ngFor="let resource of resources" [value]="resource.id">{{resource.resource_name}}</option>
+                            </select>
+                            <input class="form-control mr-2 mx-1" type="number" placeholder="Quantity" [(ngModel)]="usedQty" name="usedQty" (input)="validateQty()" (focus)="clearDefaultValue()" [ngClass]="{'is-invalid': +usedQty > availableQty}" [disabled]="!selectedResource" required>
+                          </div>
                         </div>
-                        
-                    </div>
+                      </div>
                     
                       <div class="d-flex align-items-center justify-content-between py-3">
                         <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                        <button type="submit" class="btn btn-outline-dark" [disabled]="!isFileSelected">Submit</button>
+                        <button type="submit" class="btn btn-outline-dark" [disabled]="!isFileSelected || +usedQty > availableQty || +usedQty === 0 ">Submit</button>
                       </div>
                   </form>
               </article>
