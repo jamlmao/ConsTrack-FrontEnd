@@ -7,179 +7,248 @@
   .mat-drawer-container{
     height: 100%;
   }
-  
+
   
 
+  .status-complete {
+    color: green;
+  }
+  
+  .status-ongoing {
+    color: orange;
+  }
+  
+  .status-due {
+    color: red;
+  }
 
-  .navbar-nav .nav-item .nav-link {
-    transition: color 0.3s ease, background-color 0.3s ease;
-    margin: 10px;
+
+  .image-container {
+    width: 100%; /* Ensures the container takes up full width */
+  }
+  
+  .scrollable-image {
+    width: 100%; /* Full width of the container */
+    height: 430px; /* Fixed height */
+    overflow-y: scroll; /* Adds vertical scroll when the content exceeds the height */
+  }
+  
+  .clickable-image {
+    width: 100%; /* Image width will be 100% of the container's width */
+    height: auto; /* Keeps the image's aspect ratio */
+  }
+
+
+
+ /* Pagination Controls */
+.pagination-controls {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: -60px;
+
 }
 
-/* Hover Effect */
-.navbar-nav .nav-item .nav-link:hover {
-    color: #fff; /* Change text color on hover */
-    background-color: #101010; /* Change background color on hover */
-    border-radius: 4px; /* Optional: adds rounded corners */
+.pagination-controls button {
+background-color: #28282a;
+color: white;
+border: none;
+padding: 8px 16px;
+border-radius: 5px;
+margin: 0 10px;
+cursor: pointer;
+transition: background-color 0.3s;
 }
 
-/* Active Link Highlight */
-.navbar-nav .nav-item .nav-link.active {
-    color: #fff; /* Change text color for active link */
-    background-color: #101010; /* Highlight color for active link */
-    border-radius: 4px; /* Optional: adds rounded corners */
+.pagination-controls button:disabled {
+background-color: #d1d1d1;
+cursor: not-allowed;
+
 }
- 
 
+.pagination-controls button:hover:not(:disabled) {
+background-color: #333;
+}
 
+.pagination-controls span {
+color: #333;
+font-weight: bold;
+}
 
-  
-
-  .title{
-    margin-bottom: 50px;
-    margin-top: 20px;
-    padding-bottom: 30px;
-    text-align: center;
-    position: relative;
-  }
-
-  .title1{
-    margin-top: 20px;
-    text-align: center;
-    position: relative;
-  }
   
   
   
-
-
-  .title p{
-    font-style: italic;
-    font-weight: 700;
-    margin: 0;
+    .navbar-nav .nav-item .nav-link {
+      transition: color 0.3s ease, background-color 0.3s ease;
+      margin: 2px;
   }
-  .title h1 span{
-    font-weight: 500;
-    color: #870000;
-    font-size: 30px;
-  }
-  .title h1{
-    font-weight: 500;
-    color: #000000;
-    font-size: 30px;
-  }
-
   
-
+  /* Hover Effect */
+  .navbar-nav .nav-item .nav-link:hover {
+      color: #fff; /* Change text color on hover */
+      background-color: #101010; /* Change background color on hover */
+      border-radius: 4px; /* Optional: adds rounded corners */
+  }
+  
+  /* Active Link Highlight */
+  .navbar-nav .nav-item .nav-link.active {
+      color: #fff; /* Change text color for active link */
+      background-color: #101010; /* Highlight color for active link */
+      border-radius: 4px; /* Optional: adds rounded corners */
+  }
+   
+  
+  
+  
     
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-}
-.timeline-container {
-  overflow-x: auto;
   
-}
-
-.image {
-  display: flex;
-  justify-content: flex-end; /* Align items to the right */
-  align-items: center; /* Optional: Align items vertically center */
-  padding: 10px; /* Optional: Add some padding if needed */
+    .title{
+      margin-bottom: 50px;
+      margin-top: 20px;
+      padding-bottom: 30px;
+      text-align: center;
+      position: relative;
+    }
   
-}
-
-.clickable-image {
-  width: 250px;
-  height: 143px;
-  cursor: pointer; /* Make it clear that the image is clickable */
-}
-
-
-.task {
-  margin: 40px;
-  position: relative;
-}
-.task::after {
-  content: '';
-  position: absolute;
-  width: 25px;
-  height: 30%;
-  background-color: white;
-  border: 4px solid #2196F3;
-  top: -10px;
-  top: 35%;
-  transform: translateX(-50%);
-  border-radius: 5px;
-  z-index: 2;
-}
-.content {
-  background-color: white;
-  padding: 15px;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-.task.ongoing::after {
-  background-color: #D17B0F;
-  border-color: #D17B0F;
-}
-.task.ongoing .content {
-  border-top: 4px solid #D17B0F;
-}
-.task.due::after {
-  background-color: #f40303;
-  border-color: #f40303;
-}
-.task.due .content {
-  border-top: 4px solid #f40303;
-}
-.task.complete::after {
-  background-color: #3bf403;
-  border-color: #3bf403;
-}
-.task.complete .content {
-  border-top: 4px solid #3bf403;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  flex-shrink: 0;
-}
-h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: #333;
-  font-size: 1em;
-}
-.date {
-  color: #777;
-  font-style: italic;
-  font-size: 0.8em;
-  margin-bottom: 10px;
-}
-p {
-  margin: 0;
-  font-size: 0.9em;
-  flex-grow: 1;
-}
-
-@media (max-width: 600px) {
+    .title1{
+      margin-top: 20px;
+      text-align: center;
+      position: relative;
+    }
+    
+    
+    
+  
+  
+    .title p{
+      font-style: italic;
+      font-weight: 700;
+      margin: 0;
+    }
+    .title h1 span{
+      font-weight: 500;
+      color: #870000;
+      font-size: 30px;
+    }
+    .title h1{
+      font-weight: 500;
+      color: #000000;
+      font-size: 30px;
+    }
+  
+    
+  
+      
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  .timeline-container {
+    overflow-x: auto;
+    
+  }
+  
+  .image {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center; /* Optional: Align items vertically center */
+    padding: 10px; /* Optional: Add some padding if needed */
+    
+  }
+  
+  .clickable-images {
+    width: 250px;
+    height: 143px;
+    cursor: pointer; /* Make it clear that the image is clickable */
+  }
+  
+  
   .task {
-      flex: 0 0 200px;
-      margin-right: 20px;
+    margin: 20px;
+    position: relative;
+  }
+  .task::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 30%;
+    background-color: white;
+    border: 4px solid #2196F3;
+    top: -10px;
+    top: 35%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    z-index: 2;
+  }
+  .content {
+    background-color: white;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+  .task.ongoing::after {
+    background-color: #D17B0F;
+    border-color: #D17B0F;
+  }
+  .task.ongoing .content {
+    border-top: 4px solid #D17B0F;
+  }
+  .task.due::after {
+    background-color: #f40303;
+    border-color: #f40303;
+  }
+  .task.due .content {
+    border-top: 4px solid #f40303;
+  }
+  .task.complete::after {
+    background-color: #3bf403;
+    border-color: #3bf403;
+  }
+  .task.complete .content {
+    border-top: 4px solid #3bf403;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
   }
   h2 {
-      font-size: 0.9em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1em;
   }
-  .date, p {
-      font-size: 0.8em;
+  .date {
+    color: #777;
+    font-style: italic;
+    font-size: 0.8em;
+    margin-bottom: 10px;
   }
-}
+  p {
+    margin: 0;
+    font-size: 0.9em;
+    flex-grow: 1;
+  }
+  
+  @media (max-width: 600px) {
+    .task {
+        flex: 0 0 200px;
+        margin-right: 20px;
+    }
+    h2 {
+        font-size: 0.9em;
+    }
+    .date, p {
+        font-size: 0.8em;
+    }
+  }
+
+  

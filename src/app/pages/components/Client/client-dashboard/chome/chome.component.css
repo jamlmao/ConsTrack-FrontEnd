@@ -58,8 +58,8 @@
 }
 
 .card{
-  margin: 14px;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
+  cursor: pointer;
 }
 
 .card-main{

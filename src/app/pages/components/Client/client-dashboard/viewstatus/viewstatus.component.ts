@@ -21,6 +21,8 @@ import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
 
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-viewstatus',
@@ -31,10 +33,53 @@ import Swal from 'sweetalert2';
 })
 export class ViewstatusComponent {
 
+
+  generatePDF() {
+    // Temporarily hide elements with the "no-pdf" class before generating the PDF
+    const elements = document.getElementsByClassName('no-pdf');
+    for (let i = 0; i < elements.length; i++) {
+      (elements[i] as HTMLElement).style.display = 'none';
+    }
+  
+    const data = document.getElementById('pdfContent');
+    
+    if (data) {
+      html2canvas(data).then(canvas => {
+        const imgWidth = 295;
+        const pageHeight = 208;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+  
+        const pdf = new jsPDF('l', 'mm', 'a4');
+        let position = 0;
+  
+        const imgData = canvas.toDataURL('image/png');
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+  
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+  
+        pdf.save('statement_of_work.pdf');
+  
+        // Restore the display property of elements with the "no-pdf" class
+        for (let i = 0; i < elements.length; i++) {
+          (elements[i] as HTMLElement).style.display = '';
+        }
+      });
+    }
+  }
+  
+
+
   events: any[] = [];
-  tasks: any[] = [];
+  tasks: any = {};
   sortedTask: any[] = [];
-  categories: { name: string, path: string }[] = [];
+  categories: any[] = [];
   totalAllocatedBudgetPerCategory:any[] = [];
   totalAllocatedBudget: number = 0;
   percentage: number = 0;
@@ -49,8 +94,8 @@ export class ViewstatusComponent {
 
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
-  private SortedUrl =`${this.url}`+'/api/sortedTask/'
-  private allTask = `${this.url}`+'/api/projectsTasks/';
+  private SortedUrl =`${this.url}`+'/api/sortedTask2/'
+  private allTask = `${this.url}`+'/api/Alltask';
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
   private updateProjectUrl = `${this.url}`+'/api/projects/';
@@ -66,20 +111,30 @@ export class ViewstatusComponent {
 
 
   ngOnInit(){
-    this.showLoading();
+
+      Swal.fire({
+        title: 'Loading...',
+        text: 'Please wait while we load the tasks.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(null);
+        }
+      });
+
+    
+
 
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
       console.log('Project ID:', this.projectIdNumber2);
+      
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
-        this.fetchSortedTask(projectIdNumber);
         this.fetchTaskByCategory(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
-        this.fetchAllTask(projectIdNumber);
-        this.initializeCategories();
+        this.fetchSortedTask(projectIdNumber);
      
       } else {
         console.error('Project ID is not set or is not a number');
@@ -87,60 +142,20 @@ export class ViewstatusComponent {
     });
 
 
+    this.fetchAllTask();
    
    
-  
-  }
-  showLoading() {
-    Swal.fire({
-      title: 'Loading...',
-      text: 'Please wait while we load the tasks.',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
-    });
   }
 
 
-  hideLoading() {
-    Swal.close();
+
+  initializeCategories(categories: any[]): void {
+    this.categories = categories;
   }
 
-  getStatusText(status: string): string {
-    switch (status) {
-      case 'C':
-        return 'Complete';
-      case 'OG':
-        return 'Ongoing';
-      case 'D':
-        return 'Due';
-      default:
-        return status;
-    }
-  }
 
-  initializeCategories(): void {
-    this.categories = [
-      { name: 'GENERAL REQUIREMENTS', path: this.generatePath('general') },
-      { name: 'SITE WORKS', path: this.generatePath('site') },
-      { name: 'CONCRETE & MASONRY WORKS', path: this.generatePath('metal') },
-      { name: 'METAL REINFORCEMENT WORKS', path: this.generatePath('forms') },
-      { name: 'FORMS & SCAFFOLDINGS', path: this.generatePath('steel') },
-      { name: 'TINSMITHRY WORKS', path: this.generatePath('tinsmithry') },
-      { name: 'PLASTERING WORKS', path: this.generatePath('plastering') },
-      { name: 'PAINTS WORKS', path: this.generatePath('paint') },
-      { name: 'PLUMBING WORKS', path: this.generatePath('plumbing') },
-      { name: 'ELECTRICAL WORKS', path: this.generatePath('electrical') },
-      { name: 'CEILING WORKS', path: this.generatePath('ceiling') },
-      { name: 'ARCHITECTURAL', path: this.generatePath('architectural') },
-    ];
-  }
 
-  generatePath(category: string): string {
-    return `${category}`;
-  }
-  
+
  
 
   constructor(
@@ -156,7 +171,15 @@ export class ViewstatusComponent {
   isArchiOpen = false;
   
 
-  sideBarOpen=false;
+
+
+
+
+
+
+
+
+  sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
@@ -168,11 +191,13 @@ export class ViewstatusComponent {
     this.isTaskOpen = true;
     console.log('Opening Task Modal');
     console.log(this.isTaskOpen);
+    this.sideBarOpen = false; 
   }
 
   closeTaskModal() {
     this.isTaskOpen = false;
     console.log('xd');
+    this.sideBarOpen = true; 
   }
 
   
@@ -208,20 +233,18 @@ export class ViewstatusComponent {
   }
   
   
-  fetchAllTask(projectId: number) { 
+  fetchAllTask() { 
     const token = localStorage.getItem('token'); 
     if (!token) {
       console.error('No token found in local storage');
       return;
     }
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-     console.log ('url:', this.allTask + `${projectId}`);
 
-    this.http.get(this.allTask + `${projectId}`, { headers }).subscribe(
+    this.http.get(this.allTask, { headers }).subscribe(
       (response: any) => {
         this.alltask = response.alltasks;
-        console.log('All tasks:', this.alltask);
-        this.hideLoading();
+        // console.log('All tasks:', this.alltask);
       }
     );
 
@@ -246,7 +269,6 @@ export class ViewstatusComponent {
         this.currentUserId = response.project.staff_id
         console.log('Current User ID:', this.currentUserId);
         console.log('Project Details:', this.projectDetails);
-        this.hideLoading();
       },
       (error) => {
         console.error('Failed to fetch project details', error);
@@ -265,14 +287,7 @@ export class ViewstatusComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    Swal.fire({
-      title: 'Loading...',
-      text: 'Please wait while we load the tasks.',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading(null);
-      }
-    });
+  
 
     this.http.get(this.TaskUrl + `${projectId}`,{headers}).subscribe(
       (response: any) => {
@@ -281,7 +296,7 @@ export class ViewstatusComponent {
         console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
         console.log('Total Allocated Budget:', this.totalAllocatedBudget);
-        this.hideLoading();
+       
        
       },
       (error) => {
@@ -291,9 +306,6 @@ export class ViewstatusComponent {
   }
 
 
-  selectProject(project: any) {
-    this.router.navigate(['/sowa', project.id]);
-  }
   
 
     
@@ -313,7 +325,7 @@ export class ViewstatusComponent {
       if (response && response.totalAllocatedBudgetPerCategory) {
         this.SortedTask = response.totalAllocatedBudgetPerCategory;
         console.log('Budget:', this.SortedTask);
-        this.hideLoading();
+      
         
         
       } else {
@@ -322,44 +334,63 @@ export class ViewstatusComponent {
     }
     );
   }
-  
- 
+
+
 
   fetchSortedTask(projectId: number) {
     const token = localStorage.getItem('token');
     
-    if (!token) {
+    if(!token){
       console.error('No token found in local storage');
       return;
     }
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
 
-    this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
-      (response: any) => {
-        if (response && response.tasks) {
-          this.sortedTask = response.tasks;
-          this.hideLoading();
-          this.categorizeTasks();
-          console.log('Sorted tasks:', this.sortedTask);
-        } else {
-          console.error('tasks not found in the response');
+  this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
+    (response: any) => { 
+      console.log('Full Response:', response); // Log the entire response
+      if (response && response.Category) {
+        const categories = response.Category;
+        this.sortedTask = [];
+
+        for (const categoryName in categories) {
+          if (categories.hasOwnProperty(categoryName)) {
+            const category = categories[categoryName];
+            if (category.tasks) {
+              this.sortedTask.push({
+                id:category.category_id,
+                name: categoryName,
+                tasks: category.tasks,
+                totalAllocatedBudget: category.totalAllocatedBudget,
+                previousCost: category.previous,
+                thisPeriodCost: category.thisperiod,
+                toDateCost: category.todate,
+                progress: category.progress
+              });
+            }
+          }
         }
-      },
-      (error) => {
-        console.error('Failed to fetch Sorted tasks', error);
+
+        console.log('Sorted Task:', this.sortedTask);
+      } else {
+        console.error('Category not found in the response');
       }
-    );
+    },
+    (error) => {
+      console.error('Failed to fetch categories', error);
+    }
+  );
+
+
   }
 
 
-  categorizeTasks() {
-    this.categories.forEach(category => {
-      this.categorizedTasks[category.name] = this.sortedTask.filter(task => task.pt_task_desc === category.name);
-    });
-  }
+  
+
 
   toRoman(num: number): string {
     const romanNumerals: [string, number][] = [
@@ -443,4 +474,30 @@ export class ViewstatusComponent {
   get progressPercentage(): number {
     return (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
   }
+
+  calculateProgress(categoryName: string): number {
+    const tasks = this.categorizedTasks[categoryName] || [];
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter(task => task.pt_status === 'C').length;
+
+    return totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
+}
+
+isCreateProjectModalOpen = false;
+selectedTaskId: number | null = null;
+selectedCategoryId: number | null = null;
+
+openCreateProjectModal(categoryId: number){
+  this.selectedCategoryId = categoryId;
+  this.isCreateProjectModalOpen = true;
+  console.log('Selected Category ID:', this.selectedCategoryId);
+  this.sideBarOpen = false;
+}
+
+closeCreateProjectModal() {
+   this.isCreateProjectModalOpen = false;
+    this.selectedTaskId = null;
+    this.selectedCategoryId = null;
+}
+
 }

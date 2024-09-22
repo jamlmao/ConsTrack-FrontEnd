@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute,Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from "@angular/material/button";
@@ -32,173 +32,140 @@ import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component
   styleUrl: './taskclientupdate.component.css'
 })
 export class TaskclientupdateComponent {
-  projects: any[] = [];
-  searchText:any;
-  user: any;
+  
 
-  isCreateProjectModalOpen = false;
+  events: any[] = [];
+  tasks: any = {};
+  resources: any[] = [];
+
+  alltask: any[] = [];
+  currentUserId: number = 0;
+  categoryName: string = '';
+
+  taskId :string = '';
+  task_image: any= {};
+  private url ="http://127.0.0.1:8000";
+  private allTask = `${this.url}`+'/api/tasks';
+  private ImagesUrl = `${this.url}`+'/api/taskImages/';
   
 
 
-  openCreateProjectModal() {
-    this.isCreateProjectModalOpen = true;
-    console.log('Opening Create Staff Project');
-    console.log(this.isCreateProjectModalOpen);
-  }
 
-  closeCreateProjectModal() {
-    this.isCreateProjectModalOpen = false;
-    console.log('xd');
-  }
- 
+  ngOnInit(){
+   
 
-  constructor(private router: Router , public dialog: MatDialog,private fb: FormBuilder, private http: HttpClient) { }
+    this.route.paramMap.subscribe(params => {
+      this.taskId = params.get('taskId')|| '';
+      const taskIdNumber = Number(this.taskId);
+      console.log('Task ID:', this.taskId);
+      if (!isNaN(taskIdNumber)) {
+        this.fetchAllTask(taskIdNumber);
+        this.fetchTaskImages(taskIdNumber);
+      } else {
+        console.error('Project ID is not set or is not a number');
+      }
+    });
 
-
-  ngOnInit(): void {
     
-    this.fetchClients(); // Fetch clients when the component is initialized
-    
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-    } else {
-      // If no user data is found, redirect to login
-      this.router.navigateByUrl('/');
-    }
-    this.fetchProjects(); // Fetch projects when the component is initialized
-    this.getLoggedInUserNameAndId(); //Fetch logged in user
+  
   }
 
-  
-
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
+getStatusText(status: string): string {
+  switch (status) {
+    case 'C':
+      return 'Complete';
+    case 'OG':
+      return 'Ongoing';
+    case 'D':
+      return 'Due';
+    default:
+      return status;
   }
-  
+}
 
-
-
-
-  project: any = {
-    site_location: '',
-    client_id: '',
-    completion_date: '',
-    starting_date: '',
-    totalBudget: 0,
-    pj_image: null,
-    pj_pdf: null
-  };
 
   
-
-  showForm = false;
-  clients: any[] = [];
-
-
-
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
-  
-  
-
-  openForm(): void {
-    this.showForm = true;
-  }
-
-  fetchClients(): void {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
-    });
-
-    this.http.get(this.clientsUrl, { headers }).subscribe(
-      (response: any) => {
-        this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
-      },
-      error => {
-        console.error('Error fetching clients', error);
-      }
-    );
-  }
- 
- 
-  
-  
-  
-
-
-
  
 
-
-  
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
-
-  selectedProject: any;
-  userS: any = {};
-
-  fetchProjects(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.projectsUrl, { headers }).subscribe(
-      (response: any) => {
-        this.projects = response;
-        console.log('Fetched projects:', this.projects);
-      },
-      error => {
-        console.error('Error fetching projects', error);
-      }
-    );
-  }
-
-  selectProject(project: any) {
-    this.router.navigate(['/project-details', project.id]);
-  }
+  constructor(
+        private router: Router, 
+        private route: ActivatedRoute,
+        private http: HttpClient,) { }
+      
+  isCreateClientModalOpen = false;
+  selectedTaskId: number | null = null;
+  isTaskOpen = false;
 
   
 
-  getLoggedInUserNameAndId(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.userUrl, { headers }).subscribe(
-      (response: any) => {
-        this.user = response;
-        console.log('Logged in user:', this.user);
-      },
-      error => {
-        console.error('Error fetching user details', error);
-      }
-    );
-  }
-
-  
   sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
+
+  
+ 
+
+  openTaskModal(taskId: number) {
+    this.selectedTaskId = taskId;
+    console.log('Selected task ID:', this.selectedTaskId);
+    this.isTaskOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isTaskOpen);
+  }
+
+  closeTaskModal() {
+    this.selectedTaskId = null;
+    this.isTaskOpen = false;
+    console.log('xd');
+  }
+
+  
+  fetchAllTask(taskId: number) { 
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+
+    const url = `${this.allTask}/${taskId}/resources`;
+
+    console.log('URL:', url);
+
+    this.http.get(this.allTask + `/${taskId}/resources`, { headers }).subscribe(
+      (response: any) => {
+       this.tasks = response.tasks;
+       this.categoryName = response.category_name;  
+       console.log('Category Name:', this.categoryName);
+       console.log('Tasks:', this.tasks);
+       this.resources = response.resources;
+       console.log('Resources:', this.resources);
+      }
+    );
+
+  }
+
+ 
+
+  fetchTaskImages(taskId: number) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.ImagesUrl+ `${taskId}`, {headers}).subscribe(
+      (response:any) =>{
+        this.task_image = response.images; 
+      }
+    )
+
+  }
+
+
 }
