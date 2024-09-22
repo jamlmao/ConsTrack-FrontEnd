@@ -151,7 +151,7 @@
                                             <mat-progress-bar mode="determinate" [value]="category.progress" color="accent"></mat-progress-bar>
                                           </td>
                                           <td class="no-pdf">
-                                            <a class="view" [routerLink]="['/task-details', category.id]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                           
                                             <a class="view" *ngIf="category.progress  !== 100"  (click)="openCreateProjectModal(category.id)" class="eye"><mat-icon>addition</mat-icon></a>
                                             <app-addtask *ngIf="isCreateProjectModalOpen"
                                             [categoryId]="selectedCategoryId!"  
@@ -170,6 +170,7 @@
                                             <div>{{ task.percentage | number: '1.2-2' }}%</div>
                                             <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
                                             </td>
+                                            <td> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a></td>
                                           </tr>
                                         </ng-container>
                                       </ng-container>
