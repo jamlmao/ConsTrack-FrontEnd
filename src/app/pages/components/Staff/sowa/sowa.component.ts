@@ -370,9 +370,9 @@ export class SowaComponent {
                 name: categoryName,
                 tasks: category.tasks,
                 totalAllocatedBudget: category.totalAllocatedBudget,
-                previousCost: category.previousCost,
-                thisPeriodCost: category.thisPeriodCost,
-                toDateCost: category.toDateCost,
+                previousCost: category.previous,
+                thisPeriodCost: category.thisperiod,
+                toDateCost: category.todate,
                 progress: category.progress
               });
             }

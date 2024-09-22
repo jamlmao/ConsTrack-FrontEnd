@@ -49,8 +49,9 @@ export class ArchiComponent {
   apiUrl: string ='';
   resources: any[] = [];  
   usedQty: string | number = '' ;
-  availableQty: number = 0;
-  selectedResource: any = null;
+  availableQty = 0;
+  selectedResources: { resourceId: number | null, quantity: number | null, isValid: boolean }[] = [{ resourceId: null, quantity: null, isValid: true }];
+  selectedResource: any;
   resource_id: number | null = null;
 
 
@@ -59,36 +60,78 @@ export class ArchiComponent {
   }
 
 
-  validateQty(): void {
-    if (typeof this.usedQty === 'string') {
-      this.usedQty = parseInt(this.usedQty, 10) || 0;
-    }
-    if (this.usedQty > this.availableQty) {
-      this.isFileSelected = false;
-    } else {
-      this.isFileSelected = true;
+  validateQty(index: number): void {
+    const selectedResource = this.selectedResources[index];
+    if (selectedResource && selectedResource.quantity !== null) {
+      const usedQty = typeof selectedResource.quantity === 'string' ? parseInt(selectedResource.quantity, 10) : selectedResource.quantity;
+      const resource = this.resources.find(res => res.id === selectedResource.resourceId);
+      if (resource && usedQty > resource.left_qty) {
+        selectedResource.isValid = false;
+      } else {
+        selectedResource.isValid = true;
+      }
     }
   }
 
-  onResourceChange(event: Event): void {
+
+  onResourceChange(event: Event, index: number): void {
     const selectElement = event.target as HTMLSelectElement;
-    const selectedResourceId =  Number(selectElement.value);;
+    const selectedResourceId = Number(selectElement.value);
     this.selectedResource = this.resources.find(resource => resource.id === selectedResourceId);
-  
+
     if (this.selectedResource) {
-      this.availableQty = this.selectedResource.left_qty; 
+      this.availableQty = this.selectedResource.left_qty;
       this.resource_id = this.selectedResource.id;
     } else {
       this.availableQty = 0;
       console.error('Selected resource not found');
     }
+
+    // Ensure the selectedResources array has an element at the specified index
+    if (!this.selectedResources[index]) {
+      this.selectedResources[index] = { resourceId: null, quantity: null, isValid: true };
+    }
+
+    // Check for duplicates
+    const duplicateIndex = this.selectedResources.findIndex(
+      (resource, i) => resource.resourceId === selectedResourceId && i !== index
+    );
+    if (duplicateIndex !== -1) {
+      // Remove the duplicate
+      this.selectedResources.splice(duplicateIndex, 1);
+    }
+    this.selectedResources[index].resourceId = selectedResourceId;
+
+    // Ensure the quantity input is enabled
+    if (this.selectedResources[index].quantity === null) {
+      this.selectedResources[index].quantity = 0;
+    }
+
+    // Validate the quantity
+    this.validateQty(index);
   }
 
+  addResource() {
+    this.selectedResources.push({ resourceId: null, quantity: 0, isValid: true });
+  }
 
-  clearDefaultValue(): void {
+  removeResource(index: number) {
+    this.selectedResources.splice(index, 1);
+  }
+
+  clearDefaultValue(index: number): void {
     if (this.usedQty === 0) {
       this.usedQty = '';
     }
+  }
+
+  getFilteredResources(index: number): any[] {
+    const selectedResourceIds = this.selectedResources.map(resource => resource.resourceId);
+    return this.resources.filter(resource => !selectedResourceIds.includes(resource.id) || this.selectedResources[index].resourceId === resource.id);
+  }
+
+  isFormValid(): boolean {
+    return this.isFileSelected && this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
   }
 
   ngOnInit(): void {
@@ -133,16 +176,16 @@ export class ArchiComponent {
   
             // Ensure tasks is an object with string keys and string values
             this.tasks[field] = base64Content;
+            console.log(`Base64 content for ${field} stored successfully.`);
           } else {
             console.error('The file content is not a valid base64 encoded string.');
-            
           }
         }
       };
       reader.readAsDataURL(file);
     } else {
-      console.warn('No file selected or file is not accessible');
-      this.isFileSelected = false;  
+      this.isFileSelected = false;
+      console.error('No file selected.');
     }
   }
 
@@ -186,21 +229,19 @@ export class ArchiComponent {
       return;
     }
 
-    if (this.resource_id === null || this.usedQty === 0) {
+    if (this.selectedResources.length === 0 || this.selectedResources.some(resource => resource.resourceId === null || resource.quantity === null || resource.quantity === 0)) {
       console.error('Resource ID or used quantity is missing');
       return;
     }
-    const resources = [
-      {
-        resource_id: this.resource_id,
-        used_qty: this.usedQty
-      }
-    ];
+
+    const resources = this.selectedResources.map(resource => ({
+      resource_id: resource.resourceId,
+      used_qty: resource.quantity
+    }));
 
     const formData = {
       task_id: this.selectedTaskId,
       resources: resources,
-      update_img: this.isChecklistChecked ? 'update_img' : 'placeholder_image'
     };
 
     const payload = { ...this.tasks, ...formData };
