@@ -32,11 +32,16 @@ export class CreateProjectComponent {
     site_province: '',
     site_address: '',
     project_name: '',
+    project_type: '',
     client_id: '',
     completion_date: '',
     starting_date: '',
     totalBudget: 0,
     pj_image: null,
+    pj_image1: null,
+    pj_image2: null,
+    pj_image3: null,
+    pj_image4: null,
     pj_pdf: null
   };
 
