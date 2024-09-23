@@ -40,12 +40,13 @@ export class ArchiComponent {
 
 
 
-
+  user:any = {};
   tasks: any = {};
   selectedTaskId: number | null = null;
   private baseUrl = 'http://127.0.0.1:8000/'
   private updateTaskUrl = this.baseUrl+'api/updatetask/';
   private resourceUrl = this.baseUrl+'api/tasks/';
+  private userUrl = this.baseUrl+'api/user/details';
   apiUrl: string ='';
   resources: any[] = [];  
   usedQty: string | number = '' ;
@@ -53,7 +54,7 @@ export class ArchiComponent {
   selectedResources: { resourceId: number | null, quantity: number | null, isValid: boolean }[] = [{ resourceId: null, quantity: null, isValid: true }];
   selectedResource: any;
   resource_id: number | null = null;
-
+  staffId: number | null = null;
 
   toggleChecklist(event: Event): void {
     this.isChecklistChecked = (event.target as HTMLInputElement).checked;
@@ -148,6 +149,16 @@ export class ArchiComponent {
       this.taskId = Number(params.get('taskId')) || null;
       const taskIdNumber = Number(this.taskId);
       console.log('Task ID:', this.taskId);
+      const userData = localStorage.getItem('user');
+      if (!userData) {
+        console.error('No user data found in local storage');
+        return;
+      }
+      this.user = JSON.parse(userData);
+      console.log('User data:', this.user);
+     this.getLoggedInUserNameAndId();
+     console.log('User profile_id property:', this.user.profile_id);
+     this.staffId = this.user.profile_id;
       if (!isNaN(taskIdNumber)) {
         this.selectedTaskId = taskIdNumber;
         this.fetchResource(taskIdNumber);
@@ -220,6 +231,29 @@ export class ArchiComponent {
   }
   
 
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+        console.log('Logged in user:', this.user);
+
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
+
 
   onSubmit(): void {
     const token = localStorage.getItem('token');
@@ -244,7 +278,7 @@ export class ArchiComponent {
       resources: resources,
     };
 
-    const payload = { ...this.tasks, ...formData };
+    const payload = { ...this.tasks, ...formData,profile_id: this.staffId };
     console.log('Payload:', payload);
 
 
@@ -256,7 +290,7 @@ export class ArchiComponent {
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
-          window.location.reload();
+          // window.location.reload();
         });
     this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
         console.log('Task updated successfully', response);

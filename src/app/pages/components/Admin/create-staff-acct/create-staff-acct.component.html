@@ -150,30 +150,25 @@
                  
                   </div>
                   <div class="col-md-4">
-                    <label for="example-text-input" class="form-control-label"
-                      >Select Company Name</label
-                    >
-                    <input class="form-control" placeholder="Company Name" type="tel" id="phone_number" [(ngModel)]="staff.company_name" name="phone_number" #coControl="ngModel" required>
-               
-                
-
-                 
-                 
+                    <label for="company-select" class="form-control-label">Select Company:</label>
+                    <select class="form-control" id="company-select" [(ngModel)]="selectedCompany" name="selectedCompany">
+                      <option *ngFor="let company of companies" [value]="company.company_name">{{ company.company_name }}</option>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
                   
-
-                  <div class="col-md-4">
-                    <label for="example-text-input" class="form-control-label"
-                      >Input Company Name if not listed:</label
-                    >
-                    <input class="form-control" placeholder="Company Name" type="tel" id="phone_number" [(ngModel)]="staff.company_name" #companyControl="ngModel" name="company_name" required>
-                <div *ngIf="coControl.errors?.['required']" class="text-danger mb-3">Company name is required.*</div>
-                
-
-                 
-                 
+                  <div *ngIf="selectedCompany === 'Other'">
+                    <div class="col-md-4">
+                      <label for="company-name-input" class="form-control-label">Input Company Name if not listed:</label>
+                      <input class="form-control" placeholder="Company Name" type="text" id="company-name-input" [(ngModel)]="staff.company_name" #companyControl="ngModel" name="company_name" required>
+                      <div *ngIf="companyControl.errors?.['required']" class="text-danger mb-3">Company name is required.*</div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                      <label for="company-logo-input" class="form-control-label">Company Logo:</label>
+                      <input placeholder="Company Logo" class="form-control" type="file" id="company-logo-input" (change)="onFileChange($event, 'company_logo')" matTooltip="Upload photos for starting a task" required>
+                    </div>
                   </div>
-
                   
                   
                   <div class="d-flex align-items-center justify-content-between py-3">
