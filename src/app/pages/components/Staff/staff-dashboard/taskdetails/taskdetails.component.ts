@@ -41,12 +41,13 @@ export class TaskdetailsComponent {
   alltask: any[] = [];
   currentUserId: number = 0;
   categoryName: string = '';
-
+  used_resources:any[] = [];
   taskId :string = '';
   task_image: any= {};
   private url ="http://127.0.0.1:8000";
   private allTask = `${this.url}`+'/api/tasks';
   private ImagesUrl = `${this.url}`+'/api/taskImages/';
+  private usedResourcesUrl = `${this.url}`+'/api/tasks/';
   
 
 
@@ -61,6 +62,7 @@ export class TaskdetailsComponent {
       if (!isNaN(taskIdNumber)) {
         this.fetchAllTask(taskIdNumber);
         this.fetchTaskImages(taskIdNumber);
+        this.fetchUsedResources(taskIdNumber);
       } else {
         console.error('Project ID is not set or is not a number');
       }
@@ -147,6 +149,29 @@ getStatusText(status: string): string {
   }
 
  
+  fetchUsedResources(taskId: number) {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`});
+  
+     this.http.get(this.usedResourcesUrl + `${taskId}/used-resources`, {headers}).subscribe((response : any) => {
+      this.used_resources = response.used_resources;
+      console.log('Used Resources:', this.used_resources);
+     });
+      
+}
+
+
+
+
+
+
 
   fetchTaskImages(taskId: number) {
     const token = localStorage.getItem('token');
@@ -162,6 +187,7 @@ getStatusText(status: string): string {
     this.http.get(this.ImagesUrl+ `${taskId}`, {headers}).subscribe(
       (response:any) =>{
         this.task_image = response.images; 
+        console.log('Task Image:', this.task_image);
       }
     )
 

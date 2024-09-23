@@ -23,11 +23,6 @@ export class ArchiComponent {
 
   isFileSelected: boolean = false;  // To track if a file is selected
   @Input() categoryId!: number;
-
-  
-
-  
-
   @Input() taskId: number | null = null;
   @Output() close = new EventEmitter<void>();
   
@@ -40,12 +35,15 @@ export class ArchiComponent {
 
 
 
-
+  user:any = {};
   tasks: any = {};
   selectedTaskId: number | null = null;
   private baseUrl = 'http://127.0.0.1:8000/'
   private updateTaskUrl = this.baseUrl+'api/updatetask/';
   private resourceUrl = this.baseUrl+'api/tasks/';
+  private userUrl = this.baseUrl+'api/user/details';
+  private task = `${this.baseUrl}`+'api/tasks';
+  status: string = '';
   apiUrl: string ='';
   resources: any[] = [];  
   usedQty: string | number = '' ;
@@ -53,7 +51,7 @@ export class ArchiComponent {
   selectedResources: { resourceId: number | null, quantity: number | null, isValid: boolean }[] = [{ resourceId: null, quantity: null, isValid: true }];
   selectedResource: any;
   resource_id: number | null = null;
-
+  staffId: number | null = null;
 
   toggleChecklist(event: Event): void {
     this.isChecklistChecked = (event.target as HTMLInputElement).checked;
@@ -131,8 +129,11 @@ export class ArchiComponent {
   }
 
   isFormValid(): boolean {
-    return this.isFileSelected && this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
-  }
+    const allTasksUsed = this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
+    const statusOngoing = this.status === 'OG';
+    
+    return this.isFileSelected && (allTasksUsed || statusOngoing);
+}
 
   ngOnInit(): void {
     Swal.fire({
@@ -148,9 +149,21 @@ export class ArchiComponent {
       this.taskId = Number(params.get('taskId')) || null;
       const taskIdNumber = Number(this.taskId);
       console.log('Task ID:', this.taskId);
+      const userData = localStorage.getItem('user');
+      if (!userData) {
+        console.error('No user data found in local storage');
+        return;
+      }
+      this.user = JSON.parse(userData);
+      console.log('User data:', this.user);
+     this.getLoggedInUserNameAndId();
+   
+     this.staffId = this.user.profile_id;
+     console.log('Staff ID:', this.staffId);
       if (!isNaN(taskIdNumber)) {
         this.selectedTaskId = taskIdNumber;
         this.fetchResource(taskIdNumber);
+        this.fetchStatus(taskIdNumber);
       }
     });
     this.apiUrl = this.updateTaskUrl + this.taskId;
@@ -190,7 +203,20 @@ export class ArchiComponent {
   }
 
 
-  
+  fetchStatus(taskId: number):void{
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+
+    this.http.get(this.task + `/${taskId}/resources`, { headers }).subscribe((response: any) => {
+        this.status = response.tasks.pt_status;
+        console.log('Status:', this.status);
+    }
+  );
+  }
 
 
   fetchResource(taskId: number): void {
@@ -220,6 +246,29 @@ export class ArchiComponent {
   }
   
 
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+        console.log('Logged in user:', this.user);
+
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
+
 
   onSubmit(): void {
     const token = localStorage.getItem('token');
@@ -244,7 +293,7 @@ export class ArchiComponent {
       resources: resources,
     };
 
-    const payload = { ...this.tasks, ...formData };
+    const payload = { ...this.tasks, ...formData, staff: this.staffId };
     console.log('Payload:', payload);
 
 
@@ -256,7 +305,7 @@ export class ArchiComponent {
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
-          window.location.reload();
+          // window.location.reload();
         });
     this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
         console.log('Task updated successfully', response);

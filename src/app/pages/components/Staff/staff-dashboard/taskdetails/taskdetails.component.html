@@ -70,7 +70,7 @@
                     
                         <!-- Estimated Materials Section -->
                         <div class="table-wrapper card p-4 mb-4">
-                            <h2>Estimated Resources <button class="btn btn-outline-dark" style="margin-left: 20px;"  (click)="openTaskModal(tasks.id)" >
+                            <h2 *ngIf="tasks.pt_status !== 'C'">Estimated Resources <button class="btn btn-outline-dark" style="margin-left: 20px;"  (click)="openTaskModal(tasks.id)" >
                                 Update Task
                                  
                                   </button>
@@ -84,7 +84,7 @@
                                         <th>#</th>
                                         <th>Resources Name</th>
                                         <th>Quantity</th>
-                                        <th>Used</th>
+                                        <th>Resources Left</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,7 +92,7 @@
                                         <td>{{i + 1}}</td>
                                         <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
                                         <td>{{resource.qty}}</td>
-                                        <td>{{resource.total_used_resources}}</td>
+                                        <td>{{resource.left_qty}}</td>
                                         
                                     </tr>
                                 </tbody>
@@ -100,7 +100,40 @@
                         </div>
                     
                         <!-- Used Materials Section -->
-                        
+                        <div class="table-wrapper card p-4 mb-4">
+                            <h2>Resources</h2>   
+                            
+                            <table class="table modern-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Resources Name</th>
+                                        <th>Resources Used</th>
+                                        <th>Staff</th>
+                                        <th>Used At</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let use of used_resources; let i =index">
+                                        <td>{{i + 1}}</td>
+                                        <td style="text-transform: uppercase;">{{use.used_resource_name}}</td>
+                                        <td>{{use.resource_qty}}</td>
+                                        <td style="text-transform: uppercase;">{{use.first_name}} {{use.last_name}}</td>
+                                        <td>{{use.created_at | date:'MM-dd-yyyy'}}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
+
+
                     </div>
                     
                     <div class="container">
@@ -110,6 +143,7 @@
                                 <img [src]="'http://localhost:8000' + task_image.week1_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week1_img_uploaded_at}}</strong></h3>
+                                    <h3><strong>Week 1</strong></h3>
                                 </div>
                             </div>
                     
@@ -118,6 +152,7 @@
                                 <img [src]="'http://localhost:8000' + task_image.week2_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week2_img_uploaded_at}}</strong></h3>
+                                    <h3><strong>Week 2</strong></h3>
                                 </div>
                             </div>
                     
@@ -126,6 +161,7 @@
                                 <img [src]="'http://localhost:8000' + task_image.week3_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week3_img_uploaded_at}}</strong></h3>
+                                    <h3><strong>Week 3</strong></h3>
                                 </div>
                             </div>
 
@@ -135,6 +171,7 @@
                                 <img [src]="'http://localhost:8000' + task_image.week4_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week4_img_uploaded_at}}</strong></h3>
+                                    <h3><strong>Week 4</strong></h3>
                                 </div>
                             </div>
 
@@ -144,6 +181,7 @@
                                 <img [src]="'http://localhost:8000' + task_image.week5_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week5_img_uploaded_at}}</strong></h3>
+                                    <h3><strong>Week 5</strong></h3>
                                 </div>
                             </div>
 
@@ -153,6 +191,7 @@
                                 <img [src]="'http://localhost:8000' + task_image.update_img"  alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.update_img_uploaded_at}}</strong></h3>
+                                    <h3><strong>Completed</strong></h3>
                                 </div>
                             </div>
                         </div>
