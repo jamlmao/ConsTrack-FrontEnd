@@ -23,11 +23,6 @@ export class ArchiComponent {
 
   isFileSelected: boolean = false;  // To track if a file is selected
   @Input() categoryId!: number;
-
-  
-
-  
-
   @Input() taskId: number | null = null;
   @Output() close = new EventEmitter<void>();
   
@@ -47,6 +42,8 @@ export class ArchiComponent {
   private updateTaskUrl = this.baseUrl+'api/updatetask/';
   private resourceUrl = this.baseUrl+'api/tasks/';
   private userUrl = this.baseUrl+'api/user/details';
+  private task = `${this.baseUrl}`+'api/tasks';
+  status: string = '';
   apiUrl: string ='';
   resources: any[] = [];  
   usedQty: string | number = '' ;
@@ -132,8 +129,11 @@ export class ArchiComponent {
   }
 
   isFormValid(): boolean {
-    return this.isFileSelected && this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
-  }
+    const allTasksUsed = this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
+    const statusOngoing = this.status === 'OG';
+    
+    return this.isFileSelected && (allTasksUsed || statusOngoing);
+}
 
   ngOnInit(): void {
     Swal.fire({
@@ -157,11 +157,13 @@ export class ArchiComponent {
       this.user = JSON.parse(userData);
       console.log('User data:', this.user);
      this.getLoggedInUserNameAndId();
-     console.log('User profile_id property:', this.user.profile_id);
+   
      this.staffId = this.user.profile_id;
+     console.log('Staff ID:', this.staffId);
       if (!isNaN(taskIdNumber)) {
         this.selectedTaskId = taskIdNumber;
         this.fetchResource(taskIdNumber);
+        this.fetchStatus(taskIdNumber);
       }
     });
     this.apiUrl = this.updateTaskUrl + this.taskId;
@@ -201,7 +203,20 @@ export class ArchiComponent {
   }
 
 
-  
+  fetchStatus(taskId: number):void{
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+
+    this.http.get(this.task + `/${taskId}/resources`, { headers }).subscribe((response: any) => {
+        this.status = response.tasks.pt_status;
+        console.log('Status:', this.status);
+    }
+  );
+  }
 
 
   fetchResource(taskId: number): void {
@@ -278,7 +293,7 @@ export class ArchiComponent {
       resources: resources,
     };
 
-    const payload = { ...this.tasks, ...formData,profile_id: this.staffId };
+    const payload = { ...this.tasks, ...formData, staff: this.staffId };
     console.log('Payload:', payload);
 
 
