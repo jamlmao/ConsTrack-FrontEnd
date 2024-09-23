@@ -1,51 +1,172 @@
+
 <app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
 <mat-drawer-container>
     <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-clientsidenav></app-clientsidenav>
     </mat-drawer>
     <mat-drawer-content>
-        
         <router-outlet></router-outlet>
-        <div class="row">
-            <div class="container-fluid align-items-center">
-
-                <div class="title">
-                    <h1><span>PROJECT</span> TASK <span>UPDATE</span></h1>      
-                </div>
-                
-                </div>
+        
+           <section class="">
+            <div class="container">
 
                 
-          
-         
-          
-          
-        </div>
-        
+               
 
-        
-        
+                <body >
+                    <main>
+                      
+                        
+                      
+                
+                       
+                       
+                        
+                        
+                        
+                       
+                      <div class="title" style="margin-top: 10px;">
+                        <h1><span>ACCOMPLISHMENTS</span> TABLE</h1>
+                        
 
-            
-        <div class="projects-container" style="margin-top: -20px;">
-            
-            
-            <div *ngFor="let project of projects | filter:searchText" class="cards project-item">
-                <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                <div class="project-details">
-                    <h3><strong>BedRoom/CR/Hallway/Window</strong></h3>
+                        
+                    </div>
+                     
+                          
+                    </main>
+
+                    <div class="container">
+                        <!-- Task Details Header -->
+                        <div class="task-header card p-4 mb-4">
+                          
+                            <div class="task-info-grid">
+                                <div class="info-item">
+                                    <strong>Task Name:</strong>
+                                    <span style="text-transform: uppercase;">{{tasks.pt_task_name}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Task Category:</strong>
+                                    <span style="text-transform: uppercase;">{{categoryName}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Starting Date:</strong>
+                                    <span>{{tasks.pt_starting_date | date:'MM-dd-yyyy'}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Completion Date:</strong>
+                                    <span>{{tasks.pt_completion_date | date:'MM-dd-yyyy'}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Status:</strong>
+                                    <span [ngClass]="{
+                                        'badge-ongoing': getStatusText(tasks.pt_status) === 'Ongoing',
+                                        'badge-complete': getStatusText(tasks.pt_status) === 'Complete',
+                                        'badge-due': getStatusText(tasks.pt_status) === 'Due'
+                                    }" class="badge">{{getStatusText(tasks.pt_status)}}</span>
+                                    
+                                </div>
+                            </div>
+                        </div>
                     
-                   
-                </div>
+                        <!-- Estimated Materials Section -->
+                        <div class="table-wrapper card p-4 mb-4">
+                            <h2>Estimated Resources</h2>
+                            
+                            <table class="table modern-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Resources Name</th>
+                                        <th>Quantity</th>
+                                        <th>Used</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let resource of resources; let i =index">
+                                        <td>{{i + 1}}</td>
+                                        <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td>{{resource.total_used_resources}}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                        <!-- Used Materials Section -->
+                        
+                    </div>
+                    
+                    <div class="container">
+                        <div class="cards-container d-flex flex-wrap justify-content-center">
+                            <!-- Project Item 1 -->
+                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week1_img ">
+                                <img [src]="'http://localhost:8000' + task_image.week1_img" alt="Project Image" class="card-image">
+                                <div class="project-details">
+                                    <h3><strong>{{task_image.week1_img_uploaded_at}}</strong></h3>
+                                </div>
+                            </div>
+                    
+                            <!-- Project Item 2"  -->
+                            <div class="cards project-item card-custom m-3"*ngIf="task_image.week2_img ">
+                                <img [src]="'http://localhost:8000' + task_image.week2_img" alt="Project Image" class="card-image">
+                                <div class="project-details">
+                                    <h3><strong>{{task_image.week2_img_uploaded_at}}</strong></h3>
+                                </div>
+                            </div>
+                    
+                            <!-- Project Item 3 -->
+                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week3_img">
+                                <img [src]="'http://localhost:8000' + task_image.week3_img" alt="Project Image" class="card-image">
+                                <div class="project-details">
+                                    <h3><strong>{{task_image.week3_img_uploaded_at}}</strong></h3>
+                                </div>
+                            </div>
+
+
+
+                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week4_img ">
+                                <img [src]="'http://localhost:8000' + task_image.week4_img" alt="Project Image" class="card-image">
+                                <div class="project-details">
+                                    <h3><strong>{{task_image.week4_img_uploaded_at}}</strong></h3>
+                                </div>
+                            </div>
+
+
+
+                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week5_img ">
+                                <img [src]="'http://localhost:8000' + task_image.week5_img" alt="Project Image" class="card-image">
+                                <div class="project-details">
+                                    <h3><strong>{{task_image.week5_img_uploaded_at}}</strong></h3>
+                                </div>
+                            </div>
+
+
+
+                            <div class="cards project-item card-custom m-3" *ngIf="task_image.update_img ">
+                                <img [src]="'http://localhost:8000' + task_image.update_img"  alt="Project Image" class="card-image">
+                                <div class="project-details">
+                                    <h3><strong>{{task_image.update_img_uploaded_at}}</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                 
+                 
+                </body>
+               
                 
+               
+             
             </div>
-        </div>
-       
-        
-          
             
-                
-                <router-outlet></router-outlet>
+          
+           </section>
+           
+
+       
+          
             
         
         <router-outlet></router-outlet>

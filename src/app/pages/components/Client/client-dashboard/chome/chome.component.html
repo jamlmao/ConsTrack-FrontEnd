@@ -1,34 +1,58 @@
 <app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
 <mat-drawer-container>
-    <mat-drawer mode="over" [opened]="sideBarOpen">
+    <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-clientsidenav></app-clientsidenav>
     </mat-drawer>
     <mat-drawer-content>
         
         
         
-           <div class="container">
+           <div>
             <div class="title">
-                <p>Welcome to your Project</p>
-                <h1><span>PROJECT</span> BLUEPRINT</h1>
-
+                <p>Welcome to your projects</p>
+              
                 
 
                 
             </div>
-                <div class="card" *ngFor="let project of projects" (click)="selectProject(project)" style="margin-top: -60px;">
-                    
-                   <img [src]="'http://localhost:8000'+ project.pj_image" alt="profile_image">
-                    <div class="justify-content-between" style="margin-top: 2px;">
-                        <p><span style="text-transform:uppercase" class="text-center">{{project.project_name}}</span> </p>
-                        <p><span style="text-transform:uppercase" class="text-center">{{project.starting_date}} - {{project.completion_date}}</span> </p>
-                    
+            <div class="container" style="margin-top: -20px;">
+                <!-- Task Details Header -->
+                <div class="task-header card p-4 mb-4" *ngFor="let project of projects" (click)="selectProject(project)" >
+                  
+                    <div class="task-info-grid">
+                        <div class="info-item">
+                            <strong>Project Name:</strong>
+                            <span style="text-transform: uppercase;margin-bottom: 30px;">{{ project.project_name }}</span>
+                            <strong>Project Status:</strong>
+                            <span>{{ project.status }}</span>
+                            
+                        </div>
                         
+                        <div class="info-item">
+                            <strong>Starting Date:</strong>
+                            <span style="margin-bottom: 30px;">{{ project.starting_date }}</span>
+                            <strong>Completion Date:</strong>
+                            <span>{{ project.completion_date }}</span>
+                        </div>
+                       
+                        <div class="info-item">
+                            <strong>Project Image:</strong>
+                            <span><img [src]="'http://localhost:8000' + project.pj_image" alt="project_image" style="width: 100%;" /> </span>
+                            
+                        </div>
                     </div>
-                    
-                    
-
                 </div>
+            
+                <!-- Estimated Materials Section -->
+               
+            
+                <!-- Used Materials Section -->
+                
+            </div>
+        
+              
+              
+              
            </div>
         
             

@@ -125,7 +125,7 @@ export class ChomeComponent {
 
 
   selectProject(project: any) {
-    this.router.navigate(['client/clientproject', project.id]);
+    this.router.navigate(['client/viewstatus', project.id]);
   }
 
 
@@ -153,7 +153,7 @@ export class ChomeComponent {
     console.log('xd');
   }
 
-  sideBarOpen=false;
+  sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }

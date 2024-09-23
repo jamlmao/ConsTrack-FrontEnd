@@ -23,7 +23,7 @@
                         <label for="example-text-input" class="form-control-label"
                           >Project Type:</label
                         >
-                        <select class="form-control" id="project_name" [(ngModel)]="project.project_name" name="project_name"  required>
+                        <select class="form-control" id="project_name" [(ngModel)]="project.project_type" name="project_name"  required>
                           <option value="Residential">Residential</option>
                             <option value="Commercial">Commercial</option>
                             <option value="Institutional">Institutional</option>
@@ -36,7 +36,7 @@
                         <label for="example-text-input" class="form-control-label"
                           >Project Name:</label
                         >
-                        <input class="form-control"  id="site_address" [(ngModel)]="project.site_address" name="site_address"  placeholder="Address" type="text" required/>
+                        <input class="form-control"  id="site_address" [(ngModel)]="project.project_name" name="site_address"  placeholder="Project Name" type="text" required/>
                       </div>
                       <div class="col-md-4">
                         <label for="example-text-input" class="form-control-label"

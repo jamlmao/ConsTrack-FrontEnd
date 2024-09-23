@@ -43,6 +43,7 @@ export class StafftoolbarComponent {
   isCreateClientModalOpen = false;
   private baseUrl = 'http://127.0.0.1:8000/';
   private logoutUrl = this.baseUrl+'api/logout';
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -56,6 +57,8 @@ export class StafftoolbarComponent {
       this.router.navigateByUrl('/');
     }
     this.fetchNotifications(); // Fetch notifications when the component is initialized
+    
+    this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
   
   loadMessages(): void {
@@ -96,6 +99,27 @@ export class StafftoolbarComponent {
       hour12: true
     };
     return new Intl.DateTimeFormat('en-US', options).format(date);
+  }
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+        console.log('Logged in user:', this.user);
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
   }
 
 
