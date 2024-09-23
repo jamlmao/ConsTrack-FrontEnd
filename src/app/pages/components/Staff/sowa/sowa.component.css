@@ -78,20 +78,52 @@
     }
 
 
-    .image-container {
-      width: 100%; /* Ensures the container takes up full width */
-    }
-    
-    .scrollable-image {
-      width: 100%; /* Full width of the container */
-      height: 430px; /* Fixed height */
-      overflow-y: scroll; /* Adds vertical scroll when the content exceeds the height */
-    }
-    
-    .clickable-image {
-      width: 100%; /* Image width will be 100% of the container's width */
-      height: auto; /* Keeps the image's aspect ratio */
-    }
+     
+/* Add the fade-in and fade-out effect */
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+/* Make the active item visible */
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+}
+
+/* Container for the carousel images */
+.image-container {
+  width: 100%; /* Ensures the container takes up full width */
+  background-color: rgb(16, 15, 15);
+}
+
+/* Scrollable image container */
+.scrollable-image {
+  width: 100%; /* Full width of the container */
+  height: 450px; /* Fixed height */
+}
+
+/* Clickable image */
+.clickable-image {
+  width: 100%; /* Image width will be 100% of the container's width */
+  max-height: 450px; /* Restricts the height */
+  object-fit: contain; /* Ensures the image fits inside without being cropped */
+  cursor: pointer; /* Makes the image clickable */
+}
+
+/* Carousel control buttons */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  border-radius: 50%; /* Round the icons */
+}
+
+.carousel-indicators button {
+  background-color: rgba(0, 0, 0, 0.5); /* Customize the indicator buttons */
+  border-radius: 50%;
+}
+
+
 
 
 

@@ -29,6 +29,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 export class ClienttoolbarComponent {
 
   messages: any[] = []; // Adjust type according to your JSON structure
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
 
   // Example JSON array
   private initialMessages = [
@@ -69,6 +70,29 @@ export class ClienttoolbarComponent {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
+    
+    this.getLoggedInUserNameAndId(); //Fetch logged in user
+  }
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+        console.log('Logged in user:', this.user);
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
   }
   
   logout(): void {

@@ -106,7 +106,7 @@ export class FeedbackComponent {
     console.log('xd');
   }
 
-  sideBarOpen=false;
+  sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }

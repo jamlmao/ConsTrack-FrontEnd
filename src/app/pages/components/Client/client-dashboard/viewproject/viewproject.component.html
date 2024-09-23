@@ -29,46 +29,35 @@
                        
                         
                         <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: -80px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
-                        <div class="d-flex justify-content-center ">
-                 
-                          <div class="carousel slide" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="3000">
+                        <div class="d-flex justify-content-center">
+                          <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
                               <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                               </div>
-                            
                               <div class="carousel-inner">
-                                <div class="carousel-item active scrollable-image">
-                                  <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
-                                </div>
-                                <div class="carousel-item scrollable-image">
-                                  <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
-                                </div>
-                                <div class="carousel-item scrollable-image">
-                                  <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
-                                </div>
+                                  <div class="carousel-item active scrollable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
+                                  </div>
+                                  <div class="carousel-item scrollable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                  </div>
+                                  <div class="carousel-item scrollable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                  </div>
                               </div>
-                            
-                              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                              </button>
-                            
-                              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                              </button>
-                            </div>
+                             
+                          </div>
                       </div>
                         
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white py-5" style="margin-top: 20px;">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-white py-5" style="margin-top: 30px;">
                           
                           <div class="container">
                               
 
                               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                              <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 100px;margin-top: -90px;">
+                              <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 0px;margin-top: -70px;">
                                   <ul class="navbar-nav mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
                                     <li class="nav-item">
                                       <a class="nav-link" [routerLink]="['/client/viewstatus', projectDetails.id]" routerLinkActive="active">SOWA</a>
