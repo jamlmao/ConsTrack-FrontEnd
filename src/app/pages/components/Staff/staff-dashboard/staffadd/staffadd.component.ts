@@ -221,6 +221,7 @@ pageSize: number = 1; // Example page siz
       project.client.first_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
       project.client.last_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
       project.project_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.project_type.toLowerCase().includes(this.searchText.toLowerCase()) ||
       project.starting_date.toLowerCase().includes(this.searchText.toLowerCase()) ||
       project.completion_date.toLowerCase().includes(this.searchText.toLowerCase()) ||
       project.status.toLowerCase().includes(this.searchText.toLowerCase()) ||

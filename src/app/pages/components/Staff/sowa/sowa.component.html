@@ -140,6 +140,9 @@
                                             <app-addtask *ngIf="isCreateProjectModalOpen"
                                             [categoryId]="selectedCategoryId!"  
                                             (close)="closeCreateProjectModal()"></app-addtask>
+
+                                            
+                                            
                                           </td>
                                         </tr>
                                         <ng-container *ngIf="category.tasks && category.tasks.length">

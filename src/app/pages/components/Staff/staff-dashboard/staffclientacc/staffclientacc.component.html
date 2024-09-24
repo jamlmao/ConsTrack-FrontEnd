@@ -19,9 +19,8 @@
                 <div class="table-container">
                     <div class="header">
                         <div class="filters">
-                            <button class="view-more" style="padding: 10px; margin-right: 10px;">
-                                <i class="fas fa-filter"></i> Filter
-                            </button>
+                            
+                                 
                             <input type="text" class="search" placeholder="Search by name..." [(ngModel)]="searchText">
                         </div>
                         <div class="dues-info">
@@ -59,9 +58,12 @@
                                     'active': client?.user_status === 'Active', 
                                     'inactive': client?.pt_status === 'Not Active'
                                   }">{{client.user_status}}</span></td>
-                                <td>
+                                <td style="text-align: center;">
                                     <div class="action-menu">
-                                        <button class="view-more">View More</button>
+                                        <button (click)="openEditModal()" class="view-more">Edit</button>
+                                        <app-editprofile 
+                                        *ngIf="isEditModalOpen" (close)="closeEditModal()">
+                                        </app-editprofile>
                                     </div>
                                 </td>
                             </tr>

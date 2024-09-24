@@ -103,7 +103,7 @@
                   <tr *ngFor="let project of paginatedUsers; let i = index">
                     <td>{{ i + 1 }}</td>
                     <td>{{ project.client.first_name }} {{ project.client.last_name }}</td>
-                    <td>{{ project.project_name }}</td>
+                    <td>{{ project.project_type }}</td>
                     <td>{{ project.staff_in_charge.staff_first_name }} {{ project.staff_in_charge.staff_last_name }}</td>
                     <td>{{ project.starting_date }}</td>
                     <td>{{ project.completion_date }}</td>

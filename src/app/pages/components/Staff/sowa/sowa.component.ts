@@ -27,11 +27,13 @@ import { AddtaskComponent } from "../addtask/addtask.component";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { GeneralComponent } from "../general/general.component";
+import { EditsubcategComponent } from "../editsubcateg/editsubcateg.component";
+import { EditcategoryComponent } from "../editcategory/editcategory.component";
 
 @Component({
   selector: 'app-sowa',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StafftoolbarComponent, StaffsidenavComponent, AddtaskComponent, GeneralComponent],
+  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StafftoolbarComponent, StaffsidenavComponent, AddtaskComponent, GeneralComponent, EditsubcategComponent, EditcategoryComponent],
   templateUrl: './sowa.component.html',
   styleUrl: './sowa.component.css'
 })
@@ -488,6 +490,8 @@ export class SowaComponent {
 }
 
 isCreateProjectModalOpen = false;
+isEditCategModalOpen = false;
+isEditSubModalOpen = false;
 selectedTaskId: number | null = null;
 selectedCategoryId: number | null = null;
 
@@ -500,6 +504,31 @@ openCreateProjectModal(categoryId: number){
 
 closeCreateProjectModal() {
    this.isCreateProjectModalOpen = false;
+    this.selectedTaskId = null;
+    this.selectedCategoryId = null;
+}
+
+openEditCategModal(categoryId: number){
+  this.selectedCategoryId = categoryId;
+  this.isEditCategModalOpen = true;
+  console.log('Selected Category ID:', this.selectedCategoryId);
+  this.sideBarOpen = false;
+}
+
+closeEditCategModal() {
+   this.isEditCategModalOpen = false;
+    this.selectedTaskId = null;
+    this.selectedCategoryId = null;
+}
+openEditSubModal(categoryId: number){
+  this.selectedCategoryId = categoryId;
+  this.isEditSubModalOpen = true;
+  console.log('Selected Category ID:', this.selectedCategoryId);
+  this.sideBarOpen = false;
+}
+
+closeEditSubModal() {
+   this.isEditSubModalOpen = false;
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
 }
