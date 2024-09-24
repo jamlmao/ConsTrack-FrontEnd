@@ -48,6 +48,7 @@ import { ResourcetableComponent } from './pages/components/Staff/resourcetable/r
 import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
 import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
 import { AppointmentComponent } from './pages/components/Staff/staff-dashboard/appointment/appointment.component';
+import { HistoryComponent } from './pages/components/Staff/history/history.component';
 
 
 
@@ -208,6 +209,11 @@ export const routes: Routes = [
     {
         path: 'task-details/:taskId',
         component: TaskdetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'history/:taskId',
+        component: HistoryComponent,
         canActivate: [AuthGuard]
     },
     {
