@@ -84,8 +84,9 @@
                             <label for="example-text-input" class="form-control-label"
                               >Password</label
                             >
-                            <button type="button"  class="btn btn-success btn-outline-dark text-light form-control">Edit Password</button>
-                          
+                            <button type="button" (click)="openEditSubModal()" class="btn btn-success btn-outline-dark text-light form-control">Edit Password</button>
+                            <app-editpass *ngIf="isEditSubModalOpen"
+                                            (close)="closeEditSubModal()"></app-editpass>
                           </div>
                         </div>
                         <hr class="horizontal dark" />

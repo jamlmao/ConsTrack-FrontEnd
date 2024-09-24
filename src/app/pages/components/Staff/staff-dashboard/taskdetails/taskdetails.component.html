@@ -85,6 +85,7 @@
                                         <th>Resources Name</th>
                                         <th>Quantity</th>
                                         <th>Resources Left</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,6 +94,11 @@
                                         <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
                                         <td>{{resource.qty}}</td>
                                         <td>{{resource.left_qty}}</td>
+                                        <td style="text-align: center;"> 
+                                            <a class="btn btn-outline-dark" (click)="openEditSubModal()" class="view">Edit</a>
+                                            <app-editresource *ngIf="isEditSubModalOpen"
+                                            (close)="closeEditSubModal()"></app-editresource>
+                                        </td>
                                         
                                     </tr>
                                 </tbody>

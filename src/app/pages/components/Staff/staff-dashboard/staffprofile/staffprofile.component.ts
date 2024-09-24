@@ -19,10 +19,11 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
+import { EditpassComponent } from "../../editpass/editpass.component";
 @Component({
   selector: 'app-staffprofile',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditpassComponent],
   templateUrl: './staffprofile.component.html',
   styleUrl: './staffprofile.component.css'
 })
@@ -49,6 +50,19 @@ export class StaffprofileComponent {
     this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
 
+  isEditSubModalOpen = false;
+
+  openEditSubModal(){
+   
+    this.isEditSubModalOpen = true;
+    console.log('Selected Category ID:');
+    this.sideBarOpen = false;
+  }
+  
+  closeEditSubModal() {
+     this.isEditSubModalOpen = false;
+      this.sideBarOpen = true; 
+  }
 
   sideBarOpen=true;
   sideBarToggler(){
