@@ -142,8 +142,14 @@
                                             (close)="closeCreateProjectModal()"></app-addtask>
 
                                             
+                                            <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditCategModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
+                                            <app-editcategory *ngIf="isEditCategModalOpen"
+                                            (close)="closeEditCategModal()"></app-editcategory>
+
+                                            
                                             
                                           </td>
+                                   
                                         </tr>
                                         <ng-container *ngIf="category.tasks && category.tasks.length">
                                           <tr *ngFor="let task of category.tasks; let j = index">
@@ -157,7 +163,11 @@
                                             <div>{{ task.percentage | number: '1.2-2' }}%</div>
                                             <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
                                             </td>
-                                            <td style="text-align: center;"> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a></td>
+                                            <td style="text-align: center;"> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                                <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditSubModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
+                                                <app-editcategory *ngIf="isEditSubModalOpen"
+                                                (close)="closeEditSubModal()"></app-editcategory>
+                                            </td>
                                           </tr>
                                         </ng-container>
                                       </ng-container>

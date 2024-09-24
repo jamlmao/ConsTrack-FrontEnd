@@ -231,6 +231,7 @@ export class SowaComponent {
     this.isArchiOpen = true;
     console.log('Opening Task Modal');
     console.log(this.isArchiOpen);
+    
   }
 
   closeArchiModal() {
@@ -500,12 +501,14 @@ openCreateProjectModal(categoryId: number){
   this.isCreateProjectModalOpen = true;
   console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
+  
 }
 
 closeCreateProjectModal() {
    this.isCreateProjectModalOpen = false;
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
+    this.sideBarOpen = true; 
 }
 
 openEditCategModal(categoryId: number){
@@ -519,6 +522,7 @@ closeEditCategModal() {
    this.isEditCategModalOpen = false;
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
+    this.sideBarOpen = true; 
 }
 openEditSubModal(categoryId: number){
   this.selectedCategoryId = categoryId;
@@ -531,6 +535,7 @@ closeEditSubModal() {
    this.isEditSubModalOpen = false;
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
+    this.sideBarOpen = true; 
 }
 
 
