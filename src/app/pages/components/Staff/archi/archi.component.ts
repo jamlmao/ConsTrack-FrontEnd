@@ -306,17 +306,14 @@ export class ArchiComponent {
           timer: 2000
         }).then(() => {
           // window.location.reload();
+          this.closeModal();
         });
     this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
         console.log('Task updated successfully', response);
         this.closeModal();
     },error => {
       console.error('Error updating task', error);
-      Swal.fire({
-        icon: "error",
-        title:"Ooopsieee",
-        text:"Something went wrong",
-      });
+      this.closeModal();
     }
   );
 
