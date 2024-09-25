@@ -3,10 +3,12 @@
 <mat-nav-list>
     
     <mat-divider></mat-divider>
-    <img class="user-image" src="assets/cons.png" alt="Card image cap">
+    <div *ngIf="user && user.staff"  class="avatar avatar-xl position-relative" >
+        <img [src]="'http://localhost:8000/' + user.staff.company_logo" alt="profile_image"  class="user-image">
+      </div>
     
     
-    
+   
    <a mat-list-item routerLink="/staff/profile" routerLinkActive="list-item-active">
     <button type="button"  class="btn-grad btn-outline-light mx-md-2 d-flex text-light items"><mat-icon style="margin-left: 5px; color: white;">account_circle</mat-icon> Profile</button>
 </a><mat-divider></mat-divider>

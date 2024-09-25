@@ -55,11 +55,7 @@ export class MenuComponent {
         if (res.role) {
           if (res.role === 'admin') {
             console.log('Login successful, admin');
-            Swal.fire({
-              title: "Welcome Admin!",
-              text: "Logged in Successfully!",
-              icon: "success"
-            });
+            
             this.router.navigateByUrl('/admin/home').then(success => {
               if (success) {
                 console.log('Navigation to admin dashboard successful');
@@ -69,11 +65,7 @@ export class MenuComponent {
             });
           } else if (res.role === 'staff') {
             console.log('Login successful, staff');
-            Swal.fire({
-              title: "Welcome Staff!",
-              text: "Logged in Successfully!",
-              icon: "success",
-            });
+            
             this.router.navigateByUrl('/staff/shome').then(success => {
               if (success) {
                 console.log('Navigation to staff dashboard successful');
@@ -83,11 +75,7 @@ export class MenuComponent {
             });
           } else if (res.role === 'client') {
             console.log('Login successful, client');
-            Swal.fire({
-              title: "Welcome Client!",
-              text: "Logged in Successfully!",
-              icon: "success"
-            });
+            
             this.router.navigateByUrl('client/chome').then(success => {
               if (success) {
                 console.log('Navigation to client dashboard successful');

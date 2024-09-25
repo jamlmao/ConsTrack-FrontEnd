@@ -26,7 +26,7 @@
                         </div>
                 
                         <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: -80px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144);">
                             <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
                                 <div class="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -38,10 +38,10 @@
                                         <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
                                     </div>
                                     <div class="carousel-item scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image1" alt="Project Image" class="clickable-image">
                                     </div>
                                     <div class="carousel-item scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image2" alt="Project Image" class="clickable-image">
                                     </div>
                                 </div>
                                
@@ -88,6 +88,15 @@
                         <div class="col-2">
                             <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
                         </div>
+                        <div class="circle" style="margin-right: 50px; margin-top: -60px;">
+                            <svg>
+                              <circle cx="50" cy="50" r="45" [ngStyle]="{'stroke-dasharray': circumference + 'px'}"></circle>
+                              <circle cx="50" cy="50" r="45" class="progress" [style.stroke-dashoffset]="strokeDashOffset + 'px'"></circle>
+                            </svg>
+                            <div class="percentage" style="font-weight: bold; font-size: 25px; margin-top: 15px; margin-right: 10px;">
+                              {{ usedBudgetPercentage | number: '1.0-0' }}%
+                            </div>
+                          </div>
                         
                     </div>
             
@@ -95,10 +104,10 @@
                                 
                                 <div>
                                     <h2 style="margin-bottom: 0px;" class="text-center">
-                                        <a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_type}}</a>
+                                        <a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
                                     </h2>
                                     <h4 style="margin-bottom: 0px;">
-                                        Project Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
+                                        Project Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_type}}</a>
                                     </h4>
                                     <h4 style="margin-bottom: 0px;">
                                         Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
@@ -117,7 +126,6 @@
                                         <th style="text-align: center;">This Period</th>
                                         <th style="text-align: center;">To Date</th>
                                         <th style="text-align: center;">Percentage of Accomplishment</th>
-                                        <th style="text-align: center;" class="no-pdf">Action</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -135,21 +143,7 @@
                                           </td>
                                           
                                         </tr>
-                                        <ng-container *ngIf="category.tasks && category.tasks.length">
-                                          <tr *ngFor="let task of category.tasks; let j = index">
-                                            <td></td>
-                                            <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                                            <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
-                                            <td style="text-align: right;">{{ task.pt_previous?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                            <td style="text-align: right;">{{ task.pt_this_period?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                            <td style="text-align: right;">{{ task.pt_to_date?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                            <td style="text-align: right;">
-                                            <div>{{ task.percentage | number: '1.2-2' }}%</div>
-                                            <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
-                                            </td>
-                                            <td style="text-align: center;"> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a></td>
-                                          </tr>
-                                        </ng-container>
+                                       
                                       </ng-container>
                                       <tr>
                                         <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
