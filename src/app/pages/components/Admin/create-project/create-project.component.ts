@@ -40,8 +40,6 @@ export class CreateProjectComponent {
     pj_image: null,
     pj_image1: null,
     pj_image2: null,
-    pj_image3: null,
-    pj_image4: null,
     pj_pdf: null
   };
 

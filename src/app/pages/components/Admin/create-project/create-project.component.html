@@ -100,13 +100,13 @@
                         <label for="example-text-input" class="form-control-label"
                           >Project Image 2</label
                         >
-                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
+                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image1')" required/>
                       </div>
                       <div class="col-md-6">
                         <label for="example-text-input" class="form-control-label"
                           >Project Image 3</label
                         >
-                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
+                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image2')" required/>
                       </div>
                       
 
@@ -120,7 +120,7 @@
                   </div> 
             <div class="d-flex align-items-center justify-content-between py-3">
               <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-            <button type="submit" class="btn btn-outline-dark">Submit</button>
+            <button type="submit" class="btn btn-outline-dark"[disabled]="!project.project_name&&!project.client_id&&!project.starting_date&&!project.completion_date&&!project.totalBudget">Submit</button>
             
             </div>
             

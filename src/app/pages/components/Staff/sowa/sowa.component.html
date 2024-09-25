@@ -143,7 +143,7 @@
 
                                             
                                             <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditCategModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
-                                            <app-editcategory *ngIf="isEditCategModalOpen"
+                                            <app-editcategory *ngIf="isEditCategModalOpen"  [categoryId]="selectedCategoryId!" 
                                             (close)="closeEditCategModal()"></app-editcategory>
 
                                             
@@ -166,6 +166,7 @@
                                             <td style="text-align: center;"> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a>
                                                 <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditSubModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
                                                 <app-editsubcateg *ngIf="isEditSubModalOpen"
+                                                [taskId]="selectedTaskId!"  
                                                 (close)="closeEditSubModal()"></app-editsubcateg>
                                             </td>
                                           </tr>

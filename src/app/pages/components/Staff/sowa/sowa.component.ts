@@ -127,9 +127,6 @@ export class SowaComponent {
         }
       });
 
-    
-
-
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
@@ -511,23 +508,26 @@ closeCreateProjectModal() {
     this.sideBarOpen = true; 
 }
 
-openEditCategModal(categoryId: number){
+openEditCategModal(categoryId: number):void{
   this.selectedCategoryId = categoryId;
   this.isEditCategModalOpen = true;
   console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
 }
 
-closeEditCategModal() {
+closeEditCategModal() :void {
    this.isEditCategModalOpen = false;
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
     this.sideBarOpen = true; 
 }
-openEditSubModal(categoryId: number){
-  this.selectedCategoryId = categoryId;
+
+
+
+openEditSubModal(taskId: number){
+  this.selectedTaskId = taskId;
   this.isEditSubModalOpen = true;
-  console.log('Selected Category ID:', this.selectedCategoryId);
+  console.log('Selected Task ID:', this.selectedTaskId);
   this.sideBarOpen = false;
 }
 

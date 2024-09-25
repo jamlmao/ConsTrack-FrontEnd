@@ -29,6 +29,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditprojectComponent } from "../../editproject/editproject.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-staffadd',
@@ -44,7 +45,8 @@ export class StaffaddComponent {
 
   isCreateProjectModalOpen = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
   
   clients: any[] = [];
   isCreateClientModalOpen = false;
@@ -87,7 +89,16 @@ export class StaffaddComponent {
 
 
   ngOnInit(): void {
-    
+      
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
+
   
     
     const userData = localStorage.getItem('user');
@@ -101,13 +112,6 @@ export class StaffaddComponent {
     this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
 
-  
-
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
-  
 
 
 
@@ -119,7 +123,8 @@ export class StaffaddComponent {
     starting_date: '',
     totalBudget: 0,
     pj_image: null,
-    pj_pdf: null
+    pj_pdf: null,
+    project_type: '',
   };
 
   
@@ -173,8 +178,7 @@ export class StaffaddComponent {
 
 
   
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+
 
   selectedProject: any;
   userS: any = {};
@@ -202,8 +206,8 @@ pageSize: number = 1; // Example page siz
 
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
+        Swal.close();
         this.projects = response;
-        console.log('Fetched projects:', this.projects);
         this.project.paginator = this.paginator;
         this.totalPages = Math.ceil(this.projects.length / this.rowsPerPage);
         this.filteredProjects = this.projects;
