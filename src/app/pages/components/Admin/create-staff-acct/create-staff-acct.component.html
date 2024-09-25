@@ -17,7 +17,7 @@
                       >Username</label
                     >
                     <input placeholder="Username" class="form-control" type="text" id="name" [(ngModel)]="staff.name" name="name" #nameControl="ngModel" required>
-                 <div *ngIf="nameControl.errors?.['required']" class="text-danger mb-3">Name is required.*</div>
+                 <div *ngIf="formSubmitted && nameControl.errors?.['required']" class="text-danger mb-3">Name is required.*</div>
                   </div>
                   <div class="col-md-4">
                     <label for="example-text-input" class="form-control-label"
@@ -25,7 +25,7 @@
                     >
                     <input class="form-control" placeholder="Email" type="email" id="email" [(ngModel)]="staff.email" name="email" #emailControl="ngModel" required>
                
-                <div *ngIf="emailControl.errors?.['required']" class="text-danger mb-3">Email is required.*</div>
+                <div *ngIf="formSubmitted && emailControl.errors?.['required']" class="text-danger mb-3">Email is required.*</div>
                   </div>
 
                  
@@ -39,7 +39,7 @@
                 
                 
                 
-                <div *ngIf="passwordControl.errors?.['required']" class="text-danger mb-3">Password is required.*</div>
+                <div *ngIf="formSubmitted && passwordControl.errors?.['required']" class="text-danger mb-3">Password is required.*</div>
               
               
                   
@@ -49,14 +49,14 @@
                         >First name</label
                       >
                       <input class="form-control" placeholder="First Name" type="first_name" id="first_name" [(ngModel)]="staff.first_name" name="first_name" #fnameControl="ngModel" required>
-                      <div *ngIf="fnameControl.errors?.['required']" class="text-danger mb-3">First name is required.*</div>
+                      <div *ngIf="formSubmitted && fnameControl.errors?.['required']" class="text-danger mb-3">First name is required.*</div>
                   </div>
                   <div class="col-md-4">
                     <label for="example-text-input" class="form-control-label"
                       >Last name</label
                     >
                     <input class="form-control" placeholder="Last Name" type="last_name" id="last_name" [(ngModel)]="staff.last_name" name="last_name" #lnameControl="ngModel" required>
-                 <div *ngIf="lnameControl.errors?.['required']" class="text-danger mb-3">Last name is required.*</div></div>
+                 <div *ngIf="formSubmitted && lnameControl.errors?.['required']" class="text-danger mb-3">Last name is required.*</div></div>
 
                  <div class="col-md-4">
                     <label for="example-text-input" class="form-control-label"
@@ -68,7 +68,7 @@
                 <div class="col-md-4" *ngIf="staff.extension_name">
                   <label for="license-number-input" class="form-control-label">License Number:</label>
                   <input class="form-control" placeholder="Enter License Number" type="text" id="license_number" [(ngModel)]="staff.license_number" name="license_number" #licenseControl="ngModel" required>
-                  <div *ngIf="licenseControl.invalid && (licenseControl.dirty || licenseControl.touched)" class="text-danger">
+                  <div *ngIf="formSubmitted && licenseControl.invalid && (licenseControl.dirty || licenseControl.touched)" class="text-danger">
                     License number is required.
                   </div>
                 </div>
@@ -86,7 +86,7 @@
                                name="satisfy" value="F">
                         <label for="no">Female</label>
                     </div>
-                    <div *ngIf="sexControl.errors?.['required']" class="text-danger mb-3">Sex is required.*</div>
+                    <div *ngIf="formSubmitted && sexControl.errors?.['required']" class="text-danger mb-3">Sex is required.*</div>
 
                  
                   </div>
@@ -95,7 +95,7 @@
                       >Address</label
                     >
                     <input class="form-control" placeholder="Address" type="address" id="address" [(ngModel)]="staff.address" name="address" #addressControl="ngModel" required>
-                <div *ngIf="addressControl.errors?.['required']" class="text-danger mb-3">Address is required.*</div>
+                <div *ngIf="formSubmitted && addressControl.errors?.['required']" class="text-danger mb-3">Address is required.*</div>
                
                  
                   </div>
@@ -105,7 +105,7 @@
                       >City</label
                     >
                     <input class="form-control" placeholder="City" type="city" id="city" [(ngModel)]="staff.city" name="city" #cityControl="ngModel" required>
-                 <div *ngIf="cityControl.errors?.['required']" class="text-danger mb-3">City is required.*</div>
+                 <div *ngIf="formSubmitted && cityControl.errors?.['required']" class="text-danger mb-3">City is required.*</div>
                 
                  
                  
@@ -116,7 +116,7 @@
                       >Country</label
                     >
                     <input class="form-control" placeholder="Country" type="country" id="country" [(ngModel)]="staff.country" name="country" #countryControl="ngModel" required>
-                 <div *ngIf="countryControl.errors?.['required']" class="text-danger mb-3">Country is required.*</div>
+                 <div *ngIf="formSubmitted && countryControl.errors?.['required']" class="text-danger mb-3">Country is required.*</div>
                
                  
                  
@@ -127,7 +127,7 @@
                       >Zipcode</label
                     >
                     <input class="form-control" placeholder="Zipcode" type="zipcode" id="zipcode" [(ngModel)]="staff.zipcode" name="zipcode" #zipcodeControl="ngModel" required>
-                 <div *ngIf="zipcodeControl.errors?.['required']" class="text-danger mb-3">Zipcode is required.*</div>
+                 <div *ngIf="formSubmitted && zipcodeControl.errors?.['required']" class="text-danger mb-3">Zipcode is required.*</div>
                 <div class="text-red-400 text-danger mb-3" *ngIf="passwordControl?.dirty">
                     
                     <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">Valid Number</div>
@@ -143,7 +143,7 @@
                       >Phone Number</label
                     >
                     <input class="form-control" placeholder="Phone_number" type="tel" id="phone_number" [(ngModel)]="staff.phone_number" name="phone_number" #noControl="ngModel" min="0" step="1" data-bind="value:replyNumber" required>
-                <div *ngIf="noControl.errors?.['required']" class="text-danger mb-3">Phone number is required.*</div>
+                <div *ngIf="formSubmitted && noControl.errors?.['required']" class="text-danger mb-3">Phone number is required.*</div>
                 
 
                  
@@ -161,7 +161,7 @@
                     <div class="col-md-4">
                       <label for="company-name-input" class="form-control-label">Input Company Name if not listed:</label>
                       <input class="form-control" placeholder="Company Name" type="text" id="company-name-input" [(ngModel)]="staff.company_name" #companyControl="ngModel" name="company_name" required>
-                      <div *ngIf="companyControl.errors?.['required']" class="text-danger mb-3">Company name is required.*</div>
+                      <div *ngIf="formSubmitted && companyControl.errors?.['required']" class="text-danger mb-3">Company name is required.*</div>
                     </div>
                     
                     <div class="col-md-4">

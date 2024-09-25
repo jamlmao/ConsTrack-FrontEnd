@@ -128,10 +128,11 @@ export class CreateStaffAcctComponent implements OnInit {
     }
 
 
-
+    formSubmitted: boolean = false;
 
 
       onSubmit() {
+        this.formSubmitted = true;
         console.log('Form Data:', this.staff);
       console.log('Phone Number Length:', this.staff.phone_number.length);
         const token = localStorage.getItem('token');

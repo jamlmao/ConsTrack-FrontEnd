@@ -114,6 +114,7 @@ export class StaffprofileComponent {
       (response: any) => {
         this.user = response;
         console.log('Logged in user:', this.user);
+        
       },
       error => {
         console.error('Error fetching user details', error);

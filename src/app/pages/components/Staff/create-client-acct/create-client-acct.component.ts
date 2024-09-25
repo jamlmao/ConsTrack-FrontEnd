@@ -48,7 +48,11 @@ export class CreateClientAcctComponent implements OnInit {
         this.close.emit();
       }
 
+
+      formSubmitted: boolean = false;
+
       onSubmit() {
+        this.formSubmitted = true;
         const token = localStorage.getItem('token');
         if (!token) {
           console.error('No auth token found');

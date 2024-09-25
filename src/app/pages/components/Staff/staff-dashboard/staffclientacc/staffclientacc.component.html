@@ -16,7 +16,7 @@
                 </div>
              
                 
-                <div class="table-container">
+                <div class="table-container"  style="margin-top: -80px;">
                     <div class="header">
                         <div class="filters">
                             
@@ -51,7 +51,7 @@
                                 <td><input type="checkbox"></td>
                                 <td>{{ i ++ 1}}</td>
                                 <td>{{ client.id }}</td>
-                                <td>{{ client.first_name }}, {{ client.last_name }}</td>
+                                <td>{{ client.first_name }} {{ client.last_name }}</td>
                                 <td>{{ client.phone_number }}</td>
                                 <td>{{ client.address }}, {{ client.city }}</td>
                                 <td><span [ngClass]="{

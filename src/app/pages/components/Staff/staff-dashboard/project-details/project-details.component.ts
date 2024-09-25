@@ -92,7 +92,8 @@ export class ProjectDetailsComponent {
     
   }
 
-  ngOnInit(){
+  
+ngOnInit(){
     
     Swal.fire({
       title: 'Loading...',
@@ -102,7 +103,7 @@ export class ProjectDetailsComponent {
         Swal.showLoading(null);
       }
     });
-
+ 
     this.calculateProgress();
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -116,9 +117,13 @@ export class ProjectDetailsComponent {
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
+      this.projectIdNumber2 = Number(this.projectId);
+      console.log('Project ID:', this.projectId);
+      console.log('Project ID2:',  this.projectIdNumber2);
 
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectDetails(projectIdNumber);
+        
       } else {
         console.error('Project ID is not set or is not a number');
       }

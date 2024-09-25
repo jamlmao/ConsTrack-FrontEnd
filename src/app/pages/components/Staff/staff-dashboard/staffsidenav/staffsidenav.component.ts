@@ -15,17 +15,16 @@ import { MatMenuModule } from "@angular/material/menu";
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { FormsModule } from '@angular/forms';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-import {MatBadgeModule} from '@angular/material/badge';
+
+
+
+
 
 @Component({
   selector: 'app-staffsidenav',
   standalone: true,
-  imports: [HttpClientModule,MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent],
+  imports: [CommonModule,HttpClientModule,MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent],
   templateUrl: './staffsidenav.component.html',
   styleUrl: './staffsidenav.component.css'
 })
@@ -117,6 +116,7 @@ export class StaffsidenavComponent {
       (response: any) => {
         this.user = response;
         console.log('Logged in user:', this.user);
+        
       },
       error => {
         console.error('Error fetching user details', error);
