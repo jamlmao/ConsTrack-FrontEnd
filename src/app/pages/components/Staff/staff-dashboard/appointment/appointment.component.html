@@ -69,11 +69,12 @@
                         <table class="table table-bordered" id="myTable">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th [width]="50">No.</th>
                                    
                                     
                                     <th>Name</th>
                                     <th>Project location</th>
+                                    <th>Contact Number</th>
                                     <th>Appointment Date</th>
                                     <th>Feedback</th>
                                     <th>Actions</th>
@@ -87,6 +88,7 @@
                                     <td>{{ appointment.site_address || 'N/A' }},
                                         {{ appointment.site_city || 'N/A' }},
                                         {{ appointment.site_province || 'N/A' }}</td>
+                                        <td>{{ appointment.client_phone_number || 'N/A' }},
                                     <td>{{ formatDateTime(appointment.appointment_datetime) }}</td>
                                     <td>{{ appointment.description }}</td>
                     
