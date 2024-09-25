@@ -29,7 +29,7 @@
                        
                         
                         <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: -80px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144);">
                           <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
                               <div class="carousel-indicators">
                                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -41,10 +41,10 @@
                                       <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
                                   </div>
                                   <div class="carousel-item scrollable-image">
-                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image1" alt="Project Image" class="clickable-image">
                                   </div>
                                   <div class="carousel-item scrollable-image">
-                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Project Image" class="clickable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image2" alt="Project Image" class="clickable-image">
                                   </div>
                               </div>
                              

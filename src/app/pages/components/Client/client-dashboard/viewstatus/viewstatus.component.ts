@@ -121,6 +121,8 @@ export class ViewstatusComponent {
         }
       });
 
+      
+
     
 
 
@@ -250,8 +252,16 @@ export class ViewstatusComponent {
 
   }
 
+  totalBudget: number = 100; // Example value
+  totalUsedBudget: number = 75; // Example value
+  radius: number = 45; // Circle's radius
+  circumference: number = 0; // Will be calculated
+  usedBudgetPercentage: number = 0;
+  strokeDashOffset: number = 0;
+
  
 
+  
   fetchProjectDetails(projectId: number) {
     const token = localStorage.getItem('token');
 
@@ -266,15 +276,24 @@ export class ViewstatusComponent {
     this.http.get(this.projectDetailsUrl + `${projectId}`, { headers }).subscribe(
       (response: any) => {
         this.projectDetails = response.project;
-        this.currentUserId = response.project.staff_id
-        console.log('Current User ID:', this.currentUserId);
         console.log('Project Details:', this.projectDetails);
+        this.circumference = 2 * Math.PI * this.radius;
+        
+      // Calculate the used percentage
+      this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
+
+      // Calculate the stroke-dashoffset based on the percentage
+      this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
+    Swal.close();
       },
       (error) => {
         console.error('Failed to fetch project details', error);
       }
     );
   }
+
+  
+
 
   fetchProjectTasks(projectId: number) {
     const token = localStorage.getItem('token');
