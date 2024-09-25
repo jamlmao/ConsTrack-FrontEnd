@@ -92,7 +92,19 @@
                       </div>
                       <div class="col-md-6">
                         <label for="example-text-input" class="form-control-label"
-                          >Project Image</label
+                          >Project Image 1</label
+                        >
+                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Project Image 2</label
+                        >
+                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="example-text-input" class="form-control-label"
+                          >Project Image 3</label
                         >
                         <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
                       </div>
