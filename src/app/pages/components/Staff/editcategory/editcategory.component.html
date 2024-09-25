@@ -21,13 +21,17 @@
                             <label for="example-text-input" class="form-control-label"
                               >Category Name</label
                             >
-                            <input class="form-control" type="text" value='' />
+                            <input class="form-control" type="text"  id="category_name" name="category_name"
+                             [(ngModel)]="category.category_name" #nameControl="ngModel" required />
+
+                            
                           </div>
                           <div class="col-md-6">
                             <label for="example-text-input" class="form-control-label"
                               >Budget</label
                             >
-                            <input class="form-control"  type="text" value='' />
+                            <input class="form-control" type="text"  id="category_name" name="category_name"
+                            [(ngModel)]="category.c_allocated_budget" #nameControl="ngModel" required />
                           </div>
                           
                         

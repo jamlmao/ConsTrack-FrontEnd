@@ -38,7 +38,7 @@ export class TaskdetailsComponent {
   events: any[] = [];
   tasks: any = {};
   resources: any[] = [];
-
+  selectedResource:number | null = null;
   alltask: any[] = [];
   currentUserId: number = 0;
   categoryName: string = '';
@@ -54,7 +54,7 @@ export class TaskdetailsComponent {
 
 
   ngOnInit(){
-   
+    this.showLoading(); 
 
     this.route.paramMap.subscribe(params => {
       this.taskId = params.get('taskId')|| '';
@@ -73,6 +73,20 @@ export class TaskdetailsComponent {
   
   }
 
+  showLoading(){
+    Swal.fire({
+      title: 'Loading',
+      html: 'Please wait...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+  }
+
+
+  hideLoading(){
+    Swal.close();
+  }
 getStatusText(status: string): string {
   switch (status) {
     case 'C':
@@ -138,6 +152,7 @@ getStatusText(status: string): string {
 
     this.http.get(this.allTask + `/${taskId}/resources`, { headers }).subscribe(
       (response: any) => {
+        this.hideLoading();
        this.tasks = response.tasks;
        this.categoryName = response.category_name;  
        console.log('Category Name:', this.categoryName);
@@ -187,6 +202,7 @@ getStatusText(status: string): string {
 
     this.http.get(this.ImagesUrl+ `${taskId}`, {headers}).subscribe(
       (response:any) =>{
+        
         this.task_image = response.images; 
         console.log('Task Image:', this.task_image);
       }
@@ -197,10 +213,11 @@ getStatusText(status: string): string {
   
 isEditSubModalOpen = false;
 
-  openEditSubModal(){
-   
+  openEditSubModal(resourceId: number) {
+    this.selectedResource = resourceId;
+    console.log('Selected Resource ID:', this.selectedResource);
     this.isEditSubModalOpen = true;
-    console.log('Selected Category ID:');
+  
     this.sideBarOpen = false;
   }
   

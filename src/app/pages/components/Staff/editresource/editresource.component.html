@@ -18,18 +18,23 @@
                         <p class="text-uppercase text-sm mb-0">Resource Information</p>
                         <div class="row">
                           <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Resource Name</label
-                            >
-                            <input class="form-control" type="text" value='' />
+                            <label for="example-text-input" class="form-control-label">Resource Name</label>
+                            <input class="form-control" type="text"  id="resource_name" name="resource_name"
+                             [(ngModel)]="resources.resource_name" #nameControl="ngModel" required />
                           </div>
                           <div class="col-md-6">
                             <label for="example-text-input" class="form-control-label"
-                              >Qty</label
-                            >
-                            <input class="form-control"  type="text" value='' />
+                              >Qty</label>
+                              <input class="form-control" type="text"  id="qty" name="qty"
+                              [(ngModel)]="resources.qty" #nameControl="ngModel" required />
                           </div>
                           
+                          <div class="col-md-6">
+                            <label for="example-text-input" class="form-control-label"
+                              >Unit Cost</label>
+                              <input class="form-control" type="text"  id="unit_cost" name="unit_cost"
+                              [(ngModel)]="resources.unit_cost" #nameControl="ngModel" required />
+                          </div>
                           
                         </div>
                         <hr class="horizontal dark" />
@@ -39,7 +44,7 @@
                       </div> 
                 <div class="d-flex align-items-center justify-content-between py-3">
                     <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                <button type="submit" class="btn btn-outline-dark">Confirm</button>
+                <button type="submit" class="btn btn-outline-dark" [disabled]="!resources.resource_name&&!resources.qty&&!resources.unit_cost">Confirm</button>
                 </div>
                 
                 

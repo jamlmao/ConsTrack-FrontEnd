@@ -95,8 +95,9 @@
                                         <td>{{resource.qty}}</td>
                                         <td>{{resource.left_qty}}</td>
                                         <td style="text-align: center;"> 
-                                            <a class="btn btn-outline-dark" (click)="openEditSubModal()" class="view">Edit</a>
+                                            <a class="btn btn-outline-dark" (click)="openEditSubModal(resource.id)" class="view">Edit</a>
                                             <app-editresource *ngIf="isEditSubModalOpen"
+                                            [resourceId]="selectedResource!"
                                             (close)="closeEditSubModal()"></app-editresource>
                                         </td>
                                         

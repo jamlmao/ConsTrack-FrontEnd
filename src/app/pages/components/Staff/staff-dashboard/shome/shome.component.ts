@@ -22,7 +22,7 @@ import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { SidenavComponent } from "../../../Admin/admin-dashboard/sidenav/sidenav.component";
 import { HeaderComponent } from "../../../Admin/admin-dashboard/header/header.component";
 import { Chart,registerables } from 'chart.js';
-import { first, last, take, tap } from 'rxjs';
+import { first, forkJoin, last, take, tap } from 'rxjs';
 Chart.register(...registerables);
 import Swal from 'sweetalert2';
 
@@ -82,30 +82,16 @@ export class ShomeComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.showLoading();
     const userData = localStorage.getItem('user');
-    console.log(localStorage.getItem('user'));
     if (userData) {
       try {
         this.user = JSON.parse(userData);
-        console.log('User data:', this.user);
-  
-        // Detailed logging to inspect the user object
-        console.log('User profile_id property:', this.user.profile_id);
-        if (this.user.profile_id) {
-          console.log('User profile_id property:', this.user.profile_id);
-        } else {
-          console.warn('User profile_id property is undefined');
-        }
-  
-        // Check if user object has profile_id property
+     
         if (this.user.profile_id) {
           this.staffId = this.user.profile_id;
           if (this.staffId !== null) { // Ensure staffId is not null
             this.getCompanyProjects(this.staffId);
-            console.log('Staff ID:', this.staffId);
           } else {
-            console.warn('Staff ID is null');
           }
         } else {
           console.warn('Staff ID not found in user data');
@@ -115,16 +101,16 @@ export class ShomeComponent implements OnInit {
         console.error('Error parsing user data:', error);
       }
     } else {
-      // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
-    this.fetchProjects(); // Fetch projects 
-    this.getLoggedInUserNameAndId(); // Fetch logged in user details
-    this.fetchClients(); // Fetch clients 
-    this.fetchProjectsPerMonth(); // Fetch projects per month w
-    this.fetchClientsPerMonth(); // Fetch clients per month 
-    this.fetchstaffAccounts(); // Fetch staff accounts
-    this.fetchProjectsPerYear(); // Fetch projects per year
+
+
+      this.getLoggedInUserNameAndId(),
+      this.fetchClients(),
+      this.fetchProjectsPerMonth(),
+      this.fetchClientsPerMonth(),
+      this.fetchProjectsPerYear()
+   
   }
   
   
@@ -144,105 +130,16 @@ export class ShomeComponent implements OnInit {
   }
 
 
-
-  openCreateStaffModal() {
-    this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
-  }
-
-  closeCreateStaffModal() {
-    this.isCreateStaffModalOpen = false;
-    console.log('xd');
-  }
-
-  openCreateClientModal() {
-    this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
-  }
-
-  closeCreateClientModal() {
-    this.isCreateClientModalOpen = false;
-    console.log('xd');
-  }
-
   sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
 
 
-  fetchstaffAccounts():void{
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    console.log('Token:', token);
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get<any>(this.staffUrl, { headers }).subscribe(
-      (response: any) => {
-        if (Array.isArray(response.staff)) {
-          this.staff = response.staff;
-          console.log('Fetched staff:', this.staff);
-         
-        } else {
-          console.error('Expected an array for staff_with_extension');
-        }
-       
-      },
-      error => {
-        console.error('Error fetching staff', error);
-      }
-    );
-  }
 
 
 
 
-
-
-
-
-
-
-
-
-  fetchProjects(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    console.log('Token:', token);
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    this.http.get(this.projectsUrl, { headers }).subscribe(
-      (response: any) => {
-        console.log('Full response:', response);
-        this.projects = response;
-        console.log('Fetched projects:', this.projects); 
-    
-      },
-      error => {
-        console.error('Error fetching projects', error);
-      }
-    );
-  }
-
-  selectProject(project: any): void {
-    this.selectedProject = project;
-  }
 
   getLoggedInUserNameAndId(): void {
     const token = localStorage.getItem('token');
@@ -258,7 +155,7 @@ export class ShomeComponent implements OnInit {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+        // console.log('Logged in user:', this.user);
 
       },
       error => {
@@ -270,14 +167,6 @@ export class ShomeComponent implements OnInit {
   canvas:any;
   ctx:any;
   data=[];
-
-
-
-
-
-
-
-
 
 
 
@@ -301,13 +190,14 @@ export class ShomeComponent implements OnInit {
     this.http.get<{ project_count: number, done:number, ongoing:number, due:number}>(url, { headers })
       .subscribe(
         response => {
-          console.log('Project count:', response.project_count)
+          // console.log('Project count:', response.project_count)
+          this.hideLoading();
           this.projectCount = response.project_count;
           this.done = response.done;
           this.due = response.due;
-          console.log('Done:', this.done);
-          console.log('Ongoing:', response.ongoing);
-          console.log('due', response.due);
+          // console.log('Done:', this.done);
+          // console.log('Ongoing:', response.ongoing);
+          // console.log('due', response.due);
           this.ongoing = response.ongoing;
 
 
@@ -356,7 +246,8 @@ export class ShomeComponent implements OnInit {
       this.http.get<any>(this.clientsUrl, { headers })
         .pipe(
           tap(response => {
-            console.log('Full response:', response);
+        
+            // console.log('Full response:', response);
             if (response && Array.isArray(response.clients)) {
               // Filter out duplicate clients based on the 'id' property
               const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
@@ -372,7 +263,7 @@ export class ShomeComponent implements OnInit {
               this.clientCount = 0;
             }
     
-            console.log('Client count:', this.clientCount);
+            // console.log('Client count:', this.clientCount);
           }),
           take(1) // This will ensure the observable completes after the first emission
         )
@@ -424,7 +315,7 @@ export class ShomeComponent implements OnInit {
               this.datadue = [];
               this.datacomplete = [];
               this.dataongoing = [];
-              this.hideLoading();
+             
     
               // Create an object to aggregate project counts by year and month
               const aggregatedData: { [key: string]: { year: number, month: string, due: number, complete: number, ongoing: number } } = {};
@@ -515,7 +406,7 @@ export class ShomeComponent implements OnInit {
               console.error('Unexpected response format:', response);
               this.projectsStatusPerMonth = [];
             }
-            console.log('Projects per year:', this.projectsStatusPerMonth);
+            // console.log('Projects per year:', this.projectsStatusPerMonth);
           }),
           take(1)
         )
@@ -594,7 +485,7 @@ export class ShomeComponent implements OnInit {
               console.error('Unexpected response format:', response);
               this.projectsPerMonth = [];
             }
-            console.log('Projects per month:', this.projectsPerMonth);
+            // console.log('Projects per month:', this.projectsPerMonth);
           }),
           take(1)
         )
@@ -625,7 +516,7 @@ export class ShomeComponent implements OnInit {
           response => {
             if (response && Array.isArray(response.clients_per_month)) {
               this.clientsPerMonth = response.clients_per_month;
-              this.hideLoading();
+              
               // Clear arrays before pushing new data
               this.datayear1 = [];
               this.datamonth1 = [];
@@ -671,11 +562,11 @@ export class ShomeComponent implements OnInit {
                 }
               });
             } else {
-              console.error('Unexpected response format:', response);
+              // console.error('Unexpected response format:', response);
             }
           },
           error => {
-            console.error('Error fetching clients per month:', error);
+            // console.error('Error fetching clients per month:', error);
           }
         );
     }

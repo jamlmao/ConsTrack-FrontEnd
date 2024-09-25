@@ -68,6 +68,9 @@ export class AddtaskComponent {
       });
     }
 
+
+    
+
     addResource() {
       this.task.resources.push({ resource_name: '', qty: null, unit_cost: null });
     }
