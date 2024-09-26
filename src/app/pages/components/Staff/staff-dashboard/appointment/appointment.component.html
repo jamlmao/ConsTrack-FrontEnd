@@ -76,10 +76,10 @@
                       <tbody>
                           <tr>
                               <td class="time-slot">8-11 AM</td>
-                              <td *ngFor="let day of getDaysInWeek()">
+                              <td *ngFor="let day of getDaysInWeek()" style="background-color: rgb(14, 154, 44); border-radius: 10px;">
                                   <ng-container *ngIf="(day | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
                                       <ul class="appointment-list">
-                                          <li *ngFor="let appointment of weeklySchedule[dayKey]">
+                                          <li *ngFor="let appointment of weeklySchedule[dayKey]" >
                                               <ng-container *ngIf="isAM(appointment)">{{ appointment.client_first_name }} {{ appointment.client_last_name }} {{ appointment.client_phone_number || 'N/A' }}</ng-container>
                                           </li>
                                       </ul>
@@ -92,9 +92,9 @@
                           <tr>
                               <td class="time-slot">1-5 PM</td>
                               <td *ngFor="let day of getDaysInWeek()">
-                                  <ng-container *ngIf="(day | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
+                                  <ng-container *ngIf="(day | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments" >
                                       <ul class="appointment-list">
-                                          <li *ngFor="let appointment of weeklySchedule[dayKey]">
+                                          <li *ngFor="let appointment of weeklySchedule[dayKey]" style="background-color: rgb(14, 154, 44); border-radius: 10px;">
                                               <ng-container *ngIf="isPM(appointment)">{{ appointment.client_first_name }} {{ appointment.client_last_name }}  {{ appointment.client_phone_number || 'N/A' }}</ng-container>
                                           </li>
                                       </ul>

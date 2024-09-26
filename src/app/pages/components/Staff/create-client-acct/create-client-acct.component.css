@@ -10,7 +10,6 @@
   background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background overlay */
   backdrop-filter: blur(4px); /* Add a subtle blur for modern effect */
   z-index: 1050;
-  transition: opacity 0.3s ease-in-out;
 }
 
 .modal-content {
@@ -21,7 +20,6 @@
   width: 60%;
   background-color: #ffffff; /* White background for content */
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Add a soft shadow */
-  transition: all 0.3s ease-in-out;
 }
 
 /* Close button */
@@ -71,6 +69,8 @@ input[type="password"]:focus,
 input[type="tel"]:focus,
 input[type="address"]:focus,
 input[type="city"]:focus,
+input[type="first_name"]:focus,
+input[type="last_name"]:focus,
 input[type="country"]:focus,
 input[type="zipcode"]:focus {
   border-color: #d8363a; /* Highlight on focus */
@@ -114,7 +114,7 @@ h4 {
   padding: 0 10px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #555;
+  color: #a7a1a1;
   background-color: #ffffff;
   z-index: 2;
   position: relative;
@@ -168,7 +168,6 @@ button.btn-outline-dark:hover {
   border-radius: 10px;
   padding: 20px;
   background-size: cover;
-  background-image: url('../bg1.jpg');
 }
 
 /* Alert Message */

@@ -39,6 +39,7 @@ import { formatDate } from '@angular/common';
 })
 export class AppointmentComponent {
   searchText:any;
+  
 
   sideBarOpen=true;
   appointments: any[] = [];
