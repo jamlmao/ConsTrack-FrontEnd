@@ -42,7 +42,10 @@ export class FeedbackComponent {
   isLoading = false; 
   constructor(private router: Router,private http: HttpClient) { }
 
+
+
   ngOnInit(): void {
+    
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
@@ -57,6 +60,19 @@ export class FeedbackComponent {
     now.setDate(now.getDate() + 1); 
     this.minDateTime = now.toISOString().slice(0, 16); 
 
+  }
+
+
+  isValidAppointment(dateTime: string): boolean {
+    const date = new Date(dateTime);
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+
+    // Check if the selected time falls within the allowed ranges
+    const isMorningTime = hour >= 7 && hour < 11; // 7 AM to 11 AM
+    const isAfternoonTime = hour >= 13 && hour < 17; // 1 PM to 5 PM
+
+    return isMorningTime || isAfternoonTime;
   }
 
 
@@ -81,6 +97,8 @@ export class FeedbackComponent {
         console.error('Error fetching staff', error);
       });
   }
+
+
 
 
 
@@ -111,8 +129,17 @@ export class FeedbackComponent {
     this.sideBarOpen = !this.sideBarOpen;
   }
 
+  invalidTimeSelected: boolean = false;
 
   onSubmit() {
+    if (this.isValidAppointment(this.appointment_datetime)) {
+      // Proceed with your submission logic
+      console.log('Appointment valid:', this.appointment_datetime);
+      this.invalidTimeSelected = false; // Reset the invalid time flag
+      // Add your appointment submission logic here
+    } else {
+      this.invalidTimeSelected = true; // Set the invalid time flag
+    }
     this.isLoading = true;
     const token = localStorage.getItem('token');
     if (!token) {

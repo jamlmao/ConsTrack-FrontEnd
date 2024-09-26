@@ -28,6 +28,8 @@ import { take, tap } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FilterPipe } from '../../../../../filter.pipe';
 
+import { formatDate } from '@angular/common';
+
 @Component({
   selector: 'app-appointment',
   standalone: true,
@@ -41,6 +43,7 @@ export class AppointmentComponent {
   sideBarOpen=true;
   appointments: any[] = [];
   uniqueClients: string[] = []; 
+  weeklySchedule: { [key: string]: any[] } = {}; 
   getUniqueClientNames(appointments: any[]): string[] {
     const namesSet = new Set<string>();
     appointments.forEach(appointment => {
@@ -70,8 +73,8 @@ export class AppointmentComponent {
 
   fetchAppointments() {
     const token = localStorage.getItem('token');
-
-    if(!token) {
+    if (!token) {
+      console.error('No token found');
       return;
     }
 
@@ -79,19 +82,65 @@ export class AppointmentComponent {
       'Authorization': `Bearer ${token}`
     });
 
-  
-
-    this.http.get(this.baseUrl + "api/staff/appointments", { headers }).subscribe(
-      (response:any) => {
-        if(response && Array.isArray(response.appointments)) {
-        this.appointments = response.appointments;
-          console.log( "appointments:",this.appointments);
-      }else {
-        console.error('No appointments found');
+    this.http.get(`${this.baseUrl}api/staff/appointments`, { headers }).subscribe(
+      (response: any) => {
+        if (response && Array.isArray(response.appointments)) {
+          this.appointments = response.appointments;
+        console.log('Appointmentss:', this.appointments);
+          this.organizeAppointmentsByWeek();
+        } else {
+          console.error('No appointments found');
+        }
       }
-    }
     );
   }
+
+  isAM(appointment: any): boolean {
+    const appointmentDate = new Date(appointment.appointment_datetime);
+    const hour = appointmentDate.getHours();
+    return appointment.status === 'A' && hour >= 8 && hour < 11; // AM between 6:00 and 11:59
+}
+
+isPM(appointment: any): boolean {
+    const appointmentDate = new Date(appointment.appointment_datetime);
+    const hour = appointmentDate.getHours();
+    return appointment.status === 'A' && hour >= 13 && hour <= 17; // PM between 1:00 and 5:00
+}
+
+  organizeAppointmentsByWeek() {
+    const currentDate = new Date();
+    const weekStart = this.getWeekStart(currentDate);
+    
+    this.weeklySchedule = {};
+    
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(weekStart);
+      day.setDate(day.getDate() + i);
+      const dayKey = formatDate(day, 'yyyy-MM-dd', 'en-US');
+      this.weeklySchedule[dayKey] = this.appointments.filter(appointment => 
+        appointment.appointment_datetime.startsWith(dayKey)
+      );
+    }
+  }
+
+  getWeekStart(date: Date): Date {
+    const dayOfWeek = date.getDay();
+    const weekStart = new Date(date);
+    weekStart.setDate(date.getDate() - dayOfWeek);
+    return weekStart;
+  }
+
+  getDaysInWeek(): Date[] {
+    const days: Date[] = [];
+    const weekStart = this.getWeekStart(new Date());
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(weekStart);
+      day.setDate(day.getDate() + i);
+      days.push(day);
+    }
+    return days;
+  }
+  
 
   formatDateTime(dateTime: string): string {
     const date = new Date(dateTime);

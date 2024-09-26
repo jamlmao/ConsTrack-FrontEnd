@@ -57,8 +57,64 @@
                   
                   
                 </div>
+
+                
+                
+                
+                
+                
+                
+                <div class="scheduler">
+                  <h2>Weekly Schedule</h2>
+                  <table class="schedule-table">
+                      <thead >
+                          <tr>
+                              <th>Time</th>
+                              <th *ngFor="let day of getDaysInWeek()">{{ day | date: 'EEEE' }}</th> <!-- Display only day names -->
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td class="time-slot">8-11 AM</td>
+                              <td *ngFor="let day of getDaysInWeek()">
+                                  <ng-container *ngIf="(day | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
+                                      <ul class="appointment-list">
+                                          <li *ngFor="let appointment of weeklySchedule[dayKey]">
+                                              <ng-container *ngIf="isAM(appointment)">{{ appointment.client_first_name }} {{ appointment.client_last_name }} {{ appointment.client_phone_number || 'N/A' }}</ng-container>
+                                          </li>
+                                      </ul>
+                                  </ng-container>
+                                  <ng-template #noAppointments>
+                                      <span class="no-appointments">No appointments</span>
+                                  </ng-template>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class="time-slot">1-5 PM</td>
+                              <td *ngFor="let day of getDaysInWeek()">
+                                  <ng-container *ngIf="(day | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
+                                      <ul class="appointment-list">
+                                          <li *ngFor="let appointment of weeklySchedule[dayKey]">
+                                              <ng-container *ngIf="isPM(appointment)">{{ appointment.client_first_name }} {{ appointment.client_last_name }}  {{ appointment.client_phone_number || 'N/A' }}</ng-container>
+                                          </li>
+                                      </ul>
+                                  </ng-container>
+                                  <ng-template #noAppointments>
+                                      <span class="no-appointments">No appointments</span>
+                                  </ng-template>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+
                 <div class="container">
+
+                  
                     <div class="table-wrapper">
+                      
+                    
                         <div class="table-title">
                             <div class="row">
                                 <div class="col-sm-12"><h1 style="font-weight: bold;">Appointment Management</h1></div>
