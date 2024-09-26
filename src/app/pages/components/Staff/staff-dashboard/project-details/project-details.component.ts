@@ -24,7 +24,6 @@ import { EditprofileComponent } from "../../editprofile/editprofile.component";
 import { AdddetailsComponent } from "../../adddetails/adddetails.component";
 import { AddtaskComponent } from "../../addtask/addtask.component";
 import { GeneralComponent } from "../../general/general.component";
-import { SiteComponent } from "../../site/site.component";
 import { ArchiComponent } from "../../archi/archi.component";
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -36,7 +35,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [MatProgressSpinnerModule,MatProgressBarModule,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, SiteComponent, ArchiComponent,MatTooltipModule],
+  imports: [MatProgressSpinnerModule,MatProgressBarModule,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, ArchiComponent,MatTooltipModule],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css'
 })
