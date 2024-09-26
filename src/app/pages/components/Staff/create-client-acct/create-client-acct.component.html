@@ -6,7 +6,7 @@
         <div class="container">
             <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
             <div class="card-body text-center">
-                    <h1 class="mt-1 mb-5 pb-1">Create New Client Account</h1>
+                    <h1 class="mt-1 mb-5 pb-1" style="font-family:  Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Create New Client Account</h1>
                   
                 <div class="row">
                     
@@ -113,11 +113,7 @@
                     >
                     <input class="form-control" placeholder="Zipcode" type="zipcode" id="zipcode" [(ngModel)]="client.zipcode" name="zipcode" #zipcodeControl="ngModel" required>
                  <div *ngIf="formSubmitted && zipcodeControl.errors?.['required']" class="text-danger mb-3">Zipcode is required.*</div>
-                <div class="text-red-400 text-danger mb-3" *ngIf="passwordControl?.dirty">
-                    
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">Valid Number</div>
-                   
-                 </div>
+                
                 
                  
                  
