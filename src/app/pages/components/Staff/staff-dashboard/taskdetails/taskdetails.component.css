@@ -187,3 +187,19 @@ h3 {
   color: #121212;
   background-color: #d4cdcd;
 }
+
+
+.additional-image {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+}
+
+.project-details {
+  text-align: center;
+}
