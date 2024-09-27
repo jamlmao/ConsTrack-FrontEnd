@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule} from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterOutlet, Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
@@ -23,6 +23,7 @@ const loginApi = `${baseUrl}/api/loginA`;
   selector: 'app-menu',
   standalone: true,
   imports: [MatInputModule,MatFormFieldModule,MatIconModule,SweetAlert2Module,RouterOutlet, RouterModule, FontAwesomeModule, FormsModule, HttpClientModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
@@ -31,6 +32,12 @@ const loginApi = `${baseUrl}/api/loginA`;
 
 export class MenuComponent {
 
+
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   simpleNotification(){
     

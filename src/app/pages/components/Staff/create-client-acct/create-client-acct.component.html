@@ -120,16 +120,17 @@
                       >Sex</label
                     >
                     <div class="radio-group" style="margin-left: 20px; font-size: 16px;">
-                        <input type="radio" id="sex" [(ngModel)]="client.sex" name="sex" #sexControl="ngModel" 
-                               name="satisfy" value="M" checked>
-                        <label for="yes" style="margin-right: 20px;">Male</label>
-        
-                        <input type="radio" id="sex" [(ngModel)]="client.sex" name="sex" #sexControl="ngModel" 
-                               name="satisfy" value="F">
-                        <label for="no">Female</label>
+                      <mat-radio-group [(ngModel)]="client.sex" name="sex" #sexControl="ngModel" required aria-label="Select Gender">
+                        <mat-radio-button value="M" style="margin-right: 20px; margin-left: -10px;">Male</mat-radio-button>
+                        <mat-radio-button value="F">Female</mat-radio-button>
+                      </mat-radio-group>
+                      <!-- Validation message -->
+                      <div *ngIf="sexControl.invalid && sexControl.touched" class="error-message">
+                        The sex field is required.
+                      </div>
                     </div>
-                    <div *ngIf="formSubmitted && sexControl.errors?.['required']" class="text-danger mb-3">Sex is required.*</div>
-
+                    
+                  
                  
                   </div>
 

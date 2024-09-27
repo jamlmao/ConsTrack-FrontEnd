@@ -17,17 +17,25 @@
                       <form style="font-family: 'Poppins', sans-serif; font-weight: bold;">
                        
                         
-                        <mat-form-field appearance="fill" class="mb-4 w-100">
+                        <mat-form-field appearance="outline" class="mb-4 w-100">
                           <mat-icon matPrefix>account_box</mat-icon>
                           <mat-label>Username</mat-label>
                           <input matInput type="text" [(ngModel)]="loginObj.username" name="username" placeholder="Enter your Username or Email" required>
                       </mat-form-field>
       
-                      <mat-form-field appearance="fill" class="mb-4 w-100">
+                      <mat-form-field appearance="outline" class="mb-4 w-100">
                           <mat-icon matPrefix>lock</mat-icon>
                           <mat-label>Password</mat-label>
-                          <input matInput type="password" [(ngModel)] = "loginObj.password" name="passsword" placeholder="Enter your password" required>
-                          
+                          <input matInput [type]="hide() ? 'password' : 'text'"  [(ngModel)] = "loginObj.password" name="passsword" placeholder="Enter your password" required>
+                          <button
+                          mat-icon-button
+                          matSuffix
+                          (click)="clickEvent($event)"
+                          [attr.aria-label]="'Hide password'"
+                          [attr.aria-pressed]="hide()" style="border: transparent; background-color: transparent; width: 65px;;"
+                        >
+                          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                         </mat-form-field>
       
                         <div class="text-center pt-1 mb-5 pb-1">
