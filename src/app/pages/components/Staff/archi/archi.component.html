@@ -1,12 +1,17 @@
-
 <div class="modal">
   <div class="modal-content">
     <div class="container">
       <form (ngSubmit)="onSubmit()">
         <div class="card-body text-center">
           <div class="col-md-12">
-            <label for="example-text-input" class="form-control-label">Update Image:</label>
-            <input placeholder="Full name" class="form-control" type="file" (change)="onFileChange($event, 'placeholder_image')" required>
+            <label for="example-text-input" class="form-control-label">Update Images:</label>
+            <div id="images-container">
+              <div *ngFor="let image of images; let i = index" class="image-item d-flex align-items-center mb-2">
+                <input placeholder="Full name" class="form-control mr-2 mx-1" type="file" (change)="onFileChange($event,'placeholder_images', i)" required>
+                <button type="button" class="btn btn-danger mx-1" (click)="removeImage(i)" *ngIf="images.length > 1">Remove</button>
+              </div>
+              <button type="button" class="btn btn-primary mt-2" (click)="addImage()">Add Image</button>
+            </div>
           </div>
           <div class="form-group">
             <label for="resources" class="form-control-label">Resources:</label>
