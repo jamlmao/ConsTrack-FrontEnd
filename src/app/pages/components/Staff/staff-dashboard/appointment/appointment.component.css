@@ -79,72 +79,7 @@
     
   
   
-       body {
-          color: #404E67;
-          background: #0a0b0b;
-          
-      }
-      .table-wrapper {
-          width: 100%;
-      font-family: 'Open Sans', sans-serif;
-          margin: 10px;
-          background: #fff;
-          padding: 20px;	
-          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-      }
-      
-      
-      
-      .table-title .add-new i {
-          margin-right: 4px;
-      }
-      table.table {
-          table-layout: fixed;
-      }
-      table.table tr th, table.table tr td {
-          border-color: #e9e9e9;
-      }
-      table.table th i {
-          font-size: 13px;
-          margin: 0 5px;
-          cursor: pointer;
-      }
-      table.table th:last-child {
-          width: 100px;
-      }
-      table.table td a {
-          cursor: pointer;
-          display: inline-block;
-          margin: 0 5px;
-          min-width: 24px;
-      }    
-      table.table td a.edit {
-          color: #FFC107;
-      }
-      table.table td a.delete {
-          color: #E34724;
-      }
-      table.table td i {
-          font-size: 19px;
-      }
-      table.table td a.add i {
-          font-size: 24px;
-          margin-right: -1px;
-          position: relative;
-          top: 3px;
-      }    
-      table.table .form-control {
-          height: 32px;
-          line-height: 32px;
-          box-shadow: none;
-          border-radius: 2px;
-      }
-      table.table .form-control.error {
-          border-color: #f50000;
-      }
-      table.table td .add {
-          display: none;
-      }
+    
   
     
   
@@ -166,3 +101,70 @@
       background-color: #ccc;
       cursor: not-allowed;
     }
+
+
+    .scheduler {
+      max-width: 1200px; /* Set a max width for the schedule */
+      margin: 20px auto; /* Center the schedule */
+      padding: 20px;
+      border-radius: 8px; /* Rounded corners */
+      background-color: #f9f9f9; /* Light background */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    
+    .scheduler-title {
+      font-size: 24px; /* Font size for title */
+      text-align: center; /* Center the title */
+      margin-bottom: 20px; /* Spacing below the title */
+      color: #333; /* Dark text color */
+    }
+    
+    .schedule-table {
+      width: 100%; /* Full width */
+      border-collapse: collapse; /* Collapse borders */
+    }
+    
+    .schedule-table th,
+.schedule-table td {
+  border: 1px solid #ddd; /* Add border to cells */
+  text-align: center; /* Center the text */
+  padding: 10px; /* Add padding for spacing */
+  height: 80px; /* Set a fixed height for all cells */
+  width: 100px; /* Set a fixed width for all cells */
+  vertical-align: top; /* Align content to the top */
+}
+    
+    .day-cell {
+      min-height: 80px; /* Minimum height for cells */
+      position: relative; /* Position relative for absolute children */
+      background-color: #ffffff; /* Default background */
+      transition: background-color 0.3s; /* Smooth transition for background color */
+      border-radius: 4px; /* Rounded corners */
+    }
+    
+    .day-number {
+      font-weight: bold; /* Bold day number */
+      font-size: 18px; /* Font size for day number */
+      color: #007bff; /* Blue color for day number */
+    }
+    
+    .appointment-list {
+      list-style-type: none; /* Remove bullets */
+      padding: 0; /* Remove padding */
+      margin-top: 10px; /* Spacing above the appointment list */
+    }
+    
+    .has-appointment {
+      background-color: #d1e7dd; /* Light green background for days with appointments */
+      border: 2px solid #198754; /* Darker border for highlighted cells */
+    }
+    
+    .no-appointments {
+      font-style: italic; /* Italic for no appointments */
+      color: gray; /* Gray color */
+      position: absolute; /* Position absolute to center */
+      top: 50%; /* Center vertically */
+      left: 50%; /* Center horizontally */
+      transform: translate(-50%, -50%); /* Translate for exact center */
+    }
+    

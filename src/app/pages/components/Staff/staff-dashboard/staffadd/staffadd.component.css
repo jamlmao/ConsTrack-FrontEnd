@@ -223,25 +223,18 @@
 
 
 .active {
-  background-color: #00b894;
-  color: rgb(252, 249, 249);
-  border-radius: 20px;
+  color: #00b894;
   padding: 10px;
 }
 .inactive {
-  background-color: #e9e926;
-  color: white;
-  color: rgb(32, 32, 32);
-  border-radius: 20px;
+  color: #eaea0c;
   padding: 10px;
+  
 }
 
 .inactives {
-  background-color: #d83e33;
-  color: white;
-  color: rgb(252, 249, 249);
+  color: #d83e33;
   border-radius: 20px;
-  padding: 10px;
 }
 
 /* Action Buttons */

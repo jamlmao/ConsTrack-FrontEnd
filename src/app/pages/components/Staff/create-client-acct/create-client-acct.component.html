@@ -6,9 +6,9 @@
         <div class="container">
             <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
             <div class="card-body text-center">
-                    <h1 class="mt-1 mb-5 pb-1">Create New Client Account</h1>
+                    <h1 class="mt-1 mb-5 pb-1" style="font-family:  Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Create New Client Account</h1>
                   
-                <div class="row">
+                  <div class="row" style="margin-top: -40px;">
                     
                   <div class="col-md-4">
                     <label for="example-text-input" class="form-control-label"
@@ -58,6 +58,63 @@
 
                  
                   </div>
+
+                  <div class="col-md-4">
+                    <label for="example-text-input" class="form-control-label"
+                      >Phone Number</label
+                    >
+                    <input class="form-control" placeholder="Phone_number" type="tel" id="phone_number" [(ngModel)]="client.phone_number" name="phone_number" #noControl="ngModel" min="0" step="1" data-bind="value:replyNumber" required>
+                <div *ngIf="formSubmitted && noControl.errors?.['required']" class="text-danger mb-3">Phone number is required.*</div>
+                
+
+                 
+                 
+                  </div>
+
+                  
+                  <div class="col-md-4">
+                    <label for="example-text-input" class="form-control-label"
+                      >Barangay</label
+                    >
+                    <input class="form-control" placeholder="Address" type="address" id="address" [(ngModel)]="client.address" name="address" #addressControl="ngModel" required>
+                <div *ngIf="formSubmitted && addressControl.errors?.['required']" class="text-danger mb-3">Address is required.*</div>
+               
+                 
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="example-text-input" class="form-control-label"
+                      >City/Municipality</label
+                    >
+                    <input class="form-control" placeholder="City" type="city" id="city" [(ngModel)]="client.city" name="city" #cityControl="ngModel" required>
+                 <div *ngIf="formSubmitted && cityControl.errors?.['required']" class="text-danger mb-3">City is required.*</div>
+                
+                 
+                 
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="example-text-input" class="form-control-label"
+                      >Province</label
+                    >
+                    <input class="form-control" placeholder="Country" type="country" id="country" [(ngModel)]="client.country" name="country" #countryControl="ngModel" required>
+                 <div *ngIf="formSubmitted && countryControl.errors?.['required']" class="text-danger mb-3">Province is required.*</div>
+               
+                 
+                 
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="example-text-input" class="form-control-label"
+                      >Zipcode</label
+                    >
+                    <input class="form-control" placeholder="Zipcode" type="zipcode" id="zipcode" [(ngModel)]="client.zipcode" name="zipcode" #zipcodeControl="ngModel" required>
+                 <div *ngIf="formSubmitted && zipcodeControl.errors?.['required']" class="text-danger mb-3">Zipcode is required.*</div>
+                
+                
+                 
+                 
+                  </div>
                   <div class="col-md-4">
                     <label for="example-text-input" class="form-control-label"
                       >Sex</label
@@ -75,65 +132,8 @@
 
                  
                   </div>
-                  <div class="col-md-4">
-                    <label for="example-text-input" class="form-control-label"
-                      >Address</label
-                    >
-                    <input class="form-control" placeholder="Address" type="address" id="address" [(ngModel)]="client.address" name="address" #addressControl="ngModel" required>
-                <div *ngIf="formSubmitted && addressControl.errors?.['required']" class="text-danger mb-3">Address is required.*</div>
-               
-                 
-                  </div>
 
-                  <div class="col-md-4">
-                    <label for="example-text-input" class="form-control-label"
-                      >City</label
-                    >
-                    <input class="form-control" placeholder="City" type="city" id="city" [(ngModel)]="client.city" name="city" #cityControl="ngModel" required>
-                 <div *ngIf="formSubmitted && cityControl.errors?.['required']" class="text-danger mb-3">City is required.*</div>
-                
-                 
-                 
-                  </div>
-
-                  <div class="col-md-4">
-                    <label for="example-text-input" class="form-control-label"
-                      >Country</label
-                    >
-                    <input class="form-control" placeholder="Country" type="country" id="country" [(ngModel)]="client.country" name="country" #countryControl="ngModel" required>
-                 <div *ngIf="formSubmitted && countryControl.errors?.['required']" class="text-danger mb-3">Country is required.*</div>
-               
-                 
-                 
-                  </div>
-
-                  <div class="col-md-4">
-                    <label for="example-text-input" class="form-control-label"
-                      >Zipcode</label
-                    >
-                    <input class="form-control" placeholder="Zipcode" type="zipcode" id="zipcode" [(ngModel)]="client.zipcode" name="zipcode" #zipcodeControl="ngModel" required>
-                 <div *ngIf="formSubmitted && zipcodeControl.errors?.['required']" class="text-danger mb-3">Zipcode is required.*</div>
-                <div class="text-red-400 text-danger mb-3" *ngIf="passwordControl?.dirty">
-                    
-                    <div class="block" [ngClass]="{'text-success': passwordControl?.value?.match('(.*[0-9].*)')}">Valid Number</div>
-                   
-                 </div>
-                
-                 
-                 
-                  </div>
-
-                  <div class="col-md-4">
-                    <label for="example-text-input" class="form-control-label"
-                      >Phone Number</label
-                    >
-                    <input class="form-control" placeholder="Phone_number" type="tel" id="phone_number" [(ngModel)]="client.phone_number" name="phone_number" #noControl="ngModel" min="0" step="1" data-bind="value:replyNumber" required>
-                <div *ngIf="formSubmitted && noControl.errors?.['required']" class="text-danger mb-3">Phone number is required.*</div>
-                
-
-                 
-                 
-                  </div>
+                  
 
                   
                   

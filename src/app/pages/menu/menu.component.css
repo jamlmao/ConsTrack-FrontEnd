@@ -24,3 +24,61 @@
     border-bottom-right-radius: .3rem;
     }
     }
+    .form-outline {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+    .form-label {
+        font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    
+    
+    .form-control {
+        padding-left: 40px; /* Adjusting for icon */
+        height: 50px;
+        border-radius: 0.5rem;
+        border: 1px solid #ced4da;
+        transition: all 0.2s ease-in-out;
+        background-color: #ffffff; /* White background for inputs */
+    }
+    
+    .form-control:focus {
+        border-color: #007bff; /* Border color on focus */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1.25rem;
+    }
+    
+    .shadow {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+   
+    
+    .position-relative {
+        margin-top: 20px; /* Adding margin for spacing */
+    }
+    
+    .fas {
+        font-size: 1.5rem; /* Font size for icons */
+    }
+    
+    /* Icon styles */
+    .form-outline .fa {
+        position: absolute;
+        top: 15px; /* Adjust according to input height */
+        left: 15px; /* Adjust for padding */
+        color: #aaa; /* Icon color */
+    }
+    
+    /* Change color of icons when input is focused */
+    .form-control:focus + .fa {
+        color: #007bff;
+    }
+    

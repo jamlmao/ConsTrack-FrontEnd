@@ -1,149 +1,133 @@
 
+
+
+
+
+
 <div class ="modal">
-    <div class="div modal-content">
-        <span class = "close" (click)="closeModal()">&times;</span>
+  <div class="div modal-content">
+      <span class = "close" (click)="closeModal()">&times;</span>
 
-        <div class="container">
-        
-            
-            
-            
-            
-            <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 600px;">
+      <div class="container">
+          <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+          <div class="card-body text-center">
+                  <h1 class="mt-1 mb-5 pb-1" style="font-family:  Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Create Project</h1>
                 
-               
+              <div class="row" style="margin-top: -40px;">
                   
-
-            <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-                <div class="card-body">
-                    <p class="text-uppercase text-sm mb-0 text-center">Project Details</p>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Project Type:</label
-                        >
-                        <select class="form-control" id="project_name" [(ngModel)]="project.project_type" name="project_name"  required>
-                          <option value="Residential">Residential</option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="Institutional">Institutional</option>
-                            <option value="Industrial">Industrial</option>
-                            <option value="Building">Building</option>
-                            <option value="Furniture">Furniture</option>
-                            <option value="Renovation">Renovation</option>
+                <div class="col-md-4">
+                  <label for="example-text-input" class="form-control-label"
+                    >Project Type:</label
+                  >
+                  <select class="form-control" id="project_name" [(ngModel)]="project.project_type" name="site_address"  type="text" required>
+                    <option value="Residential">Residential</option>
+                      <option value="Commercial">Commercial</option>
+                      <option value="Institutional">Institutional</option>
+                      <option value="Industrial">Industrial</option>
+                      <option value="Building">Building</option>
+                      <option value="Furniture">Furniture</option>
+                      <option value="Renovation">Renovation</option>
 
 
-                          
-                        </select>
                     
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Project Name:</label
-                        >
-                        <input class="form-control"  id="site_address" [(ngModel)]="project.project_name" name="site_address"  placeholder="Project Name" type="text" required/>
-                      </div>
-                      <div class="col-md-4">
-                        <label for="example-text-input" class="form-control-label"
-                          >Barangay:</label
-                        >
-                        <input class="form-control"  id="site_address" [(ngModel)]="project.site_address" name="site_address"  placeholder="Address" type="text" required/>
-                      </div>
-                      <div class="col-md-4">
-                        <label for="example-text-input" class="form-control-label"
-                          >City/Municipality</label
-                        >
-                        <input class="form-control" id="site_city" [(ngModel)]="project.site_city" name="site_city" placeholder="Municipality/City" type="text" required/>
-                      </div>
-                      <div class="col-md-4">
-                        <label for="example-text-input" class="form-control-label"
-                          >Province</label
-                        >
-                        <input class="form-control" id="site_province" [(ngModel)]="project.site_province" name="site_province" placeholder="Province" type="text" required/>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Client</label
-                        >
-                        <select class="form-control" id="client_id" [(ngModel)]="project.client_id" name="client_id" required>
-                            <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}, {{ client.last_name }}</option>
-                          </select>
-                      </div>
-                      <div class="col-md-6" *ngIf="!isLoggedInUserStaff()">
-                        <label for="example-text-input" class="form-control-label"
-                          >Contractor</label
-                        >
-                        <select class="form-control" id="staff_id" [(ngModel)]="project.staff_id" name="staff_id" required>
-                            <option *ngFor="let staff of staff" [value]="staff.id">{{ staff.first_name }}, {{ staff.last_name}} - {{ staff.extension_name }}</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Starting Date</label
-                        >
-                        <input class="form-control" id="starting_date" [(ngModel)]="project.starting_date" name="starting_date" type="date" required />
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Completion Date</label
-                        >
-                        <input class="form-control" id="completion_date" [(ngModel)]="project.completion_date" name="completion_date" type="date" required />
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Total Budget</label
-                        >
-                        <input class="form-control" id="totalBudget" [(ngModel)]="project.totalBudget" name="totalBudget" type="number" required/>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Project Image 1</label
-                        >
-                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Project Image 2</label
-                        >
-                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image1')" required/>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Project Image 3</label
-                        >
-                        <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image2')" required/>
-                      </div>
-                      
+                  </select>
+              
+                </div>
+                <div class="col-md-4">
+                  <label for="example-text-input" class="form-control-label"
+                    >Project Name</label
+                  >
+                  <input class="form-control"  id="site_address" [(ngModel)]="project.project_name" name="site_address"  placeholder="Project Name" type="text" required/>
+                </div>
+                <div class="col-md-4">
+                  <label for="example-text-input" class="form-control-label"
+                    >Client</label
+                  >
+                  <select class="form-control" type="first_name" id="client_id" [(ngModel)]="project.client_id" name="client_id" type="text" required>
+                      <option *ngFor="let client of clients" [value]="client.id">{{ client.first_name }}, {{ client.last_name }}</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="example-text-input" class="form-control-label"
+                    >Barangay</label
+                  >
+                  <input class="form-control"  id="site_address" [(ngModel)]="project.site_address" name="site_address"  placeholder="Address" type="text" required/>
+                </div>
+                <div class="col-md-4">
+                  <label for="example-text-input" class="form-control-label"
+                    >City/Municipality</label
+                  >
+                  <input class="form-control" id="site_city" [(ngModel)]="project.site_city" name="site_city" placeholder="Municipality/City" type="text" required/>
+                </div>
+                <div class="col-md-4">
+                  <label for="example-text-input" class="form-control-label"
+                    >Province</label
+                  >
+                  <input class="form-control" id="site_province" [(ngModel)]="project.site_province" name="site_province" placeholder="Province" type="text" required/>
+                </div>
+                
+                <div class="col-md-6" *ngIf="!isLoggedInUserStaff()">
+                  <label for="example-text-input" class="form-control-label"
+                    >Contractor</label
+                  >
+                  <select class="form-control" id="staff_id" [(ngModel)]="project.staff_id" name="staff_id" required>
+                      <option *ngFor="let staff of staff" [value]="staff.id">{{ staff.first_name }}, {{ staff.last_name}} - {{ staff.extension_name }}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="example-text-input" class="form-control-label"
+                    >Starting Date</label
+                  >
+                  <input class="form-control" id="starting_date" [(ngModel)]="project.starting_date" name="starting_date" type="date" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="example-text-input" class="form-control-label"
+                    >Completion Date</label
+                  >
+                  <input class="form-control" id="completion_date" [(ngModel)]="project.completion_date" name="completion_date" type="date" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="example-text-input" class="form-control-label"
+                    >Total Budget</label
+                  >
+                  <input class="form-control" id="totalBudget" [(ngModel)]="project.totalBudget" name="totalBudget" type="number" required/>
+                </div>
+                <div class="col-md-6">
+                  <label for="example-text-input" class="form-control-label"
+                    >Project Plan</label
+                  >
+                  <input class="form-control" type="file" (change)="onFileChange($event, 'pj_image')" required/>
+                </div>
+                                
 
+                
+                
+                <div class="d-flex align-items-center justify-content-between py-3">
+                  <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                  <button type="submit" class="btn btn-outline-dark">Create</button>
+                  </div>
+              </div>
+              
+              
 
-
-                      
-                    </div>
-                  
-                   
-                    
-                  </div> 
-            <div class="d-flex align-items-center justify-content-between py-3">
-              <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-            <button type="submit" class="btn btn-outline-dark"[disabled]="!project.project_name&&!project.client_id&&!project.starting_date&&!project.completion_date&&!project.totalBudget">Submit</button>
-            
+              
             </div>
-            
-            
-                                                                       
-        </form>
-            </article>
-            </div> <!-- card.// -->
-            
-            </div> 
-    
-   
+          </form>
+          
+          
+          
         
-    </div>
+          </div> 
+  
+ 
+      
+  </div>
 </div>
 
 
 
 
 <router-outlet></router-outlet>
+
+
 

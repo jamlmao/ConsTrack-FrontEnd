@@ -6,6 +6,10 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
 
 
 
@@ -15,7 +19,7 @@ const loginApi = `${baseUrl}/api/loginA`;
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [SweetAlert2Module,RouterOutlet, RouterModule, FontAwesomeModule, FormsModule, HttpClientModule],
+  imports: [MatFormFieldModule,MatIconModule,SweetAlert2Module,RouterOutlet, RouterModule, FontAwesomeModule, FormsModule, HttpClientModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })

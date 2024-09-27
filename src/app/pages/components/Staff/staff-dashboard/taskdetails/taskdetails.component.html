@@ -35,7 +35,7 @@
                           
                     </main>
 
-                    <div class="container">
+                    <div class="container" style="margin-top: -70px;">
                         <!-- Task Details Header -->
                         <div class="task-header card p-4 mb-4">
                           
@@ -70,7 +70,7 @@
                     
                         <!-- Estimated Materials Section -->
                         <div class="table-wrapper card p-4 mb-4">
-                            <h2 *ngIf="tasks.pt_status !== 'C'">Estimated Resources <button class="btn btn-outline-dark" style="margin-left: 20px;"  (click)="openTaskModal(tasks.id)" >
+                            <h2 >Estimated Resources <button class="btn btn-outline-dark" *ngIf="tasks.pt_status !== 'C'" style="margin-left: 20px;"  (click)="openTaskModal(tasks.id)" >
                                 Update Task
                                  
                                   </button>
@@ -104,6 +104,67 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div class="container">
+                            <div class="cards-container d-flex flex-wrap justify-content-center">
+                                <!-- Project Item 1 -->
+                                <div class="cards project-item card-custom m-3" *ngIf="task_image.week1_img ">
+                                    <img [src]="'http://localhost:8000' + task_image.week1_img" alt="Project Image" class="card-image">
+                                    <div class="project-details">
+                                        <p><strong>{{task_image.week1_img_uploaded_at}}</strong></p>
+                                        <p margi><strong>Week 1</strong></p>
+                                    </div>
+                                </div>
+                        
+                                <!-- Project Item 2"  -->
+                                <div class="cards project-item card-custom m-3"*ngIf="task_image.week2_img ">
+                                    <img [src]="'http://localhost:8000' + task_image.week2_img" alt="Project Image" class="card-image">
+                                    <div class="project-details">
+                                        <h3><strong>{{task_image.week2_img_uploaded_at}}</strong></h3>
+                                        <h3><strong>Week 2</strong></h3>
+                                    </div>
+                                </div>
+                        
+                                <!-- Project Item 3 -->
+                                <div class="cards project-item card-custom m-3" *ngIf="task_image.week3_img">
+                                    <img [src]="'http://localhost:8000' + task_image.week3_img" alt="Project Image" class="card-image">
+                                    <div class="project-details">
+                                        <h3><strong>{{task_image.week3_img_uploaded_at}}</strong></h3>
+                                        <h3><strong>Week 3</strong></h3>
+                                    </div>
+                                </div>
+    
+    
+    
+                                <div class="cards project-item card-custom m-3" *ngIf="task_image.week4_img ">
+                                    <img [src]="'http://localhost:8000' + task_image.week4_img" alt="Project Image" class="card-image">
+                                    <div class="project-details">
+                                        <h3><strong>{{task_image.week4_img_uploaded_at}}</strong></h3>
+                                        <h3><strong>Week 4</strong></h3>
+                                    </div>
+                                </div>
+    
+    
+    
+                                <div class="cards project-item card-custom m-3" *ngIf="task_image.week5_img ">
+                                    <img [src]="'http://localhost:8000' + task_image.week5_img" alt="Project Image" class="card-image">
+                                    <div class="project-details">
+                                        <h3><strong>{{task_image.week5_img_uploaded_at}}</strong></h3>
+                                        <h3><strong>Week 5</strong></h3>
+                                    </div>
+                                </div>
+    
+    
+    
+                                <div class="cards project-item card-custom m-3" *ngIf="task_image.update_img ">
+                                    <img [src]="'http://localhost:8000' + task_image.update_img"  alt="Project Image" class="card-image">
+                                    <div class="project-details">
+                                        <h3><strong>{{task_image.update_img_uploaded_at}}</strong></h3>
+                                        <h3 style="margin-top: -30px; margin-bottom: -10px;"><strong>Completed</strong></h3>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     
                         <!-- Used Materials Section -->
@@ -143,66 +204,7 @@
 
                     </div>
                     
-                    <div class="container">
-                        <div class="cards-container d-flex flex-wrap justify-content-center">
-                            <!-- Project Item 1 -->
-                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week1_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week1_img" alt="Project Image" class="card-image">
-                                <div class="project-details">
-                                    <h3><strong>{{task_image.week1_img_uploaded_at}}</strong></h3>
-                                    <h3><strong>Week 1</strong></h3>
-                                </div>
-                            </div>
                     
-                            <!-- Project Item 2"  -->
-                            <div class="cards project-item card-custom m-3"*ngIf="task_image.week2_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week2_img" alt="Project Image" class="card-image">
-                                <div class="project-details">
-                                    <h3><strong>{{task_image.week2_img_uploaded_at}}</strong></h3>
-                                    <h3><strong>Week 2</strong></h3>
-                                </div>
-                            </div>
-                    
-                            <!-- Project Item 3 -->
-                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week3_img">
-                                <img [src]="'http://localhost:8000' + task_image.week3_img" alt="Project Image" class="card-image">
-                                <div class="project-details">
-                                    <h3><strong>{{task_image.week3_img_uploaded_at}}</strong></h3>
-                                    <h3><strong>Week 3</strong></h3>
-                                </div>
-                            </div>
-
-
-
-                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week4_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week4_img" alt="Project Image" class="card-image">
-                                <div class="project-details">
-                                    <h3><strong>{{task_image.week4_img_uploaded_at}}</strong></h3>
-                                    <h3><strong>Week 4</strong></h3>
-                                </div>
-                            </div>
-
-
-
-                            <div class="cards project-item card-custom m-3" *ngIf="task_image.week5_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week5_img" alt="Project Image" class="card-image">
-                                <div class="project-details">
-                                    <h3><strong>{{task_image.week5_img_uploaded_at}}</strong></h3>
-                                    <h3><strong>Week 5</strong></h3>
-                                </div>
-                            </div>
-
-
-
-                            <div class="cards project-item card-custom m-3" *ngIf="task_image.update_img ">
-                                <img [src]="'http://localhost:8000' + task_image.update_img"  alt="Project Image" class="card-image">
-                                <div class="project-details">
-                                    <h3><strong>{{task_image.update_img_uploaded_at}}</strong></h3>
-                                    <h3><strong>Completed</strong></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     
                  
                  

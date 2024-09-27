@@ -56,7 +56,7 @@
                                 <td>{{ client.address }}, {{ client.city }}</td>
                                 <td><span [ngClass]="{
                                     'active': client?.user_status === 'Active', 
-                                    'inactive': client?.pt_status === 'Not Active'
+                                    'inactive': client?.user_status === 'Not Active'
                                   }">{{client.user_status}}</span></td>
                                 <td style="text-align: center;">
                                     <div class="action-menu">

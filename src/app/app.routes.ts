@@ -27,19 +27,6 @@ import { ClientprofileComponent } from './pages/components/Client/client-dashboa
 import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
 import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
 import { TaskdetailsComponent } from './pages/components/Staff/staff-dashboard/taskdetails/taskdetails.component';
-import { GeneralrequirementComponent } from './pages/components/Staff/categories/generalrequirement/generalrequirement.component';
-import { SiteworksComponent } from './pages/components/Staff/categories/siteworks/siteworks.component';
-import { ConcreteworksComponent } from './pages/components/Staff/categories/concreteworks/concreteworks.component';
-import { MetalworksComponent } from './pages/components/Staff/categories/metalworks/metalworks.component';
-import { FormsComponent } from './pages/components/Staff/categories/forms/forms.component';
-import { SteelworksComponent } from './pages/components/Staff/categories/steelworks/steelworks.component';
-import { TinsmithryComponent } from './pages/components/Staff/categories/tinsmithry/tinsmithry.component';
-import { PlasteringComponent } from './pages/components/Staff/categories/plastering/plastering.component';
-import { PaintworksComponent } from './pages/components/Staff/categories/paintworks/paintworks.component';
-import { PlumbingComponent } from './pages/components/Staff/categories/plumbing/plumbing.component';
-import { ElectricalComponent } from './pages/components/Staff/categories/electrical/electrical.component';
-import { CeilingworksComponent } from './pages/components/Staff/categories/ceilingworks/ceilingworks.component';
-import { ArchitecturalComponent } from './pages/components/Staff/categories/architectural/architectural.component';
 import { WebsiteComponent } from './website/website.component';
 import { ClientupdatesComponent } from './pages/components/Client/client-dashboard/clientupdates/clientupdates.component';
 import { TaskclientupdateComponent } from './pages/components/Client/client-dashboard/taskclientupdate/taskclientupdate.component';
@@ -48,7 +35,7 @@ import { ResourcetableComponent } from './pages/components/Staff/resourcetable/r
 import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
 import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
 import { AppointmentComponent } from './pages/components/Staff/staff-dashboard/appointment/appointment.component';
-import { HistoryComponent } from './pages/components/Staff/history/history.component';
+import { GoalComponent } from './website/goal/goal.component';
 
 
 
@@ -211,11 +198,7 @@ export const routes: Routes = [
         component: TaskdetailsComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'history/:taskId',
-        component: HistoryComponent,
-        canActivate: [AuthGuard]
-    },
+    
     {
         path: 'timeline/:id',
         component: TimelineComponent,
@@ -229,6 +212,10 @@ export const routes: Routes = [
     {
         path: 'Constrack/website/portfolio',
         component: WebsiteportfolioComponent,
+    },
+    {
+        path: 'Constrack/website/goal',
+        component: GoalComponent,
     },
     {
         path: 'updates',
