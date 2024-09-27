@@ -35,6 +35,47 @@ import { FilterPipe } from '../../../../filter.pipe';
 })
 export class ResourcetableComponent {
   
+
+  cards = [
+    { title: 'Card 1', content: 'Content for Card 1' },
+    { title: 'Card 2', content: 'Content for Card 2' },
+    { title: 'Card 3', content: 'Content for Card 3' },
+    { title: 'Card 4', content: 'Content for Card 4' },
+    { title: 'Card 5', content: 'Content for Card 5' },
+    { title: 'Card 6', content: 'Content for Card 6' },
+    { title: 'Card 7', content: 'Content for Card 7' },
+  ];
+
+  
+  
+  // State for scrolling
+  startIndex = 0;
+  itemsToShow = 5;
+
+
+  // Get the cards to display based on startIndex
+  get displayedCards() {
+    return this.cards.slice(this.startIndex, this.startIndex + this.itemsToShow);
+  }
+
+  // Get the middle index for highlighting
+  get centerIndex() {
+    return Math.floor(this.displayedCards.length / 2);
+  }
+
+  // Method to scroll right
+  scrollRight() {
+    if (this.startIndex + this.itemsToShow < this.cards.length) {
+      this.startIndex++;
+    }
+  }
+
+  // Method to scroll left
+  scrollLeft() {
+    if (this.startIndex > 0) {
+      this.startIndex--;
+    }
+  }
   
 
 
