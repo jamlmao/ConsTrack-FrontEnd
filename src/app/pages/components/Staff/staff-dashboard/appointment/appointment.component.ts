@@ -30,12 +30,13 @@ import { FilterPipe } from '../../../../../filter.pipe';
 
 import { formatDate } from '@angular/common';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth } from 'date-fns';
+import { NotavailableComponent } from "../../notavailable/notavailable.component";
 
 
 @Component({
   selector: 'app-appointment',
   standalone: true,
-  imports: [FilterPipe,MatPaginatorModule,SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
+  imports: [FilterPipe, MatPaginatorModule, SweetAlert2Module, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, NotavailableComponent],
   templateUrl: './appointment.component.html',
   styleUrl: './appointment.component.css'
 })
@@ -58,6 +59,21 @@ export class AppointmentComponent {
       }
     });
     return Array.from(namesSet);
+  }
+  isTaskOpen = false;
+  
+
+  openTaskModal() {
+    this.isTaskOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isTaskOpen);
+    this.sideBarOpen = false; 
+  }
+
+  closeTaskModal() {
+    this.isTaskOpen = false;
+    console.log('xd');
+    this.sideBarOpen = true; 
   }
   
 
@@ -128,6 +144,7 @@ organizeAppointmentsByMonth() {
     }
   }
 }
+
 
   getWeekStart(date: Date): Date {
     const dayOfWeek = date.getDay();

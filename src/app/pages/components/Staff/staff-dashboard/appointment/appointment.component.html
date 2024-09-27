@@ -36,6 +36,12 @@
                                   >
                                   <input class="form-control me-5" type="search" placeholder="Search for appointments" [(ngModel)]="searchText">
                                 </div>
+                                <div class="col-sm-2">
+                                  <button (click)="openTaskModal()"  class="btn btn-outline-dark">Add Schedule</button>
+                                      <app-notavailable 
+                                      *ngIf="isTaskOpen"  (close)="closeTaskModal()">
+                                      </app-notavailable>
+                              </div>
                                 
                                
 
