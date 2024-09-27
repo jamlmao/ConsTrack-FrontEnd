@@ -1,6 +1,6 @@
 
 
-    <section class="h-100 gradient-form" style="background-color: #eee;">
+    <section class="h-100 gradient-form" style="background-color: #2e2c2c;">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
@@ -14,33 +14,33 @@
                           style="width: 250px;" alt="logo">
                       </div>
       
-                      <form>
+                      <form style="font-family: 'Poppins', sans-serif; font-weight: bold;">
                        
                         
-                        <div data-mdb-input-init class="form-outline mb-4">
-                            <mat-icon>account_box</mat-icon>
-                            <label class="form-label" for="form2Example11">Username</label>
-                          <input type="username" [(ngModel)] = "loginObj.username" name="username" class="form-control"
-                            placeholder="Enter your Username or Email" required>
-                          
-                        </div>
+                        <mat-form-field appearance="fill" class="mb-4 w-100">
+                          <mat-icon matPrefix>account_box</mat-icon>
+                          <mat-label>Username</mat-label>
+                          <input matInput type="text" [(ngModel)]="loginObj.username" name="username" placeholder="Enter your Username or Email" required>
+                      </mat-form-field>
       
-                        <div data-mdb-input-init class="form-outline mb-4">
-                          <mat-icon>lock</mat-icon>
-                            <label class="form-label" for="form2Example22">Password</label>
-                          <input type="password" [(ngModel)] = "loginObj.password" name="passsword" class="form-control" placeholder="Enter your password" required>
+                      <mat-form-field appearance="fill" class="mb-4 w-100">
+                          <mat-icon matPrefix>lock</mat-icon>
+                          <mat-label>Password</mat-label>
+                          <input matInput type="password" [(ngModel)] = "loginObj.password" name="passsword" placeholder="Enter your password" required>
                           
-                        </div>
+                        </mat-form-field>
       
                         <div class="text-center pt-1 mb-5 pb-1">
-                          <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block fa-lg mb-3" type="button" (click)="onLogin()" >Login</button>
+                          <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block fa-lg mb-3" type="button" (click)="onLogin()" style="width: 200px ; font-family: 'Poppins', sans-serif; font-weight: bold;">Login</button>
                           <br>
                         
                         </div>
+
+                        
       
                         <div class="d-flex align-items-center justify-content-center pb-4">
                          
-                          <button  type="button"  class="btn btn-outline-danger" routerLink="/Constrack/website" routerLinkActive="">Website</button>
+                          <button  type="button"  class="btn btn-outline-danger" routerLink="/Constrack/website" routerLinkActive="" style="width: 250px; font-family: 'Poppins', sans-serif; font-weight: bold;">Website </button>
                         </div>
       
                       </form>
