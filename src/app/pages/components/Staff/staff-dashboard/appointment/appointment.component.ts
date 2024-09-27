@@ -29,6 +29,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FilterPipe } from '../../../../../filter.pipe';
 
 import { formatDate } from '@angular/common';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth } from 'date-fns';
+
 
 @Component({
   selector: 'app-appointment',
@@ -44,7 +46,10 @@ export class AppointmentComponent {
   sideBarOpen=true;
   appointments: any[] = [];
   uniqueClients: string[] = []; 
-  weeklySchedule: { [key: string]: any[] } = {}; 
+  weeklySchedule: any = {}; // Your schedule data
+  currentDate: Date = new Date();
+  dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
   getUniqueClientNames(appointments: any[]): string[] {
     const namesSet = new Set<string>();
     appointments.forEach(appointment => {
@@ -88,7 +93,7 @@ export class AppointmentComponent {
         if (response && Array.isArray(response.appointments)) {
           this.appointments = response.appointments;
         console.log('Appointmentss:', this.appointments);
-          this.organizeAppointmentsByWeek();
+          this.organizeAppointmentsByMonth();
         } else {
           console.error('No appointments found');
         }
@@ -96,11 +101,7 @@ export class AppointmentComponent {
     );
   }
 
-  isAM(appointment: any): boolean {
-    const appointmentDate = new Date(appointment.appointment_datetime);
-    const hour = appointmentDate.getHours();
-    return appointment.status === 'A' && hour >= 8 && hour < 11; // AM between 6:00 and 11:59
-}
+ 
 
 isPM(appointment: any): boolean {
     const appointmentDate = new Date(appointment.appointment_datetime);
@@ -108,21 +109,25 @@ isPM(appointment: any): boolean {
     return appointment.status === 'A' && hour >= 13 && hour <= 17; // PM between 1:00 and 5:00
 }
 
-  organizeAppointmentsByWeek() {
-    const currentDate = new Date();
-    const weekStart = this.getWeekStart(currentDate);
-    
-    this.weeklySchedule = {};
-    
-    for (let i = 0; i < 7; i++) {
-      const day = new Date(weekStart);
-      day.setDate(day.getDate() + i);
-      const dayKey = formatDate(day, 'yyyy-MM-dd', 'en-US');
-      this.weeklySchedule[dayKey] = this.appointments.filter(appointment => 
-        appointment.appointment_datetime.startsWith(dayKey)
+organizeAppointmentsByMonth() {
+  const currentDate = new Date(); // Current date
+  const monthStart = startOfMonth(currentDate); // Get the start of the month
+  const monthEnd = endOfMonth(currentDate); // Get the end of the month
+
+  this.weeklySchedule = {}; // Clear the existing schedule
+
+  // Iterate over each day in the calendarDaysInMonth
+  for (const week of this.calendarDaysInMonth) {
+    for (const day of week) {
+      const dayKey = formatDate(day.date, 'yyyy-MM-dd', 'en-US');
+      
+      // Filter appointments that match the current day and have status "A"
+      this.weeklySchedule[dayKey] = this.appointments.filter(appointment =>
+        appointment.appointment_datetime.startsWith(dayKey) && appointment.status === 'A'
       );
     }
   }
+}
 
   getWeekStart(date: Date): Date {
     const dayOfWeek = date.getDay();
@@ -138,6 +143,26 @@ isPM(appointment: any): boolean {
       const day = new Date(weekStart);
       day.setDate(day.getDate() + i);
       days.push(day);
+    }
+    return days;
+  }
+
+  get calendarDaysInMonth() {
+    const start = startOfWeek(startOfMonth(this.currentDate));
+    const end = endOfWeek(endOfMonth(this.currentDate));
+    const days = [];
+    let currentDay = start;
+
+    while (currentDay <= end) {
+      const week = [];
+      for (let i = 0; i < 7; i++) {
+        week.push({
+          date: currentDay,
+          isCurrentMonth: isSameMonth(currentDay, this.currentDate)
+        });
+        currentDay = addDays(currentDay, 1);
+      }
+      days.push(week);
     }
     return days;
   }

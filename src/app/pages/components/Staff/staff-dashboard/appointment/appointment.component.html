@@ -37,15 +37,7 @@
                                   <input class="form-control me-5" type="search" placeholder="Search for appointments" [(ngModel)]="searchText">
                                 </div>
                                 
-                                <div class="col-md-2">
-                                    <label for="clientSelect" class="form-control-label">Client</label>
-                                    <select class="form-control" id="clientSelect" [(ngModel)]="searchText" required>
-                                      <option value="" disabled selected>Select Client</option>
-                                      <option *ngFor="let clientName of uniqueClients" [value]="clientName">
-                                        {{ clientName }}
-                                      </option>
-                                    </select>
-                                  </div>
+                               
 
                                 
                               </div>
@@ -58,6 +50,9 @@
                   
                 </div>
 
+
+
+              
                 
                 
                 
@@ -65,47 +60,35 @@
                 
                 
                 <div class="scheduler">
-                  <h2>Weekly Schedule</h2>
+                  <h1 style="font-size: 40px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Monthly Schedule for {{ currentDate | date: 'MMMM yyyy' }}</h1> 
                   <table class="schedule-table">
-                      <thead >
-                          <tr>
-                              <th>Time</th>
-                              <th *ngFor="let day of getDaysInWeek()">{{ day | date: 'EEEE' }}</th> <!-- Display only day names -->
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <td class="time-slot">8-11 AM</td>
-                              <td *ngFor="let day of getDaysInWeek()" style="background-color: rgb(14, 154, 44); border-radius: 10px;">
-                                  <ng-container *ngIf="(day | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
-                                      <ul class="appointment-list">
-                                          <li *ngFor="let appointment of weeklySchedule[dayKey]" >
-                                              <ng-container *ngIf="isAM(appointment)">{{ appointment.client_first_name }} {{ appointment.client_last_name }} {{ appointment.client_phone_number || 'N/A' }}</ng-container>
-                                          </li>
-                                      </ul>
-                                  </ng-container>
-                                  <ng-template #noAppointments>
-                                      <span class="no-appointments">No appointments</span>
-                                  </ng-template>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td class="time-slot">1-5 PM</td>
-                              <td *ngFor="let day of getDaysInWeek()">
-                                  <ng-container *ngIf="(day | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments" >
-                                      <ul class="appointment-list">
-                                          <li *ngFor="let appointment of weeklySchedule[dayKey]" style="background-color: rgb(14, 154, 44); border-radius: 10px;">
-                                              <ng-container *ngIf="isPM(appointment)">{{ appointment.client_first_name }} {{ appointment.client_last_name }}  {{ appointment.client_phone_number || 'N/A' }}</ng-container>
-                                          </li>
-                                      </ul>
-                                  </ng-container>
-                                  <ng-template #noAppointments>
-                                      <span class="no-appointments">No appointments</span>
-                                  </ng-template>
-                              </td>
-                          </tr>
-                      </tbody>
+                    <thead>
+                      <tr>
+                        <th *ngFor="let dayName of dayNames" style="font-size: 20px;">{{ dayName }}</th> <!-- Display day names (Sun, Mon, etc.) -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let week of calendarDaysInMonth">
+                        <td *ngFor="let day of week">
+                          <div class="day-cell">
+                         
+                            <div class="day-number">{{ day.date | date: 'd' }}</div>
+                            <ng-container *ngIf="(day.date | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
+                              <ul class="appointment-list" >
+                                <li *ngFor="let appointment of weeklySchedule[dayKey]">
+                                  <ng-container>{{ appointment.client_first_name }} {{ appointment.client_last_name }} <div>{{ appointment.client_phone_number || 'N/A' }}</div> </ng-container>
+                                </li>
+                              </ul>
+                            </ng-container>
+                            <ng-template #noAppointments>
+                              <span class="no-appointments">No appointments</span>
+                            </ng-template>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
+
               </div>
 
 
