@@ -212,8 +212,10 @@ body {
 }
 
 .table-container {
-  width: 100%;
-  margin: 40px auto;
+  width: 104%;
+  height: 100%;
+  margin-right: -20px;
+  margin-left: -20px;
   background-color: #fff;
   border-radius: 12px;
   padding: 30px;

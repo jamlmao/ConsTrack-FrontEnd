@@ -16,7 +16,7 @@
                 </div>
              
                 
-                <div class="table-container"  style="margin-top: -80px;">
+                <div class="table-container"  style="margin-top: -80px; height: 700px;">
                     <div class="header">
                         <div class="filters">
                             
@@ -25,14 +25,14 @@
                         </div>
                         <div class="dues-info">
                             
-                            <button (click)="openCreateClientModal()" class="btn-grad">Add New Account</button>
+                            <button (click)="openCreateClientModal()" type="button" class="btn btn-outline-dark">Add New Account</button>
                             <app-create-client-acct 
                             *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
                     </app-create-client-acct>
                         </div>
                     </div>
             
-                    <table class="responsive-table" id="myTable">
+                    <table class="responsive-table" id="myTable" style="font-family: 'Poppins', sans-serif; font-weight: bold;">
                         <thead>
                             <tr>
                                 <th><input type="checkbox"></th>
