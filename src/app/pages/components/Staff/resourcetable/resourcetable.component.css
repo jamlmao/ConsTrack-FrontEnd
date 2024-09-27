@@ -283,4 +283,64 @@
       }
     }
   
+
+
+    .card-gallery-container {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center items vertically */
+      margin: 20px; /* Add margin around the container */
+      height: 50vh; /* Set height to half the viewport height */
+    }
+    
+    .card-gallery {
+      display: flex;
+      overflow: hidden; /* Hide overflowing cards */
+      width: 100%; /* Set a fixed width */
+      max-width: 600px; /* Set maximum width for the gallery */
+      position: relative; /* Positioning context for absolute elements */
+      height: 100%; /* Ensure the gallery takes full height of the container */
+    }
+    
+    .card {
+      margin: 0 5px; /* Space between cards */
+      transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+      border-radius: 8px; /* Rounded corners */
+      padding: 20px; /* Padding inside the card */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+      background-color: #f9f9f9; /* Light background for cards */
+      flex: 1; /* Default flex basis for cards */
+      min-width: 100px; /* Minimum width for smaller cards */
+      height: auto; /* Allow height to adjust based on content */
+    }
+    
+    .large-card {
+      transform: scale(1.0001); /* Scale up the center card more */
+      background-color: #e0e0e0; /* Different background color for the center card */
+      z-index: 1; /* Bring the center card above the others */
+    }
+    
+    .small-card {
+      opacity: 0.8; /* Slightly transparent for smaller cards */
+      transform: scale(0.9); /* Scale down the side cards */
+    }
+    
+    button {
+      background-color: #007bff; /* Button background color */
+      color: white; /* Button text color */
+      border: none; /* No border */
+      border-radius: 5px; /* Rounded corners */
+      padding: 10px 15px; /* Button padding */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background-color 0.3s ease; /* Smooth transition for background color */
+    }
+    
+    button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+    
+    button:disabled {
+      background-color: #ccc; /* Disabled button color */
+      cursor: not-allowed; /* Change cursor for disabled button */
+    }
     

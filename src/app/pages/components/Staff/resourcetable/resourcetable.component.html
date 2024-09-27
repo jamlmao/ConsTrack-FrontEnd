@@ -134,6 +134,34 @@
                           <!-- More tasks can be added here -->
                         </div>
                     </div>
+
+
+                    <div class="container">
+                    <div class="card-gallery-container" >
+                      <button (click)="scrollLeft()" [disabled]="startIndex === 0">←</button>
+                      
+                      <div class="card-gallery">
+                        <ng-container *ngFor="let card of displayedCards; let i = index">
+                          <div
+                            class="card"
+                            [ngClass]="{
+                              'large-card': i === centerIndex,
+                              'small-card': i !== centerIndex
+                            }"
+                          >
+                            <h3>{{ card.title }}</h3>
+                            <p>{{ card.content }}</p>
+                          </div>
+                        </ng-container>
+                      </div>
+                      
+                      <button (click)="scrollRight()" [disabled]="startIndex + itemsToShow >= cards.length">→</button>
+                    </div>
+                  </div>
+                    
+                    
+                    
+                    
                  
                  
                 </body>
