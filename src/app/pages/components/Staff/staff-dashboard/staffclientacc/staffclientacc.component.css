@@ -329,15 +329,12 @@ body {
 }
 
 .active {
-  background-color: #00b894;
-  color: rgb(252, 249, 249);
+  color: #00b894;
   border-radius: 20px;
   padding: 10px;
 }
 .inactive {
-  background-color: #d83e33;
-  color: white;
-  color: rgb(252, 249, 249);
+  color: #d83e33;
   border-radius: 20px;
   padding: 10px;
 }

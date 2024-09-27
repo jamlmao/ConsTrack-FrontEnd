@@ -148,9 +148,7 @@
     object-fit: cover;
 }
 
-.project-details {
-    padding: 1px;
-}
+
 
 h3 {
     font-size: 14px;
@@ -163,15 +161,15 @@ h3 {
 }
 
 .badge-ongoing {
-  background-color: orange;
+  color: orange;
 }
 
 .badge-complete {
-  background-color: green;
+  color: green;
 }
 
 .badge-due {
-  background-color: red;
+  color: red;
 }
 
 

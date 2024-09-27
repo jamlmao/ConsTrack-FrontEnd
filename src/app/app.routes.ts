@@ -35,6 +35,7 @@ import { ResourcetableComponent } from './pages/components/Staff/resourcetable/r
 import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
 import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
 import { AppointmentComponent } from './pages/components/Staff/staff-dashboard/appointment/appointment.component';
+import { GoalComponent } from './website/goal/goal.component';
 
 
 
@@ -211,6 +212,10 @@ export const routes: Routes = [
     {
         path: 'Constrack/website/portfolio',
         component: WebsiteportfolioComponent,
+    },
+    {
+        path: 'Constrack/website/goal',
+        component: GoalComponent,
     },
     {
         path: 'updates',
