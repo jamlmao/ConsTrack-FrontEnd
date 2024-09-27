@@ -32,22 +32,105 @@ export class ChomeComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  constructor(private router: Router) { }
+  clientId: number | null = null;
+  projects: any[] = [];
+  private baseUrl ='http://127.0.0.1:8000/'
+  private userUrl = this.baseUrl+'api/user/details';
+  private fetchUrl = this.baseUrl+'api/clients/';
+
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     if (userData) {
-      this.user = JSON.parse(userData);
+      try{
+        this.user = JSON.parse(userData);
+
+        if (this.user.profile_id){
+          this.clientId = this.user.profile_id;
+          if (this.clientId !==null){
+            this.fetchProject(this.clientId);
+          }
+        }
+
+      }catch(e){
+
+      }
+  
+    
     } else {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
+    this.getLoggedInUserNameAndId(); 
+    // this.fetchProject(); 
   }
 
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
+
+
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+      
+       
+        console.log('Logged in user:', this.user);
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
   }
+  
+
+  fetchProject(clientId :number): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+
+    const url = `${this.fetchUrl}${clientId}/projects`;
+
+    this.http.get(url, { headers }).subscribe(
+      (response: any) => {
+        if (response && Array.isArray(response.projects)) {
+          this.projects = response.projects;
+          console.log('Fetched projects:', this.projects);
+        } else {
+          console.error('Expected an array for projects');
+        }
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
+
+
+
+  selectProject(project: any) {
+    this.router.navigate(['client/viewstatus', project.id]);
+  }
+
+
+
+
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
     console.log('Opening Create Staff Modal');

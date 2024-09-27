@@ -1,3 +1,4 @@
+
 <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
 <mat-drawer-container>
     <mat-drawer mode="side" [opened]="sideBarOpen">
@@ -5,24 +6,95 @@
     </mat-drawer>
     <mat-drawer-content>
         <router-outlet></router-outlet>
-        <div class="d-flex align-items-center justify-content-between py-3 ">
-           
-            <button (click)="openCreateStaffModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Staff</button>
-            <app-create-staff-acct 
-                    *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
-            </app-create-staff-acct>
+        
+           <section class="">
+            <div class="containers">
+                <div class="title">
+                    
+                    <p>Welcome to your Project</p>
+                    <h1><span>CONSTRACK</span> ACCOUNTS</h1>
+
+                </div>
+                <div class="container">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-8"><h1 style="font-weight: bold;">User Management</h1></div>
+                                <div class="col-sm-2">
+                                    
             <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
                 <app-create-client-acct 
                         *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
                 </app-create-client-acct> 
             
+                                </div>
+                                <div class="col-sm-2">
+                                    <button (click)="openCreateStaffModal()"  type="button"  class="btn-grad btn-outline-dark">Create Staff</button>
+            <app-create-staff-acct 
+                    *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
+            </app-create-staff-acct>
+            
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Company</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of paginatedUsers;">
+                                    <td><span style="text-transform: uppercase;">{{user.first_name}}, {{user.last_name}}</span></td>
+                                    <td>0{{user.phone_number}}</td>
+                                    <td><span style="text-transform: uppercase;">{{user.address}}, {{user.city}} {{user.country}}</span></td>
+                                    <td><span style="text-transform: uppercase;">{{user.company_name}}</span></td>
+                                    <td><span style="text-transform: uppercase;">{{user.role}}</span></td>
+                                    <td><span style="text-transform: uppercase;">{{user.status}}</span></td>
+                                    <td>
+                                        <a class="add"  title="Add" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <a class="edit" (click)="openEditModal()"  title="Edit" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                        <app-editprofile 
+                        *ngIf="isEditModalOpen" (close)="closeEditModal()">
+                </app-editprofile>
+                                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a>
+                                    </td>
+                                </tr>
+                                  
+                                  
+                            </tbody>
+                        </table>
+                        <div class="pagination-controls">
+                            <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+                            <span style="margin-top: 4px;">Page {{currentPage}} of {{totalPages}}</span>
+                            <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                          </div>
+                    </div>
+                </div>    
+               
+                
+                
+
+            </div>
+
+           </section>
+        
+            
 
                 
-          </div>
+          
 
        
-          <div class="d-flex align-items-center justify-content-center pb-4">
-                </div>
+          
             
         
         <router-outlet></router-outlet>

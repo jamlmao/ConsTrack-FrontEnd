@@ -13,15 +13,16 @@
         
 
           <div class="container-fluid px-2 px-md-4">
-            <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+            <div class="page-header min-height-300 border-radius-xl mt-4">
               <span class="mask  bg-gradient-primary  opacity-6"></span>
             </div>
-            <div class="card card-body mx-3 mx-md-4 mt-n6">
+            <div class="">
               <div class="row gx-4 mb-2">
                 <div class="col-auto">
-                  <div class="avatar avatar-xl position-relative" style="width: 100px;">
-                    <img src="assets/cons.png" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                  <div *ngIf="user && user.staff"  class="avatar avatar-xl position-relative" style="width: 100px;">
+                    <img [src]="'http://localhost:8000/' + user.staff.company_logo" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                   </div>
+                
                 </div>
                 <div class="col-auto my-auto">
                   <div class="h-100">
@@ -29,7 +30,7 @@
                         Name: {{ user.name }}
                     </h5>
                     <p class="mb-0 font-weight-normal text-sm">
-                      Position: Staff of Company
+                      Role: Staff of Company
                     </p>
                   </div>
                 </div>
@@ -80,12 +81,13 @@
                             >
                             <input class="form-control" type="text" value='{{ user.staff.company_name }}' />
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-6">
                             <label for="example-text-input" class="form-control-label"
                               >Password</label
                             >
-                            <button type="button"  class="btn btn-success btn-outline-dark text-light form-control">Edit Password</button>
-                          
+                            <button type="button" (click)="openEditSubModal()" class="btn btn-success btn-outline-dark text-light form-control">Edit Password</button>
+                            <app-editpass *ngIf="isEditSubModalOpen"
+                                            (close)="closeEditSubModal()"></app-editpass>
                           </div>
                         </div>
                         <hr class="horizontal dark" />
@@ -111,7 +113,7 @@
                           </div>
                           <div class="col-md-4">
                             <label for="example-text-input" class="form-control-label"
-                              >City</label
+                              >Province</label
                             >
                             <input class="form-control"  type="text" value='{{ user.staff.city }}' />
                           </div>
@@ -143,32 +145,6 @@
 
         
 
-          <footer class="footer m-4  ">
-            <div class="container-fluid">
-              <div class="row align-items-center justify-content-lg-between">
-                <div class="col-lg-6 mb-lg-0 mb-4">
-                  <div class="copyright text-center text-sm text-muted text-lg-start">
-                    © 
-                    ConsTrack
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                    
-                    <li class="nav-item">
-                      <a href="" class="nav-link text-muted" target="_blank">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="" class="nav-link text-muted" target="_blank">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </footer>
         
         <router-outlet></router-outlet>
     </mat-drawer-content>

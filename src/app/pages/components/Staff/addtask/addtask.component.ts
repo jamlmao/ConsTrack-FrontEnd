@@ -4,27 +4,33 @@ import { FormGroup, FormsModule, RequiredValidator,ReactiveFormsModule, FormBuil
 import { RouterOutlet, Router, RouterModule,ActivatedRoute } from '@angular/router';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faYoutube,  } from '@fortawesome/free-brands-svg-icons';
+import { faPlus,faTrashAlt,faAdd } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-addtask',
   standalone: true,
-  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule,MatTooltipModule],
   templateUrl: './addtask.component.html',
   styleUrl: './addtask.component.css'
 })
 export class AddtaskComponent {
+  @Input() categoryId!: number;
   @Input() projectId: string | null = null;
   @Output() close = new EventEmitter<void>();
 
-  private baseUrl = 'http://127.0.0.1:8000/api/addtask/';
+  faTrashAlt = faTrashAlt;
+  faPlus = faAdd;
+
+
+  private baseUrl = 'http://127.0.0.1:8000/api/addtask2/';
   apiUrl: string ='';
 
   task: any = {
@@ -34,24 +40,14 @@ export class AddtaskComponent {
     pt_photo_task: '',
     pt_file_task: '',
     pt_allocated_budget: '',
-    pt_task_desc: '',
-    project_id: ''
+    project_id: '',
+    category_id: '',
+    resources: []
   };
   
   categories: string[] = [
-    'GENERAL REQUIREMENTS',
-    'SITE WORKS',
-    'CONCRETE & MASONRY WORKS',
-    'METAL REINFORCEMENT WORKS',
-    'FORMS & SCAFFOLDINGS',
-    'STEEL FRAMING WORK',
-    'TINSMITHRY WORKS',
-    'PLASTERING WORKS',
-    'PAINTS WORKS',
-    'PLUMBING WORKS',
-    'ELECTRICAL WORKS',
-    'CEILING WORKS',
-    'ARCHITECTURAL'
+    
+   
   ];
 
 
@@ -72,27 +68,18 @@ export class AddtaskComponent {
       });
     }
 
-    addTask(): void {
-      if (!this.projectId) {
-        console.error('Project ID is not set');
-        return;
-      }
-  
-      // Set the project_id in the task object
-      this.task.project_id = this.projectId;
-  
-      // Example payload for the POST request
-      const payload = this.task;
-  
-      this.http.post(this.apiUrl, payload).subscribe(response => {
-        console.log('Task added successfully', response);
-        Swal.fire('Success', 'Task added successfully', 'success');
-        this.close.emit();
-      }, error => {
-        console.error('Error adding task', error);
-        Swal.fire('Error', 'Error adding task', 'error');
-      });
+
+    
+
+    addResource() {
+      this.task.resources.push({ resource_name: '', qty: null, unit_cost: null });
     }
+  
+    removeResource(index: number) {
+      this.task.resources.splice(index, 1);
+    }
+
+    
     
 
     getAddTaskUrl(projectId: string): string {
@@ -137,9 +124,13 @@ export class AddtaskComponent {
 
       // Set the project_id in the task object
       this.task.project_id = this.projectId;
-
+      this.task.category_id = this.categoryId;
+      console.log('Task:', this.task);
       // Example payload for the POST request
       const payload = this.task;
+      console.log('Task payload:', payload);
+      
+      console.log('Token:', token);
 
       this.http.post(this.apiUrl, payload, {
         headers: {
@@ -150,7 +141,7 @@ export class AddtaskComponent {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Project added successfully.",
+          title: "successfully added successfully.",
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
@@ -159,11 +150,11 @@ export class AddtaskComponent {
 
         this.closeModal();
       },  error => {
-        console.error('Error adding project', error);
+        console.error('Error adding task', error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Error adding project. Something went wrong!",
+          text: "Error adding task. over the budget",
         });
       });
     }

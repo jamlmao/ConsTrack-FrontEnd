@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -24,20 +24,50 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from '../../../../../filter.pipe';
 
+import { take, tap } from 'rxjs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { EditprojectComponent } from "../../editproject/editproject.component";
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-staffadd',
   standalone: true,
-  imports: [FilterPipe,MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent],
+  imports: [MatPaginator, MatPaginatorModule, FilterPipe, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, StaffsidenavComponent, StafftoolbarComponent, CreateProjectComponent, EditprojectComponent],
   templateUrl: './staffadd.component.html',
   styleUrl: './staffadd.component.css'
 })
 
 export class StaffaddComponent {
   projects: any[] = [];
-  searchText:any;
   user: any;
 
   isCreateProjectModalOpen = false;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  
+  clients: any[] = [];
+  isCreateClientModalOpen = false;
+  
+  isEditModalOpen = false;
+
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'C':
+        return 'Complete';
+      case 'OG':
+        return 'Ongoing';
+      case 'D':
+        return 'Due';
+      default:
+        return status;
+    }
+  }
+
+  
+  dataSource = new MatTableDataSource<any>();
   
 
 
@@ -45,11 +75,13 @@ export class StaffaddComponent {
     this.isCreateProjectModalOpen = true;
     console.log('Opening Create Staff Project');
     console.log(this.isCreateProjectModalOpen);
+    this.sideBarOpen = false;
   }
 
   closeCreateProjectModal() {
     this.isCreateProjectModalOpen = false;
     console.log('xd');
+    this.sideBarOpen = true;
   }
  
 
@@ -57,8 +89,17 @@ export class StaffaddComponent {
 
 
   ngOnInit(): void {
-    
-    this.fetchClients(); // Fetch clients when the component is initialized
+      
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Please wait while we load the tasks.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
+
+  
     
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -71,13 +112,6 @@ export class StaffaddComponent {
     this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
 
-  
-
-  logout(): void {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    this.router.navigateByUrl('/'); // Redirect to login page
-  }
-  
 
 
 
@@ -89,13 +123,13 @@ export class StaffaddComponent {
     starting_date: '',
     totalBudget: 0,
     pj_image: null,
-    pj_pdf: null
+    pj_pdf: null,
+    project_type: '',
   };
 
   
 
   showForm = false;
-  clients: any[] = [];
 
 
 
@@ -107,47 +141,56 @@ export class StaffaddComponent {
     this.showForm = true;
   }
 
-  fetchClients(): void {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
+  
+ 
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Add the Bearer token to the headers
-    });
 
-    this.http.get(this.clientsUrl, { headers }).subscribe(
-      (response: any) => {
-        this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
-      },
-      error => {
-        console.error('Error fetching clients', error);
-      }
-    );
+  
+  
+
+  
+
+
+  openEditModal() {
+    this.isEditModalOpen = true;
+    console.log('Opening Edit Modal');
+    console.log(this.isEditModalOpen);
+    this.sideBarOpen = false; 
   }
- 
- 
-  
-  
-  
 
-
+  closeEditModal() {
+    this.isEditModalOpen = false;
+    console.log('xd');
+    this.sideBarOpen = true; 
+  }
 
   sideBarOpen=true;
+  
+
+ 
+  
+  
+  
+
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
 
 
   
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+
 
   selectedProject: any;
   userS: any = {};
+  paginatedUsers: any[] = []; // Holds the data for the current page
+  currentPage = 1;
+  rowsPerPage = 10; // Number of rows per page
+  totalPages = 1;
+  filteredProjects: any[] = [];
+  searchText: string = ''; 
+  
+pageSize: number = 1; // Example page siz
+  
 
   fetchProjects(): void {
     const token = localStorage.getItem('token');
@@ -163,13 +206,65 @@ export class StaffaddComponent {
 
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
+        Swal.close();
         this.projects = response;
-        console.log('Fetched projects:', this.projects);
+        this.project.paginator = this.paginator;
+        this.totalPages = Math.ceil(this.projects.length / this.rowsPerPage);
+        this.filteredProjects = this.projects;
+      this.updatePaginatedUsers();
       },
       error => {
         console.error('Error fetching projects', error);
       }
     );
+  }
+
+  // Filter the entire dataset based on search text
+  filterData() {
+    this.filteredProjects = this.projects.filter(project =>
+      project.client.first_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.client.last_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.project_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.project_type.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.starting_date.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.completion_date.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.status.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.staff_in_charge.staff_first_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      project.staff_in_charge.staff_last_name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+
+    // Reset to the first page after filtering
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.filteredProjects.length / this.rowsPerPage);
+    this.updatePaginatedUsers();
+  }
+
+  // Update the paginated users to be displayed for the current page
+  updatePaginatedUsers() {
+    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+    const endIndex = startIndex + this.rowsPerPage;
+    this.paginatedUsers = this.filteredProjects.slice(startIndex, endIndex);
+  }
+
+  // Go to the next page
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedUsers();
+    }
+  }
+
+  // Go to the previous page
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedUsers();
+    }
+  }
+
+  // Function to handle changes in the search text input
+  onSearchTextChange() {
+    this.filterData(); // Call filterData whenever the search input changes
   }
 
   selectProject(project: any) {

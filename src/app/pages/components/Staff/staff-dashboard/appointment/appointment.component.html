@@ -1,0 +1,178 @@
+
+<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-staffsidenav></app-staffsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+        
+           <section class="">
+            <div class="containers">
+                <div class="row">
+                    <div class="container-fluid align-items-center">
+        
+                        <div class="title">
+                            <h1><span>PROJECT</span> APPOINTMENTS</h1>      
+                        </div>
+                        <div class="align-items-center">         
+                        </div>
+                        
+                          
+                        <div class="col-12 col-xl-6">
+                            
+                            
+                          </div>
+                        </div>
+        
+                  
+                        <div class="col-12 col-xl-12" style="margin-top: -100px;">
+                          <div class="">
+                            <div class="card-header pb-0">
+                              <div class="d-flex align-items-center m-2">
+                                <div class="col-md-10 m-2">
+                                  <label for="example-text-input" class="form-control-label"
+                                    >Search</label
+                                  >
+                                  <input class="form-control me-5" type="search" placeholder="Search for appointments" [(ngModel)]="searchText">
+                                </div>
+                                <div class="col-sm-2">
+                                  <button (click)="openTaskModal()"  class="btn btn-outline-dark">Add Schedule</button>
+                                      <app-notavailable 
+                                      *ngIf="isTaskOpen"  (close)="closeTaskModal()">
+                                      </app-notavailable>
+                              </div>
+                                
+                               
+
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+        
+                
+                  
+                  
+                </div>
+
+
+
+              
+                
+                
+                
+                
+                
+                
+                <div class="scheduler">
+                  <h1 style="font-size: 40px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Monthly Schedule for {{ currentDate | date: 'MMMM yyyy' }}</h1> 
+                  <table class="schedule-table">
+                    <thead>
+                      <tr>
+                        <th *ngFor="let dayName of dayNames" style="font-size: 20px;">{{ dayName }}</th> <!-- Display day names (Sun, Mon, etc.) -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let week of calendarDaysInMonth">
+                        <td *ngFor="let day of week">
+                          <div class="day-cell">
+                         
+                            <div class="day-number">{{ day.date | date: 'd' }}</div>
+                            <ng-container *ngIf="(day.date | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
+                              <ul class="appointment-list" >
+                                <li *ngFor="let appointment of weeklySchedule[dayKey]">
+                                  <ng-container>{{ appointment.client_first_name }} {{ appointment.client_last_name }} <div>{{ appointment.client_phone_number || 'N/A' }}</div> </ng-container>
+                                </li>
+                              </ul>
+                            </ng-container>
+                            <ng-template #noAppointments>
+                              <span class="no-appointments">No appointments</span>
+                            </ng-template>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+              </div>
+
+
+                <div class="container">
+
+                  
+                    <div class="table-wrapper">
+                      
+                    
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-12"><h1 style="font-weight: bold;">Appointment Management</h1></div>
+                                
+                                
+                            </div>
+                        </div>
+                        <table class="table table-bordered" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th [width]="50">No.</th>
+                                   
+                                    
+                                    <th>Name</th>
+                                    <th>Project location</th>
+                                    <th>Contact Number</th>
+                                    <th>Appointment Date</th>
+                                    <th>Feedback</th>
+                                    <th>Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let appointment of appointments; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ appointment.client_first_name }} {{ appointment.client_last_name }}</td>
+                                    <td>{{ appointment.site_address || 'N/A' }},
+                                        {{ appointment.site_city || 'N/A' }},
+                                        {{ appointment.site_province || 'N/A' }}</td>
+                                        <td>{{ appointment.client_phone_number || 'N/A' }},
+                                    <td>{{ formatDateTime(appointment.appointment_datetime) }}</td>
+                                    <td>{{ appointment.description }}</td>
+                    
+                                    <td>
+                                        <button class="btn btn-outline-success" [disabled]="appointment.status !== 'P'" (click)="updateStatus(appointment.id, 'A')">
+                                          <mat-icon style="margin: 3px;">done</mat-icon>
+                                        </button>
+                                        <button class="btn btn-outline-danger" style="margin-top: 4px;" [disabled]="appointment.status !== 'P'" (click)="updateStatus(appointment.id, 'R')">
+                                          <mat-icon style="margin: 3px;">highlight_off</mat-icon>
+                                        </button>
+                                      </td>
+                                </tr>
+                                  
+                                  
+                            </tbody>
+                        </table>
+                       
+                        
+                            
+                       
+                        
+                    </div>
+                </div>    
+               
+                
+                
+
+            </div>
+
+           </section>
+           
+
+                
+          
+
+       
+          
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -45,32 +45,6 @@
   
   
 
-  .title::before{
-    content: '';
-    width: 200px;
-    height: 3px;
-    background: rgb(40, 40, 40);
-    opacity: .6;
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .title::after{
-    content: '\f005';
-    color: rgb(238, 234, 234);
-    width: 50px;
-    height: 20px;
-    line-height: 20px;
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    background: rgb(155, 151, 151);
-    transform: translateX(-50%);
-    font-size: 15px;
-  }
-
   .title p{
     font-style: italic;
     font-weight: 700;
@@ -111,45 +85,67 @@
         background: #0a0b0b;
 		
 	}
-	.table-wrapper {
-		width: 100%;
-    font-family: 'Open Sans', sans-serif;
-		margin: 10px;
-        background: #fff;
-        padding: 20px;	
-        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-    }
-    
-    
-    
-	.table-title .add-new i {
-		margin-right: 4px;
-	}
-    table.table {
-        table-layout: fixed;
-    }
-    table.table tr th, table.table tr td {
-        border-color: #e9e9e9;
-    }
-    table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    table.table th:last-child {
-        width: 100px;
-    }
-    table.table td a {
-		cursor: pointer;
-        display: inline-block;
-        margin: 0 5px;
-		min-width: 24px;
-    }    
+	
+/* Table Styles */
+.table-wrapper {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-title h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  white-space: nowrap;
+  
+}
+
+.table th, .table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+  background-color: #28282a;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 17px;
+}
+
+.table td {
+  font-size: 15px;
+  white-space: nowrap; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 450;
+}
+
+.table tbody tr:hover {
+  background-color: #f4f5f7;
+  transition: background-color 0.2s;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
     table.table td a.edit {
         color: #FFC107;
+        cursor: pointer;
     }
     table.table td a.delete {
         color: #E34724;
+        cursor: pointer;
     }
     table.table td i {
         font-size: 19px;
@@ -174,3 +170,228 @@
 	}
 
   
+  /* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  background-color: #28282a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.pagination-controls span {
+  color: #333;
+  font-weight: bold;
+}
+
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f6f9;
+  color: #2d3436;
+}
+
+.table-container {
+  width: 104%;
+  height: 100%;
+  margin-right: -20px;
+  margin-left: -20px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+}
+
+.filter-btn {
+  background-color: #7a1212;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-btn i {
+  margin-right: 8px;
+}
+
+.search {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  width: 300px;
+  transition: 0.3s;
+}
+
+.search:focus {
+  outline: none;
+  border-color: #501212;
+}
+
+.dues-info {
+  display: flex;
+  align-items: center;
+}
+
+.amount {
+  font-weight: bold;
+  color: #501212;
+}
+
+.pay-btn {
+  background-color: #00b894;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  background-color: #019670;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+}
+
+.responsive-table th, .responsive-table td {
+  padding: 15px;
+  text-align: left;
+  background-color: #fff;
+  
+  font-size: 20px;
+}
+
+.responsive-table th {
+  background-color: #f8f9fa;
+  color: #7f8c8d;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  font-size: 20px;
+}
+
+.responsive-table td {
+  font-size: 20px;
+  color: #2d3436;
+  border-bottom: 1px solid #ecf0f1;
+  
+}
+
+.status {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.active {
+  color: #00b894;
+  border-radius: 20px;
+  padding: 10px;
+}
+.inactive {
+  color: #d83e33;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.paid {
+  background-color: #00b894;
+  color: white;
+}
+
+.overdue {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.pagination {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.action-menu {
+  display: flex;
+  gap: 10px;
+}
+
+.view-more {
+  background-color: #292a2b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.view-more:hover {
+  background-color: #55aaff;
+}
+
+.edit, .delete {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #2d3436;
+  padding: 8px;
+  transition: color 0.3s;
+}
+
+.edit:hover {
+  color: #3498db;
+}
+
+.delete:hover {
+  color: #e74c3c;
+}

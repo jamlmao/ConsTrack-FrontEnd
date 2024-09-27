@@ -2,34 +2,61 @@
 
 
 <mat-toolbar>
-    <mat-toolbar-row class="justify-content-between">
-    <button mat-icon-button (click)="toggleSidebar()" class="menu"><mat-icon>menu</mat-icon></button>
-        <div>
-            <ul>
-                <li>
-                    
-                    <button mat-button [matMenuTriggerFor]="menu" type="button" class="user mt-3 d-flex align-items-center text-white border border-light"> 
-                    
-                    <mat-icon>keyboard_arrow_down</mat-icon>
-                    <img class="user-image" src="assets/cons.png" alt="Card image cap" >
-                    
-                </button>
-                <div class="manub">
-                <mat-menu #menu="matMenu">
-                    
-                    <button mat-menu-item routerLink="/staff/profile" routerLinkActive="list-item-active" class="text-dark menu"><mat-icon>account_circle</mat-icon>Edit Profile</button>
-                    
-                    <button mat-menu-item (click)="logout()"  type="button">
-                        <mat-icon>exit_to_app</mat-icon>
-                        Logout
-                    </button>
-                </mat-menu></div>
-                </li>
-            </ul>
-        </div>
-
-    </mat-toolbar-row>
     
+  <mat-toolbar-row class="justify-content-between">
+  <button mat-icon-button (click)="toggleSidebar()" class="menu"><mat-icon style="color: white;">menu</mat-icon></button>
+  <div class="text" ><h1 style="font-size: 30px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-left: 170px;">ConsTrack: A Project Framework for Construction Project Monitoring</h1>
+      
+  </div>
+  <mat-icon [matMenuTriggerFor]="notificationMenu" matBadge="{{ messages.length }}" matBadgeColor="accent" style="color: white; margin-left: 90px; margin-right: 0;">notifications</mat-icon>
+
+  <mat-menu #notificationMenu="matMenu">
+    <ng-container *ngIf="messages.length > 0; else noMessages">
+      <button mat-menu-item *ngFor="let message of messages" (click)="markAsRead(message)">
+        <mat-icon>message</mat-icon>
+        <span>{{ message.text }}</span>
+      </button>
+    </ng-container>
+    
+    <ng-template #noMessages>
+      <button mat-menu-item disabled>
+        <mat-icon>info</mat-icon>
+        <span>No new notifications</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+  
+ 
+  
+      <div>
+          
+          <ul>
+              
+              
+                  
+                  <button mat-button [matMenuTriggerFor]="menu" type="button" class="user mt-3 d-flex align-items-center border" style="border-radius: 15px; background-color: rgb(250, 247, 247);"> 
+                    {{ user.name }} 
+                  <mat-icon style="color: rgb(7, 7, 7);">keyboard_arrow_down</mat-icon>
+                  
+                  
+                  
+              </button>
+              <div class="manub">
+              <mat-menu #menu="matMenu">
+                  
+                  <button mat-menu-item routerLink="/staff/profile" routerLinkActive="list-item-active" class="text-dark menu"><mat-icon>account_circle</mat-icon>Edit Profile</button>
+                  
+                  <button mat-menu-item (click)="logout()"  type="button">
+                      <mat-icon>exit_to_app</mat-icon>
+                      Logout
+                  </button>
+              </mat-menu></div>
+              
+          </ul>
+      </div>
+
+  </mat-toolbar-row>
+  
 </mat-toolbar>
 
 

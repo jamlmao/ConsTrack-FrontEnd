@@ -8,132 +8,47 @@
         <router-outlet></router-outlet>
         
         
-        <div class="row">
-            <div class="row">
-             
-              <div class="col-12 col-xl-12 m-3">
-                <div class="card card-plain h-100">
-                  
-                  <div class="card-body">
-                    
-                    <hr class="horizontal dark" />
-                    <p class="text-uppercase text-sm mb-0">Project Details</p>
-                    <div class="row">
-                        <div>
-                            <h2>Timeline </h2>
-                            <p class="heighlight">Accomplished</p>
-                            <p class="heighlights text-light">Done Late</p>
-                        </div>
-                      <div class="col-md-12">
-                       
-                        <div class="timeline">
-                            
-                            <div class="">
-                                
-                              </div>
-                            <div *ngFor="let item of events" class="timeline-event ">
-                
-                                
-                                
-                
-                               <div class="cards project-item">
-                                            <div class="project-detail">
-                                                <span>
-                                                    {{item.content}}
-                                                </span>
-                                                
-                                           
-                                                
-                                            </div>
-                                            
-                                </div>
-                                <div class="timeline-point-track-container">
-                                    <div class="timeline-point" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
-                                    <div class="timeline-track" [ngClass]="item?.status === 'R' ? 'heighlight' : '' || item?.status === 'N' ? 'heighlights' : '' "></div>
-                                    
-                                    
-                                </div>
-                                <div class="cardss card-plain h-100">
-
-                                    <div class="row">
-                                        
-                                        <div class="col-md-5">
-                                            
-                                            <div class="project-details">
-                                                
-                                                <img class="user-image" src="assets/cons.png" alt="Card image cap"  class="card-image">
-                                           
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="project-details">
-                                                <img class="user-image" src="assets/cons.png" alt="Card image cap"  class="card-image">
-                                            
-                                                
-                                           
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            
-                                                <div class="project-details">
-                                                    <span>
-                                                        {{item.content}}
-                                                    </span>
-                                                    <span class="timeline-date">
-                                                        {{item.date}}
-                                                    </span>
-                                                    <p>Budget used: 123123</p>
-                                                    <p>Accomplished Date: {{item.date}}</p>
-                                                    <p>Target Date Date: {{item.date}}</p>
-                                               
-                                                    
-                                                </div>
-                                        </div>
-                                      </div>
-                                  
-                                                
-                                    </div>
-                
-                                    
-                                        
-                                
-                        
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-md-8">
-                        <h1>Documentations</h1>
-                        <div *ngFor="let item of events" class="">
-                
-                                
-                                
-                
-                            
-                             
-                          
-             
-                                 
-                                     
-                             
-                     
-                         </div>
-                      </div>
-                      
-                       
-                     
-                    </div>
-                    <hr class="horizontal dark" />
-                    
-                    
+        <div class="timeline-container">
+          <div class="timeline">
+              <div class="task complete">
+                  <div class="content">
+                      <img src="/api/placeholder/200/150" alt="Foundation Work">
+                      <h2>Foundation Work</h2>
+                      <p class="date">May 1, 2024</p>
+                      <p>Completed foundation work for the new office building.</p>
                   </div>
-                </div>
               </div>
-              
-              
-            </div>
+              <div class="task complete">
+                  <div class="content">
+                      <img src="/api/placeholder/200/150" alt="Framing">
+                      <h2>Framing</h2>
+                      <p class="date">June 15, 2024</p>
+                      <p>Completed framing for the structure.</p>
+                  </div>
+              </div>
+              <div class="task">
+                  <div class="content">
+                      <img src="/api/placeholder/200/150" alt="Roofing">
+                      <h2>Roofing</h2>
+                      <p class="date">July 30, 2024</p>
+                      <p>Install roof components and weatherproofing.</p>
+                  </div>
+              </div>
+              <div class="task">
+                  <div class="content">
+                      <img src="/api/placeholder/200/150" alt="Interior Work">
+                      <h2>Interior Work</h2>
+                      <p class="date">September 1, 2024</p>
+                      <p>Begin interior finishing and installations.</p>
+                  </div>
+              </div>
+              <!-- More tasks can be added here -->
           </div>
+      </div>
+  
+
+        
+        
 
     
         <router-outlet></router-outlet>

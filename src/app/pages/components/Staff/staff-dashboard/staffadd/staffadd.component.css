@@ -3,6 +3,7 @@
   border-radius: 0px 0px 10px;
   box-shadow: 0 0 10px #000000;
 }
+  
   .mat-drawer-container{
     height: 100%;
   }
@@ -11,129 +12,299 @@
     background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
    width: 150px;
    padding: 5px;
-   margin: 5px;
+   margin: 2px;
     text-align: center;
     transition: 0.5s;
     font-size: 15px;
     background-size: 200% auto;
     color: white;            
+    box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     display: block;
   }
   
+
+  
+  .status-complete {
+    color: green;
+  }
+  
+  .status-ongoing {
+    color: orange;
+  }
+  
+  .status-due {
+    color: red;
+  }
+
+  
   .btn-grad:hover {
     background-position: right center; /* change the direction of the change here */
     color: #fff;
-}
+  }
 
-.projects-container {
- 
-  height: auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 20px;
-  padding: 20px;
+  .containers{
+    width: 90%;
+    margin: 0 auto;
+  }
 
-}
-
-.cards {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 0; /* Remove margin to use gap instead */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  text-align: center; /* Center the content */
-  width: 330px; /* Set the width of the card */
-  height: 470px; /* Set the height of the card */
-  margin: 10px;
-}
-
-.card-image {
-  width: 300px;  /* Set the width of the image */
-  height: 230px; /* Set the height of the image */
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-
-.project-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  .title{
+    margin-bottom: 50px;
+    margin-top: 20px;
+    padding-bottom: 40px;
+    text-align: center;
+    position: relative;
+  }
+  
+  
   
 
-}
-p{
-  margin: 0px;
+
+  .title p{
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+  .title h1 span{
+    font-weight: 500;
+    color: #870000;
+    font-size: 30px;
+  }
+  .title h1{
+    font-weight: 500;
+    color: #000000;
+    font-size: 30px;
+  }
+
+  .card{
+    margin: 10px;
+  }
+
+  .card-main{
+    position: relative;
+    height: 250px;
+    background: #dbdbdb;
+    border-radius: 3px;
+  }
+  
+  
+  
+  
+
+
+     body {
+        color: #404E67;
+        background: #0a0b0b;
+		
+	}
+	
+  .eye{
+    color: #0a0b0b;
+    margin-top: 20px;
+    margin-left: 5px;
+    
+  cursor: pointer;
+     
+   
+   }
+ /* General Container Styles */
+.container-fluid {
+  padding: 20px;
+  background-color: #f4f5f7;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.title{
-  margin-top: 20px;
-  padding-bottom: 40px;
+/* Title Section */
+.title p {
+  font-size: 18px;
+  color: #888;
   text-align: center;
-  position: relative;
-
-
 }
 
-.title::before{
-  content: '';
-  width: 200px;
-  height: 3px;
-  background: rgb(40, 40, 40);
-  opacity: .6;
-  position: absolute;
-  bottom: 15%;
-  left: 50%;
-  transform: translateX(-50%);
+.title h1 {
+  font-size: 36px;
+  text-transform: uppercase;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
 }
 
-.title::after{
-  content: '\f005';
-  color: rgb(238, 234, 234);
-  width: 50px;
-  height: 20px;
-  line-height: 20px;
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
-  background: rgb(155, 151, 151);
-  transform: translateX(-50%);
-  font-size: 15px;
-}
-
-.title p{
-  font-style: italic;
-  font-weight: 700;
-  margin: 0;
-}
 .title h1 span {
-  font-weight: 500;
-  color: #870000;
-  font-size: 30px;
-}
-.title h1{
-  font-weight: 500;
-  color: #000000;
-  font-size: 30px;
+  color: #570909; /* Cool blue highlight */
 }
 
-.item
-{
-  align-items: end;
+/* Search Filters Section */
+.card-header {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-control-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 6px;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.btn-outline-dark {
+  background-color: #28282a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.btn-outline-dark:hover {
+  background-color: #ddd7d7;
+  color: #0c0c0c;
+  
+}
+
+/* Table Styles */
+.table-wrapper {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-title h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th, .table td {
+  padding: 15px;
   text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+  background-color: #28282a;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 17px;
+}
+
+.table td {
+  font-size: 15px;
+  white-space: nowrap; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 450;
+}
+
+.table tbody tr:hover {
+  background-color: #f4f5f7;
+  transition: background-color 0.2s;
+}
+
+.align-middle {
+  vertical-align: middle;
 }
 
 
 
-.item{
+.active {
+  color: #00b894;
+  padding: 10px;
+}
+.inactive {
+  color: #eaea0c;
+  padding: 10px;
+  
+}
+
+.inactives {
+  color: #d83e33;
+  border-radius: 20px;
+}
+
+/* Action Buttons */
+.view, .edit {
+  background-color: #292a2b;
+  color: white;
+  border: none;
+  padding: 10px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view:hover, .edit:hover {
+  color: #121212;
+  background-color: #d4cdcd;
+}
+
+.mat-icon {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  text-align: center;
-  background-color: #eee;
+  margin-top: 20px;
 }
-.card{
- margin-left: 20px;
- margin-bottom: 20px;
+
+.pagination-controls button {
+  background-color: #28282a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-controls button:disabled {
+  background-color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.pagination-controls span {
+  color: #333;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .table th, .table td {
+    padding: 12px;
+    text-align: center;
+  }
+
+  .title h1 {
+    font-size: 28px;
+  }
 }

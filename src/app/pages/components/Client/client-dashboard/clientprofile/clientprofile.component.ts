@@ -19,11 +19,12 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
+import { EditpassComponent } from "../../../Staff/editpass/editpass.component";
 
 @Component({
   selector: 'app-clientprofile',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, ClientsidenavComponent, ClienttoolbarComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, ClientsidenavComponent, ClienttoolbarComponent, EditpassComponent],
   templateUrl: './clientprofile.component.html',
   styleUrl: './clientprofile.component.css'
 })
@@ -76,7 +77,7 @@ export class ClientprofileComponent {
     console.log('xd');
   }
 
-  sideBarOpen=true;
+  sideBarOpen=false;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
@@ -130,5 +131,19 @@ export class ClientprofileComponent {
         console.error('Error fetching user details', error);
       }
     );
+  }
+
+  isEditSubModalOpen = false;
+
+  openEditSubModal(){
+   
+    this.isEditSubModalOpen = true;
+    console.log('Selected Category ID:');
+    this.sideBarOpen = false;
+  }
+  
+  closeEditSubModal() {
+     this.isEditSubModalOpen = false;
+      this.sideBarOpen = true; 
   }
 }

@@ -21,7 +21,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 export class CreateClientAcctComponent implements OnInit {
     faYoutube = faYoutube;
     @Output() close = new EventEmitter<void>();
-
+    private addClient = 'http://127.0.0.1:8000/api/registerC';
     registerForm!:FormGroup;
     client: ClientObj; 
 
@@ -35,7 +35,7 @@ export class CreateClientAcctComponent implements OnInit {
       const inputElement = document.getElementById('phone_number');
       if(inputElement){
         intlTelInput(inputElement,{
-          initialCountry: 'US',
+          initialCountry: 'PH',
           separateDialCode: true,
           utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js'
 
@@ -48,7 +48,11 @@ export class CreateClientAcctComponent implements OnInit {
         this.close.emit();
       }
 
+
+      formSubmitted: boolean = false;
+
       onSubmit() {
+        this.formSubmitted = true;
         const token = localStorage.getItem('token');
         if (!token) {
           console.error('No auth token found');
@@ -56,15 +60,18 @@ export class CreateClientAcctComponent implements OnInit {
         }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         
-        this.http.post('http://127.0.0.1:8000/api/registerC', this.client, { headers }).subscribe(
+        this.http.post(this.addClient, this.client, { headers }).subscribe(
           response => {
-            console.log('Clientcreated successfully', response);
+            console.log('Client created successfully', response);
             Swal.fire({
               position: "center",
               icon: "success",
               title: "Client created successfully.",
               showConfirmButton: false,
               timer: 2000
+              
+            }).then(() => {
+              window.location.reload();
             });
 
             this.closeModal();
@@ -94,7 +101,6 @@ export class ClientObj {
   city: string;
   country: string;
   zipcode: string;
-  company_name: string;
   phone_number: string;
   
   constructor(){
@@ -108,7 +114,7 @@ export class ClientObj {
     this.city='';
     this.country='';
     this.zipcode='';
-    this.company_name='';
     this.phone_number='';
+    
   }
 }

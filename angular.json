@@ -33,7 +33,11 @@
               "node_modules/sweetalert2/src/sweetalert2.scss"
 
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/intl-tel-input/build/js/intlTelInput.js",
+              "./node_modules/sweetalert2/dist/sweetalert2.min.js"
+            ]
           },
           "configurations": {
             "production": {

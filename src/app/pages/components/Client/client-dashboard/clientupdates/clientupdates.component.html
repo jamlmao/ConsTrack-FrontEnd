@@ -1,0 +1,64 @@
+<app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="over" [opened]="sideBarOpen">
+        <app-clientsidenav></app-clientsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        
+        
+        
+           <div class="container">
+            <div class="title">
+                <p>Welcome to your Project</p>
+                <h1><span>PROJECT</span> UPDATES</h1>
+
+                
+            </div>
+               
+           </div>
+        
+            
+           <h1><span>Resources</span></h1>
+           <table class="table table-bordered">
+            <thead>
+                <tr>
+                    
+                    <th width="50%">Name</th>
+                    <th width="20%">Qty.</th>
+                    <th width="20%">Cost</th>
+                    <th width="20%">Total</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    
+                    <td><span style="">asdasdakhsd</span></td>
+                    <td><span style="">2</span></td>
+                    <td><span style="">300.00</span></td>
+                    
+                    <td><span style="">30000.00</span></td>
+                    
+                </tr>
+                <tr >
+                    
+                    <td><span style="">asd</span></td>
+                    <td><span style="">asd</span></td>
+                    <td><span style="">asd</span></td>
+                    
+                </tr>
+                  
+                  
+            </tbody>
+        </table>
+
+                
+          
+
+       
+          
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

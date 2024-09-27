@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -10,20 +10,37 @@ import { MatListModule } from "@angular/material/list";
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 
+
+import { MatMenuModule } from "@angular/material/menu";
+
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
+
 @Component({
   selector: 'app-clientsidenav',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent],
+  imports: [CommonModule,HttpClientModule,MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent],
   templateUrl: './clientsidenav.component.html',
   styleUrl: './clientsidenav.component.css'
 })
 export class ClientsidenavComponent {
+  
+
+
+
+
+  @Output() toggleSidebarForMe: EventEmitter<any>= new EventEmitter();
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  constructor(private router: Router) { }
+  private baseUrl = 'http://127.0.0.1:8000/';
+  private logoutUrl = this.baseUrl+'api/logout';
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.loadMessages();
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
@@ -31,31 +48,124 @@ export class ClientsidenavComponent {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
     }
+    this.fetchNotifications(); // Fetch notifications when the component is initialized
+    
+    this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
+  
+  loadMessages(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    
+  }
+
+  formatDate(dateTime: string): string {
+    const date = new Date(dateTime);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+  }
+
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.user = response;
+        console.log('Logged in user:', this.user);
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
+  
+
+
+
+
+
+
+
+
+  fetchNotifications() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.baseUrl + 'api/notifications', { headers }).subscribe(
+      (response: any) => {
+        console.log('Notifications fetched successfully', response);
+      },
+      error => {
+        console.error('Error fetching notifications', error);
+      }
+    );
+  }
+
+
+
 
   logout(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post(this.logoutUrl, {}, { headers }).subscribe(
+      (response: any) => {
+        console.log('Logout response:', response);
+      },
+      error => {
+        console.error('Error logging out', error);
+      }
+    );
+
+
+
+
     localStorage.removeItem('user'); // Remove user data from local storage
     this.router.navigateByUrl('/'); // Redirect to login page
+
   }
-  openCreateStaffModal() {
-    this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
+  
+  
+  
+  toggleSidebar(){
+    this.toggleSidebarForMe.emit();
   }
 
-  closeCreateStaffModal() {
-    this.isCreateStaffModalOpen = false;
-    console.log('xd');
-  }
-
-  openCreateClientModal() {
-    this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
-  }
-
-  closeCreateClientModal() {
-    this.isCreateClientModalOpen = false;
-    console.log('xd');
-  }
 }

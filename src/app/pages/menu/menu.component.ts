@@ -6,6 +6,14 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
+
+
+
 
 
 const baseUrl = 'http://127.0.0.1:8000';
@@ -14,7 +22,7 @@ const loginApi = `${baseUrl}/api/loginA`;
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [SweetAlert2Module,RouterOutlet, RouterModule, FontAwesomeModule, FormsModule, HttpClientModule],
+  imports: [MatInputModule,MatFormFieldModule,MatIconModule,SweetAlert2Module,RouterOutlet, RouterModule, FontAwesomeModule, FormsModule, HttpClientModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
@@ -54,11 +62,7 @@ export class MenuComponent {
         if (res.role) {
           if (res.role === 'admin') {
             console.log('Login successful, admin');
-            Swal.fire({
-              title: "Good job!",
-              text: "Logged in Successfully!",
-              icon: "success"
-            });
+            
             this.router.navigateByUrl('/admin/home').then(success => {
               if (success) {
                 console.log('Navigation to admin dashboard successful');
@@ -68,11 +72,7 @@ export class MenuComponent {
             });
           } else if (res.role === 'staff') {
             console.log('Login successful, staff');
-            Swal.fire({
-              title: "Good job!",
-              text: "Logged in Successfully!",
-              icon: "success"
-            });
+            
             this.router.navigateByUrl('/staff/shome').then(success => {
               if (success) {
                 console.log('Navigation to staff dashboard successful');
@@ -82,11 +82,7 @@ export class MenuComponent {
             });
           } else if (res.role === 'client') {
             console.log('Login successful, client');
-            Swal.fire({
-              title: "Good job!",
-              text: "Logged in Successfully!",
-              icon: "success"
-            });
+            
             this.router.navigateByUrl('client/chome').then(success => {
               if (success) {
                 console.log('Navigation to client dashboard successful');
@@ -120,10 +116,10 @@ export class MenuComponent {
 
 }
 export class Login {
-  email: string;
+  username: string;
   password: string;
   constructor(){
-    this.email = '';
+    this.username = '';
     this.password = '';
   }
 }

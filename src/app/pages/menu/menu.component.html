@@ -1,6 +1,6 @@
 
-<div class="">
-    <section class="h-100 gradient-form" style="background-color: #eee;">
+
+    <section class="h-100 gradient-form" style="background-color: #2e2c2c;">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-10">
@@ -10,39 +10,37 @@
                     <div class="card-body p-md-5 mx-md-4">
       
                       <div class="text-center">
-                        <img src="assets/cons.png"
-                          style="width: 185px;" alt="logo">
-                        <h4 class="mt-1 mb-5 pb-1">We are The Constract Team</h4>
+                        <img src="assets/EAFLOGO.jpg"
+                          style="width: 250px;" alt="logo">
                       </div>
       
-                      <form>
-                        <div class = "d-flex justify-content-center ">
-                          <span> </span>
-                          <p class="mx-md-2">Please login your account</p>
-                        </div>
+                      <form style="font-family: 'Poppins', sans-serif; font-weight: bold;">
+                       
+                        
+                        <mat-form-field appearance="fill" class="mb-4 w-100">
+                          <mat-icon matPrefix>account_box</mat-icon>
+                          <mat-label>Username</mat-label>
+                          <input matInput type="text" [(ngModel)]="loginObj.username" name="username" placeholder="Enter your Username or Email" required>
+                      </mat-form-field>
       
-                        <div data-mdb-input-init class="form-outline mb-4">
-                            <label class="form-label" for="form2Example11">Username</label>
-                          <input type="email" [(ngModel)] = "loginObj.email" name="email" class="form-control"
-                            placeholder="Enter your Username or Email" required>
+                      <mat-form-field appearance="fill" class="mb-4 w-100">
+                          <mat-icon matPrefix>lock</mat-icon>
+                          <mat-label>Password</mat-label>
+                          <input matInput type="password" [(ngModel)] = "loginObj.password" name="passsword" placeholder="Enter your password" required>
                           
-                        </div>
-      
-                        <div data-mdb-input-init class="form-outline mb-4">
-                            <label class="form-label" for="form2Example22">Password</label>
-                          <input type="password" [(ngModel)] = "loginObj.password" name="passsword" class="form-control" placeholder="Enter your password" required>
-                          
-                        </div>
+                        </mat-form-field>
       
                         <div class="text-center pt-1 mb-5 pb-1">
-                          <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block fa-lg mb-3" type="button" (click)="onLogin()" >Login</button>
+                          <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block fa-lg mb-3" type="button" (click)="onLogin()" style="width: 200px ; font-family: 'Poppins', sans-serif; font-weight: bold;">Login</button>
                           <br>
-                          <a class="text-muted" href="#!">Forgot password?</a>
+                        
                         </div>
+
+                        
       
                         <div class="d-flex align-items-center justify-content-center pb-4">
-                          <p class="mb-0 me-2">Don't have an account?</p>
-                          <button  type="button"  class="btn btn-outline-danger">Create new</button>
+                         
+                          <button  type="button"  class="btn btn-outline-danger" routerLink="/Constrack/website" routerLinkActive="" style="width: 250px; font-family: 'Poppins', sans-serif; font-weight: bold;">Website </button>
                         </div>
       
                       </form>
@@ -62,7 +60,6 @@
       </section>
 
 
-</div>
 
 <router-outlet></router-outlet>
 

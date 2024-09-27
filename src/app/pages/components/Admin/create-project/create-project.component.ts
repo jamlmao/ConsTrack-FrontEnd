@@ -28,27 +28,40 @@ export class CreateProjectComponent {
   }
   
   project: any = {
-    site_location: '',
+    site_city: '',
+    site_province: '',
+    site_address: '',
+    project_name: '',
+    project_type: '',
     client_id: '',
     completion_date: '',
     starting_date: '',
     totalBudget: 0,
     pj_image: null,
+    pj_image1: null,
+    pj_image2: null,
     pj_pdf: null
   };
 
   showForm = false;
   clients: any[] = [];
+  staff: any[] = [];
+  user: any;
+  loggedInUser: any = null;
 
 
   private addUrl = 'http://127.0.0.1:8000/api/addproject';
   private clientsUrl = 'http://127.0.0.1:8000/api/clients';
+  private staffUrl = 'http://127.0.0.1:8000/api/staff-with-extension';
+  private userUrl = 'http://127.0.0.1:8000/api/user/details';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
    
     this.fetchClients(); // Fetch clients when the component is initialized
+    this.fetchStaff(); // Fetch staff when the component is initialized
+    this.getLoggedInUserNameAndId(); // Fetch logged-in user information
     console.log('Project data on init:', this.project);
     
   }
@@ -56,7 +69,57 @@ export class CreateProjectComponent {
   openForm(): void {
     this.showForm = true;
   }
-  
+
+  getLoggedInUserNameAndId(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(this.userUrl, { headers }).subscribe(
+      (response: any) => {
+        this.loggedInUser = response.staff;
+        console.log('Logged in user:', this.loggedInUser);
+      },
+      error => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
+    
+  isLoggedInUserStaff(): boolean {
+    return this.loggedInUser && this.loggedInUser.extension_name;
+  }
+
+    fetchStaff(): void {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      this.http.get(this.staffUrl, { headers }).subscribe(
+        (response: any) => {
+          if (response.status) {
+            console.log('Staff fetched successfully:', response.staff_with_extension);
+            this.staff = response.staff_with_extension;
+          } else {
+            console.error('Failed to fetch staff');
+          }
+        },
+        error => {
+          console.error('Error fetching staff', error);
+        }
+      );
+    
+    
+    }
+
   fetchClients(): void {
     const token = localStorage.getItem('token');
     if (!token) {
