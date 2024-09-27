@@ -24,11 +24,12 @@ import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { ArchiComponent } from "../../archi/archi.component";
 import { EditresourceComponent } from "../../editresource/editresource.component";
+import { ImageModalComponent } from "../../image-modal/image-modal.component";
 
 @Component({
   selector: 'app-taskdetails',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StaffsidenavComponent, StafftoolbarComponent, ArchiComponent, EditresourceComponent],
+  imports: [MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, MatTooltipModule, StaffsidenavComponent, StafftoolbarComponent, ArchiComponent, EditresourceComponent, ImageModalComponent],
   templateUrl: './taskdetails.component.html',
   styleUrl: './taskdetails.component.css'
 })
@@ -44,12 +45,12 @@ export class TaskdetailsComponent {
   categoryName: string = '';
   used_resources:any[] = [];
   taskId :string = '';
-  task_image: any= {};
+  task_image: any[] = []; 
   private url ="http://127.0.0.1:8000";
   private allTask = `${this.url}`+'/api/tasks';
   private ImagesUrl = `${this.url}`+'/api/taskImages/';
   private usedResourcesUrl = `${this.url}`+'/api/tasks/';
-  
+  private completeTaskUrl = `${this.url}`+'/api/tasks/complete';
 
 
 
@@ -87,6 +88,8 @@ export class TaskdetailsComponent {
   hideLoading(){
     Swal.close();
   }
+
+
 getStatusText(status: string): string {
   switch (status) {
     case 'C':
@@ -155,7 +158,7 @@ getStatusText(status: string): string {
     this.http.get(this.allTask + `/${taskId}/resources`, { headers }).subscribe(
       (response: any) => {
         this.hideLoading();
-       this.tasks = response.tasks;
+       this.tasks = response.task;
        this.categoryName = response.category_name;  
        console.log('Category Name:', this.categoryName);
        console.log('Tasks:', this.tasks);
@@ -189,7 +192,9 @@ getStatusText(status: string): string {
 
 
 
-
+toggleImages(task: any) {
+  task.showImages = !task.showImages;
+}
 
   fetchTaskImages(taskId: number) {
     const token = localStorage.getItem('token');
@@ -202,14 +207,42 @@ getStatusText(status: string): string {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(this.ImagesUrl+ `${taskId}`, {headers}).subscribe(
-      (response:any) =>{
-        
-        this.task_image = response.images; 
-        console.log('Task Image:', this.task_image);
+    this.http.get(this.ImagesUrl + `${taskId}`, { headers }).subscribe(
+      (response: any) => {
+        if (response.images && response.images.length > 0) {
+          this.task_image = response.images.map((task: any) => {
+            const mainImage = task.images[0]; 
+            console.log('Main Image:', mainImage);
+            return {
+              ...task,
+              showImages: false,
+              mainImage: mainImage
+            };
+          });
+          console.log('Task Image:', this.task_image);
+        } else {
+          console.error('No images found in the response');
+        }
+      },
+      (error) => {
+        console.error('Error fetching task images', error);
       }
-    )
+    );
 
+  }
+
+  selectedImages: string[] = [];
+  isModalVisible: boolean = false;
+
+  openModal(images: string[]): void {
+    this.selectedImages = images;
+    this.isModalVisible = true;
+    this.sideBarOpen = false;
+  }
+
+  closeModal(): void {
+    this.isModalVisible = false;
+    this.sideBarOpen = true; 
   }
 
   
@@ -227,6 +260,45 @@ isEditSubModalOpen = false;
      this.isEditSubModalOpen = false;
       this.sideBarOpen = true; 
   }
+
+
+
+
+
+  CompleteTask(taskId: number) {
+    console.log('Task ID:', taskId);
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const data ={task_id: taskId}; 
+
+    this.http.post(this.completeTaskUrl, data, { headers }).subscribe((response: any) => {
+      console.log('Task Completed:', response);
+      Swal.fire({
+        title: 'Task Completed',
+        text: 'Task has been completed successfully',
+        icon: 'success',
+        confirmButtonText: 'Close'
+      }).then(() => {
+        window.location.reload();
+        this.router.navigate(['task-details/', taskId]);
+      });
+    });
+    
+    
+
+
+  }
+
+
 
 
 
