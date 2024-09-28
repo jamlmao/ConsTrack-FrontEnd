@@ -1,226 +1,158 @@
+<section class="">
+    <div class="container">
 
-<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
-<mat-drawer-container>
-    <mat-drawer mode="side" [opened]="sideBarOpen">
-        <app-staffsidenav></app-staffsidenav>
-    </mat-drawer>
-    <mat-drawer-content>
-        <router-outlet></router-outlet>
         
-           <section class="">
-            <div class="container">
+        
 
-                
-                
+        <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            <main>
+              
+              <div class="title" style="margin-top: -50px;">
+                <h1><span>STATEMENT OF</span> WORK ACCOMPLISHMENT</h1>
 
-                <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                    <main>
-                      
-                        
-                       
-                        
-                
-                         <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144);">
-                            <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                </div>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
-                                    </div>
-                                    <div class="carousel-item scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image1" alt="Project Image" class="clickable-image">
-                                    </div>
-                                    <div class="carousel-item scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image2" alt="Project Image" class="clickable-image">
-                                    </div>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white py-5" style="margin-top: 20px;">
-                          
-                          <div class="container">
-                              
-
-                              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                              <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 0px;margin-top: -90px;">
-                                  <ul class="navbar-nav mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
-                                      <li class="nav-item">
-                                          <a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" [routerLink]="['/sowa', projectDetails.id]" routerLinkActive="active">SOWA</a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" [routerLink]="['/resources', projectDetails.id]" routerLinkActive="active">TIMELINE</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                            
-                                
-                          </div>
-                      </nav>
-                      <div class="title" style="margin-top: -50px;">
-                        <h1><span>STATEMENT OF</span> WORK ACCOMPLISHMENT</h1>
-
-                    </div>
-                     
-                          
-                    </main>
-
-                    <div class="containers" style="margin-top: -90px; margin-bottom: 90px;">
-                        <div class="table-wrapper">
-                            <div class="row">
-                            <div class="col-sm-8">      
-                            
-                        
-                        </div> 
-                        <div class="col-2">
-                            <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
-                        </div>
-                        <div class="col-sm-2">
-                            <button (click)="openTaskModal()"  class="btn btn-outline-dark">Add Category</button>
-                                <app-general 
-                                *ngIf="isTaskOpen"  (close)="closeTaskModal()">
-                                </app-general>
-                        </div>
-                    </div>
-            
-                            <div id="pdfContent">
-                                
-                                <div>
-                                    <h2 style="margin-bottom: 0px;" class="text-center">
-                                        <a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
-                                    </h2>
-                                    <h4 style="margin-bottom: 0px;">
-                                        Project Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_type}}</a>
-                                    </h4>
-                                    <h4 style="margin-bottom: 0px;">
-                                        Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
-                                    </h4>
-                                    <h4 style="margin-bottom: 0px;">
-                                        Location:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</a>
-                                    </h4>
-                                </div>
-                                <table class="table table-bordered">
-                                    <thead class="thead-dark">
-                                      <tr>
-                                        <th style="text-align: center;" [width]="50">Item No.</th>
-                                        <th style="text-align: center;" [width]="300">Description</th>
-                                        <th style="text-align: center;">Project Actual Cost</th>
-                                        <th style="text-align: center;">Previous</th>
-                                        <th style="text-align: center;">This Period</th>
-                                        <th style="text-align: center;">To Date</th>
-                                        <th style="text-align: center;">Percentage of Accomplishment</th>
-                                        <th style="text-align: center;" class="no-pdf">Action</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <ng-container *ngFor="let category of sortedTask; let i = index">
-                                        <tr>
-                                          <td>{{ toRoman(i + 1) }}</td>
-                                          <td>{{ category.name }}</td>
-                                          <td style="text-align: right;">{{ category.totalAllocatedBudget | number: '1.2-2' }}</td>
-                                          <td style="text-align: right;">{{ category.previousCost ?? '0.00'| number: '1.2-2' }}</td>
-                                          <td style="text-align: right;">{{ category.thisPeriodCost?? '0.00' | number: '1.2-2' }}</td>
-                                          <td style="text-align: right;">{{ category.toDateCost ?? '0.00'| number: '1.2-2' }}</td>
-                                          <td style="text-align: right;">
-                                            <div>{{category.progress | number: '1.2-2' }}%</div>
-                                            <mat-progress-bar mode="determinate" [value]="category.progress" color="accent"></mat-progress-bar>
-                                          </td>
-                                          <td class="no-pdf" style="text-align: center;">
-                                           
-                                            <a class="view" *ngIf="category.progress  !== 100"  (click)="openCreateProjectModal(category.id)" class="eye"><mat-icon>note_add</mat-icon></a>
-                                            <app-addtask *ngIf="isCreateProjectModalOpen"
-                                            [categoryId]="selectedCategoryId!"  
-                                            (close)="closeCreateProjectModal()"></app-addtask>
-
-                                            
-                                            <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditCategModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
-                                            <app-editcategory *ngIf="isEditCategModalOpen"  [categoryId]="selectedCategoryId!" 
-                                            (close)="closeEditCategModal()"></app-editcategory>
-
-                                            
-                                            
-                                          </td>
-                                   
-                                        </tr>
-                                        <ng-container *ngIf="category.tasks && category.tasks.length">
-                                          <tr *ngFor="let task of category.tasks; let j = index">
-                                            <td></td>
-                                            <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                                            <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
-                                            <td style="text-align: right;">{{ task.pt_previous?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                            <td style="text-align: right;">{{ task.pt_this_period?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                            <td style="text-align: right;">{{ task.pt_to_date?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                            <td style="text-align: right;">
-                                            <div>{{ task.percentage | number: '1.2-2' }}%</div>
-                                            <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
-                                            </td>
-                                            <td style="text-align: center;"> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a>
-                                                <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditSubModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
-                                                <app-editsubcateg *ngIf="isEditSubModalOpen"
-                                                [taskId]="selectedTaskId!"  
-                                                (close)="closeEditSubModal()"></app-editsubcateg>
-                                            </td>
-                                          </tr>
-                                        </ng-container>
-                                      </ng-container>
-                                      <tr>
-                                        <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
-                                        <td style="text-align: right;"><strong>{{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
-                                        <td colspan="4"></td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                            
-                                <div class="signature-section">
-                                    <div>
-                                        <div class="signature-line"></div>
-                                        
-                                        <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
-                                            {{ projectDetails.staff_last_name }} 
-                                            {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
-                                        <div style="margin-left: 50px;"> Registered {{ projectDetails.extension_name }}</div>
-                                        <div style="margin-left: 50px;">License No. {{ projectDetails.license_number }}
-                                    </div>
-                                    </div>
-                                    <div>
-                                        <div class="signature-line"></div>
-                                        <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
-                                        <div style="margin-left: 50px;">Owner</div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-            
-                </div>
-            
-                    </div>
-                    
-                 
-                 
-                </body>
-               
-                
-               
+            </div>
              
+                  
+            </main>
+
+            <div class="containers" style="margin-top: -90px;">
+                <div class="table-wrapper">
+                    <div class="row">
+                    <div class="col-sm-8">      
+                    
+                
+                </div> 
+                <div class="col-2">
+                    <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
+                </div>
+                <div class="col-sm-2">
+                    <button (click)="openTaskModal()"  class="btn btn-outline-dark">Add Category</button>
+                        <app-general 
+                        *ngIf="isTaskOpen"  (close)="closeTaskModal()">
+                        </app-general>
+                </div>
+            </div>
+    
+                    <div id="pdfContent">
+                        
+                        <div>
+                            <h2 style="margin-bottom: 0px;" class="text-center">
+                                <a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
+                            </h2>
+                            <h4 style="margin-bottom: 0px;">
+                                Project Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_type}}</a>
+                            </h4>
+                            <h4 style="margin-bottom: 0px;">
+                                Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
+                            </h4>
+                            <h4 style="margin-bottom: 0px;">
+                                Location:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</a>
+                            </h4>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th style="text-align: center;" [width]="50">Item No.</th>
+                                <th style="text-align: center;" [width]="300">Description</th>
+                                <th style="text-align: center;">Project Actual Cost</th>
+                                <th style="text-align: center;">Previous</th>
+                                <th style="text-align: center;">This Period</th>
+                                <th style="text-align: center;">To Date</th>
+                                <th style="text-align: center;">Percentage of Accomplishment</th>
+                                <th style="text-align: center;" class="no-pdf">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <ng-container *ngFor="let category of sortedTask; let i = index">
+                                <tr>
+                                  <td>{{ toRoman(i + 1) }}</td>
+                                  <td>{{ category.name }}</td>
+                                  <td style="text-align: right;">{{ category.totalAllocatedBudget | number: '1.2-2' }}</td>
+                                  <td style="text-align: right;">{{ category.previousCost ?? '0.00'| number: '1.2-2' }}</td>
+                                  <td style="text-align: right;">{{ category.thisPeriodCost?? '0.00' | number: '1.2-2' }}</td>
+                                  <td style="text-align: right;">{{ category.toDateCost ?? '0.00'| number: '1.2-2' }}</td>
+                                  <td style="text-align: right;">
+                                    <div>{{category.progress | number: '1.2-2' }}%</div>
+                                    <mat-progress-bar mode="determinate" [value]="category.progress" color="accent"></mat-progress-bar>
+                                  </td>
+                                  <td class="no-pdf" style="text-align: center;">
+                                   
+                                    <a class="view" *ngIf="category.progress  !== 100"  (click)="openCreateProjectModal(category.id)" class="eye"><mat-icon>note_add</mat-icon></a>
+                                    <app-addtask *ngIf="isCreateProjectModalOpen"
+                                    [categoryId]="selectedCategoryId!"  
+                                    (close)="closeCreateProjectModal()"></app-addtask>
+
+                                    
+                                    <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditCategModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
+                                    <app-editcategory *ngIf="isEditCategModalOpen"  [categoryId]="selectedCategoryId!" 
+                                    (close)="closeEditCategModal()"></app-editcategory>
+
+                                    
+                                    
+                                  </td>
+                           
+                                </tr>
+                                <ng-container *ngIf="category.tasks && category.tasks.length">
+                                  <tr *ngFor="let task of category.tasks; let j = index">
+                                    <td></td>
+                                    <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
+                                    <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
+                                    <td style="text-align: right;">{{ task.pt_previous?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                    <td style="text-align: right;">{{ task.pt_this_period?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                    <td style="text-align: right;">{{ task.pt_to_date?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                    <td style="text-align: right;">
+                                    <div>{{ task.percentage | number: '1.2-2' }}%</div>
+                                    <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
+                                    </td>
+                                    <td style="text-align: center;"> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                        <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditSubModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
+                                        <app-editsubcateg *ngIf="isEditSubModalOpen"
+                                        [taskId]="selectedTaskId!"  
+                                        (close)="closeEditSubModal()"></app-editsubcateg>
+                                    </td>
+                                  </tr>
+                                </ng-container>
+                              </ng-container>
+                              <tr>
+                                <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
+                                <td style="text-align: right;"><strong>{{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
+                                <td colspan="4"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    
+                        <div class="signature-section">
+                            <div>
+                                <div class="signature-line"></div>
+                                
+                                <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                                    {{ projectDetails.staff_last_name }} 
+                                    {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
+                                <div style="margin-left: 50px;"> Registered {{ projectDetails.extension_name }}</div>
+                                <div style="margin-left: 50px;">License No. {{ projectDetails.license_number }}
+                            </div>
+                            </div>
+                            <div>
+                                <div class="signature-line"></div>
+                                <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
+                                <div style="margin-left: 50px;">Owner</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+    
+        </div>
+    
             </div>
             
-          
-           </section>
-          
-
+         
+         
+        </body>
+       
         
-   
-          
-            
-        
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
-</mat-drawer-container>
+       
+     
+    </div>
+    
+  
+   </section>

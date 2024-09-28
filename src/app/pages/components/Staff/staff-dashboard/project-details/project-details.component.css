@@ -287,31 +287,47 @@
       }
       
 
-      
-      .navbar-nav .nav-item .nav-link {
-        border: 2px solid #ccc; /* Default border color */
-        padding: 7px;
-        border-radius: 5px;
-        text-decoration: none;
-        color: #333; /* Text color */
-        transition: border-color 0.3s ease; /* Smooth transition */
-    }
-    
-    /* Hover Effect */
-    .navbar-nav .nav-item .nav-link:hover {
-        color: #fff; /* Change text color on hover */
-        background-color: #101010; /* Change background color on hover */
-        border-radius: 5px; /* Optional: adds rounded corners */
-        border: 2px solid #0e0e0e; /* Default border color */
-    }
-    
-    /* Active Link Highlight */
-    .navbar-nav .nav-item .nav-link.active {
-        color: #fff; /* Change text color for active link */
-        background-color: #101010; /* Highlight color for active link */
-        border-radius: 4px; /* Optional: adds rounded corners */
-        border: 2px solid #0e0e0e; /* Default border color */
-    }
+     /* Base styles for the tab labels */
+.custom-tab-group .mat-tab-label {
+  font-family: 'Roboto', sans-serif; /* Use any modern font like Poppins or Roboto */
+  font-size: 16px;
+  font-weight: 500;
+  color: #6c757d; /* Light grey for inactive tabs */
+  text-transform: uppercase; /* Makes text uppercase for a sleek look */
+  letter-spacing: 1px;
+  padding: 12px 20px; /* Add some padding for a larger clickable area */
+  transition: all 0.3s ease; /* Smooth transition on hover and active states */
+}
+
+/* Active tab label */
+.custom-tab-group .mat-tab-label-active {
+  color: #007bff; /* Primary color for the active tab */
+  font-weight: 700; /* Bold the active label */
+  border-bottom: 3px solid #007bff; /* Add an underline to the active tab */
+}
+
+/* Hover effect for the labels */
+.custom-tab-group .mat-tab-label:hover {
+  color: #495057; /* Darker grey on hover */
+  background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+  border-radius: 4px; /* Add subtle rounding on hover */
+}
+
+/* Customize the ink bar (indicator below active tab) */
+.custom-tab-group .mat-ink-bar {
+  background-color: #007bff; /* Make the ink bar match the primary color */
+}
+
+/* Add padding and spacing for a clean layout */
+.custom-tab-group {
+  padding: 10px;
+}
+
+/* Optional: Add padding to the tab content */
+.custom-tab-group .mat-tab-body {
+  padding: 20px;
+}
+
      
     
 
