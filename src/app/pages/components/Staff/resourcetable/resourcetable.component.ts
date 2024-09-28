@@ -50,12 +50,12 @@ export class ResourcetableComponent {
   
   // State for scrolling
   startIndex = 0;
-  itemsToShow = 5;
+  itemsToShow = 3;
 
 
   // Get the cards to display based on startIndex
   get displayedCards() {
-    return this.cards.slice(this.startIndex, this.startIndex + this.itemsToShow);
+    return this.tasks.slice(this.startIndex, this.startIndex + this.itemsToShow);
   }
 
   // Get the middle index for highlighting
@@ -65,7 +65,7 @@ export class ResourcetableComponent {
 
   // Method to scroll right
   scrollRight() {
-    if (this.startIndex + this.itemsToShow < this.cards.length) {
+    if (this.startIndex + this.itemsToShow < this.tasks.length) {
       this.startIndex++;
     }
   }

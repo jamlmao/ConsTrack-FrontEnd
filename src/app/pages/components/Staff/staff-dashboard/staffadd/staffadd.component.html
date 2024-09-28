@@ -115,7 +115,7 @@
                       'active': project?.status === 'Complete', 
                       'inactive': project?.status === 'Ongoing',
                       'inactives': project?.status === 'Due'
-                    }">{{project.status}}</span></td>
+                    }" style="font-weight: bolder;">{{project.status}}</span></td>
               
                     <td><a (click)="selectProject(project)" class="view">View</a></td>
                   </tr>
