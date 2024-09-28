@@ -4,16 +4,16 @@
     <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-staffsidenav></app-staffsidenav>
     </mat-drawer>
-    <mat-drawer-content>
+    <mat-drawer-content >
         <router-outlet></router-outlet>
         
            <section class="">
-            <div class="container">
+            <div class="container" >
 
                 
                
 
-                <body >
+                <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
                     <main>
                       
                         
@@ -21,8 +21,7 @@
                        
                        
                         
-                        <h4  style="font-weight: bold; margin-left: 400px; margin-right: 400px; margin-top: 10px;"> <mat-progress-bar mode="determinate" [value]="projectDetails.total_used_budget/projectDetails.totalBudget * 100" color="accent"></mat-progress-bar></h4>
-                        <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144);">
+                        <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144); margin-top: -20px;margin-left: -20px; margin-right: -20px;">
                             <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
                                 <div class="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -69,7 +68,7 @@
                       </nav>
                       <div class="title" style="margin-top: -50px;">
                         <h1><span>TASKS</span> TIMELINE</h1>
-                        <div class="title">
+                        <!-- <div class="title">
                             <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
                               ></label
                             >
@@ -82,81 +81,50 @@
                             <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
                           
                             <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="pagination-btn">Next</button>
-                          </div>
+                          </div> -->
 
 
                     </div>
                      
                           
                     </main>
-                    <div class="timeline-container justify-content-between justify-content-center" style="margin-top: -80px;">
-                        <div class="timeline">
-                          <div 
-                            class="task" 
-                            *ngFor="let task of paginatedTasks|filter:searchText; let i = index;" 
-                            [ngClass]="{
-                              'complete': task?.pt_status === 'C', 
-                              'ongoing': task?.pt_status === 'OG', 
-                              'due': task?.pt_status === 'D'
-                            }"
-                          >
-                          <div class="content">
-                            <div class="row">
-                              <div class="col-lg-3" style="margin-left: 20px; font-size: 20px;">
-                                <p class="date">Task Category:</p>
-                            <p class="date">Task Name:</p>
-                            <p class="date">Status:</p>
-                            <p class="date">Starting Date:</p>
-                            <p class="date">Completion Date:</p>
-            
-            
-                              </div>
-                              <div class="col-lg-5" style="font-size: 20px;">
-                                <p class="date" style="font-size: 20px;font-weight: bold; margin-bottom: 2px;"> {{ task.category?.category_name }}</p>
-                            <p class="date" style="font-size: 20px;font-weight: bold; margin-bottom: 2px;">{{task.pt_task_desc}}</p>
-                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_task_name}}</p>
-                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{transformStatus(task.pt_status)}}</p>
-                            <p class="date" style="font-size: 20px;font-weight: bold;margin-bottom: 2px;">{{task.pt_starting_date}}</p>
-                            <p class="date" style="font-size: 20px;font-weight: bold;">{{task.pt_completion_date}}</p>
-            
-                              </div>
-                              <div class="col-lg-3" (click)="selecttask(task)">
-                                <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-images" style="width: 250px; height: 143px; margin-left: 60px;">
-                                         
-            
-                              </div>
-            
-                            </div>
-                            <!-- Unique id for each carousel -->
-                            
-                          </div>
-                          </div>
-                          <!-- More tasks can be added here -->
-                        </div>
-                    </div>
+                   
 
+                   
+              
+                  <div class="timeline-container" style="margin-top: -120px; margin-left: 20px;">
+                    <div class="timeline">
 
                     <div class="container">
                     <div class="card-gallery-container" >
                       <button (click)="scrollLeft()" [disabled]="startIndex === 0">←</button>
-                      
+                     
                       <div class="card-gallery">
-                        <ng-container *ngFor="let card of displayedCards; let i = index">
+                        <ng-container class="task" *ngFor="let task of paginatedTasks|filter:searchText; let i = index" (click)="selecttask(task)">
+                          
                           <div
-                            class="card"
+                            class="card task"
                             [ngClass]="{
                               'large-card': i === centerIndex,
-                              'small-card': i !== centerIndex
+                              'small-card': i !== centerIndex,'complete': task?.pt_status === 'C', 
+                            'ongoing': task?.pt_status === 'OG', 
+                            'due': task?.pt_status === 'D'
                             }"
                           >
-                            <h3>{{ card.title }}</h3>
-                            <p>{{ card.content }}</p>
+                          <div class="content">
+                            <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-images">
+                             
+                              <h2> {{ task.category?.category_name }}</h2>
+                              <p class="date">{{task.pt_starting_date | date: 'yyyy-MM-dd' }} - {{task.pt_completion_date | date: 'yyyy-MM-dd'}}</p>
+                              <p>{{task.pt_task_name}}</p>
                           </div>
+                          </div>
+                          
                         </ng-container>
                       </div>
                       
-                      <button (click)="scrollRight()" [disabled]="startIndex + itemsToShow >= cards.length">→</button>
-                    </div>
+                      <button style="font-size: larger; color: white;" (click)="scrollRight()" [disabled]="startIndex + itemsToShow >= cards.length">→</button>
+                    </div></div></div>
                   </div>
                     
                     

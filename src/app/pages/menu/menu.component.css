@@ -27,7 +27,7 @@
    
 
 
-    button {
+    .btn {
     
     font-weight: 500;
     width: 200px; /* Your width */
@@ -35,7 +35,7 @@
     cursor: pointer;
 }
 
-button:hover {
+.btn:hover {
     transform: translateY(-2px); /* Hover effect for subtle lift */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
 }

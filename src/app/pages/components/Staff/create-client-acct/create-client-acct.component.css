@@ -194,3 +194,21 @@ button.btn-outline-dark:hover {
       border-bottom-right-radius: .3rem;
   }
 }
+
+
+.radio-button-group {
+  display: flex; /* Aligns radio buttons horizontally */
+  gap: 20px; /* Adds space between Male and Female buttons */
+  align-items: center; /* Vertically centers the labels with the radio buttons */
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
