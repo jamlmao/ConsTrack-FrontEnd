@@ -47,9 +47,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let client of paginatedUsers|filter:searchText; let i = index" >
-                                <td><input type="checkbox"></td>
-                                <td>{{ i ++ 1}}</td>
+                            <tr *ngFor="let client of getRowsWithEmptySpaces()|filter:searchText; let i = index" >
+                                <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+
+                                <ng-container *ngIf="client; else emptyRow">
                                 <td>{{ client.id }}</td>
                                 <td>{{ client.first_name }} {{ client.last_name }}</td>
                                 <td>{{ client.phone_number }}</td>
@@ -66,6 +67,17 @@
                                         </app-editprofile>
                                     </div>
                                 </td>
+                            </ng-container>
+                            <ng-template #emptyRow>
+                                <td colspan="1"></td>
+                                <td colspan="1"></td>
+                                <td colspan="1"></td>
+                                <td colspan="1"></td>
+                                <td colspan="1"></td>
+                                <td colspan="1"></td>
+                                <td colspan="1"></td>
+                                <td colspan="1"></td>
+                              </ng-template>
                             </tr>
                             
                             <!-- Repeat for other rows -->

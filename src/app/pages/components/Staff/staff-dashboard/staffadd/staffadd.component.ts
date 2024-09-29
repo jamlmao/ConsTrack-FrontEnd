@@ -246,6 +246,14 @@ pageSize: number = 1; // Example page siz
     this.paginatedUsers = this.filteredProjects.slice(startIndex, endIndex);
   }
 
+  getRowsWithEmptySpaces() {
+    const rows = [...this.paginatedUsers]; // Clone the paginated users
+    while (rows.length < this.rowsPerPage) {
+      rows.push(null); // Add empty rows if needed
+    }
+    return rows;
+  }
+
   // Go to the next page
   nextPage() {
     if (this.currentPage < this.totalPages) {
@@ -253,6 +261,7 @@ pageSize: number = 1; // Example page siz
       this.updatePaginatedUsers();
     }
   }
+
 
   // Go to the previous page
   previousPage() {
