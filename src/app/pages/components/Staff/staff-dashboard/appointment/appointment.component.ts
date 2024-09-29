@@ -43,6 +43,7 @@ import { NotavailableComponent } from "../../notavailable/notavailable.component
 export class AppointmentComponent {
   searchText:any;
   
+  ngIfWeeklySchedule: any; 
 
   sideBarOpen=true;
   appointments: any[] = [];

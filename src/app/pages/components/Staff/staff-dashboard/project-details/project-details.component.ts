@@ -34,6 +34,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { SowaComponent } from "../../sowa/sowa.component";
 import { ResourcetableComponent } from "../../resourcetable/resourcetable.component";
 
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatDialog } from '@angular/material/dialog';
+
 
 
 @Component({
@@ -137,9 +140,12 @@ ngOnInit(){
   }
 
 
- 
+  closeSidenav() {
+    this.sideBarOpen = false;  // Close sidenav when modal opens
+  }
 
   constructor(
+        private dialog: MatDialog,
         private router: Router, 
         private route: ActivatedRoute,
         private http: HttpClient,) { }
@@ -156,6 +162,10 @@ ngOnInit(){
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
+
+  
+
+  
 
   
   
@@ -250,6 +260,20 @@ ngOnInit(){
 
   get progressPercentage(): number {
     return (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
+  }
+
+
+  openTaskModal() {
+    this.isTaskOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isTaskOpen);
+    this.sideBarOpen = false; 
+  }
+
+  closeTaskModal() {
+    this.isTaskOpen = false;
+    console.log('xd');
+    this.sideBarOpen = true; 
   }
 
 }

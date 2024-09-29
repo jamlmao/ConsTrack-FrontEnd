@@ -24,21 +24,12 @@
                        
                           <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144);">
                             <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                </div>
+                                
                                <div class="carousel-inner">
                                     <div class="carousel-item active scrollable-image">
                                         <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
                                     </div>
-                                    <div class="carousel-item scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image1" alt="Project Image" class="clickable-image">
-                                    </div>
-                                    <div class="carousel-item scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image2" alt="Project Image" class="clickable-image">
-                                    </div> 
+                                     
                                 </div>
                                
                             </div>
@@ -118,7 +109,7 @@
                                     </div>
                                 </div>
                             </div> </mat-tab>
-                            <mat-tab label="STATEMENT OF WORK ACCOMPLISHMENT"> <app-sowa></app-sowa> </mat-tab>
+                            <mat-tab label="STATEMENT OF WORK ACCOMPLISHMENT" > <app-sowa (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-sowa> </mat-tab>
                             <mat-tab label="TIMELINE"> <app-resourcetable></app-resourcetable> </mat-tab>
                           </mat-tab-group>
                           
