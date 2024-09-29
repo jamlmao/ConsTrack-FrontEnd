@@ -70,8 +70,8 @@ input.mat-input-element:hover {
 
 /* Specifically target the Chrome/Edge light blue focus ring */
 input:-webkit-autofill {
-    box-shadow: 0 0 0px 1000px #e9e9eb inset !important; /* Removes autofill shadow */
-    -webkit-box-shadow: 0 0 0px 1000px #e9e9eb inset !important; /* Removes autofill shadow in webkit browsers */
+    box-shadow: 0 0 0px 1000px #ffffff inset !important; /* Removes autofill shadow */
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important; /* Removes autofill shadow in webkit browsers */
 }
 
 /* Remove focus background from Angular Material focus state */

@@ -69,7 +69,7 @@
                         </div>
                     
                         <!-- Estimated Materials Section -->
-                        <div class="table-wrapper card p-4 mb-4">
+                         <div class="col-6"><div class="table-wrapper card p-4 mb-4">
                             <h2 >Estimated Resources <button class="btn btn-outline-dark" *ngIf="tasks.pt_status !=='C'" style="margin-left: 20px;"  (click)="openTaskModal(tasks.id)" >
                                 Update Task </button>
                                   <app-archi *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-archi>
@@ -105,7 +105,37 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div></div>
+
+                        <div class="col-6">
+                            <div class="table-wrapper card p-4 mb-4">
+                                <h2>History Logs</h2>   
+                                
+                                <table class="table modern-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Resources Name</th>
+                                            <th>Resources Used</th>
+                                            <th>Staff</th>
+                                            <th>Used At</th>
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let use of used_resources; let i =index">
+                                            <td>{{i + 1}}</td>
+                                            <td style="text-transform: uppercase;">{{use.used_resource_name}}</td>
+                                            <td>{{use.resource_qty}}</td>
+                                            <td style="text-transform: uppercase;">{{use.first_name}} {{use.last_name}}</td>
+                                            <td>{{use.created_at | date:'MM-dd-yyyy'}}</td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        
 
                         <div class="container">
                             <div class="cards-container d-flex flex-wrap justify-content-center">
@@ -123,32 +153,7 @@
                           <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModal()"></app-image-modal>
                     
                         <!-- Used Materials Section -->
-                        <div class="table-wrapper card p-4 mb-4">
-                            <h2>History Logs</h2>   
-                            
-                            <table class="table modern-table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Resources Name</th>
-                                        <th>Resources Used</th>
-                                        <th>Staff</th>
-                                        <th>Used At</th>
-                                     
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let use of used_resources; let i =index">
-                                        <td>{{i + 1}}</td>
-                                        <td style="text-transform: uppercase;">{{use.used_resource_name}}</td>
-                                        <td>{{use.resource_qty}}</td>
-                                        <td style="text-transform: uppercase;">{{use.first_name}} {{use.last_name}}</td>
-                                        <td>{{use.created_at | date:'MM-dd-yyyy'}}</td>
-                                        
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        
 
 
 

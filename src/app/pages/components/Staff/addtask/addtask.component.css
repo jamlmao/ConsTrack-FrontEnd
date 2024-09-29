@@ -7,8 +7,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background overlay */
-  backdrop-filter: blur(4px); /* Add a subtle blur for modern effect */
+  background-color: rgba(0, 0, 0, 0.142); /* Slightly darker background overlay */
   z-index: 1050;
 }
 
@@ -19,7 +18,6 @@
   border-radius: 10px; /* Rounded corners for modern look */
   width: 60%;
   background-color: #ffffff; /* White background for content */
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Add a soft shadow */
 }
 
 /* Close button */

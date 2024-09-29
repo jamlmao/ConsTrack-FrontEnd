@@ -1,4 +1,4 @@
-import { Component,Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Component,Directive, ElementRef, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -176,9 +176,9 @@ export class SowaComponent {
 
 
 
+  @Output() openModal: EventEmitter<void> = new EventEmitter();
 
-
-
+  @Output() closeModal: EventEmitter<void> = new EventEmitter();
 
 
 
@@ -194,13 +194,14 @@ export class SowaComponent {
     this.isTaskOpen = true;
     console.log('Opening Task Modal');
     console.log(this.isTaskOpen);
-    this.sideBarOpen = false; 
+    this.openModal.emit();
   }
 
   closeTaskModal() {
     this.isTaskOpen = false;
     console.log('xd');
-    this.sideBarOpen = true; 
+    this.sideBarOpen = true;
+    this.closeModal.emit();  
   }
 
   
@@ -498,6 +499,7 @@ openCreateProjectModal(categoryId: number){
   this.isCreateProjectModalOpen = true;
   console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
+  this.openModal.emit();
   
 }
 
@@ -506,6 +508,7 @@ closeCreateProjectModal() {
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
     this.sideBarOpen = true; 
+    this.closeModal.emit();
 }
 
 openEditCategModal(categoryId: number):void{
@@ -513,6 +516,7 @@ openEditCategModal(categoryId: number):void{
   this.isEditCategModalOpen = true;
   console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
+  this.openModal.emit();
 }
 
 closeEditCategModal() :void {
@@ -520,6 +524,7 @@ closeEditCategModal() :void {
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
     this.sideBarOpen = true; 
+    this.closeModal.emit();
 }
 
 
@@ -529,6 +534,7 @@ openEditSubModal(taskId: number){
   this.isEditSubModalOpen = true;
   console.log('Selected Task ID:', this.selectedTaskId);
   this.sideBarOpen = false;
+  this.openModal.emit();
 }
 
 closeEditSubModal() {
@@ -536,6 +542,7 @@ closeEditSubModal() {
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
     this.sideBarOpen = true; 
+    this.closeModal.emit();
 }
 
 

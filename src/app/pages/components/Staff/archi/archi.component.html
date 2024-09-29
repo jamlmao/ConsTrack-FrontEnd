@@ -7,24 +7,27 @@
             <label for="example-text-input" class="form-control-label">Update Images:</label>
             <div id="images-container">
               <div *ngFor="let image of images; let i = index" class="image-item d-flex align-items-center mb-2">
-                <input placeholder="Full name" class="form-control mr-2 mx-1" type="file" (change)="onFileChange($event,'placeholder_images', i)" required>
+                <div class="d-flex align-items-center">
+                  <input placeholder="Upload an image" class="form-control mr-2" type="file" (change)="onFileChange($event, 'placeholder_images', i)" required>
+                  <button type="button" class="btn btn-dark mx-1" (click)="addImage()">Add</button>
+                </div>
                 <button type="button" class="btn btn-danger mx-1" (click)="removeImage(i)" *ngIf="images.length > 1">Remove</button>
               </div>
-              <button type="button" class="btn btn-primary mt-2" (click)="addImage()">Add Image</button>
             </div>
           </div>
+          
           <div class="form-group">
             <label for="resources" class="form-control-label">Resources:</label>
             <div id="resources-container">
               <div *ngFor="let selectedResource of selectedResources; let i = index" class="resource-item d-flex align-items-center mb-2">
-                <select class="form-control mr-2 mx-1" aria-placeholder="Resources" (change)="onResourceChange($event, i)">
+                <select class="form-control mr-2" aria-placeholder="Resources" (change)="onResourceChange($event, i)">
                   <option value="" disabled selected>Select Resources</option>
                   <option *ngFor="let resource of getFilteredResources(i)" [value]="resource.id">{{resource.resource_name}}</option>
                 </select>
-                <input class="form-control mr-2 mx-1" type="number" placeholder="Quantity" [(ngModel)]="selectedResource.quantity" name="usedQty" (input)="validateQty(i)" (focus)="clearDefaultValue(i)" [disabled]="!selectedResource.resourceId" [ngClass]="{'is-invalid': !selectedResource.isValid}" required>
+                <input class="form-control mr-2" type="number" placeholder="Quantity" [(ngModel)]="selectedResource.quantity" name="usedQty" (input)="validateQty(i)" (focus)="clearDefaultValue(i)" [disabled]="!selectedResource.resourceId" [ngClass]="{'is-invalid': !selectedResource.isValid}" required>
                 <button type="button" class="btn btn-danger mx-1" (click)="removeResource(i)" *ngIf="selectedResources.length > 1">Remove</button>
               </div>
-              <button type="button" class="btn btn-primary mt-2" (click)="addResource()">Add Resource</button>
+              <button type="button" class="btn btn-dark mt-2" (click)="addResource()">Add Resource</button>
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-between py-3">
@@ -32,6 +35,8 @@
             <button type="submit" class="btn btn-outline-dark" [disabled]="!isFormValid()">Submit</button>
           </div>
         </div>
+        
+        
       </form>
     </div>
   </div>

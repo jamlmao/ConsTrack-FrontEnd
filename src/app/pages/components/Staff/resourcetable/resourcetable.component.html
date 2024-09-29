@@ -57,7 +57,7 @@
                         }"
                       >
                         <div class="content">
-                          <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-images" />
+                          <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-image" />
                           <h2>{{ task.category?.category_name }}</h2>
                           <p class="date">{{ task.pt_starting_date | date: 'yyyy-MM-dd' }} - {{ task.pt_completion_date | date: 'yyyy-MM-dd' }}</p>
                           <p>{{ task.pt_task_name }}</p>
