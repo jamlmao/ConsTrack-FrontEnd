@@ -1,152 +1,90 @@
+<section class="">
+  <div class="container" >
 
-<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
-<mat-drawer-container>
-    <mat-drawer mode="side" [opened]="sideBarOpen">
-        <app-staffsidenav></app-staffsidenav>
-    </mat-drawer>
-    <mat-drawer-content >
-        <router-outlet></router-outlet>
-        
-           <section class="">
-            <div class="container" >
+      
+     
 
-                
-               
-
-                <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                    <main>
-                      
-                        
-        
-                       
-                       
-                        
-                        <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144); margin-top: -20px;margin-left: -20px; margin-right: -20px;">
-                            <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                </div>
-                                <div class="carousel-inner">
-                                  <div class="carousel-item active scrollable-image">
-                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
-                                  </div>
-                                  <div class="carousel-item scrollable-image">
-                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image1" alt="Project Image" class="clickable-image">
-                                  </div>
-                                  <div class="carousel-item scrollable-image">
-                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image2" alt="Project Image" class="clickable-image">
-                                  </div>
-                              </div>
-                               
-                            </div>
-                        </div>
-                        
-                        <nav class="navbar navbar-expand-lg navbar-light bg-white py-5" style="margin-top: 20px;">
-                          
-                          <div class="container">
-                              
-
-                              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                              <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 0px;margin-top: -90px;">
-                                  <ul class="navbar-nav mb-lg-0 small fw-bolder"*ngIf="projectDetails && projectDetails.id">
-                                      <li class="nav-item">
-                                          <a class="nav-link" [routerLink]="['/project-details', projectDetails.id]" routerLinkActive="active">PROJECT DETAILS</a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" [routerLink]="['/sowa', projectDetails.id]" routerLinkActive="active">SOWA</a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" [routerLink]="['/resources', projectDetails.id]" routerLinkActive="active">TIMELINE</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                            
-                                
-                          </div>
-                      </nav>
-                      <div class="title" style="margin-top: -50px;">
-                        <h1><span>TASKS</span> TIMELINE</h1>
-                        <!-- <div class="title">
-                            <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
-                              ></label
-                            >
-                            <input class="form-control" type="search" placeholder="Search for Tasks"  [(ngModel)]="searchText" 
-                            (input)="filterTasks()" >
-                          </div>
-                          <div *ngIf="totalPages > 1" class="pagination-controls">
-                            <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1" class="pagination-btn">Previous</button>
-                          
-                            <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
-                          
-                            <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="pagination-btn">Next</button>
-                          </div> -->
-
-
-                    </div>
-                     
-                          
-                    </main>
-                   
-
-                   
+      <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+          <main>
+            
               
-                  <div class="timeline-container" style="margin-top: -120px; margin-left: 20px;">
-                    <div class="timeline">
 
-                    <div class="container">
-                    <div class="card-gallery-container" >
-                      <button (click)="scrollLeft()" [disabled]="startIndex === 0">←</button>
-                     
-                      <div class="card-gallery">
-                        <ng-container class="task" *ngFor="let task of paginatedTasks|filter:searchText; let i = index" (click)="selecttask(task)">
-                          
-                          <div
-                            class="card task"
-                            [ngClass]="{
-                              'large-card': i === centerIndex,
-                              'small-card': i !== centerIndex,'complete': task?.pt_status === 'C', 
-                            'ongoing': task?.pt_status === 'OG', 
-                            'due': task?.pt_status === 'D'
-                            }"
-                          >
-                          <div class="content">
-                            <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-images">
-                             
-                              <h2> {{ task.category?.category_name }}</h2>
-                              <p class="date">{{task.pt_starting_date | date: 'yyyy-MM-dd' }} - {{task.pt_completion_date | date: 'yyyy-MM-dd'}}</p>
-                              <p>{{task.pt_task_name}}</p>
-                          </div>
-                          </div>
-                          
-                        </ng-container>
-                      </div>
-                      
-                      <button style="font-size: larger; color: white;" (click)="scrollRight()" [disabled]="startIndex + itemsToShow >= cards.length">→</button>
-                    </div></div></div>
-                  </div>
-                    
-                    
-                    
-                    
-                 
-                 
-                </body>
-               
-              
-               
              
-            </div>
-            
           
-           </section>
-           
+         
+            <div class="title" style="margin-top: -20px;">
+              <h1><span>TASKS</span> TIMELINE</h1>
+              <!-- <div class="title">
+                  <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                    ></label
+                  >
+                  <input class="form-control" type="search" placeholder="Search for Tasks"  [(ngModel)]="searchText" 
+                  (input)="filterTasks()" >
+                </div>
+                <div *ngIf="totalPages > 1" class="pagination-controls">
+                  <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1" class="pagination-btn">Previous</button>
+                
+                  <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                
+                  <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="pagination-btn">Next</button>
+                </div> -->
 
-       
+
+          </div>
+           
+                
+          </main>
+         
+
+         
+    
+          <div class="timeline-container" style="margin-top: -100px; margin-left: 10px;">
+            <div class="timeline">
+              <div class="container">
+                <div class="card-gallery-container">
+                  <button style="font-size: larger; color: white;" (click)="scrollLeft()" [disabled]="startIndex === 0">←</button>
           
-            
-        
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
-</mat-drawer-container>
+                  <div class="card-gallery">
+                    <ng-container class="task" *ngFor="let task of displayedCards | filter:searchText; let i = index">
+                      <div (click)="selecttask(task)"
+                        class="card task"
+                        [ngClass]="{
+                          'large-card': i === centerIndex,
+                          'small-card': i !== centerIndex,
+                          'complete': task?.pt_status === 'C',
+                          'ongoing': task?.pt_status === 'OG',
+                          'due': task?.pt_status === 'D'
+                        }"
+                      >
+                        <div class="content">
+                          <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-images" />
+                          <h2>{{ task.category?.category_name }}</h2>
+                          <p class="date">{{ task.pt_starting_date | date: 'yyyy-MM-dd' }} - {{ task.pt_completion_date | date: 'yyyy-MM-dd' }}</p>
+                          <p>{{ task.pt_task_name }}</p>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+          
+                  <button style="font-size: larger; color: white;" (click)="scrollToLast()" [disabled]="isAtEnd()">→</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+          
+       
+       
+      </body>
+     
+    
+     
+   
+  </div>
+  
+
+ </section>
+ 

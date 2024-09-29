@@ -30,12 +30,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
 
+import {MatTabsModule} from '@angular/material/tabs';
+import { SowaComponent } from "../../sowa/sowa.component";
+import { ResourcetableComponent } from "../../resourcetable/resourcetable.component";
+
 
 
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [MatProgressSpinnerModule,MatProgressBarModule,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, ArchiComponent,MatTooltipModule],
+  imports: [MatTabsModule, MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, ArchiComponent, MatTooltipModule, SowaComponent, ResourcetableComponent],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css'
 })
