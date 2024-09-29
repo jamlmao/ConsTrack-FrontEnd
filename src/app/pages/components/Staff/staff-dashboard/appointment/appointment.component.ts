@@ -33,6 +33,7 @@ import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth 
 import { NotavailableComponent } from "../../notavailable/notavailable.component";
 
 
+
 @Component({
   selector: 'app-appointment',
   standalone: true,
@@ -48,8 +49,15 @@ export class AppointmentComponent {
   appointments: any[] = [];
   uniqueClients: string[] = []; 
   weeklySchedule: any = {}; // Your schedule data
+  calendarDaysInMonth: { date: Date | null, isAvailable: boolean, appointments: any[] }[][] = [];
   currentDate: Date = new Date();
   dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  available_dates: string[]= [];
+  appointments2: any[] =[];
+
+  private baseUrl = "http://127.0.0.1:8000/";
+
+
 
   getUniqueClientNames(appointments: any[]): string[] {
     const namesSet = new Set<string>();
@@ -60,6 +68,8 @@ export class AppointmentComponent {
     });
     return Array.from(namesSet);
   }
+
+
   isTaskOpen = false;
   
 
@@ -77,8 +87,6 @@ export class AppointmentComponent {
   }
   
 
-  private baseUrl = "http://127.0.0.1:8000/";
-
   
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
@@ -89,10 +97,12 @@ export class AppointmentComponent {
   ngOnInit(): void {
     this.fetchAppointments();
     this.uniqueClients = this.getUniqueClientNames(this.appointments);
+    this.generateCalendarDays(new Date().getFullYear(), new Date().getMonth());
+    this.fetchAvailableDates();
 
   }
 
-
+    
   fetchAppointments() {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -110,6 +120,7 @@ export class AppointmentComponent {
           this.appointments = response.appointments;
         console.log('Appointmentss:', this.appointments);
           this.organizeAppointmentsByMonth();
+          this.generateCalendarDays(new Date().getFullYear(), new Date().getMonth());
         } else {
           console.error('No appointments found');
         }
@@ -117,73 +128,126 @@ export class AppointmentComponent {
     );
   }
 
+
+  fetchAvailableDates() {
+    const token = localStorage.getItem('token');
+    if(!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.get(`${this.baseUrl}api/available-dates`, { headers }).subscribe(
+      (response: any) => {
+        console.log(response);
+        const availableDates = response.available_dates.map((dateObj: any) => dateObj.available_date);
+        
+        this.available_dates = availableDates;
+        console.log('Available Dates:', this.available_dates);
+
+        if (response.available_dates && response.available_dates.length > 0) {
+          this.appointments2 = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
+          console.log('Appointments:', this.appointments);
+        } else {
+          console.error('No appointments found in response');
+        }
+
+
+
+        this.generateCalendarDays(new Date().getFullYear(), new Date().getMonth());
+        this.organizeAppointmentsByMonth();
+      }
+    );
+
+  }
+
+
+
+
+
+
+    generateCalendarDays(year: number, month: number): void {
+      const date = new Date(year, month, 1);
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const calendarDays = [];
+
+      let week = [];
+      for (let i = 0; i < date.getDay(); i++) {
+          week.push({ date: null, isAvailable: false, appointments: [] });
+      }
+
+      const formatter = new Intl.DateTimeFormat('en-CA', {
+          timeZone: 'Asia/Manila',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+      });
+
+      for (let day = 1; day <= daysInMonth; day++) {
+          const currentDate = new Date(year, month, day);
+          const dayKey = formatter.format(currentDate).split('/').reverse().join('-');
+          const appointmentsForDay = this.appointments.filter(appointment => {
+              const appointmentDate = new Date(appointment.appointment_datetime);
+              const appointmentDayKey = formatter.format(appointmentDate).split('/').reverse().join('-');
+              return appointmentDayKey === dayKey && appointment.status === 'A';
+          });
+          const isAvailable = this.available_dates.includes(dayKey) || appointmentsForDay.length > 0;
+          // console.log(`Date: ${dayKey}, Is Available: ${isAvailable}, Appointments: ${appointmentsForDay.length}`);
+          week.push({ date: currentDate, isAvailable: isAvailable, appointments: appointmentsForDay });
+
+          if (week.length === 7) {
+              calendarDays.push(week);
+              week = [];
+          }
+      }
+
+      if (week.length > 0) {
+          while (week.length < 7) {
+              week.push({ date: null, isAvailable: false, appointments: [] });
+          }
+          calendarDays.push(week);
+      }
+
+      this.calendarDaysInMonth = calendarDays;
+  }
+
+
  
 
-isPM(appointment: any): boolean {
-    const appointmentDate = new Date(appointment.appointment_datetime);
-    const hour = appointmentDate.getHours();
-    return appointment.status === 'A' && hour >= 13 && hour <= 17; // PM between 1:00 and 5:00
-}
-
-organizeAppointmentsByMonth() {
-  const currentDate = new Date(); // Current date
-  const monthStart = startOfMonth(currentDate); // Get the start of the month
-  const monthEnd = endOfMonth(currentDate); // Get the end of the month
-
-  this.weeklySchedule = {}; // Clear the existing schedule
-
-  // Iterate over each day in the calendarDaysInMonth
-  for (const week of this.calendarDaysInMonth) {
-    for (const day of week) {
-      const dayKey = formatDate(day.date, 'yyyy-MM-dd', 'en-US');
-      
-      // Filter appointments that match the current day and have status "A"
-      this.weeklySchedule[dayKey] = this.appointments.filter(appointment =>
-        appointment.appointment_datetime.startsWith(dayKey) && appointment.status === 'A'
-      );
-    }
-  }
-}
-
-
-  getWeekStart(date: Date): Date {
-    const dayOfWeek = date.getDay();
-    const weekStart = new Date(date);
-    weekStart.setDate(date.getDate() - dayOfWeek);
-    return weekStart;
+  isPM(appointment: any): boolean {
+      const appointmentDate = new Date(appointment.appointment_datetime);
+      const hour = appointmentDate.getHours();
+      return appointment.status === 'A' && hour >= 13 && hour <= 17; // PM between 1:00 and 5:00
   }
 
-  getDaysInWeek(): Date[] {
-    const days: Date[] = [];
-    const weekStart = this.getWeekStart(new Date());
-    for (let i = 0; i < 7; i++) {
-      const day = new Date(weekStart);
-      day.setDate(day.getDate() + i);
-      days.push(day);
-    }
-    return days;
-  }
 
-  get calendarDaysInMonth() {
-    const start = startOfWeek(startOfMonth(this.currentDate));
-    const end = endOfWeek(endOfMonth(this.currentDate));
-    const days = [];
-    let currentDay = start;
+    organizeAppointmentsByMonth() {
+      this.weeklySchedule = {}; // Clear the existing schedule
 
-    while (currentDay <= end) {
-      const week = [];
-      for (let i = 0; i < 7; i++) {
-        week.push({
-          date: currentDay,
-          isCurrentMonth: isSameMonth(currentDay, this.currentDate)
-        });
-        currentDay = addDays(currentDay, 1);
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Manila',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+
+      // Iterate over each day in the calendarDaysInMonth
+      for (const week of this.calendarDaysInMonth) {
+        for (const day of week) {
+          if (day.date) {
+            const dayKey = formatter.format(day.date).split('/').reverse().join('-');
+            
+            // Filter appointments that match the current day and have status "A"
+            this.weeklySchedule[dayKey] = day.appointments;
+          }
+        }
       }
-      days.push(week);
     }
-    return days;
-  }
-  
+
+
 
   formatDateTime(dateTime: string): string {
     const date = new Date(dateTime);
