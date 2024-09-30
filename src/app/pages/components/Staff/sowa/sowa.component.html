@@ -67,7 +67,7 @@
                                 <tr>
                                   <td>{{ toRoman(i + 1) }}</td>
                                   <td>{{ category.name }}</td>
-                                  <td style="text-align: right;">{{ category.totalAllocatedBudget | number: '1.2-2' }}</td>
+                                  <td style="text-align: right;">{{ category.c_allocated_budget | number: '1.2-2' }}</td>
                                   <td style="text-align: right;">{{ category.previousCost ?? '0.00'| number: '1.2-2' }}</td>
                                   <td style="text-align: right;">{{ category.thisPeriodCost?? '0.00' | number: '1.2-2' }}</td>
                                   <td style="text-align: right;">{{ category.toDateCost ?? '0.00'| number: '1.2-2' }}</td>
@@ -96,10 +96,14 @@
                                   <tr *ngFor="let task of category.tasks; let j = index">
                                     <td></td>
                                     <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                                    <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
-                                    <td style="text-align: right;">{{ task.pt_previous?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                    <td style="text-align: right;">{{ task.pt_this_period?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                    <td style="text-align: right;">{{ task.pt_to_date?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                    <!-- <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
+                                    <td style="text-align: right;">{{ task.previousCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                    <td style="text-align: right;">{{ task.thisPeriodCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                    <td style="text-align: right;">{{ task.toDateCostTask?? '0.00' | number: '1.2-2' || '-' }}</td> -->
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td style="text-align: right;">
                                     <div>{{ task.percentage | number: '1.2-2' }}%</div>
                                     <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
@@ -115,8 +119,12 @@
                               </ng-container>
                               <tr>
                                 <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
-                                <td style="text-align: right;"><strong>{{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
-                                <td colspan="4"></td>
+                                <td style="text-align: right;"><strong>{{ Total | number: '1.2-2' }}</strong></td>
+                               <td></td>
+                               <td></td>
+                               <td style="text-align: right;"><strong>{{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
+                               <td></td>
+                               <td></td>
                               </tr>
                             </tbody>
                           </table>
