@@ -23,13 +23,21 @@
                     [min]="minDate"
                     required
                   />
-                  <button type="button" (click)="addDate()" class="btn btn-outline-primary mt-2">Add Date</button>
+                  <button type="button" (click)="addDate()" class="btn btn-outline-dark mt-2">Add Date</button>
                 </div>
                 <div class="col-md-12 mt-3">
-                  <h5>Selected Dates:</h5>
-                  <ul>
-                    <li *ngFor="let date of selectedDates">{{ date }}</li>
-                  </ul>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Selected Dates:</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let date of selectedDates">
+                        <td>{{ date }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 <div class="d-flex align-items-center justify-content-between py-3">
                   <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>

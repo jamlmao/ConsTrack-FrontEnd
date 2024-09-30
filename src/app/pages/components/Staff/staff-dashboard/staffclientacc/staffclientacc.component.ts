@@ -108,6 +108,14 @@ export class StaffclientaccComponent {
     );
   }
 
+  getRowsWithEmptySpaces() {
+    const rows = [...this.paginatedUsers]; // Clone the paginated users
+    while (rows.length < this.rowsPerPage) {
+      rows.push(null); // Add empty rows if needed
+    }
+    return rows;
+  }
+
 
   updatePaginatedUsers() {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
