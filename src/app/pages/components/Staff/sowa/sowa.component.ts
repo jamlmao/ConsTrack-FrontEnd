@@ -113,7 +113,7 @@ export class SowaComponent {
   
 
   categorizedTasks: { [key: string]: any[] } = {};
-  SortedTask: any = {};
+  Total: number = 0;
 
 
   ngOnInit(){
@@ -312,7 +312,7 @@ export class SowaComponent {
 
 
   
-
+  
     
 
   fetchTaskByCategory(projectId: number) {
@@ -327,9 +327,9 @@ export class SowaComponent {
 
     this.http.get(this.taskByCategoryUrl + `${projectId}`, { headers }).subscribe(
     (response: any) => {
-      if (response && response.totalAllocatedBudgetPerCategory) {
-        this.SortedTask = response.totalAllocatedBudgetPerCategory;
-        console.log('Budget:', this.SortedTask);
+      if (response && response.totalAllocatedBudget) {
+        this.Total = response.totalAllocatedBudget;
+        console.log('Budget:', this.Total);
       
         
         
@@ -368,12 +368,17 @@ export class SowaComponent {
             if (category.tasks) {
               this.sortedTask.push({
                 id:category.category_id,
+                c_allocated_budget: category.c_allocated_budget,
                 name: categoryName,
                 tasks: category.tasks,
                 totalAllocatedBudget: category.totalAllocatedBudget,
-                previousCost: category.previous,
-                thisPeriodCost: category.thisperiod,
-                toDateCost: category.todate,
+                previousCost: category.previousCost,
+                thisPeriodCost: category.thisPeriodCost,
+                toDateCost: category.toDateCost,
+                previousCostT: category.previousCostTask,
+                thisPeriodCostT: category.thisPeriodCostTask,
+                toDateCostT: category.toDateCostTask,
+                
                 progress: category.progress
               });
             }
