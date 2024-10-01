@@ -8,8 +8,8 @@
         <router-outlet></router-outlet>
 
         
-        <div class="row">
-            <div class="container-fluid align-items-center">
+      
+            <div class="container">
 
                 <div class="title">
                     <h1><span>PROJECT</span> LISTS</h1>      
@@ -26,56 +26,60 @@
         
           
           
-        </div>
-        
 
         
-        
+          
 
-        <div class="container" style="margin-top: -90px;">
-          <div class="d-flex align-items-center m-2">
-            <div class="col-md-8 m-2">
-              <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
-                >Search:</label
-              >
-              <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()">
-            </div>
-            
-            
-            <div class="col-md-2">
-              <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
-                >Project Type:</label
-              >
-              <select class="form-control" id="client_id" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()" required style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                <option value="" disabled selected>Select Project Type</option>
-                            <option value="Residential">Residential</option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="Institutional">Institutional</option>
-                            <option value="Industrial">Industrial</option>
-                            <option value="Building">Building</option>
-                            <option value="Furniture">Furniture</option>
-                            <option value="Renovation">Renovation</option>
-              </select>
-            </div>
-            <div class="col-md-2 m-2">
-              <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
-                >Progress:</label
-              >
-              <select class="form-control" id="client_id" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()" required style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
-                <option value="" disabled selected>Select Status</option>
-                  <option value="Ongoing">Ongoing</option>
-                  <option value="Complete">Complete</option>
-                  <option value="Due">Due</option>
+          <div class="container" style="margin-top: -70px;">
+            <div class="d-flex justify-content-center m-2">
+              <div class="col-md-3 m-2">
+                <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                  >Search:</label
+                >
+                <input class="form-control me-5" type="search" placeholder="Search for projects" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()">
+              </div>
+              
+              
+              <div class="col-md-2 m-2">
+                <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                  >Project Type:</label
+                >
+                <select class="form-control" id="client_id" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()" required style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                  <option value="" disabled selected>Select Project Type</option>
+                              <option value="Residential">Residential</option>
+                              <option value="Commercial">Commercial</option>
+                              <option value="Institutional">Institutional</option>
+                              <option value="Industrial">Industrial</option>
+                              <option value="Building">Building</option>
+                              <option value="Furniture">Furniture</option>
+                              <option value="Renovation">Renovation</option>
                 </select>
+              </div>
+              <div class="col-md-2 m-2">
+                <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                  >Progress:</label
+                >
+                <select class="form-control" id="client_id" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()" required style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                  <option value="" disabled selected>Select Status</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Complete">Complete</option>
+                    <option value="Due">Due</option>
+                  </select>
+              </div>
+              <div class="col-md-1 m-2">
+                <label for="from-date" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">From:</label>
+                <input type="date" class="form-control" id="from-date" [(ngModel)]="fromDate" (ngModelChange)="onDateFilterChange()">
+              </div>
+              <div class="col-md-1 m-2">
+                <label for="to-date" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">To:</label>
+                <input type="date" class="form-control" id="to-date" [(ngModel)]="toDate" (ngModelChange)="onDateFilterChange()">
+              </div>
+              <h4 style="margin-top: 7px;"> </h4>
+              
+                  <app-create-project 
+                          *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
+                  </app-create-project>
             </div>
-            <h4 style="margin-top: 7px;"> </h4>
-            
-                <app-create-project 
-                        *ngIf="isCreateProjectModalOpen" (close)="closeCreateProjectModal()">
-                </app-create-project>
-          </div>
-
-          <div class="container" style="margin-left: px;">
            
             <div class="table-wrapper">
               <div class="table-title">
@@ -84,7 +88,7 @@
                     <h1>Project's Table</h1>
                   </div>
                   <div class="col-2">
-                    <button class="btn-grad" (click)="openCreateProjectModal()">
+                    <button class="btn btn-danger" (click)="openCreateProjectModal()">
                       New Project
                     </button>
                   </div>
@@ -151,9 +155,7 @@
             </div>
             
           </div>
-          
-      </div> 
-        
+      
             
                 
                 <router-outlet></router-outlet>
