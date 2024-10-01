@@ -118,11 +118,7 @@
                       <td>{{ project.starting_date }}</td>
                       <td>{{ project.completion_date }}</td>
                       <td>{{ project.totalBudget }}</td>
-                      <td><span [ngClass]="{
-                        'active': project?.status === 'Complete', 
-                        'inactive': project?.status === 'Ongoing',
-                        'inactives': project?.status === 'Due'
-                      }" style="font-weight: bolder;">{{project.status}}</span></td>
+                      <td><span>{{project.status}}</span></td>
                       <td style="text-align: center;"><a (click)="selectProject(project)" class="view">View</a></td>
                     </ng-container>
             

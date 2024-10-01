@@ -452,7 +452,7 @@
       }
       
       circle.progress {
-        stroke: #079c0c;
+        stroke: #be1010;
         stroke-dasharray: 283; /* Circumference of the circle: 2 * Math.PI * 45 */
         stroke-dashoffset: calc(283 - (283 * 75) / 100); /* Progress: (283 - (circumference * percent / 100)) */
         transition: stroke-dashoffset 0.35s;

@@ -231,25 +231,33 @@
 }
 
          
+         
+         
+         
+         
 .btn-grad {
-  background-image: linear-gradient(to right, #e52d27 0%, #b31217  51%, #e52d27  100%);
-  margin-left: 50px;
+  background-image: linear-gradient(to right, #f4081f 0%, #ef473a  51%, #cb2d3e  100%);
+  margin: 10px;
   padding: 10px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
-  color: white;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;            
+  color: white;            
+  box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   display: block;
 }
 
 .btn-grad:hover {
   background-position: right center; /* change the direction of the change here */
-  color: #fff;
+  color: #efe9e9;
   text-decoration: none;
 }
+
+
+
+
 
 
 /* Action Buttons */
@@ -264,7 +272,7 @@
 }
 
 .view:hover, .edit:hover {
-  color: #818181;
+  color: #ffffff;
   background-color: #5e5c5c;
 }
 
