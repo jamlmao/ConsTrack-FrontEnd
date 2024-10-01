@@ -211,16 +211,6 @@ body {
   color: #2d3436;
 }
 
-.table-container {
-  width: 104%;
-  height: 100%;
-  margin-right: -20px;
-  margin-left: -20px;
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
 
 .header {
   display: flex;
@@ -288,39 +278,83 @@ body {
   background-color: #019670;
 }
 
-.responsive-table {
+.table-wrapper {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-title h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+
+.table thead th {
+  background-color: #141414d9; /* Header red matching the card */
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-size: 20px;
+  margin-bottom: 20px;
 }
 
-.responsive-table th, .responsive-table td {
+.table th, .table td {
   padding: 15px;
-  text-align: left;
-  background-color: #fff;
-  
-  font-size: 20px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.responsive-table th {
-  background-color: #f8f9fa;
-  color: #7f8c8d;
-  font-size: 14px;
+.table th {
+  background-color: #28282a;
+  color: #fff;
+  font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  
-  font-size: 20px;
+  font-size: 17px;
 }
 
-.responsive-table td {
-  font-size: 20px;
-  color: #2d3436;
-  border-bottom: 1px solid #ecf0f1;
-  
+.table td {
+  font-size: 15px;
+  white-space: nowrap; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 450;
 }
+
+.table tbody tr:hover {
+  background-color: #f4f5f7;
+  transition: background-color 0.2s;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+/* Action Buttons */
+.view, .edit {
+  background-color: #292a2b;
+  color: white;
+  border: none;
+  padding: 10px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view:hover, .edit:hover {
+  color: #121212;
+  background-color: #d4cdcd;
+}
+
+
 
 .status {
   display: inline-block;

@@ -189,10 +189,7 @@
       margin: 0;
       padding: 20px;
     }
-    .timeline-container {
-      overflow-x: auto;
-      padding: 20px 0;
-  }
+ 
   .timeline {
       display: flex;
       position: relative;
@@ -321,7 +318,7 @@
       background-color: #f9f9f9; /* Light background for cards */
       flex: 1; /* Default flex basis for cards */  
       width: 300px; /* Adjust width */
-      height: 350px; /* Adjust height */
+      height: 200px; /* Adjust height */
       cursor: pointer;
     
     }

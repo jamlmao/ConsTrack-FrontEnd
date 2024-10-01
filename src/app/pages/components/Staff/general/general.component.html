@@ -8,20 +8,20 @@
 
       <div class="container">
           <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-          <div class="card-body text-center">
-                  <h1 class="mt-1 mb-5 pb-1" style="font-family:  Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Category</h1>
+          <div class="card-body">
+                  <h3 class="mt-1 mb-5 pb-1" style="font-family:  Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Add New Category</h3>
                 
               <div class="row" style="margin-top: -40px;">
                   
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <label for="example-text-input" class="form-control-label"
-                    >Category Name</label>
+                    > Name</label>
                   <input placeholder="Category Name" class="form-control" type="text" id="category_name" [(ngModel)]="category.category_name" name="category_name" #nameControl="ngModel" required>
                 </div>
                 
 
-                <div class="div class col-md-6">
-                   <label for="example-text-input" class="form-control-label">Category Budget</label>
+                <div class="div class col-md-12">
+                   <label for="example-text-input" class="form-control-label">Budget</label>
                    <input placeholder="Category Budget" class="form-control no-spinner" type="number" id="category_budget" [(ngModel)]="category.category_allocated_budget" name="category_budget" #nameControl="ngModel" required>
                 </div>
                                 
@@ -30,7 +30,8 @@
                 
                 <div class="d-flex align-items-center justify-content-between py-3">
                   <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                  <button type="submit" class="btn btn-outline-dark">Confirm</button>
+                  <button type="submit" class="btn btn-outline-dark">Save Changes
+                  </button>
                   </div>
               </div>
               

@@ -59,8 +59,8 @@
                         </nav>
                         
                         
-                        <mat-tab-group  class="custom-tab-group" style="margin-top: -100px;">
-                            <mat-tab label="PROJECT DETAILS"> <div class="title" style="margin-top: 100px;">
+                        <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="tabChanged($event)" class="custom-tab-group" style="margin-top: -100px;" >
+                            <mat-tab label="DETAILS"> <div class="title" style="margin-top: 100px;">
                             
                                 <div class="title">
                                     <h1><span>PROJECT</span> DETAILS</h1>
@@ -109,8 +109,10 @@
                                     </div>
                                 </div>
                             </div> </mat-tab>
-                            <mat-tab label="STATEMENT OF WORK ACCOMPLISHMENT" > <app-sowa (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-sowa> </mat-tab>
+                            <mat-tab label="SOWA" > <app-sowa (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-sowa> </mat-tab>
                             <mat-tab label="TIMELINE"> <app-resourcetable></app-resourcetable> </mat-tab>
+                            <mat-tab label="UPDATES"> <app-updates></app-updates> </mat-tab>
+                            <mat-tab label="LOGS"> <app-history></app-history> </mat-tab>
                           </mat-tab-group>
                           
                     </main>

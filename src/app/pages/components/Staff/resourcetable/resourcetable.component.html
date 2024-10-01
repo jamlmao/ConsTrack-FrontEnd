@@ -38,11 +38,11 @@
 
          
     
-          <div class="timeline-container" style="margin-top: -100px; margin-left: 10px;">
+          <div class="timeline-container" style="margin-top: -100px;">
             <div class="timeline">
               <div class="container">
                 <div class="card-gallery-container">
-                  <button style="font-size: larger; color: white;" (click)="scrollLeft()" [disabled]="startIndex === 0">←</button>
+                  <button style="font-size: larger; color: white;" (click)="scrollLeft()" [disabled]="startIndex === 0"><</button>
           
                   <div class="card-gallery">
                     <ng-container class="task" *ngFor="let task of displayedCards | filter:searchText; let i = index">
@@ -57,7 +57,6 @@
                         }"
                       >
                         <div class="content">
-                          <img [src]="'http://localhost:8000' + task.pt_photo_task" alt="Clickable Image" class="clickable-image" />
                           <h2>{{ task.category?.category_name }}</h2>
                           <p class="date">{{ task.pt_starting_date | date: 'yyyy-MM-dd' }} - {{ task.pt_completion_date | date: 'yyyy-MM-dd' }}</p>
                           <p>{{ task.pt_task_name }}</p>
@@ -66,7 +65,7 @@
                     </ng-container>
                   </div>
           
-                  <button style="font-size: larger; color: white;" (click)="scrollToLast()" [disabled]="isAtEnd()">→</button>
+                  <button style="font-size: larger; color: white;" (click)="scrollToLast()" [disabled]="isAtEnd()">></button>
                 </div>
               </div>
             </div>

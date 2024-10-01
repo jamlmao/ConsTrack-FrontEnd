@@ -84,8 +84,8 @@
                     <h1>Project's Table</h1>
                   </div>
                   <div class="col-2">
-                    <button class="btn btn-outline-dark" (click)="openCreateProjectModal()">
-                      Add New Project
+                    <button class="btn-grad" (click)="openCreateProjectModal()">
+                      New Project
                     </button>
                   </div>
                 </div>
@@ -107,10 +107,11 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let project of getRowsWithEmptySpaces()|filter:searchText; let i = index">
-                    <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+                    
             
                     <!-- If the row has a project, display the data -->
                     <ng-container *ngIf="project; else emptyRow">
+                      <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
                       <td>{{ project.client.first_name }} {{ project.client.last_name }}</td>
                       <td>{{ project.project_type }}</td>
                       <td>{{ project.staff_in_charge.staff_first_name }} {{ project.staff_in_charge.staff_last_name }}</td>
@@ -122,11 +123,18 @@
                         'inactive': project?.status === 'Ongoing',
                         'inactives': project?.status === 'Due'
                       }" style="font-weight: bolder;">{{project.status}}</span></td>
-                      <td><a (click)="selectProject(project)" class="view">View</a></td>
+                      <td style="text-align: center;"><a (click)="selectProject(project)" class="view">View</a></td>
                     </ng-container>
             
                     <!-- If no project is available, show empty cells -->
                     <ng-template #emptyRow>
+                      <td colspan="1"></td>
+                      <td colspan="1"></td>
+                      <td colspan="1"></td>
+                      <td colspan="1"></td>
+                      <td colspan="1"></td>
+                      <td colspan="1"></td>
+                      <td colspan="1"></td>
                       <td colspan="1"></td>
                       <td colspan="1"></td>
                     </ng-template>
