@@ -10,10 +10,14 @@ import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+
 @Component({
   selector: 'app-general',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './general.component.html',
   styleUrl: './general.component.css'
 })

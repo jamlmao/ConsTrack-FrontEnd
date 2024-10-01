@@ -22,15 +22,20 @@
                        
                 
                        
-                          <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144);">
+                        <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144); margin-top: -20px;margin-left: -20px; margin-right: -20px;">
                             <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
                                 
-                               <div class="carousel-inner">
-                                    <div class="carousel-item active scrollable-image">
-                                        <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
-                                    </div>
-                                     
-                                </div>
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active scrollable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
+                                  </div>
+                                  <div class="carousel-item scrollable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image1" alt="Project Image" class="clickable-image">
+                                  </div>
+                                  <div class="carousel-item scrollable-image">
+                                      <img [src]="'http://localhost:8000' + projectDetails.pj_image2" alt="Project Image" class="clickable-image">
+                                  </div>
+                              </div>
                                
                             </div>
                         </div>
