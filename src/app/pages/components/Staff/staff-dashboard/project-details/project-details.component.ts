@@ -223,7 +223,7 @@ ngOnInit(){
         
       // Calculate the used percentage
       this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
-
+        console.log('Used Budget Percentage:', this.usedBudgetPercentage);
       // Calculate the stroke-dashoffset based on the percentage
       this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
     Swal.close();
