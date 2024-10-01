@@ -67,6 +67,58 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-12"><div class="table-wrapper card p-4 mb-4">
+                            <h2 >Accomplishments <button class="btn btn-outline-dark" *ngIf="tasks.pt_status !=='C'" style="margin-left: 20px;"  (click)="openTaskModal(tasks.id)" >
+                                Update Task </button>
+                                  <app-archi *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-archi>
+                                  
+                                <button class="btn btn-outline-dark" *ngIf="tasks.percentage >= 95 && tasks.pt_status !== 'C'" style="margin-left: 20px;" (click)="CompleteTask(tasks.id)">
+                                   Complete Task </button>
+                        
+                            </h2>
+                         
+                            <table class="table modern-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Description</th>
+                                        <th>Resources Name</th>
+                                        <th>Qty</th>
+                                        <th>Resources Left</th>
+                                        <th>Staff</th>
+                                        <th>Date</th>
+                                        <th>Day</th>
+                                        <th>Picture</th>
+                                        <th *ngIf="tasks.pt_status !=='C'">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let resource of resources; let i =index">
+                                        <td>{{i + 1}}</td>
+                                        <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td> <div class="cards project-item card-custom m-3" *ngFor="let task of task_image" (click)="openModal(task.images)">
+                                            <img [src]="'http://localhost:8000' + task.mainImage" alt="Project Image" class="card-image">
+                                            
+                                          </div> </td>
+                                        <td>{{resource.left_qty}}</td>
+                                        <td style="text-align: center;"> 
+                                            <a class="btn btn-outline-dark" (click)="openEditSubModal(resource.id)" class="view" *ngIf="tasks.pt_status !=='C'">Edit</a>
+                                            <app-editresource *ngIf="isEditSubModalOpen"
+                                            [resourceId]="selectedResource!"
+                                            (close)="closeEditSubModal()"></app-editresource>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div></div>
+
                         <div class="row">
                              <!-- Estimated Materials Section -->
                          <div class="col-6"><div class="table-wrapper card p-4 mb-4">
