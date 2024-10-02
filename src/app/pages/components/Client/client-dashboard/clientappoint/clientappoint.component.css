@@ -1,0 +1,238 @@
+/* Modal */
+.modal {
+    display: flex; /* Use Flexbox to center content */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background overlay */
+    z-index: 1050;
+  }
+  
+  .modal-content {
+    margin: 2% auto;
+    padding: 30px;
+    border: none;
+    border-radius: 10px; /* Rounded corners for modern look */
+    width: 35%;
+    background-color: #ffffff; /* White background for content */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Add a soft shadow */
+  }
+  
+  /* Close button */
+  .close {
+    color: #333; /* Darker and more subtle */
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: color 0.2s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #d8363a; /* Bright color on hover for better feedback */
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Form Fields */
+  .input-group {
+    margin-bottom: 1rem;
+  }
+  
+  
+  
+  /* Form Labels */
+  label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #555; /* Softer color for label */
+    margin-bottom: 0.5rem;
+    margin-top: 10px;
+  }
+  
+  /* Typography */
+  h1, h4 {
+    color: #e22a2a;
+    font-family: 'Montserrat', sans-serif; /* Modern font */
+    letter-spacing: 0.5px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Divider */
+  .divider-text {
+    position: relative;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .divider-text span {
+    padding: 0 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #a7a1a1;
+    background-color: #ffffff;
+    z-index: 2;
+    position: relative;
+  }
+  
+  .divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+  }
+  
+  /* Button Styles */
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+  }
+  
+  button.btn-outline-danger {
+    color: #d8363a;
+    border: 2px solid #d8363a;
+    background-color: transparent;
+  }
+  
+  button.btn-outline-danger:hover {
+    background-color: #d8363a;
+    color: white;
+  }
+  
+  button.btn-outline-dark {
+    color: #333;
+    border: 2px solid #333;
+    background-color: transparent;
+  }
+  
+  button.btn-outline-dark:hover {
+    background-color: #333;
+    color: white;
+  }
+  
+  /* Gradient Background */
+  .gradient-custom-2 {
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    border-radius: 10px;
+    padding: 20px;
+    background-size: cover;
+  }
+  
+  /* Alert Message */
+  .alert div {
+    background-color: #ffd3d3;
+    color: #820000;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  /* Responsive Adjustments */
+  @media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+  }
+  
+
+ 
+    
+    .textup {
+        text-align: center;
+        color: rgb(128, 27, 27);
+        font-weight: 700;
+    }
+    
+    i {
+        margin-right: 3px;
+    }
+    
+    .form-box {
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(36, 67, 40, 0.8);
+        padding: 15px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .radio-group {
+        display: flex;
+        margin-bottom: 16px;
+    }
+    
+    input[type="radio"] {
+        margin-right: 8px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 17px;
+        color: rgb(128, 27, 27);
+        font-weight: 600;
+    }
+    
+    input,
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+        border-radius: 10px;
+    
+    }
+    
+    button {
+        background-color: rgb(128, 27, 27);
+        color: #fff;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        width: 50%;
+        font-size: 15px;
+        transition: .2s linear;
+    }
+    
+    button:hover {
+        background-color: rgb(128, 27, 27);
+        border: none;
+        transform: translateY(-10px);
+    }
+    
+    h1 {
+        color: rgb(128, 27, 27);
+    }
+    
+    

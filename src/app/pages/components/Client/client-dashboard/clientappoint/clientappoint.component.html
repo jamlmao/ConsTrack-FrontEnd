@@ -1,0 +1,67 @@
+
+
+
+
+<div class ="modal">
+    <div class="div modal-content">
+  
+  
+        <div class="">
+            <div class="textup">
+                <i class="fa fa-solid fa-clock"></i>
+                It only takes two minutes!!
+            </div>
+            <form (ngSubmit)="onSubmit()">
+                <div>
+                    <label for="staff_id">
+                        <i class="fa fa-solid fa-user"></i>
+                        Select Staff:
+                    </label>
+                    <select class="form-control" id="staff_id" [(ngModel)]="staff_id" name="staff_id" required style="text-transform: uppercase;">
+                        <option *ngFor="let staff of staffList" [value]="staff.id">
+                            {{ staff.extension_name === 'Civil Engineer' || staff.extension_name === 'Engineer' ? 'Engr. ' + staff.first_name : staff.first_name }} 
+                            {{ staff.last_name }} 
+                            {{ staff.extension_name === 'Architect' ? 'UAP' : '' }}
+                        </option>
+                    </select>
+                </div>
+        
+                <div>
+                    <label for="appointment_datetime">
+                        <i class="fa fa-solid fa-calendar"></i>
+                        Do you want to create an appointment?
+                    </label>
+                    <input type="datetime-local" id="appointment_datetime" [(ngModel)]="appointment_datetime" name="appointment_datetime" [min]="minDateTime" required>
+                    <small style="color: red;" *ngIf="invalidTimeSelected">Please select a time between 7 AM - 11 AM or 1 PM - 5 PM.</small>
+                </div>
+        
+                <div>
+                    <label for="description">
+                        <i class="fa-solid fa-comments" style="margin-right: 3px;"></i>
+                        Write your Suggestions:
+                    </label>
+                    <textarea id="description" [(ngModel)]="description" name="description" rows="4" cols="10" required></textarea>
+                </div>
+        
+                <div class="d-flex align-items-center justify-content-between py-3">
+                    <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                    <button type="submit" class="btn btn-outline-dark">Submit</button>
+                  </div>
+            </form>
+        </div>
+    
+   
+        
+    </div>
+  </div>
+  
+  
+  
+  
+  <router-outlet></router-outlet>
+  
+  
+  
+  
+  
+  
