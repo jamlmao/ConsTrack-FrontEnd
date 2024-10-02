@@ -36,13 +36,15 @@ import { ResourcetableComponent } from "../../resourcetable/resourcetable.compon
 
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
+import { UpdatesComponent } from "../../updates/updates.component";
+import { HistoryComponent } from "../../history/history.component";
 
 
 
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [MatTabsModule, MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, ArchiComponent, MatTooltipModule, SowaComponent, ResourcetableComponent],
+  imports: [MatTabsModule, MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, ArchiComponent, MatTooltipModule, SowaComponent, ResourcetableComponent, UpdatesComponent, HistoryComponent],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css'
 })
@@ -98,8 +100,22 @@ export class ProjectDetailsComponent {
     
   }
 
+  selectedTabIndex: number = 0; 
   
+  tabChanged(event: any) {
+    // When the tab is changed, update the selectedTabIndex
+    this.selectedTabIndex = event.index;
+
+    // Store the new tab index in localStorage
+    localStorage.setItem('selectedTabIndex', this.selectedTabIndex.toString());
+  }
+
 ngOnInit(){
+
+    const storedIndex = localStorage.getItem('selectedTabIndex');
+    
+    // If there's a stored value, set it as the selected tab index, otherwise default to 0
+    this.selectedTabIndex = storedIndex ? +storedIndex : 0;
     
     Swal.fire({
       title: 'Loading...',

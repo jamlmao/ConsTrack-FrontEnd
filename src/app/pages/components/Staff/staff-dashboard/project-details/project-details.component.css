@@ -147,15 +147,15 @@
   
   .grid-item h4 {
       margin-bottom: 0.1rem; /* Adjust margin for headers */
-      margin-left: 20px;
+      margin-right: 40px;
   }
   
   .highlight {
       font-weight: bold;
       font-size: 20px;
       text-transform: uppercase;
-      margin-left: 40px;
       margin-bottom: 1rem;
+      margin-right: 40px;
   }
   
     
@@ -452,7 +452,7 @@
       }
       
       circle.progress {
-        stroke: #079c0c;
+        stroke: #6eff69;
         stroke-dasharray: 283; /* Circumference of the circle: 2 * Math.PI * 45 */
         stroke-dashoffset: calc(283 - (283 * 75) / 100); /* Progress: (283 - (circumference * percent / 100)) */
         transition: stroke-dashoffset 0.35s;

@@ -25,19 +25,18 @@
                         </div>
                         <div class="dues-info">
                             
-                            <button (click)="openCreateClientModal()" type="button" class="btn btn-outline-dark">Add New Account</button>
+                            <button (click)="openCreateClientModal()" type="button" class="btn btn-danger">Add New Account</button>
                             <app-create-client-acct 
                             *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
                     </app-create-client-acct>
                         </div>
                     </div>
             
-                    <table class="responsive-table" id="myTable" style="font-family: 'Poppins', sans-serif; font-weight: bold;">
+                    <table class="table table-bordered" id="myTable" style="font-family: 'Poppins', sans-serif; font-weight: bold;">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
-                                <th>No.</th>
-                            <th>ID</th>
+                           
+                                <th></th>
                             
                             <th>Name</th>
                             <th>Phone</th>
@@ -48,10 +47,11 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let client of getRowsWithEmptySpaces()|filter:searchText; let i = index" >
-                                <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+                               
 
                                 <ng-container *ngIf="client; else emptyRow">
-                                <td>{{ client.id }}</td>
+                                <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+                            
                                 <td>{{ client.first_name }} {{ client.last_name }}</td>
                                 <td>{{ client.phone_number }}</td>
                                 <td>{{ client.address }}, {{ client.city }}</td>
@@ -60,17 +60,15 @@
                                     'inactive': client?.user_status === 'Not Active'
                                   }">{{client.user_status}}</span></td>
                                 <td style="text-align: center;">
-                                    <div class="action-menu">
-                                        <button (click)="openEditModal()" class="view-more">Edit</button>
+                                    
+                                        <a (click)="openEditModal()" class="view">Edit</a>
                                         <app-editprofile 
                                         *ngIf="isEditModalOpen" (close)="closeEditModal()">
                                         </app-editprofile>
-                                    </div>
+                              
                                 </td>
                             </ng-container>
                             <ng-template #emptyRow>
-                                <td colspan="1"></td>
-                                <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>

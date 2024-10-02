@@ -1,0 +1,32 @@
+.title{
+    margin-bottom: 50px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+    position: relative;
+  }
+ 
+    
+  
+  
+
+  
+
+  .title p{
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+  .title h1 span{
+    font-weight: bold;
+    color: #f21501;
+    font-size: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .title h1{
+    font-weight: bold;
+    color: #000000;
+    font-size: 30px;
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }

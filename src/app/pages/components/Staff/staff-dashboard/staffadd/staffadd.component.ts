@@ -42,6 +42,8 @@ import Swal from 'sweetalert2';
 export class StaffaddComponent {
   projects: any[] = [];
   user: any;
+  fromDate: string = '';
+  toDate: string = '';
 
   isCreateProjectModalOpen = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -65,6 +67,34 @@ export class StaffaddComponent {
         return status;
     }
   }
+
+  onDateFilterChange() {
+    this.filterProjects();
+  }
+
+  filterProjects() {
+    const filteredProjects = this.projects.filter(project => {
+      const projectDate = new Date(project.starting_date);
+      const from = this.fromDate ? new Date(this.fromDate) : null;
+      const to = this.toDate ? new Date(this.toDate) : null;
+      
+      // Check if the project date falls within the date range
+      const isWithinDateRange = (!from || projectDate >= from) && (!to || projectDate <= to);
+
+      // Check if the search text matches any field (like project type, client name, etc.)
+      const matchesSearchText = this.searchText
+        ? project.client.first_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          project.client.last_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          project.project_type.toLowerCase().includes(this.searchText.toLowerCase())
+        : true;
+
+      return isWithinDateRange && matchesSearchText;
+    });
+
+    return filteredProjects;
+  }
+
+  
 
   
   dataSource = new MatTableDataSource<any>();
@@ -247,10 +277,21 @@ pageSize: number = 1; // Example page siz
   }
 
   getRowsWithEmptySpaces() {
-    const rows = [...this.paginatedUsers]; // Clone the paginated users
+    // Step 1: Filter the projects first
+    const filteredProjects = this.filterProjects();
+  
+    // Step 2: Apply pagination to the filtered projects
+    const paginatedProjects = filteredProjects.slice(
+      (this.currentPage - 1) * this.rowsPerPage,
+      this.currentPage * this.rowsPerPage
+    );
+  
+    // Step 3: Add empty rows if necessary
+    const rows = [...paginatedProjects];
     while (rows.length < this.rowsPerPage) {
-      rows.push(null); // Add empty rows if needed
+      rows.push(null); // Add null rows if not enough data
     }
+  
     return rows;
   }
 

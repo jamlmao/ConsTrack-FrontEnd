@@ -209,7 +209,7 @@ export class ShomeComponent implements OnInit {
               {
                 label: 'Projects',
                 data: [this.done, this.ongoing,this.due],
-                backgroundColor: ['green', 'skyblue', 'red' ],
+                backgroundColor: ['#8ec669', '#70a8d6', '#ea6060' ],
               },
             ],
         
@@ -355,22 +355,22 @@ export class ShomeComponent implements OnInit {
                     {
                       label: 'Due Projects',
                       data: dueData, // Y-axis values for due projects
-                      borderColor: 'red',
-                      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                      borderColor: 'white',
+                      backgroundColor: '#ea6060',
                       fill: false
                     },
                     {
                       label: 'Complete Projects',
                       data: completeData, // Y-axis values for complete projects
-                      borderColor: 'green',
-                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                      borderColor: 'white',
+                      backgroundColor: '#8ec669',
                       fill: false
                     },
                     {
                       label: 'Ongoing Projects',
                       data: ongoingData, // Y-axis values for ongoing projects
-                      borderColor: 'blue',
-                      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                      borderColor: 'white',
+                      backgroundColor: '#70a8d6',
                       fill: false
                     }
                   ]
@@ -473,7 +473,7 @@ export class ShomeComponent implements OnInit {
                     {
                       label: 'Projects',
                       data: data, // Y-axis values (project counts)
-                      backgroundColor: 'yellow',
+                      backgroundColor: '#fcff47',
                     },
                   ],
                 },
@@ -553,7 +553,7 @@ export class ShomeComponent implements OnInit {
                     {
                       label: 'Clients',
                       data: data, // Y-axis values (client counts)
-                      backgroundColor: 'cyan',
+                      backgroundColor: '#78edf8',
                     }
                   ]
                 },
