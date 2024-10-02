@@ -159,7 +159,7 @@
                                         <td>{{use.first_name}} {{use.last_name}}</td>
                                         <td>{{task.uploaded_at}}</td>
                                         <td>day1</td>
-                                        <td> <img [src]="'http://localhost:8000' + task.mainImage" alt="Project Image" style="width:30px;" > </td>
+                                        <td> <img [src]="'http://localhost:8000' + task.mainImage" alt="Project Image" style="width:70px; height: 40px;" > </td>
                                         <td style="text-align: center;"> 
                                             <a class="btn btn-outline-dark"  class="view" *ngIf="tasks.pt_status !=='C'">Edit</a>
                                             <app-editresource *ngIf="isEditSubModalOpen"
