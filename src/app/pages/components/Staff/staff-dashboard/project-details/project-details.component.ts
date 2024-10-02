@@ -71,7 +71,7 @@ export class ProjectDetailsComponent {
   projectIdNumber2: number = 0;
   user: any = {};
   profileId: number =0;
-
+  imageUrl: string= 'http://localhost:8000';
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
   private SortedUrl =`${this.url}`+'/api/sortedTask/'

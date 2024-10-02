@@ -43,9 +43,13 @@ export class TaskdetailsComponent {
   alltask: any[] = [];
   currentUserId: number = 0;
   categoryName: string = '';
-  used_resources:any[] = [];
+  used_resources: any[] = [];
   taskId :string = '';
+  percentage: number = 0;
+  remaining: number = 0;
+  budget: number = 0;
   task_image: any[] = []; 
+  imageUrl: string= 'http://localhost:8000';
   private url ="http://127.0.0.1:8000";
   private allTask = `${this.url}`+'/api/tasks';
   private ImagesUrl = `${this.url}`+'/api/taskImages/';
@@ -64,7 +68,6 @@ export class TaskdetailsComponent {
       if (!isNaN(taskIdNumber)) {
         this.fetchAllTask(taskIdNumber);
         this.fetchTaskImages(taskIdNumber);
-        this.fetchUsedResources(taskIdNumber);
       } else {
         console.error('Project ID is not set or is not a number');
       }
@@ -158,7 +161,11 @@ getStatusText(status: string): string {
     this.http.get(this.allTask + `/${taskId}/resources`, { headers }).subscribe(
       (response: any) => {
         this.hideLoading();
+        console.log('Response:', response);
        this.tasks = response.task;
+       this.remaining = response.estimated_resource_value_sum;
+       this.budget = response.task.pt_allocated_budget;
+       this.percentage = response.task.percentage;
        this.categoryName = response.category_name;  
        console.log('Category Name:', this.categoryName);
        console.log('Tasks:', this.tasks);
@@ -170,23 +177,7 @@ getStatusText(status: string): string {
   }
 
  
-  fetchUsedResources(taskId: number) {
-    const token = localStorage.getItem('token');
 
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`});
-  
-     this.http.get(this.usedResourcesUrl + `${taskId}/used-resources`, {headers}).subscribe((response : any) => {
-      this.used_resources = response.used_resources;
-      console.log('Used Resources:', this.used_resources);
-     });
-      
-}
 
 
 
@@ -209,8 +200,8 @@ toggleImages(task: any) {
 
     this.http.get(this.ImagesUrl + `${taskId}`, { headers }).subscribe(
       (response: any) => {
-        if (response.images && response.images.length > 0) {
-          this.task_image = response.images.map((task: any) => {
+        if (response.data && response.data.images && response.data.images.length > 0) {
+          this.task_image = response.data.images.map((task: any) => {
             const mainImage = task.images[0]; 
             console.log('Main Image:', mainImage);
             return {
@@ -221,15 +212,15 @@ toggleImages(task: any) {
           });
           console.log('Task Image:', this.task_image);
         } else {
-          console.error('No images found in the response');
+          console.error('No images found in response');
         }
       },
-      (error) => {
-        console.error('Error fetching task images', error);
+      (error: any) => {
+        console.error('Error fetching task images:', error);
       }
     );
-
   }
+  
 
   selectedImages: string[] = [];
   isModalVisible: boolean = false;
@@ -245,6 +236,10 @@ toggleImages(task: any) {
     this.sideBarOpen = true; 
   }
 
+
+  getObjectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
   
 isEditSubModalOpen = false;
 

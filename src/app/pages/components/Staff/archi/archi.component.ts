@@ -1,6 +1,6 @@
 import { Component, EventEmitter,Input,OnInit,Output} from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormsModule, RequiredValidator,ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormGroup, FormsModule, FormControl, Validators, RequiredValidator,ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { RouterOutlet, Router, RouterModule, ActivatedRoute } from '@angular/router';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-archi',
@@ -30,13 +31,18 @@ export class ArchiComponent {
     this.close.emit();
   }
 
-  constructor(private route: ActivatedRoute, private router: Router , private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private router: Router , private http: HttpClient) {
+  
+
+}
 
 
 
 
   user:any = {};
   tasks: any = {};
+  description: string = '';
+  budget: number | null = null;
   selectedTaskId: number | null = null;
   private baseUrl = 'http://127.0.0.1:8000/'
   private updateTaskUrl = this.baseUrl+'api/updatetask/';
@@ -145,10 +151,15 @@ export class ArchiComponent {
   isFormValid(): boolean {
     const allTasksUsed = this.selectedResources.length === 0 || this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
     const hasSelectedFiles = Object.keys(this.tasks).some(key => this.tasks[key]); // Check if there is any file content in tasks
-
-    const isValid = hasSelectedFiles || allTasksUsed;
+  
+    // Check if description and budgetUsed are not empty
+    const isDescriptionValid = this.description.trim() !== '';
+    const isBudgetUsedValid = this.budget !== null && this.budget > 0;
+  
+    const isValid = (hasSelectedFiles || allTasksUsed) && isDescriptionValid && isBudgetUsedValid;
     return isValid;
   }
+  
 
   ngOnInit(): void {
     Swal.fire({
@@ -297,6 +308,8 @@ export class ArchiComponent {
 
       const formData: any = {
           task_id: this.selectedTaskId,
+          description: this.description,
+          estimated_resource_value: this.budget
       };
 
       if (validResources.length > 0) {
