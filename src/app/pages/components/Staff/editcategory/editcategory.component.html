@@ -16,7 +16,9 @@
                 <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
                     <div class="card-body">
                         <p class="text-uppercase text-sm mb-0">SOWA Details</p>
-                        <div class="row">
+
+                        <div class="row" style="margin-top: -40px;">
+                  
                           <div class="col-md-6">
                             <label for="example-text-input" class="form-control-label"
                               >Category Name</label
@@ -33,18 +35,22 @@
                             <input class="form-control" type="text"  id="category_name" name="category_name"
                             [(ngModel)]="category.c_allocated_budget" #nameControl="ngModel" required />
                           </div>
+                                          
+          
                           
-                        
                           
+                          <div class="d-flex align-items-center justify-content-between py-3">
+                            <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+                            <button type="submit" class="btn btn-outline-dark">Confirm</button>
+                            </div>
                         </div>
+
+                        
                         
                         <hr class="horizontal dark" />
                         
                       </div> 
-                <div class="d-flex align-items-center justify-content-between py-3">
-                <button type="submit" class="btn btn-outline-dark">Confirm</button>
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                </div>
+               
                 
                 
                                                                            
