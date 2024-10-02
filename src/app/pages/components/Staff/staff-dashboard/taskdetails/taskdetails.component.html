@@ -141,9 +141,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Description</th>
-                                        <th>Name</th>
-                                        <th>Budget</th>
-                                        <th>Used</th>
+                                        <th>Resource Name</th>
+                                        <th>Used Resource</th>
+                                        <th>Budget Used</th>
                                         <th>Staff</th>
                                         <th>Date</th>
                                         <th>Day</th>
@@ -155,8 +155,9 @@
                                         <td>{{i + 1}}</td>
                                         <td style="text-transform: uppercase;"></td>
                                         <td></td>
-                                        <td>123</td>
                                         <td></td>
+                                        <td>123</td>
+                                        
                                         <td></td>
                                         <td>{{task.uploaded_at}}</td>
                                         <td>{{task.day}}</td>
@@ -168,9 +169,9 @@
                             </table>
                         </div></div>
 
+                    
                        
                         
-
                         <div class="container">
                             <div class="cards-container d-flex flex-wrap justify-content-center">
                               <div class="cards project-item card-custom m-3" *ngFor="let task of task_image" (click)="openModal(task.images)">
