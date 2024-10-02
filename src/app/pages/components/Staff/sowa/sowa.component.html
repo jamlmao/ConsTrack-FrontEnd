@@ -101,14 +101,14 @@
                                   <tr *ngFor="let task of category.tasks; let j = index">
                                     <td></td>
                                     <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
-                                    <!-- <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
+                                    <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
                                     <td style="text-align: right;">{{ task.previousCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
                                     <td style="text-align: right;">{{ task.thisPeriodCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
-                                    <td style="text-align: right;">{{ task.toDateCostTask?? '0.00' | number: '1.2-2' || '-' }}</td> -->
+                                    <td style="text-align: right;">{{ task.toDateCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                    <!-- <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td></td> -->
                                     <td style="text-align: right;">
                                     <div>{{ task.percentage | number: '1.2-2' }}%</div>
                                     <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>

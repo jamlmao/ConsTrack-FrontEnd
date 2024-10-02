@@ -15,7 +15,7 @@ export class ImageModalComponent {
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<void>();
   currentIndex: number = 0;
-  
+  imageUrl: string= 'http://localhost:8000';
   closeModal(): void {
     this.isVisible = false;
     this.close.emit();
