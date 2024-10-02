@@ -189,14 +189,14 @@ export class CreateProjectComponent {
         };
         try {
             reader.readAsDataURL(file);
-        } catch (error) {
+
+         } catch (error) {
             console.error('Error starting file read:', error);
         }
     } else {
         console.warn('No file selected or file is not accessible');
     }
 }
- 
 
   onSubmit(): void {
     const token = localStorage.getItem('token');
@@ -209,7 +209,7 @@ export class CreateProjectComponent {
 
     const formData = new FormData();
     for (const key in this.project) {
-      if (this.project.hasOwnProperty(key)) {
+      if (this.project.hasOwnProperty(key) && this.project[key] !== null) {
         formData.append(key, this.project[key]);
       }
     }
@@ -224,7 +224,7 @@ export class CreateProjectComponent {
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
-          window.location.reload();
+          // window.location.reload();
         });
 
         this.closeModal();

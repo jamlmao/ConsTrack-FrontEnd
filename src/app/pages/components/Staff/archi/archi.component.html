@@ -1,21 +1,14 @@
 <div class="modal">
   <div class="modal-content">
     <div class="container">
-      <form (ngSubmit)="onSubmit()">
+      <form  (ngSubmit)="onSubmit()">
         <div class="card-body">
-          <div class="col-md-12">
-            <label  for="example-text-input" class="form-control-label">
-                <i class="fa-solid fa-comments" style="margin-right: 3px;"></i>
-                Description
-            </label>
-            <textarea class="form-control" t id="description" name="description" rows="4" cols="10" required></textarea>
-        </div>
-
+          
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label"
               >Budget Used</label
             >
-            <input placeholder="Budget" class="form-control" type="number" matTooltip="Upload photos for starting a task" required>
+            <input placeholder="Budget" class="form-control" type="number" [(ngModel)]="budget" [ngModelOptions]="{standalone: true}" required>
         
           </div>
 
@@ -29,28 +22,37 @@
                   <option value="" disabled selected>Select Resources</option>
                   <option *ngFor="let resource of getFilteredResources(i)" [value]="resource.id">{{resource.resource_name}}</option>
                 </select>
-                <input class="form-control mr-2" type="number" placeholder="Quantity" [(ngModel)]="selectedResource.quantity" name="usedQty" (input)="validateQty(i)" (focus)="clearDefaultValue(i)" [disabled]="!selectedResource.resourceId" [ngClass]="{'is-invalid': !selectedResource.isValid}" required>
+                <input class="form-control mr-2 mx-1" type="number" placeholder="Quantity" [(ngModel)]="selectedResource.quantity" name="usedQty" (input)="validateQty(i)" (focus)="clearDefaultValue(i)" [disabled]="!selectedResource.resourceId" [ngClass]="{'is-invalid': !selectedResource.isValid}" required>
                 <button type="button" class="btn btn-danger mx-1" (click)="removeResource(i)" *ngIf="selectedResources.length > 1">Remove</button>
               </div>
-              <button type="button" class="btn btn-dark mt-2" (click)="addResource()">Add Resource</button>
+              <button type="button" class="btn btn-dark mt-2 mx-1" (click)="addResource()">Add Resource</button>
             </div>
-          </div>
-          <div class="d-flex align-items-center justify-content-between py-3">
-            <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">Update</button>
           </div>
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Attach Image</label>
             <div id="images-container">
               <div *ngFor="let image of images; let i = index" class="image-item d-flex align-items-center mb-2">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center mx-1">
                   <input placeholder="Upload an image" class="form-control mr-2" type="file" (change)="onFileChange($event, 'placeholder_images', i)" required>
                   <button type="button" class="btn btn-dark mx-1" (click)="addImage()">Add</button>
                 </div>
                 <button type="button" class="btn btn-danger mx-1" (click)="removeImage(i)" *ngIf="images.length > 1">Remove</button>
               </div>
             </div>
+            <div class="col-md-12">
+              <label  for="example-text-input" class="form-control-label">
+                  <i class="fa-solid fa-comments" style="margin-right: 3px;"></i>
+                  Description
+              </label>
+              <textarea class="form-control" id="description" name="description" rows="4" cols="10" [(ngModel)]="description" [ngModelOptions]="{standalone: true}" required></textarea>
           </div>
+  
+          </div>
+          <div class="d-flex align-items-center justify-content-between py-3">
+            <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">Update</button>
+          </div>
+        
         </div>
         
         
