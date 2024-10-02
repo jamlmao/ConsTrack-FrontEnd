@@ -1,6 +1,6 @@
 
 <app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
-<mat-drawer-container>
+<mat-drawer-container >
     <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-staffsidenav></app-staffsidenav>
     </mat-drawer>
@@ -13,7 +13,7 @@
                 
                
 
-                <body >
+                <body>
                     <main>
                         
 
@@ -65,7 +65,7 @@
                         
                         
                         <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="tabChanged($event)" class="custom-tab-group" style="margin-top: -100px;" >
-                            <mat-tab label="DETAILS"> <div class="title" style="margin-top: 40px;">
+                            <mat-tab label="DETAILS"> <div class="title" style="margin-top: 40px; overflow-x: hidden;">
                             
                              
                     
@@ -87,7 +87,7 @@
                                                 <h4>Remaining Budget:</h4>
                                                 <p><span class="highlight">Php {{projectDetails.totalBudget - projectDetails.total_used_budget | number: '1.2-2'}}</span></p>
                                             </div>
-                                            <div class="grid-item" style="margin-left: 50px; margin-bottom: 90px;">
+                                            <div class="grid-item">
                                                 <h4>Project Type:</h4>
                                                 <p><span class="highlight">{{projectDetails.project_type}}</span></p>
                                 

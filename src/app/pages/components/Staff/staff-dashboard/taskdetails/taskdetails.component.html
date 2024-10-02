@@ -71,18 +71,18 @@
                             <div class="task-info-grid" style="margin-top: 10px;">
                                 <div class="info-item">
                                     <strong>Budget:</strong>
-                                    <span>{{tasks.pt_completion_date | date:'MM-dd-yyyy'}}</span>
+                                    <span>30000</span>
                                 </div>
                                 <div class="info-item">
                                     <strong>Remaining Budget:</strong>
-                                    <span>{{tasks.pt_completion_date | date:'MM-dd-yyyy'}}</span>
+                                    <span>12000</span>
                                 </div>
                                 <div class="info-item">
-                                    <strong>Percentage</strong>
-                                    <span>24%</span>
+                                    <strong>Percentage:</strong>
+                                    <span>40%</span>
                                 </div>
                                 <div class="info-item">
-                                    <button class="btn btn-outline-dark" *ngIf="tasks.percentage >= 95 && tasks.pt_status !== 'C'" style="margin-top: 20px;" (click)="CompleteTask(tasks.id)">
+                                    <button class="btn btn-outline-dark" *ngIf="tasks.percentage >= 95 && tasks.pt_status !== 'C'" style="margin-left: 20px;" (click)="CompleteTask(tasks.id)">
                                         Complete Task </button>
                                 </div>
                                 
@@ -96,7 +96,38 @@
                                 
                                 
                             </div>
-                           
+                            <h2 >
+                              
+                        
+                            </h2>
+                            <hr>
+                         
+                            <table>
+                                <thead>
+                                    <tr>
+                                  
+                                        <th>Resources</th>
+                                        <th>Quantity</th>
+                                        <th>Remaining</th>
+                                        <th *ngIf="tasks.pt_status !=='C'" width="5"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let resource of resources; let i =index">
+                                   
+                                        <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td>{{resource.left_qty}}</td>
+                                        <td style="text-align: center;"> 
+                                            <a class="btn btn-dark" (click)="openEditSubModal(resource.id)" *ngIf="tasks.pt_status !=='C'">Edit</a>
+                                            <app-editresource *ngIf="isEditSubModalOpen"
+                                            [resourceId]="selectedResource!"
+                                            (close)="closeEditSubModal()"></app-editresource>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
 
                         <div class="col-12"><div class="table-wrapper card p-4 mb-4">
@@ -105,36 +136,32 @@
                         
                             </h2>
                          
-                            <table class="table table-bordered">
+                            <table class="table modern-table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Description</th>
-                                        <th>Used Budget</th>
-                                        <th>Staff</th>
-                                        <th>Date Used</th>
-                                        <th>Day</th>
-                                        <th>Materials</th>
+                                        <th>Name</th>
                                         <th>Used</th>
-                                        <th>Remaining</th>
+                                        <th>Staff</th>
+                                        <th>Date</th>
+                                        <th>Day</th>
                                         <th>Picture</th>
                                         <th *ngIf="tasks.pt_status !=='C'">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let use of used_resources; let i =index">
+                                    <tr *ngFor="let use of used_resources;let task of task_image; let i =index">
                                         <td>{{i + 1}}</td>
-                                        <td style="text-transform: uppercase;">clearing and excavating the site for the stating of foundation</td>
-                                        <td>35000</td>
-                                        <td>Irene Ferrer</td>
-                                        <td>12/12/1212</td>
-                                        <td>1st</td>
-                                        <td>bakal</td>
-                                        <td>1</td>
-                                        <td>0</td>
-                                        <td> <img src="assets/bg.jpg" alt="" style="width: 100px;"> </td>
+                                        <td style="text-transform: uppercase;">{{use.resource_name}}</td>
+                                        <td>{{use.used_resource_name}}</td>
+                                        <td>{{use.resource_qty}}</td>
+                                        <td>{{use.first_name}} {{use.last_name}}</td>
+                                        <td>{{task.uploaded_at}}</td>
+                                        <td>day1</td>
+                                        <td> <img [src]="'http://localhost:8000' + task.mainImage" alt="Project Image" style="width:30px;" > </td>
                                         <td style="text-align: center;"> 
-                                            <a class="btn btn-outline-dark" class="view" *ngIf="tasks.pt_status !=='C'">Edit</a>
+                                            <a class="btn btn-outline-dark"  class="view" *ngIf="tasks.pt_status !=='C'">Edit</a>
                                             <app-editresource *ngIf="isEditSubModalOpen"
                                             [resourceId]="selectedResource!"
                                             (close)="closeEditSubModal()"></app-editresource>
@@ -145,11 +172,6 @@
                             </table>
                         </div></div>
 
-                        <div class="row">
-                             <!-- Estimated Materials Section -->
-                  
-                        </div>
-                    
                        
                         
 

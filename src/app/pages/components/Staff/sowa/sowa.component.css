@@ -176,6 +176,18 @@
       
       font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .filters {
+      display: flex;
+      align-items: center;
+    }
   
   
     .card{

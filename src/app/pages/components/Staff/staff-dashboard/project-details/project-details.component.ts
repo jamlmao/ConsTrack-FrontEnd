@@ -36,8 +36,8 @@ import { ResourcetableComponent } from "../../resourcetable/resourcetable.compon
 
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
-import { UpdatesComponent } from "../../updates/updates.component";
-import { HistoryComponent } from "../../history/history.component";
+import { UpdatesComponent } from "../../../../../updates/updates.component";
+import { HistoryComponent } from "../../../../../history/history.component";
 
 
 
