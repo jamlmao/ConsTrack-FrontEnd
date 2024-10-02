@@ -147,25 +147,19 @@
                                         <th>Date</th>
                                         <th>Day</th>
                                         <th>Picture</th>
-                                        <th *ngIf="tasks.pt_status !=='C'">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let use of used_resources;let task of task_image; let i =index">
+                                    <tr *ngFor="let task of task_image; let i =index">
                                         <td>{{i + 1}}</td>
-                                        <td style="text-transform: uppercase;">{{use.resource_name}}</td>
-                                        <td>{{use.used_resource_name}}</td>
-                                        <td>{{use.resource_qty}}</td>
-                                        <td>{{use.first_name}} {{use.last_name}}</td>
+                                        <td style="text-transform: uppercase;"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td>{{task.uploaded_at}}</td>
-                                        <td>day1</td>
+                                        <td>{{task.day}}</td>
                                         <td> <img [src]="'http://localhost:8000' + task.mainImage" alt="Project Image" style="width:70px; height: 40px;" > </td>
-                                        <td style="text-align: center;"> 
-                                            <a class="btn btn-outline-dark"  class="view" *ngIf="tasks.pt_status !=='C'">Edit</a>
-                                            <app-editresource *ngIf="isEditSubModalOpen"
-                                            [resourceId]="selectedResource!"
-                                            (close)="closeEditSubModal()"></app-editresource>
-                                        </td>
+                                       
                                         
                                     </tr>
                                 </tbody>
