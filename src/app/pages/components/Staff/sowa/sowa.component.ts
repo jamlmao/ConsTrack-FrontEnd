@@ -157,8 +157,6 @@ export class SowaComponent {
   }
 
 
-
-
  
 
   constructor(
@@ -438,7 +436,7 @@ export class SowaComponent {
   }
   
   selecttask(task: any) {
-    this.router.navigate(['/task-details', task.id]);
+    this.router.navigate(['/task-details'], { queryParams: { taskId: task.id } });
   }
  
   

@@ -113,7 +113,7 @@
                                     <div>{{ task.percentage | number: '1.2-2' }}%</div>
                                     <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
                                     </td>
-                                    <td class="no-pdf"style="text-align: center;"> <a class="view" [routerLink]="['/task-details', task.id]" class="eye"><mat-icon>visibility</mat-icon></a>
+                                    <td class="no-pdf"style="text-align: center;"> <a class="view" (click)="selecttask(task)"class="eye"><mat-icon>visibility</mat-icon></a>
                                         <a class="view" *ngIf="category.progress  !== 100"  (click)="openEditSubModal(category.id)" class="eye"><mat-icon>edit</mat-icon></a>
                                         <app-editsubcateg *ngIf="isEditSubModalOpen"
                                         [taskId]="selectedTaskId!"  

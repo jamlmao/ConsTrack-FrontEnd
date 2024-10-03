@@ -92,7 +92,7 @@ export class GeneralComponent {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Error adding task. over the budget",
+            text: "Error adding Category. over the budget",
           });
         }
       );
