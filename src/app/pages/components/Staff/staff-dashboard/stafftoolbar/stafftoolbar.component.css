@@ -1,7 +1,7 @@
 
 .mat-toolbar {
     height: 1px;
-    background-image: linear-gradient(to right, #dc4040 0%, #190A05  51%, #dc4040  100%);
+    background-image: linear-gradient(to right, #e22a2a 0%, #190A05  51%, #e22a2a  100%);
 }
 .toolBarButton{
 padding: 5px;
