@@ -65,17 +65,26 @@ export class CreateClientAcctComponent implements OnInit {
           return;
         }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        
+
+        Swal.fire({
+          title: 'Loading...',
+          text: 'Submitting...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading(null);
+          }
+        });
+
         this.http.post(this.addClient, this.client, { headers }).subscribe(
           response => {
             console.log('Client created successfully', response);
+            Swal.close();
             Swal.fire({
               position: "center",
               icon: "success",
               title: "Client created successfully.",
               showConfirmButton: false,
               timer: 2000
-              
             }).then(() => {
               window.location.reload();
             });
