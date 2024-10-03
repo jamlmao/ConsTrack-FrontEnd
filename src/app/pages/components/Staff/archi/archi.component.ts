@@ -171,8 +171,8 @@ export class ArchiComponent {
       }
     });
    
-    this.route.paramMap.subscribe(params => {
-      this.taskId = Number(params.get('taskId')) || null;
+    this.route.queryParams.subscribe(params => {
+      this.taskId = params['taskId']|| '' ;
       const taskIdNumber = Number(this.taskId);
       console.log('Task ID:', this.taskId);
       const userData = localStorage.getItem('user');

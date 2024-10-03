@@ -54,8 +54,8 @@ export class AddtaskComponent {
 
     ngOnInit(): void {
       // Extract projectId from the current URL
-      this.route.paramMap.subscribe(params => {
-        this.projectId = params.get('projectId');
+      this.route.queryParams.subscribe(params => {
+        this.projectId = params['projectId'] || '';
         console.log ('Project ID:', this.projectId);
         if (this.projectId) {
           this.apiUrl = this.getAddTaskUrl(this.projectId);
