@@ -61,8 +61,8 @@ export class TaskdetailsComponent {
   ngOnInit(){
     this.showLoading(); 
 
-    this.route.paramMap.subscribe(params => {
-      this.taskId = params.get('taskId')|| '';
+    this.route.queryParams.subscribe(params => {
+      this.taskId = params['taskId']|| '';
       const taskIdNumber = Number(this.taskId);
       console.log('Task ID:', this.taskId);
       if (!isNaN(taskIdNumber)) {

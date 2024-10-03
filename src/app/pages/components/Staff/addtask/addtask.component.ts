@@ -139,7 +139,7 @@ export class AddtaskComponent {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "successfully added successfully.",
+          title: "Task added successfully.",
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
