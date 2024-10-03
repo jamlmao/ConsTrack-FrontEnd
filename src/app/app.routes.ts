@@ -179,22 +179,22 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId',
+        path: 'project-details',
         component: ProjectDetailsComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'sowa/:projectId',
+        path: 'sowa',
         component: SowaComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'resources/:projectId',
+        path: 'resources',
         component: ResourcetableComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'task-details/:taskId',
+        path: 'task-details',
         component: TaskdetailsComponent,
         canActivate: [AuthGuard]
     },

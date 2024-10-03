@@ -136,8 +136,8 @@ export class ResourcetableComponent {
       }
     });
 
-    this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId') || ''; 
+    this.route.queryParams.subscribe(params => {
+      this.projectId = params['projectId'] || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
       console.log('Project ID:', this.projectIdNumber2);
@@ -321,7 +321,7 @@ getStatusText(status: string): string {
 
   
   selecttask(task: any) {
-    this.router.navigate(['/task-details', task.id]);
+    this.router.navigate(['/task-details'], { queryParams: { taskId: task.id } });
   }
  
   transformStatus(status: string): string {

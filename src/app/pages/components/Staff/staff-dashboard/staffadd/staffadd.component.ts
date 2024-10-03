@@ -47,8 +47,9 @@ export class StaffaddComponent {
 
   isCreateProjectModalOpen = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private baseUrl = 'http://127.0.0.1:8000/';
+  private projectsUrl = `${this.baseUrl}api/staff/projects`;
+  private userUrl = `${this.baseUrl}api/user/details`;
   
   clients: any[] = [];
   isCreateClientModalOpen = false;
@@ -163,8 +164,7 @@ export class StaffaddComponent {
 
 
 
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
-  
+
   
 
   openForm(): void {
@@ -318,8 +318,8 @@ pageSize: number = 1; // Example page siz
   }
 
   selectProject(project: any) {
-    this.router.navigate(['/project-details', project.id]);
-  }
+    this.router.navigate(['/project-details'], { queryParams: { projectId: project.id } });
+}
 
   getLoggedInUserNameAndId(): void {
     const token = localStorage.getItem('token');

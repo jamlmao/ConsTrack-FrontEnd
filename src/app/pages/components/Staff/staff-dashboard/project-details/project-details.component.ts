@@ -136,8 +136,8 @@ ngOnInit(){
 
     }
 
-    this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId') || ''; 
+    this.route.queryParams.subscribe(params => {
+      this.projectId =params['projectId'] || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
       console.log('Project ID:', this.projectId);
