@@ -37,9 +37,7 @@ export class AddtaskComponent {
     pt_task_name: '',
     pt_completion_date: '',
     pt_starting_date: '',
-    pt_photo_task: '',
-    pt_file_task: '',
-    pt_allocated_budget: '',
+    pt_total_budget:'',
     project_id: '',
     category_id: '',
     resources: []

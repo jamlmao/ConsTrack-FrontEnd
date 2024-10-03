@@ -21,16 +21,28 @@
                         <div class="filters">
                             
                                  
-                            <input type="text" class="search" placeholder="Search by name..." [(ngModel)]="searchText">
+                            
                         </div>
                         <div class="dues-info">
                             
-                            <button (click)="openCreateClientModal()" type="button" class="btn btn-danger">Add New Account</button>
-                            <app-create-client-acct 
+                             <app-create-client-acct 
                             *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
                     </app-create-client-acct>
                         </div>
                     </div>
+                    <div class="header">
+                        <div class="filters">
+                            
+                                 
+                            <input type="text" class="search" placeholder="Search by name..." [(ngModel)]="searchText">
+                        </div>
+                        <div class="dues-info">
+                            
+                            <button (click)="openCreateClientModal()" type="button" class="btn btn-danger" style="padding: 10px;">Add New Client</button>
+                           
+                        </div>
+                    </div>
+                    
             
                     <table class="table table-bordered" id="myTable" style="font-family: 'Poppins', sans-serif; font-weight: bold;">
                         <thead>
