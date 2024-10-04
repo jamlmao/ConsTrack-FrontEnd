@@ -29,8 +29,8 @@ export class AddtaskComponent {
   faTrashAlt = faTrashAlt;
   faPlus = faAdd;
 
-
-  private baseUrl = 'http://127.0.0.1:8000/api/addtask2/';
+  private url='http://127.0.0.1:8000/';
+  private baseUrl = `${this.url}api/addtask2/`;
   apiUrl: string ='';
 
   task: any = {
@@ -64,6 +64,7 @@ export class AddtaskComponent {
           console.error('Project ID is not available in the URL');
         }
       });
+
     }
 
 
@@ -129,13 +130,21 @@ export class AddtaskComponent {
       console.log('Task payload:', payload);
       
       console.log('Token:', token);
-
+      Swal.fire({
+        title: 'Loading...',
+        text: 'Submitting...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(null);
+        }
+      });
       this.http.post(this.apiUrl, payload, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       }).subscribe(response => {
         console.log('Task added successfully', response);
+        Swal.close();
         Swal.fire({
           position: "center",
           icon: "success",

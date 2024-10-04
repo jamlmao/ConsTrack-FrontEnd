@@ -273,10 +273,12 @@ isEditSubModalOpen = false;
       'Authorization': `Bearer ${token}`
     });
 
+    this.showLoading();
     const data ={task_id: taskId}; 
 
     this.http.post(this.completeTaskUrl, data, { headers }).subscribe((response: any) => {
       console.log('Task Completed:', response);
+      this.hideLoading();
       Swal.fire({
         title: 'Task Completed',
         text: 'Task has been completed successfully',

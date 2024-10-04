@@ -9,11 +9,13 @@ import { CommonModule, DatePipe } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 @Component({
   selector: 'app-clientappoint',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule,DatePipe],
+  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule,DatePipe,MatDatepickerModule,MatInputModule,MatNativeDateModule ],
   templateUrl: './clientappoint.component.html',
   styleUrl: './clientappoint.component.css'
 })
@@ -22,6 +24,7 @@ export class ClientappointComponent {
 
 
   private baseUrl = "http://127.0.0.1:8000/";
+
   private appointmentUrl = this.baseUrl + "api/appointments";
   user: any;
   staffList: any[] = [];
@@ -58,12 +61,19 @@ export class ClientappointComponent {
       this.router.navigateByUrl('/');
     }
     this.fetchStaff();
-    
+    Swal.fire({
+      title: 'Submitting...',
+      text: 'Please wait getting the available dates...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     const now = new Date();
     now.setDate(now.getDate() + 1); 
     this.minDateTime = now.toISOString().slice(0, 16); 
-
+    this.fetchAvailableDates();
   }
 
   invalidTimeSelected: boolean = false;
@@ -109,6 +119,8 @@ export class ClientappointComponent {
       description: this.description,
       appointment_datetime: formattedDate,
     };
+
+    
   
     // Show loading Swal immediately
     Swal.fire({
@@ -157,6 +169,70 @@ export class ClientappointComponent {
             }
           }
       );
+  }
+
+
+  fetchAvailableDates() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+
+    this.http.get(`${this.baseUrl}api/client/available-dates`, { headers }).subscribe(
+      (response: any) => {
+        Swal.close();
+          console.log(response);
+          const availableDates = response.available_dates
+              .filter((dateObj: any) => dateObj.status === 'Available')
+              .map((dateObj: any) => dateObj.available_date);
+
+          this.available_dates = availableDates;
+          console.log('Available Dates:', this.available_dates);
+
+          if (response.available_dates && response.available_dates.length > 0) {
+              this.appointments2 = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
+              console.log('Appointments:', this.appointments2);
+          } else {
+              console.error('No appointments found in response');
+          }
+      },
+      (error: any) => {
+          console.error('Error fetching available dates:', error);
+      }
+  );
+
+  }
+
+
+  dateFilter = (date: Date | null): boolean => {
+    const dateString = date ? date.toISOString().split('T')[0] : '';
+    return this.available_dates.includes(dateString);
+  };
+
+
+  dateClass = (date: Date): string => {
+    const dateString = date.toISOString().split('T')[0];
+    return this.available_dates.includes(dateString) ? 'available-date' : '';
+  };
+
+  formatted_appointment_datetime: string | null = null;
+  onDateChange(event: any): void {
+    const date = event.value;
+    if (date) {
+      this.formatted_appointment_datetime = this.formatDateToDatetimeLocal(date);
+    }
+  }
+
+  formatDateToDatetimeLocal(date: Date): string {
+    const pad = (n: number) => n < 10 ? '0' + n : n;
+    return date.getFullYear() + '-' +
+           pad(date.getMonth() + 1) + '-' +
+           pad(date.getDate()) + 'T' +
+           pad(date.getHours()) + ':' +
+           pad(date.getMinutes());
   }
 
 

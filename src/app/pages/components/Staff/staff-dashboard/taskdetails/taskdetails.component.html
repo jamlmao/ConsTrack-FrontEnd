@@ -83,7 +83,7 @@
                                     <mat-progress-bar mode="determinate" [value]="percentage" color="accent"></mat-progress-bar>
                                 </div>
                                 <div class="info-item">
-                                    <button class="btn btn-outline-dark ml-4 my-4" *ngIf="tasks.percentage >= 95 && tasks.pt_status !== 'C'"  (click)="CompleteTask(tasks.id)">
+                                    <button class="btn btn-outline-dark ml-4 my-4" *ngIf="tasks.percentage >= 98 && tasks.pt_status !== 'C'"  (click)="CompleteTask(tasks.id)">
                                         Complete Task </button>
                                 </div>
                                 
@@ -119,8 +119,8 @@
                                         <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
                                         <td>{{resource.qty}}</td>
                                         <td>{{resource.left_qty}}</td>
-                                        <td style="text-align: center;"> 
-                                            <a class="btn btn-dark" (click)="openEditSubModal(resource.id)" *ngIf="tasks.pt_status !=='C'">Edit</a>
+                                        <td style="text-align: center;" *ngIf="tasks.pt_status !=='C'"> 
+                                            <a class="btn btn-dark" (click)="openEditSubModal(resource.id)" >Edit</a>
                                             <app-editresource *ngIf="isEditSubModalOpen"
                                             [resourceId]="selectedResource!"
                                             (close)="closeEditSubModal()"></app-editresource>
@@ -170,8 +170,8 @@
                                         <td class="image-cell" (click)="openModal(task.images)">
                                           <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="image">
                                         </td>
-                                          <td style="text-align: center;">
-                                            <a class="btn btn-outline-dark" *ngIf="tasks.pt_status !=='C'">Edit</a>
+                                          <td style="text-align: center;"*ngIf="tasks.pt_status !=='C'">
+                                            <a class="btn btn-outline-dark" >Edit</a>
                                             <app-editresource *ngIf="isEditSubModalOpen"
                                                               [resourceId]="selectedResource!"
                                                               (close)="closeEditSubModal()"></app-editresource>

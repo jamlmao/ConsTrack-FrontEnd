@@ -1,7 +1,4 @@
 
-
-    
-                  
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -11,24 +8,29 @@
                         <th>Completion Date</th>
                         <th>Status</th>
                         <th>Category</th>
+                        <th>Description</th>
                         <th>Day</th>
-                        <th>Uploaded at</th>
                         <th>Image</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Excation</td>
-                        <td>12/12/12</td>
-                        <td>12/12/12</td>
-                        <td>OG</td>
-                        <td>Site Works</td>
-                        <td>Backhoe loader</td>
-                        <td>2</td>
-                        <td><img src="assets/bg.jpg" alt="" style="width:70px; height: 40px;" ></td>
-                       
-                        
+                    <tr *ngFor="let task of task_image; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{task.task_name}}</td>
+                        <td>{{task.pt_starting_date | date:'MM-dd-yyyy'}}</td>
+                        <td>{{task.pt_completion_date | date:'MM-dd-yyyy'}}</td>
+                        <td style="font-size: large;"> <span [ngClass]="{
+                            'badge-ongoing': getStatusText(task.pt_status) === 'Ongoing',
+                            'badge-complete': getStatusText(task.pt_status) === 'Complete',
+                            'badge-due': getStatusText(task.pt_status) === 'Due'
+                        }" class="badge">{{getStatusText(task.pt_status)}}</span></td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.description}}</td>
+                        <td>{{task.day}}</td>
+                        <td class="image-cell" (click)="openModalI2(task.images)">
+                            <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="image">
+                          </td>
+                        <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModalI2()"></app-image-modal>
                         
                     </tr>
                 </tbody>
@@ -37,4 +39,5 @@
          
               
         
-      
+            <router-outlet></router-outlet>
+  

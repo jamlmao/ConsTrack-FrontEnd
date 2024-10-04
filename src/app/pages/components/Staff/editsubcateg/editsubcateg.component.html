@@ -30,8 +30,11 @@
                         <input placeholder="Completion Date" class="form-control" type="date" id="pt_completion_date" [(ngModel)]="task.pt_completion_date" name="pt_completion_date" #completionDateControl="ngModel" required>
                       </div>
                       <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label">Task Image:</label>
-                        <input placeholder="Task Image" class="form-control" type="file"(change)="onFileChange($event, 'pt_photo_task')" matTooltip="Upload photos for starting a task" required>
+                        <label for="example-text-input" class="form-control-label"
+                          >Estimated Budget</label
+                        >
+                        <input placeholder="Budget" class="form-control" type="text" id="pt_total_budget" [(ngModel)]="task.pt_allocated_budget" name="pt_total_budget" #nameControl="ngModel" required>
+                   
                       </div>
                     </div>
                     <hr class="horizontal dark" />

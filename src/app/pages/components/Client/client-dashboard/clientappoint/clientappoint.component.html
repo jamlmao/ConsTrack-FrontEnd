@@ -31,7 +31,12 @@
                         <i class="fa fa-solid fa-calendar"></i>
                         Do you want to create an appointment?
                     </label>
-                    <input type="datetime-local" id="appointment_datetime" [(ngModel)]="appointment_datetime" name="appointment_datetime" [min]="minDateTime" required>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Appointment Date</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="appointment_datetime" name="appointment_date" [matDatepickerFilter]="dateFilter" (dateChange)="onDateChange($event)" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker [dateClass]="dateClass"></mat-datepicker>
+                </mat-form-field>
                     <small style="color: red;" *ngIf="invalidTimeSelected">Please select a time between 7 AM - 11 AM or 1 PM - 5 PM.</small>
                 </div>
         

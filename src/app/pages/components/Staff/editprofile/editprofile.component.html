@@ -1,118 +1,71 @@
 
-<div class ="modal">
-    <div class="div modal-content">
-        <span class = "close" (click)="closeModal()">&times;</span>
-
-        <div class="container">
-        
-            
-            
-            
-            
-            <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 600px;">
-               
-               
-                <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-                    <div class="card-body">
-                        <p class="text-uppercase text-sm mb-0">User Information</p>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Username</label
-                            >
-                            <input class="form-control" type="text" value='' />
-                          </div>
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Email address</label
-                            >
-                            <input class="form-control"  type="email" value='' />
-                          </div>
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >First name</label
-                            >
-                            <input class="form-control" type="text" value=''/>
-                          </div>
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Last name</label
-                            >
-                            <input class="form-control" type="text" value=''/>
-                          </div>
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Sex</label
-                            >
-                            <input class="form-control" type="text" value='' />
-                          </div>
-                          
-                         
-                        </div>
-                        <hr class="horizontal dark" />
-                        <p class="text-uppercase text-sm mb-0">Contact Information</p>
-                        <div class="row">
-                          
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Phone Number</label
-                            >
-                            <input class="form-control" 
-                              type="text"
-                              value=''
-                            />
-                          </div>
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Zipcode</label
-                            >
-                            <input class="form-control" 
-                              type="text"
-                              value=''
-                            />
-                          </div>
-                          <div class="col-md-4">
-                            <label for="example-text-input" class="form-control-label"
-                              >Brgy.</label
-                            >
-                            <input class="form-control"  type="text" value='' />
-                          </div>
-                          <div class="col-md-4">
-                            <label for="example-text-input" class="form-control-label"
-                              >City</label
-                            >
-                            <input class="form-control"  type="text" value='' />
-                          </div>
-                          <div class="col-md-4">
-                            <label for="example-text-input" class="form-control-label"
-                              >Country</label
-                            >
-                            <input class="form-control"  type="text" value='' />
-                          </div>
-                          
-                        </div>
-                        <hr class="horizontal dark" />
-                        
-                      </div> 
-                <div class="d-flex align-items-center justify-content-between py-3">
-                <button type="submit" class="btn btn-outline-dark">Confirm</button>
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+<div class="modal">
+  <div class="div modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+  
+    <div class="container">
+      <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 600px;">
+          <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+            <div class="card-body">
+              <p class="text-uppercase text-sm mb-0">User Information</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="username_{{uniqueId}}" class="form-control-label">Username</label>
+                  <input class="form-control" type="text" [(ngModel)]="client.name" name="name" id="username_{{uniqueId}}" #nameControl="ngModel" required />
                 </div>
-                
-                
-                                                                           
-            </form>
-            </article>
-            </div> <!-- card.// -->
+                <div class="col-md-6">
+                  <label for="email_{{uniqueId}}" class="form-control-label">Email address</label>
+                  <input class="form-control" type="email" [(ngModel)]="client.email" name="email" id="email_{{uniqueId}}" #emailControl="ngModel" required />
+                </div>
             
-            </div> 
-    
-   
-        
+                <div class="col-md-6">
+                  <label for="first_name_{{uniqueId}}" class="form-control-label">First Name</label>
+                  <input class="form-control" type="text" [(ngModel)]="client.first_name" name="first_name" id="first_name_{{uniqueId}}" #firstNameControl="ngModel" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="last_name_{{uniqueId}}" class="form-control-label">Last Name</label>
+                  <input class="form-control" type="text" [(ngModel)]="client.last_name" name="last_name" id="last_name_{{uniqueId}}" #lastNameControl="ngModel" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="phone_number_{{uniqueId}}" class="form-control-label">Phone Number</label>
+                  <input class="form-control" placeholder="Phone Number" type="tel" [(ngModel)]="client.phone_number" name="phone_number" id="phone_number_{{uniqueId}}" #phoneNumberControl="ngModel" required />
+                </div>
+                <div class="col-md-6" *ngIf="extensionName && licenseNumber">
+                  <label for="password_{{uniqueId}}" class="form-control-label">Password</label>
+                  <input class="form-control" type="password" name="password" #passwordControl="ngModel" [(ngModel)]="client.password" id="password_{{uniqueId}}" />
+                </div>
+                <hr class="horizontal dark mt-2" />
+                <p class="text-uppercase text-sm mb-0">Contact Information</p>
+                <div class="col-md-6">
+                  <label for="address_{{uniqueId}}" class="form-control-label">Address</label>
+                  <input class="form-control" placeholder="Address" type="text" [(ngModel)]="client.address" name="address" id="address_{{uniqueId}}" #addressControl="ngModel" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="city_{{uniqueId}}" class="form-control-label">City</label>
+                  <input class="form-control" placeholder="City" type="text" [(ngModel)]="client.city" name="city" id="city_{{uniqueId}}" #cityControl="ngModel" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="country_{{uniqueId}}" class="form-control-label">Country</label>
+                  <input class="form-control" placeholder="Country" type="text" [(ngModel)]="client.country" name="country" id="country_{{uniqueId}}" #countryControl="ngModel" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="zipcode_{{uniqueId}}" class="form-control-label">Zipcode</label>
+                  <input class="form-control" placeholder="Zipcode" type="text" [(ngModel)]="client.zipcode" name="zipcode" id="zipcode_{{uniqueId}}" #zipcodeControl="ngModel" required />
+                </div>
+               
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between py-3">
+              <button type="submit" class="btn btn-outline-dark">Confirm</button>
+              <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
+            </div>
+          </form>
+        </article>
+      </div>
     </div>
+  </div>
 </div>
-
 
 
 

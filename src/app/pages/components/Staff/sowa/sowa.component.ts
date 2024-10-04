@@ -396,7 +396,6 @@ export class SowaComponent {
 
   }
 
-
   
 
 
@@ -505,6 +504,63 @@ openCreateProjectModal(categoryId: number){
   this.openModal.emit();
   
 }
+
+
+
+    removeCategory(categoryId: number): void {
+
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+
+      this.selectedCategoryId = categoryId;
+      const payload = { project_id: this.projectId };
+
+
+      console.log('Selected Category ID:', this.selectedCategoryId, payload);
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+        Swal.fire({
+          title: 'Loading...',
+          text: 'Submitting...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading(null);
+          }
+        });
+      this.http.put(this.url+'/api/category/remove/'+`${this.selectedCategoryId}`, payload, { headers }).subscribe(response =>{
+        console.log('Category removed successfully', response);
+        Swal.close();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Category removed successfully.",
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          window.location.reload();
+        });
+      },  error => {
+        console.error('Error adding task', error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error adding task. over the budget",
+        });
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 closeCreateProjectModal() {
    this.isCreateProjectModalOpen = false;
