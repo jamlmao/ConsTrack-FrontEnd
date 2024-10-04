@@ -52,11 +52,20 @@ export class EditcategoryComponent {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     }); 
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Submitting...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
 
 
     this.http.put(`${this.editUrl}${this.categoryId}`, this.category, { headers })
       .subscribe(
         (response) => {
+          Swal.close();
           Swal.fire({
             position: "center",
             icon: "success",

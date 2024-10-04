@@ -21,6 +21,11 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Add a soft shadow */
   }
   
+  .available-date .mat-calendar-body-cell-content {
+    background-color: #4caf50; /* Green background */
+    color: white; /* White text */
+    border-radius: 50%; /* Circular shape */
+  }
   /* Close button */
   .close {
     color: #333; /* Darker and more subtle */

@@ -145,38 +145,39 @@ export class FeedbackComponent {
 
   fetchAvailableDates() {
     const token = localStorage.getItem('token');
-    if(!token) {
-      console.error('No token found');
-      return;
+    if (!token) {
+        console.error('No token found');
+        return;
     }
-
+    console.log(token)
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(`${this.baseUrl}api/available-dates`, { headers }).subscribe(
-      (response: any) => {
-        console.log(response);
-        const availableDates = response.available_dates.map((dateObj: any) => dateObj.available_date);
-        
-        this.available_dates = availableDates;
-        console.log('Available Dates:', this.available_dates);
+    this.http.get(`${this.baseUrl}api/client/available-dates`, { headers }).subscribe(
+        (response: any) => {
+            console.log(response);
+            const availableDates = response.available_dates
+                .filter((dateObj: any) => dateObj.status === 'Available')
+                .map((dateObj: any) => dateObj.available_date);
 
-        if (response.available_dates && response.available_dates.length > 0) {
-          this.appointments2 = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
-          console.log('Appointments:', this.appointments);
-        } else {
-          console.error('No appointments found in response');
+            this.available_dates = availableDates;
+            console.log('Available Dates:', this.available_dates);
+
+            if (response.available_dates && response.available_dates.length > 0) {
+                this.appointments2 = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
+                console.log('Appointments:', this.appointments2);
+            } else {
+                console.error('No appointments found in response');
+            }
+
+            this.generateCalendarDays(new Date().getFullYear(), new Date().getMonth());
+        },
+        (error: any) => {
+            console.error('Error fetching available dates:', error);
         }
-
-
-
-        this.generateCalendarDays(new Date().getFullYear(), new Date().getMonth());
-        this.organizeAppointmentsByMonth();
-      }
     );
-
-  }
+}
 
 
 

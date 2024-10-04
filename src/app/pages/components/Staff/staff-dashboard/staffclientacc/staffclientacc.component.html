@@ -73,9 +73,9 @@
                                   }">{{client.user_status}}</span></td>
                                 <td style="text-align: center;">
                                     
-                                        <a (click)="openEditModal()" class="view">Edit</a>
+                                        <a (click)="openEditModal(client.id)" class="view">Edit</a>
                                         <app-editprofile 
-                                        *ngIf="isEditModalOpen" (close)="closeEditModal()">
+                                        *ngIf="isEditModalOpen"[clientId]="SelectedClientId!" (close)="closeEditModal()">
                                         </app-editprofile>
                               
                                 </td>

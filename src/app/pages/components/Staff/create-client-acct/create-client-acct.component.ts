@@ -27,7 +27,8 @@ import { MatInputModule } from '@angular/material/input';
 export class CreateClientAcctComponent implements OnInit {
     faYoutube = faYoutube;
     @Output() close = new EventEmitter<void>();
-    private addClient = 'http://127.0.0.1:8000/api/registerC';
+    private baseUrl = 'http://127.0.0.1:8000/';
+    private addClient = this.baseUrl+'api/registerC';
     registerForm!:FormGroup;
     client: ClientObj; 
 
