@@ -80,7 +80,7 @@
                                     <div>{{category.progress | number: '1.2-2' }}%</div>
                                     <mat-progress-bar mode="determinate" [value]="category.progress" color="accent"></mat-progress-bar>
                                   </td>
-                                  <td class="no-pdf" style="text-align: center;">
+                                  <td class="no-pdf action-icons" style="text-align: center;">
                                    
                                     <a class="view" *ngIf="category.progress  !== 100"  (click)="openCreateProjectModal(category.id)" class="eye"><mat-icon>note_add</mat-icon></a>
                                     <app-addtask *ngIf="isCreateProjectModalOpen"

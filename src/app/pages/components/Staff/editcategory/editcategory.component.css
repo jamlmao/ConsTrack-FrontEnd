@@ -16,7 +16,7 @@
   padding: 30px;
   border: none;
   border-radius: 10px; /* Rounded corners for modern look */
-  width: 60%;
+  width: 35%;
   background-color: #ffffff; /* White background for content */
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Add a soft shadow */
 }
@@ -38,6 +38,11 @@
 }
 
 /* Form Fields */
+.input-group {
+  margin-bottom: 1rem;
+}
+
+
 
 /* Form Labels */
 label {
@@ -45,6 +50,7 @@ label {
   font-weight: 600;
   color: #555; /* Softer color for label */
   margin-bottom: 0.5rem;
+  margin-top: 10px;
 }
 
 /* Typography */
@@ -98,7 +104,6 @@ button {
   font-size: 1rem;
   border-radius: 6px;
   border: none;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 button.btn-outline-danger {
@@ -154,22 +159,4 @@ button.btn-outline-dark:hover {
       border-top-right-radius: .3rem;
       border-bottom-right-radius: .3rem;
   }
-}
-
-
-.radio-button-group {
-  display: flex; /* Aligns radio buttons horizontally */
-  gap: 20px; /* Adds space between Male and Female buttons */
-  align-items: center; /* Vertically centers the labels with the radio buttons */
-}
-
-.radio-button {
-  display: flex;
-  align-items: center;
-  color: #000;
-}
-
-.error-message {
-  color: red;
-  margin-top: 5px;
 }

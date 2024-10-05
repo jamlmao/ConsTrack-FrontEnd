@@ -56,9 +56,9 @@ ngOnInit(){
 }
 
 
-@Output() openModal2: EventEmitter<void> = new EventEmitter();
+@Output() openModal: EventEmitter<void> = new EventEmitter();
 
-@Output() closeModal2: EventEmitter<void> = new EventEmitter();
+@Output() closeModal: EventEmitter<void> = new EventEmitter();
 
 showLoading(){
   Swal.fire({
@@ -98,16 +98,16 @@ getStatusText(status: string): string {
 openModalI2(images: string[]): void {
   this.selectedImages = images;
   this.isModalVisible = true;
-  this.sideBarOpen = false;
   console.log(this.sideBarOpen)
-  this.openModal2.emit();
+  this.sideBarOpen = false;
+  this.openModal.emit();
 }
 
 closeModalI2(): void {
   this.isModalVisible = false;
   this.sideBarOpen = true; 
   console.log(this.sideBarOpen)
-  this.closeModal2.emit();
+  this.closeModal.emit();
   
 }
 

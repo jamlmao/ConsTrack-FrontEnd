@@ -27,7 +27,7 @@
                         <td>{{task.category}}</td>
                         <td>{{task.description}}</td>
                         <td>{{task.day}}</td>
-                        <td class="image-cell" (click)="openModalI2(task.images)">
+                        <td class="image-cell" style="width: 100px;" (click)="openModalI2(task.images)">
                             <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="image">
                           </td>
                         <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModalI2()"></app-image-modal>

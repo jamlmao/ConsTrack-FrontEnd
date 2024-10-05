@@ -71,11 +71,11 @@
                             <div class="task-info-grid" style="margin-top: 10px;">
                                 <div class="info-item">
                                     <strong>Budget:</strong>
-                                    <span>{{budget}}</span>
+                                    <span>&#8369;{{budget | number: '1.2-2'}}</span>
                                 </div>
                                 <div class="info-item">
                                     <strong>Remaining Budget:</strong>
-                                    <span>{{budget -remaining}}</span>
+                                    <span>&#8369;{{budget -remaining | number: '1.2-2'}}</span>
                                 </div>
                                 <div class="info-item">
                                     <strong>Percentage:</strong>
@@ -142,7 +142,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Description</th>
-                                        <th>Name</th>
+                                        <th>Resources</th>
                                         <th>Staff</th>
                                         <th>Date</th>
                                         <th>Day</th>

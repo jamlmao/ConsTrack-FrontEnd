@@ -5,10 +5,10 @@
     
   <mat-toolbar-row class="justify-content-between">
   <button mat-icon-button (click)="toggleSidebar()" class="menu"><mat-icon style="color: white;">menu</mat-icon></button>
-  <div class="text" ><h1 style="font-size: 30px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-left: 140px;">ConsTrack: A Project Management Framework for Construction Project Monitoring</h1>
+  <div class="text" ><h1 style="font-size: 30px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin-left: 50px; margin-right: 50px;" >ConsTrack: A Project Management Framework for Construction Project Monitoring</h1>
       
   </div>
-  <mat-icon [matMenuTriggerFor]="notificationMenu" matBadge="{{ messages.length }}" matBadgeColor="accent" style="color: white; margin-left: 35px; margin-right: 0;">notifications</mat-icon>
+  <mat-icon [matMenuTriggerFor]="notificationMenu" matBadge="{{ messages.length }}" matBadgeColor="accent" style="color: white; margin-left: 50px;">notifications</mat-icon>
 
   <mat-menu #notificationMenu="matMenu">
     <ng-container *ngIf="messages.length > 0; else noMessages">
