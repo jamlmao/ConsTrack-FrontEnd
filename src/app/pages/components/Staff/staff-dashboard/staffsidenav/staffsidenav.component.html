@@ -3,8 +3,18 @@
     <div *ngIf="user && user.staff" class="avatar avatar-xl position-relative" >
         <img [src]="'http://localhost:8000/' + user.staff.company_logo" alt="profile_image" class="user-image">
     </div>
-    
-    
+
+ 
+       
+   
+        <div class="example-button-container">
+            <a mat-fab extended color="warn" routerLink="." (click)="openModalI2()">
+              <mat-icon>launch</mat-icon>
+              Guide
+            </a>
+            <app-guidemodal [isVisible]="isModalVisible" (close)="closeModalI2()"></app-guidemodal>
+          </div>
+        
     <mat-divider></mat-divider>
 
     <a mat-list-item class="item" routerLink="/staff/shome" routerLinkActive="list-item-active">

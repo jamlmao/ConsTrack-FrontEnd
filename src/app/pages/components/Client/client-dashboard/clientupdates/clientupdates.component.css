@@ -56,6 +56,7 @@
   /* Set the height of the card */
   margin: 10px;
   width: 330px;
+  cursor: pointer;
 }
 
 .card-image {
