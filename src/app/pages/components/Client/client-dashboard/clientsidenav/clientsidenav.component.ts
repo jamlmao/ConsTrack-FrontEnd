@@ -15,11 +15,12 @@ import { MatMenuModule } from "@angular/material/menu";
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
+import { ClientguideComponent } from "../clientguide/clientguide.component";
 
 @Component({
   selector: 'app-clientsidenav',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent],
+  imports: [CommonModule, HttpClientModule, MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent, ClientguideComponent],
   templateUrl: './clientsidenav.component.html',
   styleUrl: './clientsidenav.component.css'
 })
@@ -167,5 +168,23 @@ export class ClientsidenavComponent {
   toggleSidebar(){
     this.toggleSidebarForMe.emit();
   }
+
+  
+isModalVisible: boolean = false;
+sideBarOpen: boolean= false;
+  
+ 
+
+  openModalI2(): void {
+    this.isModalVisible = true;
+  }
+  
+  closeModalI2(): void {
+    this.isModalVisible = false;
+    this.sideBarOpen = true; 
+    console.log(this.sideBarOpen)
+    
+  }
+
 
 }
