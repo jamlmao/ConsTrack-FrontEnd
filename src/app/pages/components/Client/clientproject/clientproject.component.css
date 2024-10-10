@@ -42,40 +42,6 @@
       width: 100%;
       overflow: auto;
     }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-   
-    th, td {
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    .sub-item {
-        padding-left: 20px; /* Indent sub-items */
-    }
-
-    .signature-section {
-      margin-top: 50px;
-      width: 100%;
-      display: flex;
-        justify-content: space-between;
-    }
-    .signature-section div {
-        text-align: center;
-        width: 80%;
-    }
-    .signature-section .signature-line {
-        margin-top: 50px;
-        border-top: 1px solid black;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
 
 
      
@@ -124,6 +90,31 @@
 }
 
 
+    
+    
+    
+    
+    .sub-item {
+        padding-left: 20px; /* Indent sub-items */
+    }
+
+    .signature-section {
+      margin-top: 50px;
+      width: 100%;
+      display: flex;
+        justify-content: space-between;
+    }
+    .signature-section div {
+        text-align: center;
+        width: 45%;
+    }
+    .signature-section .signature-line {
+        margin-top: 50px;
+        border-top: 1px solid black;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
 
 
@@ -139,22 +130,33 @@
     }
   
     .title{
-      margin-bottom: 50px;
-      margin-top: 20px;
-      padding-bottom: 30px;
+      margin-top: -100px;
       text-align: center;
       position: relative;
     }
-    .title1{
-        
-        margin-top: 15px;
-        text-align: center;
-        position: relative;
-      }
-    
-      
     
     
+    
+  
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+      gap: 20px; /* Space between columns */
+  }
+  
+  .grid-item h4 {
+      margin-bottom: 0.1rem; /* Adjust margin for headers */
+      margin-right: 40px;
+  }
+  
+  .highlight {
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      margin-right: 40px;
+  }
   
     
   
@@ -175,30 +177,6 @@
       font-size: 30px;
       
       font-family: Verdana, Geneva, Tahoma, sans-serif;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .action-icons {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 2px; /* Adjust the gap between icons */
-    }
-    
-    .action-icons i {
-      font-size: 20px;
-      cursor: pointer;
-    }
-    
-    .filters {
-      display: flex;
-      align-items: center;
     }
   
   
@@ -222,68 +200,24 @@
   
   
     
-    .table-wrapper {
-		width: 100%;
-    font-family: 'Open Sans', sans-serif;
-		margin: 10px;
-        background: #fff;
-        padding: 20px;	
-        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-    }
-    
-    
-    
-	.table-title .add-new i {
-		margin-right: 4px;
-	}
-    table.table {
-        table-layout: fixed;
-    }
-    table.table tr th, table.table tr td {
-        border-color: #e9e9e9;
-    }
-    table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    table.table th:last-child {
-        width: 100px;
-    }
-    table.table td a {
-		cursor: pointer;
-        display: inline-block;
-        margin: 0 5px;
-		min-width: 24px;
-    }    
-    table.table td a.edit {
-        color: #FFC107;
-    }
-    table.table td a.delete {
-        color: #E34724;
-    }
-    table.table td i {
-        font-size: 19px;
-    }
-	table.table td a.add i {
-        font-size: 24px;
-    	margin-right: -1px;
-        position: relative;
-        top: 3px;
-    }    
-    table.table .form-control {
-        height: 32px;
-        line-height: 32px;
-        box-shadow: none;
-        border-radius: 2px;
-    }
-	table.table .form-control.error {
-		border-color: #f50000;
-	}
-	table.table td .add {
-		display: none;
-	}
-
+      .table-wrapper {
+        font-family: 'Open Sans', sans-serif;
+          
+      }
+      
+      
+      
+      
+      
+      table.table tr th, table.table tr td {
+          font-size: 15px;
+      }
+      
+      
+      
+     
+      
+      
   
     
       .content{
@@ -329,34 +263,6 @@
        
        }
 
-       
-      .navbar-nav .nav-item .nav-link {
-        border: 2px solid #ccc; /* Default border color */
-        padding: 7px;
-        border-radius: 5px;
-        text-decoration: none;
-        color: #333; /* Text color */
-        transition: border-color 0.3s ease; /* Smooth transition */
-    }
-    
-    /* Hover Effect */
-    .navbar-nav .nav-item .nav-link:hover {
-        color: #fff; /* Change text color on hover */
-        background-color: #101010; /* Change background color on hover */
-        border-radius: 5px; /* Optional: adds rounded corners */
-        border: 2px solid #0e0e0e; /* Default border color */
-    }
-    
-    /* Active Link Highlight */
-    .navbar-nav .nav-item .nav-link.active {
-        color: #fff; /* Change text color for active link */
-        background-color: #101010; /* Highlight color for active link */
-        border-radius: 4px; /* Optional: adds rounded corners */
-        border: 2px solid #0e0e0e; /* Default border color */
-    }
-     
-
-
       .mat-mdc-progress-bar.mat-accent{
        --mdc-linear-progress-active-indicator-color: #a30707;
        border-radius: 100px;
@@ -380,29 +286,61 @@
         position: relative;
       }
       
+
+     /* Base styles for the tab labels */
+.custom-tab-group .mat-tab-label {
+  font-family: 'Roboto', sans-serif; /* Use any modern font like Poppins or Roboto */
+  font-size: 16px;
+  font-weight: 500;
+  color: #6c757d; /* Light grey for inactive tabs */
+  text-transform: uppercase; /* Makes text uppercase for a sleek look */
+  letter-spacing: 1px;
+  padding: 12px 20px; /* Add some padding for a larger clickable area */
+  transition: all 0.3s ease; /* Smooth transition on hover and active states */
+}
+
+/* Active tab label */
+.custom-tab-group .mat-tab-label-active {
+  color: #007bff; /* Primary color for the active tab */
+  font-weight: 700; /* Bold the active label */
+  border-bottom: 3px solid #007bff; /* Add an underline to the active tab */
+}
+
+/* Hover effect for the labels */
+.custom-tab-group .mat-tab-label:hover {
+  color: #495057; /* Darker grey on hover */
+  background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+  border-radius: 4px; /* Add subtle rounding on hover */
+}
+
+/* Customize the ink bar (indicator below active tab) */
+.custom-tab-group .mat-ink-bar {
+  background-color: #007bff; /* Make the ink bar match the primary color */
+}
+
+/* Add padding and spacing for a clean layout */
+.custom-tab-group {
+  padding: 10px;
+}
+
+/* Optional: Add padding to the tab content */
+.custom-tab-group .mat-tab-body {
+  padding: 20px;
+}
+
      
+    
+
      
-      
+      h4{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
 
       .example-h2 {
         margin: 10px;
       }
       
-      .example-section {
-        display: flex;
-        align-content: center;
-        align-items: center;
-        justify-content: center;
-        height: 60px;
-      }
-      
-      .example-margin {
-        margin: 0 10px;
-      }
-      
-      .example-card {
-        margin-bottom: 10px;
-      }
+    
     
       
       .text-box{
@@ -488,3 +426,53 @@
       
       }
       
+      .circle {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg); /* Start from the top */
+      }
+      
+      circle {
+        fill: none;
+        stroke-width: 10;
+        stroke: #ddd;
+        r: 45; /* Radius of the circle */
+        cx: 50; /* Center of circle */
+        cy: 50;
+      }
+      
+      circle.progress {
+        stroke: #6eff69;
+        stroke-dasharray: 283; /* Circumference of the circle: 2 * Math.PI * 45 */
+        stroke-dashoffset: calc(283 - (283 * 75) / 100); /* Progress: (283 - (circumference * percent / 100)) */
+        transition: stroke-dashoffset 0.35s;
+      }
+      
+      .percentage {
+        position: absolute;
+        font-size: 24px;
+        font-weight: bold;
+        color: #141414;
+      }
+      
+      .circle-progress-red {
+        stroke: red;
+      }
+      
+      .circle-progress-yellow {
+        stroke: yellow;
+      }
+      
+      .circle-progress-green {
+        stroke: green;
+      }

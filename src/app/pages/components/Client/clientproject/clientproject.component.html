@@ -1,8 +1,8 @@
 
-<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
+<app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
 <mat-drawer-container >
     <mat-drawer mode="side" [opened]="sideBarOpen">
-        <app-staffsidenav></app-staffsidenav>
+        <app-clientsidenav></app-clientsidenav>
     </mat-drawer>
     <mat-drawer-content>
         <router-outlet></router-outlet>
@@ -125,10 +125,10 @@
                         </div>
                     </div>
                 </div> </mat-tab>
-                <mat-tab label="SOWA" > <app-sowa (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-sowa> </mat-tab>
-                <mat-tab label="TIMELINE"> <app-resourcetable></app-resourcetable> </mat-tab>
-                <mat-tab label="UPDATES"> <app-updates (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-updates> </mat-tab>
-                <mat-tab label="HISTORY"> <app-history (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-history> </mat-tab>
+                <mat-tab label="SOWA" > <app-clientsowa (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-clientsowa> </mat-tab>
+          
+                <mat-tab label="UPDATES"> <app-clientupdates (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-clientupdates> </mat-tab>
+                <mat-tab label="HISTORY"> <app-clienthistory (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-clienthistory> </mat-tab>
               </mat-tab-group>
        
 

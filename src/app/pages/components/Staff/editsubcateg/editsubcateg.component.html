@@ -1,68 +1,77 @@
 
-<div class ="modal">
-    <div class="div modal-content">
-        <span class = "close" (click)="closeModal()">&times;</span>
 
-        <div class="container">
-        
-            
-            
-            
-            
-            <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 600px;">
-               
-               
-                <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-                  <div class="card-body">
-                    <p class="text-uppercase text-sm mb-0">Task Information</p>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <label for="example-text-input" class="form-control-label">Task Name</label>
-                        <input class="form-control" type="text" id="pt_task_name" name="category_name" [(ngModel)]="task.pt_task_name" #nameControl="ngModel" required />
-                      </div>
-                      <div class="col-md-12">
-                        <label for="example-text-input" class="form-control-label">Starting Date:</label>
-                        <input placeholder="Starting Date" class="form-control" type="date" id="pt_starting_date" [(ngModel)]="task.pt_starting_date" name="pt_starting_date" #startDateControl="ngModel" required>
-                      </div>
-                      <div class="col-md-12">
-                        <label for="example-text-input" class="form-control-label">Completion Date:</label>
-                        <input placeholder="Completion Date" class="form-control" type="date" id="pt_completion_date" [(ngModel)]="task.pt_completion_date" name="pt_completion_date" #completionDateControl="ngModel" required>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="example-text-input" class="form-control-label"
-                          >Estimated Budget</label
-                        >
-                        <input placeholder="Budget" class="form-control" type="text" id="pt_total_budget" [(ngModel)]="task.pt_allocated_budget" name="pt_total_budget" #nameControl="ngModel" required>
-                   
-                      </div>
-                    </div>
-                    <hr class="horizontal dark" />
+
+
+
+
+
+<div class ="modal">
+  <div class="div modal-content">
+
+
+      <div class="container">
+          <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+          <div class="card-body">
+                  <h3 class="mt-1 mb-5 pb-1 form-control-label" style="font-size: 20px;" >Add New Category</h3>
+                
+              <div class="row" style="margin-top: -40px;">
                   
-                    
-           
+                
+                  <div class="col-md-12">
+                    <label for="example-text-input" class="form-control-label">Task Name</label>
+                    <input class="form-control" type="text" id="pt_task_name" name="category_name" [(ngModel)]="task.pt_task_name" #nameControl="ngModel" required />
                   </div>
+                  <div class="col-md-12">
+                    <label for="example-text-input" class="form-control-label"
+                      >Estimated Budget</label
+                    >
+                    <input placeholder="Budget" class="form-control" type="text" id="pt_total_budget" [(ngModel)]="task.pt_allocated_budget" name="pt_total_budget" #nameControl="ngModel" required>
+               
+                  </div>
+                  <div class="col-md-6">
+                    <label for="example-text-input" class="form-control-label">Starting Date:</label>
+                    <input placeholder="Starting Date" class="form-control" type="date" id="pt_starting_date" [(ngModel)]="task.pt_starting_date" name="pt_starting_date" #startDateControl="ngModel" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="example-text-input" class="form-control-label">Completion Date:</label>
+                    <input placeholder="Completion Date" class="form-control" type="date" id="pt_completion_date" [(ngModel)]="task.pt_completion_date" name="pt_completion_date" #completionDateControl="ngModel" required>
+                  </div>
+                  
+               
+                                
+
+                
+                
                 <div class="d-flex align-items-center justify-content-between py-3">
-                    
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                <button type="submit" class="btn btn-outline-dark" [disabled]="!task.pt_task_name && !task.pt_starting_date && !task.pt_completion_date && !task.pt_photo_task">Confirm</button>
-                </div>
-                
-                
-                                                                           
-            </form>
-            </article>
-            </div> <!-- card.// -->
-            
-            </div> 
-    
-   
+                  <button type="button" (click)="closeModal()" class="btn btn-outline-dark">Cancel</button>
+                  <button type="submit" class="btn btn-danger">Save Changes
+                  </button>
+                  </div>
+              </div>
+              
+              
+
+              
+            </div>
+          </form>
+          
+          
+          
         
-    </div>
+          </div> 
+  
+ 
+      
+  </div>
 </div>
 
 
 
 
 <router-outlet></router-outlet>
+
+
+
+
+
 

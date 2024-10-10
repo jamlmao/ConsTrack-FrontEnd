@@ -1,77 +1,37 @@
 
 
         
-        
+<body>
+    
 
-            
 
             <div class="projects-container" style="margin-top: 0px;">
 
         
-                <div class="cards project-item" >
-                    <div>
-                        <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                        <p>Excavation on site  </p>
-                        <p>10/01/2004 </p>
-                        <p>Day 1</p>
+                <div *ngFor="let task of task_image; let i = index" class="cards project-details" >
+                    <div (click)="openModalI2(task.images)">
+                        <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="card-image">
+                        
+                        <p>{{task.description}}</p>
+                        <p>{{task.day}}</p>
+                       
+                   
+                        
                     
                          
                     </div>
                 </div>
-                <div class="cards project-item" >
-                    <div>
-                        <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                        <p>Excavation on site  </p>
-                        <p>10/01/2004 </p>
-                        <p>Day 4</p>
-                    
-                         
-                    </div>
-                </div>
-                <div class="cards project-item" >
-                    <div>
-                        <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                        <p>Excavation on site  </p>
-                        <p>10/01/2004 </p>
-                        <p>Day 7 </p>
-                    
-                         
-                    </div>
-                </div>
-                <div class="cards project-item" >
-                    <div>
-                        <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                        <p>Excavation on site  </p>
-                        <p>10/01/2004 </p>
-                        <p>Day 8</p>
-                    
-                         
-                    </div>
-                </div>
-                <div class="cards project-item" >
-                    <div>
-                        <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                        <p>Excavation on site  </p>
-                        <p>10/01/2004 </p>
-                        <p>Day 20 </p>
-                    
-                         
-                    </div>
-                </div>
-                <div class="cards project-item" >
-                    <div>
-                        <img src="assets/bg.jpg" alt="Project Image" class="card-image">
-                        <p>Excavation on site  </p>
-                        <p>10/01/2004 </p>
-                        <p>10/01/2004 </p>
-                    
-                         
-                    </div>
-                </div>
+                
+                <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModalI2()"></app-image-modal>
+                
+             
+               
             </div>
             
              
                   
-      
+        </body>
+
+            
         
       

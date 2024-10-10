@@ -257,3 +257,13 @@ h3 {
 .project-details {
   text-align: center;
 }
+
+
+.mat-mdc-progress-bar.mat-accent{
+  --mdc-linear-progress-active-indicator-color: #a30707;
+  border-radius: 100px;
+ 
+ }
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+   stroke: grey;
+}

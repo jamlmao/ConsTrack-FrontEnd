@@ -2,23 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
-import { ImageModalComponent } from "../image-modal/image-modal.component";
 import { NgModule } from '@angular/core';
-import { StafftoolbarComponent } from "../staff-dashboard/stafftoolbar/stafftoolbar.component";
-import { StaffsidenavComponent } from "../staff-dashboard/staffsidenav/staffsidenav.component";
 
 import { CommonModule } from '@angular/common';
 import {  MatSidenavModule } from '@angular/material/sidenav';
-
+import { ImageModalComponent } from "../../Staff/image-modal/image-modal.component";
 @Component({
-  selector: 'app-history',
+  selector: 'app-clientupdates',
   standalone: true,
-  imports: [ImageModalComponent, CommonModule, StafftoolbarComponent, StaffsidenavComponent,MatSidenavModule,RouterModule],
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css']
+  imports: [CommonModule, MatSidenavModule, RouterModule, ImageModalComponent],
+  templateUrl: './clientupdates.component.html',
+  styleUrl: './clientupdates.component.css'
 })
-export class HistoryComponent {
-
+export class ClientupdatesComponent {
+  
 constructor( private http: HttpClient, private router: Router, 
   private route: ActivatedRoute,) { }
 projectIdNumber2: number = 0;
@@ -39,19 +36,20 @@ private url ="http://127.0.0.1:8000";
 
 
 ngOnInit(){
-    this.route.queryParams.subscribe(params => {
-      this.projectId = params['projectId'] || ''; 
+  this.route.paramMap.subscribe(params => {
+    this.projectId = params.get('projectId') || ''; 
     const projectIdNumber = Number(this.projectId);
     this.projectIdNumber2 = Number(this.projectId);
     console.log('Project ID:', this.projectIdNumber2);
     
     if (!isNaN(projectIdNumber)) {
       this.fetchHistory(projectIdNumber);
-  
+   
     } else {
       console.error('Project ID is not set or is not a number');
     }
   });
+   
 
 }
 
@@ -150,7 +148,6 @@ fetchHistory(projectId: number){
   }
 );
 }
-
 
 
 

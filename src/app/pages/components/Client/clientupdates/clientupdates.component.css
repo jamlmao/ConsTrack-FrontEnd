@@ -5,13 +5,13 @@
     text-align: center;
     position: relative;
   }
- 
+  
     
   
   
-
   
-
+  
+  
   .title p{
     font-style: italic;
     font-weight: 700;
@@ -30,10 +30,10 @@
     
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
-
-
+  
+  
   .projects-container {
- 
+  
     height: auto;
     display: flex;
     justify-content: center;

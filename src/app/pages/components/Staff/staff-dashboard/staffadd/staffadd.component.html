@@ -123,7 +123,7 @@
                       <td>{{ project.staff_in_charge.staff_first_name }} {{ project.staff_in_charge.staff_last_name }}</td>
                       <td>{{ project.starting_date }}</td>
                       <td>{{ project.completion_date }}</td>
-                      <td>{{ project.totalBudget }}</td>
+                      <td> ₱ {{ project.totalBudget | number: '1.2-2' }}</td>
                       <td><span>{{project.status}}</span></td>
                       <td style="text-align: center;"><a (click)="selectProject(project)" class="view">View</a></td>
                     </ng-container>
