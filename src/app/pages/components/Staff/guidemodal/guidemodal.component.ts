@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class GuidemodalComponent {
   imageUrl = 'assets/';
-images = ['project1.jpg', 'project3.jpg', 'project2.jpg']; // Array of image filenames
+images = ['home.png', 'client.png', 'project.png','details.png','update task.png','appoint.png','1.png']; // Array of image filenames
 
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<void>();

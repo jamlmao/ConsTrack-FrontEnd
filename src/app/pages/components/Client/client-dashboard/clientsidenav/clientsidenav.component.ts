@@ -43,10 +43,12 @@ export class ClientsidenavComponent {
   constructor(private router: Router, private http: HttpClient,private userService: UserService) { }
 
   ngOnInit(): void {
-    if (this.userService.isFirstLogin()) {
-      this.openModalI2(); // Automatically open the modal
-      this.userService.setFirstLogin(); // Mark that the user has logged in
-    }
+    console.log('Component initialized'); // Check if this logs
+  if (this.userService.isFirstLogin()) {
+    console.log('First login detected'); // Check if this logs
+    this.openModalI2(); // Automatically open the modal
+    this.userService.setFirstLogin(); // Mark that the user has logged in
+  }
 
     this.loadMessages();
     const userData = localStorage.getItem('user');
@@ -177,7 +179,7 @@ export class ClientsidenavComponent {
   }
 
   
-isModalVisible: boolean = false;
+isModalVisible = false;
 sideBarOpen: boolean= false;
   
  

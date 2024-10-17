@@ -30,6 +30,7 @@ import { GeneralComponent } from "../general/general.component";
 import { EditsubcategComponent } from "../editsubcateg/editsubcateg.component";
 import { EditcategoryComponent } from "../editcategory/editcategory.component";
 
+
 @Component({
   selector: 'app-sowa',
   standalone: true,

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ClientguideComponent {
   imageUrl = 'assets/';
-  images = ['project1.jpg', 'project3.jpg', 'project2.jpg']; // Array of image filenames
+  images = ['c1.png', 'c2.png', 'c3.png','c4.png']; // Array of image filenames
   
     @Input() isVisible: boolean = false;
     @Output() close = new EventEmitter<void>();

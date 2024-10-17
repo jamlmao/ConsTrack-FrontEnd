@@ -52,10 +52,11 @@ export class StaffsidenavComponent {
   constructor(private router: Router, private http: HttpClient,private userService: UserService) { }
 
   ngOnInit(): void {
-    
+
     if (this.userService.isFirstLogin()) {
       this.openModalI2(); // Automatically open the modal
-      this.userService.setFirstLogin(); // Mark that the user has logged in
+      this.userService.setFirstLogin();
+      console.log('First time login'); // Mark that the user has logged in
     }
 
     this.loadMessages();
@@ -217,6 +218,11 @@ sideBarOpen: boolean= false;
     this.sideBarOpen = true; 
     console.log(this.sideBarOpen)
     
+  }
+  
+  resetLoginStatus(): void {
+    this.userService.resetFirstLogin();
+    console.log('First login status reset.'); // Log for confirmation
   }
 
 

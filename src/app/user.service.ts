@@ -5,22 +5,22 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
   private readonly firstLoginKey = 'isFirstLogin';
-  constructor() { }
+
+  constructor() {}
+
   // Check if this is the user's first login
   isFirstLogin(): boolean {
     const firstLogin = localStorage.getItem(this.firstLoginKey);
-
-    // If the key doesn't exist in localStorage, it's the user's first login
-    return firstLogin === null || firstLogin === 'true';
+    return firstLogin === null || firstLogin === 'true'; // Returns true if first login
   }
 
-  // Set the first login status to false after the first login
+  // Set the first login status to false
   setFirstLogin(): void {
     localStorage.setItem(this.firstLoginKey, 'false');
   }
 
-  // Optionally, reset the first login status (e.g., for testing)
+  // Reset first login status (for testing purposes)
   resetFirstLogin(): void {
-    localStorage.removeItem(this.firstLoginKey);
+    localStorage.removeItem(this.firstLoginKey); // Remove the first login entry
   }
 }
