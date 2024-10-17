@@ -147,7 +147,6 @@
                                         <th>Date</th>
                                         <th>Day</th>
                                         <th>Picture</th>
-                                        <th *ngIf="tasks.pt_status !=='C'">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -159,7 +158,7 @@
                                         </td>
                                         <td>
                                           <ul>
-                                            <li *ngFor="let key of getObjectKeys(task.resources)">
+                                            <li *ngFor="let key of getObjectKeys(task.resources)" style="text-align: left;">
                                               {{task.resources[key].name}} - {{task.resources[key].qty}}
                                             </li>
                                           </ul>
@@ -170,12 +169,7 @@
                                         <td class="image-cell" (click)="openModal(task.images)">
                                           <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="image">
                                         </td>
-                                          <td style="text-align: center;"*ngIf="tasks.pt_status !=='C'">
-                                            <a class="btn btn-outline-dark" >Edit</a>
-                                            <app-editresource *ngIf="isEditSubModalOpen"
-                                                              [resourceId]="selectedResource!"
-                                                              (close)="closeEditSubModal()"></app-editresource>
-                                          </td>
+                                          
                                         </tr>
                                     <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModal()"></app-image-modal>
                                 </tbody>

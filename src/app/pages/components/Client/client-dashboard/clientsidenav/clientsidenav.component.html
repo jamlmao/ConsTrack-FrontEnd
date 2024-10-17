@@ -7,6 +7,15 @@
     <div *ngIf="user && user.client_details"  class="avatar avatar-xl position-relative" >
         <img [src]="'http://localhost:8000/' + user.client_details.company_logo" alt="profile_image"  class="user-image">
       </div>
+
+      <div class="example-button-container">
+        <a mat-fab extended color="warn" routerLink="." (click)="openModalI2()">
+          <mat-icon style="color: white;">launch</mat-icon>
+          Guide
+        </a>
+        <app-clientguide [isVisible]="isModalVisible" (close)="closeModalI2()"></app-clientguide>
+      </div>
+
     <mat-divider></mat-divider>
    <a mat-list-item class="item" routerLink="/client/chome" routerLinkActive="list-item-active">
     <div class="d-flex text-dark items"><mat-icon>home</mat-icon>Home</div>

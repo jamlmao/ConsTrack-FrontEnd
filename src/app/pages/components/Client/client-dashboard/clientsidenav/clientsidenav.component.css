@@ -104,3 +104,10 @@
 }
 
 
+
+.example-button-container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center if needed */
+  margin-bottom: 10px;
+}
