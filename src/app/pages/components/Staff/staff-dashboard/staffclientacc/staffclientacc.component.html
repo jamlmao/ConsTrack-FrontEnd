@@ -54,6 +54,7 @@
                             <th>Phone</th>
                             <th>Address</th>
                             <th>Status</th>
+                            <th>Last Login</th>
                             <th>Actions</th>
                             </tr>
                         </thead>
@@ -71,6 +72,8 @@
                                     'active': client?.user_status === 'Active', 
                                     'inactive': client?.user_status === 'Not Active'
                                   }">{{client.user_status}}</span></td>
+                                
+                                <td>Last Login</td>
                                 <td style="text-align: center;">
                                     
                                         <a (click)="openEditModal(client.id)" class="view">Edit</a>
@@ -81,6 +84,7 @@
                                 </td>
                             </ng-container>
                             <ng-template #emptyRow>
+                                <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1"></td>
