@@ -37,6 +37,12 @@
       display: block;
     }
     
+    a.disabled {
+      pointer-events: none;
+      cursor: default;
+      opacity: 0.5; /* Optional: to visually indicate the disabled state */
+    }
+
     .example-viewport {
       height: 400px;
       width: 100%;
