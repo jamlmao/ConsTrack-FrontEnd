@@ -66,12 +66,7 @@ export class EditsubcategComponent {
 
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
-    const payload = {
-      pt_task_name: this.task.pt_task_name,
-      pt_starting_date: this.task.pt_starting_date,
-      pt_completion_date: this.task.pt_completion_date,
-      pt_allocated_budget: this.task.pt_allocated_budget
-    };
+  
 
     Swal.fire({
       title: 'Loading...',
@@ -82,8 +77,8 @@ export class EditsubcategComponent {
       }
     });
 
-    console.log('Form data:', payload);
-    this.http.put(`${this.editUrl}${this.taskId}`, payload, { headers }).subscribe(response => {
+    console.log('Form data:', this.task);
+    this.http.put(`${this.editUrl}${this.taskId}`, this.task, { headers }).subscribe(response => {
       Swal.close();
       Swal.fire({
         position: "center",

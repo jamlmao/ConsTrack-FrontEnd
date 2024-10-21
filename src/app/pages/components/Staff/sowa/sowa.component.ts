@@ -552,10 +552,63 @@ openCreateProjectModal(categoryId: number){
       });
     }
 
+      removeTask(taskId: number): void {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in local storage');
+            return;
+        }
+    
+        this.selectedTaskId = taskId;
+        const payload = { project_id: this.projectId };
+    
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to remove this task?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, remove it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+                Swal.fire({
+                    title: 'Loading...',
+                    text: 'Submitting...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading(null);
+                    }
+                });
+                this.http.put(this.url + '/api/task/remove/' + `${this.selectedTaskId}`, payload, { headers }).subscribe(response => {
+                    console.log('Task removed successfully', response);
+                    Swal.close();
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Task removed successfully.",
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                }, error => {
+                    console.error('Error removing task', error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Error",
+                    });
+                });
+            }
+        });
+    }
 
 
 
-
+    logTaskId(taskId: number): void {
+      console.log('Task ID:', taskId);
+  }
 
 
 

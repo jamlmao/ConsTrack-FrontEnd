@@ -133,7 +133,7 @@
                                         <a class="view" (click)="selecttask(task)"class="eye" matTooltip="View Task"><mat-icon>visibility</mat-icon></a>
 
                                         <a class="view eye" 
-                                          (click)="category.progress !== 100 ? openEditSubModal(category.id) : null" 
+                                          (click)="category.progress !== 100 ? openEditSubModal(task.id) : null" 
                                           [class.disabled]="category.progress === 100" 
                                           matTooltip="Edit Task">
                                           <mat-icon>edit</mat-icon>
@@ -144,7 +144,7 @@
 
 
 
-                                        <a class="view"  class="eye" matTooltip="Remove Task"><mat-icon>playlist_remove</mat-icon></a>
+                                        <a class="view"  class="eye" matTooltip="Remove Task" (click)="removeTask(task.id)"><mat-icon>playlist_remove</mat-icon></a>
                                     
                                     </td>
                                   </tr>
