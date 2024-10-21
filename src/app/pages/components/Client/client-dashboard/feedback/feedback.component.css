@@ -6,7 +6,7 @@
 
 .textup {
     text-align: center;
-    color: rgb(128, 27, 27);
+    color: rgb(214, 36, 36);
     font-weight: 700;
 }
 
@@ -54,26 +54,9 @@ textarea {
 
 }
 
-button {
-    background-color: rgb(128, 27, 27);
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 15px;
-    transition: .2s linear;
-}
-
-button:hover {
-    background-color: rgb(128, 27, 27);
-    border: none;
-    transform: translateY(-10px);
-}
 
 h1 {
-    color: rgb(128, 27, 27);
+    color: #e22a2a;
 }
 
 
@@ -88,24 +71,8 @@ h1 {
       height: 100%;
     }
     
-    .btn-grad {
-      background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
-     width: 150px;
-     padding: 5px;
-     margin: 5px;
-      text-align: center;
-      transition: 0.5s;
-      font-size: 15px;
-      background-size: 200% auto;
-      color: white;            
-      border-radius: 10px;
-      display: block;
-    }
     
-    .btn-grad:hover {
-      background-position: right center; /* change the direction of the change here */
-      color: #fff;
-  }
+    
   
   .projects-container {
    
@@ -218,3 +185,81 @@ h1 {
    margin-left: 20px;
    margin-bottom: 20px;
   }
+
+
+  
+
+  .scheduler {
+    max-width: 1200px; /* Set a max width for the schedule */
+    margin: 20px auto; /* Center the schedule */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .scheduler-title {
+    font-size: 24px; /* Font size for title */
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Spacing below the title */
+    color: #333; /* Dark text color */
+  }
+  
+  .schedule-table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+  }
+  
+  .schedule-table th,
+.schedule-table td {
+border: 1px solid #ddd; /* Add border to cells */
+text-align: center; /* Center the text */
+padding: 10px; /* Add padding for spacing */
+height: 80px; /* Set a fixed height for all cells */
+width: 100px; /* Set a fixed width for all cells */
+vertical-align: top; /* Align content to the top */
+}
+  
+  .day-cell {
+    min-height: 80px; /* Minimum height for cells */
+    position: relative; /* Position relative for absolute children */
+    background-color: #ffffff; /* Default background */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .day-number {
+    font-weight: bold; /* Bold day number */
+    font-size: 18px; /* Font size for day number */
+    color: #007bff; /* Blue color for day number */
+  }
+  
+  .appointment-list {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin-top: 10px; /* Spacing above the appointment list */
+  }
+  
+  .has-appointment {
+    background-color: #d1e7dd; /* Light green background for days with appointments */
+    border: 2px solid #198754; /* Darker border for highlighted cells */
+  }
+  
+  .no-appointments {
+    font-style: italic; /* Italic for no appointments */
+    color: green; 
+    position: absolute; /* Position absolute to center */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Translate for exact center */
+  }
+  
+  .not-available {
+    font-style: italic; /* Italic for no appointments */
+    color: gray; /* Gray color */
+    position: absolute; /* Position absolute to center */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Translate for exact center */
+  }
+  

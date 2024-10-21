@@ -8,7 +8,6 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background overlay */
-  backdrop-filter: blur(4px); /* Add a subtle blur for modern effect */
   z-index: 1050;
 }
 
@@ -39,44 +38,6 @@
 }
 
 /* Form Fields */
-.input-group {
-  margin-bottom: 1rem;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-input[type="address"],
-input[type="city"],
-input[type="first_name"],
-input[type="last_name"],
-input[type="country"],
-input[type="zipcode"] {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background-color: #f9f9f9; /* Light background for input */
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="tel"]:focus,
-input[type="address"]:focus,
-input[type="city"]:focus,
-input[type="first_name"]:focus,
-input[type="last_name"]:focus,
-input[type="country"]:focus,
-input[type="zipcode"]:focus {
-  border-color: #d8363a; /* Highlight on focus */
-  box-shadow: 0 0 8px rgba(216, 54, 58, 0.4);
-  background-color: #ffffff; /* White background on focus */
-}
 
 /* Form Labels */
 label {
@@ -193,4 +154,22 @@ button.btn-outline-dark:hover {
       border-top-right-radius: .3rem;
       border-bottom-right-radius: .3rem;
   }
+}
+
+
+.radio-button-group {
+  display: flex; /* Aligns radio buttons horizontally */
+  gap: 20px; /* Adds space between Male and Female buttons */
+  align-items: center; /* Vertically centers the labels with the radio buttons */
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
 }

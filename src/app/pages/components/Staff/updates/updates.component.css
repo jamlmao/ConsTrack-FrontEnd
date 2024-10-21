@@ -1,0 +1,77 @@
+.title{
+    margin-bottom: 50px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+    position: relative;
+  }
+ 
+    
+  
+  
+
+  
+
+  .title p{
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+  .title h1 span{
+    font-weight: bold;
+    color: #f21501;
+    font-size: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .title h1{
+    font-weight: bold;
+    color: #000000;
+    font-size: 30px;
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+
+  .projects-container {
+ 
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px;
+    padding: 20px;
+    color: rgb(0, 0, 0);
+    font-weight: 300;
+  
+  }
+  
+  .cards {
+    border: 1px solid #2a2828;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 0; /* Remove margin to use gap instead */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #3b3b3b;
+    text-align: center; /* Center the content */
+    /* Set the height of the card */
+    margin: 10px;
+    width: 330px;
+    cursor: pointer;
+  }
+  
+  .card-image {
+    width: 300px;  /* Set the width of the image */
+    height: 230px; /* Set the height of the image */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .project-details {
+    color: white;
+    
+  
+  }
+  p{
+    margin: 0px;
+  }

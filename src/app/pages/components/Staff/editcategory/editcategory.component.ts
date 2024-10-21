@@ -8,12 +8,15 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import Swal from 'sweetalert2';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 
 @Component({
   selector: 'app-editcategory',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [MatInputModule,MatIconModule,MatFormFieldModule,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './editcategory.component.html',
   styleUrl: './editcategory.component.css'
 })
@@ -52,11 +55,20 @@ export class EditcategoryComponent {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     }); 
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Submitting...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
 
 
     this.http.put(`${this.editUrl}${this.categoryId}`, this.category, { headers })
       .subscribe(
         (response) => {
+          Swal.close();
           Swal.fire({
             position: "center",
             icon: "success",

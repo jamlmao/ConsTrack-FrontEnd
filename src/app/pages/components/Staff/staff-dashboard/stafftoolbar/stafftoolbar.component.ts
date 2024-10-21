@@ -43,7 +43,7 @@ export class StafftoolbarComponent {
   isCreateClientModalOpen = false;
   private baseUrl = 'http://127.0.0.1:8000/';
   private logoutUrl = this.baseUrl+'api/logout';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -111,7 +111,7 @@ export class StafftoolbarComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(this.userUrl, { headers }).subscribe(
+    this.http.get(this.baseUrl+'api/user/details', { headers }).subscribe(
       (response: any) => {
         this.user = response;
         console.log('Logged in user:', this.user);

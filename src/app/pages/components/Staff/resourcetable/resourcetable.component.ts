@@ -50,30 +50,42 @@ export class ResourcetableComponent {
   
   // State for scrolling
   startIndex = 0;
-  itemsToShow = 5;
+  itemsToShow = 3;
 
 
-  // Get the cards to display based on startIndex
   get displayedCards() {
-    return this.cards.slice(this.startIndex, this.startIndex + this.itemsToShow);
+    // Ensure that we return the correct slice based on the current startIndex and itemsToShow
+    return this.tasks.slice(this.startIndex, this.startIndex + this.itemsToShow);
   }
-
+  
   // Get the middle index for highlighting
   get centerIndex() {
     return Math.floor(this.displayedCards.length / 2);
   }
-
+  
+  // Check if the current view is at the end
+  isAtEnd() {
+    return this.startIndex + this.itemsToShow >= this.tasks.length;
+  }
+  
   // Method to scroll right
   scrollRight() {
-    if (this.startIndex + this.itemsToShow < this.cards.length) {
+    if (this.startIndex + this.itemsToShow < this.tasks.length) {
       this.startIndex++;
     }
   }
-
+  
   // Method to scroll left
   scrollLeft() {
     if (this.startIndex > 0) {
       this.startIndex--;
+    }
+  }
+  
+  // Method to directly jump to the last set of items
+  scrollToLast() {
+    if (this.tasks.length > this.itemsToShow) {
+      this.startIndex = this.tasks.length - this.itemsToShow;
     }
   }
   
@@ -109,9 +121,12 @@ export class ResourcetableComponent {
   categorizedTasks: { [key: string]: any[] } = {};
   SortedTask: any = {};
 
+  
+
 
   ngOnInit(){
    
+    
     Swal.fire({
       title: 'Loading...',
       text: 'Please wait while we load the tasks.',
@@ -121,14 +136,16 @@ export class ResourcetableComponent {
       }
     });
 
-    this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId') || ''; 
+    this.route.queryParams.subscribe(params => {
+      this.projectId = params['projectId'] || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
       console.log('Project ID:', this.projectIdNumber2);
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
+
+        this.scrollToLast();
 
      
       } else {
@@ -138,7 +155,7 @@ export class ResourcetableComponent {
 
 
    
-   
+    
   
   }
 
@@ -304,7 +321,7 @@ getStatusText(status: string): string {
 
   
   selecttask(task: any) {
-    this.router.navigate(['/task-details', task.id]);
+    this.router.navigate(['/task-details'], { queryParams: { taskId: task.id } });
   }
  
   transformStatus(status: string): string {

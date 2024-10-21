@@ -1,66 +1,71 @@
 
+
+
+
+
+
 <div class ="modal">
-    <div class="div modal-content">
-        <span class = "close" (click)="closeModal()">&times;</span>
+  <div class="div modal-content">
 
-        <div class="container">
-        
-            
-            
-            
-            
-            <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 600px;">
-               
-               
-                <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-                    <div class="card-body">
-                        <p class="text-uppercase text-sm mb-0">SOWA Details</p>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Category Name</label
-                            >
-                            <input class="form-control" type="text"  id="category_name" name="category_name"
-                             [(ngModel)]="category.category_name" #nameControl="ngModel" required />
 
-                            
-                          </div>
-                          <div class="col-md-6">
-                            <label for="example-text-input" class="form-control-label"
-                              >Budget</label
-                            >
-                            <input class="form-control" type="text"  id="category_name" name="category_name"
-                            [(ngModel)]="category.c_allocated_budget" #nameControl="ngModel" required />
-                          </div>
-                          
-                        
-                          
-                        </div>
-                        
-                        <hr class="horizontal dark" />
-                        
-                      </div> 
+      <div class="container">
+          <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+          <div class="card-body">
+                  <h3 class="mt-1 mb-5 pb-1 form-control-label" style="font-size: 20px;" >Add New Category</h3>
+                
+              <div class="row" style="margin-top: -40px;">
+                  
+                
+                <mat-form-field appearance="outline" class="mb-4 w-10">
+                 
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Category Name" type="text" id="category_name" [(ngModel)]="category.category_name" name="category_name" #nameControl="ngModel"  required>
+                 
+                 </mat-form-field>
+                
+                
+                
+
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Estimated Budget</mat-label>
+                  <input matInput placeholder="Category Budget" type="number" id="category_budget" [(ngModel)]="category.c_allocated_budget" name="category_budget" #nameControl="ngModel" required>
+                  <span matTextPrefix>₱&nbsp;</span>
+                  <span matTextSuffix></span>
+                </mat-form-field>
+                                
+
+                
+                
                 <div class="d-flex align-items-center justify-content-between py-3">
-                <button type="submit" class="btn btn-outline-dark">Confirm</button>
-                <button type="button" (click)="closeModal()" class="btn btn-outline-danger">Cancel</button>
-                </div>
-                
-                
-                                                                           
-            </form>
-            </article>
-            </div> <!-- card.// -->
-            
-            </div> 
-    
-   
+                  <button type="button" (click)="closeModal()" class="btn btn-outline-dark">Cancel</button>
+                  <button type="submit" class="btn btn-danger">Save Changes
+                  </button>
+                  </div>
+              </div>
+              
+              
+
+              
+            </div>
+          </form>
+          
+          
+          
         
-    </div>
+          </div> 
+  
+ 
+      
+  </div>
 </div>
 
 
 
 
 <router-outlet></router-outlet>
+
+
+
+
 

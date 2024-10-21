@@ -38,8 +38,8 @@ import { FilterPipe } from '../../../../../filter.pipe';
 })
 export class StaffclientaccComponent {
 
-  
-  private fetchClientUrl = 'http://127.0.0.1:8000/api/clients';
+  private baseUrl="http://127.0.0.1:8000/";
+  private fetchClientUrl = this.baseUrl+'api/clients';
   user: any;
   clients: any[] = [];
   isCreateClientModalOpen = false;
@@ -108,6 +108,14 @@ export class StaffclientaccComponent {
     );
   }
 
+  getRowsWithEmptySpaces() {
+    const rows = [...this.paginatedUsers]; // Clone the paginated users
+    while (rows.length < this.rowsPerPage) {
+      rows.push(null); // Add empty rows if needed
+    }
+    return rows;
+  }
+
 
   updatePaginatedUsers() {
     const startIndex = (this.currentPage - 1) * this.rowsPerPage;
@@ -129,7 +137,8 @@ export class StaffclientaccComponent {
       this.updatePaginatedUsers();
     }
   }
-  
+
+  SelectedClientId:number | null = null;
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
@@ -143,7 +152,12 @@ export class StaffclientaccComponent {
     console.log('xd');
     this.sideBarOpen = true; 
   }
-  openEditModal() {
+
+
+
+  openEditModal(clientId: number){
+    this.SelectedClientId =clientId;
+    console.log('Selected Client ID:', this.SelectedClientId);
     this.isEditModalOpen = true;
     console.log('Opening Edit Modal');
     console.log(this.isEditModalOpen);
@@ -151,6 +165,7 @@ export class StaffclientaccComponent {
   }
 
   closeEditModal() {
+    this.SelectedClientId = null;
     this.isEditModalOpen = false;
     console.log('xd');
     this.sideBarOpen = true; 

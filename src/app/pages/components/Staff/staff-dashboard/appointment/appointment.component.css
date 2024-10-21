@@ -9,10 +9,10 @@
     }
     
     .btn-grad {
-      background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
+      background-image: linear-gradient(to right, #c22020 0%, #c22020  51%, #870000  100%);
      width: 150px;
-     padding: 5px;
-     margin: 2px;
+     padding: 10px;
+    margin-top: 20px;
       text-align: center;
       transition: 0.5s;
       font-size: 15px;
@@ -160,6 +160,15 @@
     }
     
     .no-appointments {
+      font-style: italic; /* Italic for no appointments */
+      color: green; 
+      position: absolute; /* Position absolute to center */
+      top: 50%; /* Center vertically */
+      left: 50%; /* Center horizontally */
+      transform: translate(-50%, -50%); /* Translate for exact center */
+    }
+    
+    .not-available {
       font-style: italic; /* Italic for no appointments */
       color: gray; /* Gray color */
       position: absolute; /* Position absolute to center */

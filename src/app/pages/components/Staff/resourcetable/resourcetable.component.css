@@ -6,6 +6,8 @@
     
     .mat-drawer-container{
       height: 100%;
+      
+      
     }
 
     
@@ -47,6 +49,7 @@
   width: 100%; /* Full width of the container */
   height: 450px; /* Fixed height */
 }
+
 
 /* Clickable image */
 .clickable-image {
@@ -110,24 +113,31 @@
     
     
     
-      .navbar-nav .nav-item .nav-link {
-        transition: color 0.3s ease, background-color 0.3s ease;
-        margin: 2px;
-    }
-    
-    /* Hover Effect */
-    .navbar-nav .nav-item .nav-link:hover {
-        color: #fff; /* Change text color on hover */
-        background-color: #101010; /* Change background color on hover */
-        border-radius: 4px; /* Optional: adds rounded corners */
-    }
-    
-    /* Active Link Highlight */
-    .navbar-nav .nav-item .nav-link.active {
-        color: #fff; /* Change text color for active link */
-        background-color: #101010; /* Highlight color for active link */
-        border-radius: 4px; /* Optional: adds rounded corners */
-    }
+.navbar-nav .nav-item .nav-link {
+  border: 2px solid #ccc; /* Default border color */
+  padding: 7px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333; /* Text color */
+  transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover Effect */
+.navbar-nav .nav-item .nav-link:hover {
+  color: #fff; /* Change text color on hover */
+  background-color: #101010; /* Change background color on hover */
+  border-radius: 5px; /* Optional: adds rounded corners */
+  border: 2px solid #0e0e0e; /* Default border color */
+}
+
+/* Active Link Highlight */
+.navbar-nav .nav-item .nav-link.active {
+  color: #fff; /* Change text color for active link */
+  background-color: #101010; /* Highlight color for active link */
+  border-radius: 4px; /* Optional: adds rounded corners */
+  border: 2px solid #0e0e0e; /* Default border color */
+}
+
      
     
     
@@ -158,14 +168,17 @@
         margin: 0;
       }
       .title h1 span{
-        font-weight: 500;
-        color: #870000;
+        font-weight: bold;
+        color: #f21501;
         font-size: 30px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
       }
       .title h1{
-        font-weight: 500;
+        font-weight: bold;
         color: #000000;
         font-size: 30px;
+        
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
       }
     
       
@@ -176,101 +189,94 @@
       margin: 0;
       padding: 20px;
     }
-    .timeline-container {
-      overflow-x: auto;
-      
-    }
-    
-    .image {
+ 
+  .timeline {
       display: flex;
-      justify-content: flex-end; /* Align items to the right */
-      align-items: center; /* Optional: Align items vertically center */
-      padding: 10px; /* Optional: Add some padding if needed */
-      
-    }
-    
-    .clickable-images {
-      width: 250px;
-      height: 143px;
-      cursor: pointer; /* Make it clear that the image is clickable */
-    }
-    
-    
-    .task {
-      margin: 20px;
       position: relative;
-    }
-    .task::after {
+      min-width: max-content;
+      padding: 20px 0;
+  }
+  .task {
+      flex: 0 0 250px;
+      margin-right: 40px;
+      position: relative;
+  }
+  .task::after {
       content: '';
       position: absolute;
-      width: 25px;
-      height: 30%;
+      width: 20px;
+      height: 20px;
       background-color: white;
       border: 4px solid #2196F3;
       top: -10px;
-      top: 35%;
+      left: 50%;
       transform: translateX(-50%);
-      border-radius: 5px;
+      border-radius: 50%;
       z-index: 2;
-    }
-    .content {
+  }
+  .content {
       background-color: white;
       padding: 15px;
       border-radius: 6px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       height: 100%;
+      font-size: 20px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-    }
-    .task.ongoing::after {
-      background-color: #D17B0F;
-      border-color: #D17B0F;
-    }
-    .task.ongoing .content {
-      border-top: 4px solid #D17B0F;
-    }
-    .task.due::after {
-      background-color: #f40303;
-      border-color: #f40303;
-    }
-    .task.due .content {
-      border-top: 4px solid #f40303;
-    }
-    .task.complete::after {
-      background-color: #3bf403;
-      border-color: #3bf403;
-    }
-    .task.complete .content {
-      border-top: 4px solid #3bf403;
-    }
-    
-    img {
+  }
+  .task.complete::after {
+      background-color: #4CAF50;
+      border-color: #4CAF50;
+  }
+  .task.complete .content {
+      border-top: 4px solid #4CAF50;
+  }
+  .task.ongoing::after {
+    background-color: #fdf109;
+    border-color: #fdf109;
+}
+.task.ongoing .content {
+    border-top: 4px solid #fdf109;
+}
+.task.due::after {
+  background-color: #f21501;
+  border-color: #f21501;
+}
+.task.due .content {
+  border-top: 4px solid #f21501;
+}
+  img {
       max-width: 100%;
       height: auto;
       border-radius: 4px;
       margin-bottom: 10px;
       flex-shrink: 0;
-    }
-    h2 {
+  }
+  h2 {
       margin-top: 0;
       margin-bottom: 10px;
       color: #333;
       font-size: 1em;
-    }
-    .date {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .date {
       color: #777;
       font-style: italic;
       font-size: 0.8em;
       margin-bottom: 10px;
-    }
-    p {
+  }
+  p {
       margin: 0;
       font-size: 0.9em;
       flex-grow: 1;
-    }
-    
-    @media (max-width: 600px) {
+      
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  @media (max-width: 600px) {
       .task {
           flex: 0 0 200px;
           margin-right: 20px;
@@ -281,37 +287,41 @@
       .date, p {
           font-size: 0.8em;
       }
-    }
+  }
   
 
 
     .card-gallery-container {
       display: flex;
-      align-items: center;
-      justify-content: center; /* Center items vertically */
-      margin: 20px; /* Add margin around the container */
-      height: 50vh; /* Set height to half the viewport height */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Hide overflow to prevent scrolling */
+  width: 100%;
+  max-width: 1200px; /* Adjust this based on the size of your container */
+  margin: 0 auto;
     }
     
     .card-gallery {
       display: flex;
-      overflow: hidden; /* Hide overflowing cards */
-      width: 100%; /* Set a fixed width */
-      max-width: 600px; /* Set maximum width for the gallery */
-      position: relative; /* Positioning context for absolute elements */
-      height: 100%; /* Ensure the gallery takes full height of the container */
+  justify-content: space-evenly; /* Distribute the cards evenly */
+  align-items: center;
+  gap: 20px; /* Space between cards */
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden; /* Hide scroll */
     }
     
     .card {
-      margin: 0 5px; /* Space between cards */
       transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
       border-radius: 8px; /* Rounded corners */
-      padding: 20px; /* Padding inside the card */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
       background-color: #f9f9f9; /* Light background for cards */
-      flex: 1; /* Default flex basis for cards */
-      min-width: 100px; /* Minimum width for smaller cards */
-      height: auto; /* Allow height to adjust based on content */
+      flex: 1; /* Default flex basis for cards */  
+      width: 300px; /* Adjust width */
+      height: 100%; /* Adjust height */
+      cursor: pointer;
+    
     }
     
     .large-card {
@@ -326,21 +336,33 @@
     }
     
     button {
-      background-color: #007bff; /* Button background color */
-      color: white; /* Button text color */
-      border: none; /* No border */
-      border-radius: 5px; /* Rounded corners */
-      padding: 10px 15px; /* Button padding */
-      cursor: pointer; /* Pointer cursor on hover */
-      transition: background-color 0.3s ease; /* Smooth transition for background color */
-    }
-    
-    button:hover {
-      background-color: #0056b3; /* Darker blue on hover */
+      background-color: #3f3c3c;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: absolute; /* Position relative to the container */
+      top: 50%; /* Align vertically with the cards */
+      transform: translateY(-50%); /* Center vertically */
     }
     
     button:disabled {
-      background-color: #ccc; /* Disabled button color */
-      cursor: not-allowed; /* Change cursor for disabled button */
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* Adjust left button position */
+    button:first-of-type {
+      left: 5px; /* Closer to the left side of the cards */
+      right: 52px;
+    }
+    
+    /* Adjust right button position */
+    button:last-of-type {
+      right: 40px; /* Closer to the right side of the cards */
     }
     

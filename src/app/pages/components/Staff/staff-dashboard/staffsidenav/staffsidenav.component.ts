@@ -15,6 +15,9 @@ import { MatMenuModule } from "@angular/material/menu";
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
+import { GuidemodalComponent } from "../../guidemodal/guidemodal.component";
+import { UserService } from '../../../../../user.service';
+
 
 
 
@@ -24,7 +27,7 @@ import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http
 @Component({
   selector: 'app-staffsidenav',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent],
+  imports: [CommonModule, HttpClientModule, MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent, GuidemodalComponent],
   templateUrl: './staffsidenav.component.html',
   styleUrl: './staffsidenav.component.css'
 })
@@ -46,9 +49,16 @@ export class StaffsidenavComponent {
   private logoutUrl = this.baseUrl+'api/logout';
   private userUrl = 'http://127.0.0.1:8000/api/user/details';
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient,private userService: UserService) { }
 
   ngOnInit(): void {
+
+    if (this.userService.isFirstLogin()) {
+      this.openModalI2(); // Automatically open the modal
+      this.userService.setFirstLogin();
+      console.log('First time login'); // Mark that the user has logged in
+    }
+
     this.loadMessages();
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -192,9 +202,29 @@ export class StaffsidenavComponent {
   }
   
   
+isModalVisible: boolean = false;
+sideBarOpen: boolean= false;
   
   toggleSidebar(){
     this.toggleSidebarForMe.emit();
   }
+
+  openModalI2(): void {
+    this.isModalVisible = true;
+  }
+  
+  closeModalI2(): void {
+    this.isModalVisible = false;
+    this.sideBarOpen = true; 
+    console.log(this.sideBarOpen)
+    
+  }
+  
+  resetLoginStatus(): void {
+    this.userService.resetFirstLogin();
+    console.log('First login status reset.'); // Log for confirmation
+  }
+
+
 
 }

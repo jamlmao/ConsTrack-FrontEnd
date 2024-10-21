@@ -6,49 +6,58 @@
     <mat-drawer-content>
         
         <router-outlet></router-outlet>
+
         
-        <div class="form-box">
-          <div class="textup">
-              <i class="fa fa-solid fa-clock"></i>
-              It only takes two minutes!!
-          </div>
-          <form (ngSubmit)="onSubmit()">
-              <div>
-                  <label for="staff_id">
-                      <i class="fa fa-solid fa-user"></i>
-                      Select Staff:
-                  </label>
-                  <select class="form-control" id="staff_id" [(ngModel)]="staff_id" name="staff_id" required style="text-transform: uppercase;">
-                      <option *ngFor="let staff of staffList" [value]="staff.id">
-                          {{ staff.extension_name === 'Civil Engineer' || staff.extension_name === 'Engineer' ? 'Engr. ' + staff.first_name : staff.first_name }} 
-                          {{ staff.last_name }} 
-                          {{ staff.extension_name === 'Architect' ? 'UAP' : '' }}
-                      </option>
-                  </select>
-              </div>
-      
-              <div>
-                  <label for="appointment_datetime">
-                      <i class="fa fa-solid fa-calendar"></i>
-                      Do you want to create an appointment?
-                  </label>
-                  <input type="datetime-local" id="appointment_datetime" [(ngModel)]="appointment_datetime" name="appointment_datetime" [min]="minDateTime" required>
-                  <small style="color: red;" *ngIf="invalidTimeSelected">Please select a time between 7 AM - 11 AM or 1 PM - 5 PM.</small>
-              </div>
-      
-              <div>
-                  <label for="description">
-                      <i class="fa-solid fa-comments" style="margin-right: 3px;"></i>
-                      Write your Suggestions:
-                  </label>
-                  <textarea id="description" [(ngModel)]="description" name="description" rows="4" cols="10" required></textarea>
-              </div>
-      
-              <button type="submit" [disabled]="invalidTimeSelected">
-                  Submit
-              </button>
-          </form>
-      </div>
+
+        <div class="scheduler">
+            
+            <div class="d-flex justify-content-between align-items-center " style="margin-bottom: 20px;">
+                <h1 style="font-size: 40px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin: 0;">
+                  Monthly Schedule for {{ currentDate | date: 'MMMM yyyy' }}
+                </h1>
+                <div>
+                  <button (click)="openTaskModal()" class="btn btn-danger">Add Schedule</button>
+                  <app-clientappoint *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-clientappoint>
+                </div>
+            </div>
+              
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th *ngFor="let dayName of dayNames" style="font-size: 20px; vertical-align: middle;">{{ dayName }}</th> <!-- Display day names (Sun, Mon, etc.) -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let week of calendarDaysInMonth">
+                  <td *ngFor="let day of week">
+                    <div class="day-cell">
+                      <div class="day-number">{{ day.date | date: 'd' }}</div>
+                      <ng-container *ngIf="(day.date | date: 'yyyy-MM-dd') as dayKey">
+                        <ng-container *ngIf="day.isAvailable; else notAvailable">
+                          <ng-container *ngIf="day.appointments.length > 0; else noAppointments">
+                            <ul class="appointment-list">
+                              <li *ngFor="let appointment of day.appointments">
+                                {{ appointment.client_first_name }} {{ appointment.client_last_name }}
+                                <div>0{{ appointment.client_phone_number || 'N/A' }}</div>
+                              </li>
+                            </ul>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #noAppointments>
+                        <span class="no-appointments">Available</span>
+                      </ng-template>
+                      <ng-template #notAvailable>
+                        <span class="not-available">Not Available</span>
+                      </ng-template>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        
+        
       
         
 

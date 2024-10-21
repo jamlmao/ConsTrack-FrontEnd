@@ -1,64 +1,36 @@
-<app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
-<mat-drawer-container>
-    <mat-drawer mode="over" [opened]="sideBarOpen">
-        <app-clientsidenav></app-clientsidenav>
-    </mat-drawer>
-    <mat-drawer-content>
-        
-        
-        
-           <div class="container">
-            <div class="title">
-                <p>Welcome to your Project</p>
-                <h1><span>PROJECT</span> UPDATES</h1>
 
+
+        
+<body>
+    
+
+
+    <div class="projects-container" style="margin-top: 0px;">
+
+
+        <div *ngFor="let task of task_image; let i = index" class="cards project-details" >
+            <div (click)="openModalI2(task.images)">
+                <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="card-image">
                 
-            </div>
+                <p>{{task.description}}</p>
+                <p>{{task.day}}</p>
                
-           </div>
-        
-            
-           <h1><span>Resources</span></h1>
-           <table class="table table-bordered">
-            <thead>
-                <tr>
-                    
-                    <th width="50%">Name</th>
-                    <th width="20%">Qty.</th>
-                    <th width="20%">Cost</th>
-                    <th width="20%">Total</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr >
-                    
-                    <td><span style="">asdasdakhsd</span></td>
-                    <td><span style="">2</span></td>
-                    <td><span style="">300.00</span></td>
-                    
-                    <td><span style="">30000.00</span></td>
-                    
-                </tr>
-                <tr >
-                    
-                    <td><span style="">asd</span></td>
-                    <td><span style="">asd</span></td>
-                    <td><span style="">asd</span></td>
-                    
-                </tr>
-                  
-                  
-            </tbody>
-        </table>
-
+           
                 
-          
-
-       
-          
             
+                 
+            </div>
+        </div>
         
-        <router-outlet></router-outlet>
-    </mat-drawer-content>
-</mat-drawer-container>
+        <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModalI2()"></app-image-modal>
+        
+     
+       
+    </div>
+    
+     
+          
+</body>
+
+    
+

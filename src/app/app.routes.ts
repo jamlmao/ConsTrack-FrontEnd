@@ -32,10 +32,10 @@ import { ClientupdatesComponent } from './pages/components/Client/client-dashboa
 import { TaskclientupdateComponent } from './pages/components/Client/client-dashboard/taskclientupdate/taskclientupdate.component';
 import { SowaComponent } from './pages/components/Staff/sowa/sowa.component';
 import { ResourcetableComponent } from './pages/components/Staff/resourcetable/resourcetable.component';
-import { ClientprojectComponent } from './pages/components/Client/client-dashboard/clientproject/clientproject.component';
 import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
 import { AppointmentComponent } from './pages/components/Staff/staff-dashboard/appointment/appointment.component';
 import { GoalComponent } from './website/goal/goal.component';
+import { ClientprojectComponent } from './pages/components/Client/clientproject/clientproject.component';
 
 
 
@@ -121,6 +121,11 @@ export const routes: Routes = [
     }
     ,
     {
+        path: 'client/clientproject/:projectId',
+        component: ClientprojectComponent,
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'client/viewstatus/:projectId',
         component: ViewstatusComponent,
         canActivate: [AuthGuard]
@@ -130,12 +135,7 @@ export const routes: Routes = [
         component: ViewprojectComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'client/clientproject/:projectId',
-        component: ClientprojectComponent,
-        canActivate: [AuthGuard]
-    }
-    ,
+    
     {
         path: 'staff/users',
         component: StaffclientaccComponent,
@@ -179,22 +179,22 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId',
+        path: 'project-details',
         component: ProjectDetailsComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'sowa/:projectId',
+        path: 'sowa',
         component: SowaComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'resources/:projectId',
+        path: 'resources',
         component: ResourcetableComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'task-details/:taskId',
+        path: 'task-details',
         component: TaskdetailsComponent,
         canActivate: [AuthGuard]
     },

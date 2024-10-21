@@ -29,17 +29,15 @@ export class AddtaskComponent {
   faTrashAlt = faTrashAlt;
   faPlus = faAdd;
 
-
-  private baseUrl = 'http://127.0.0.1:8000/api/addtask2/';
+  private url='http://127.0.0.1:8000/';
+  private baseUrl = `${this.url}api/addtask2/`;
   apiUrl: string ='';
 
   task: any = {
     pt_task_name: '',
     pt_completion_date: '',
     pt_starting_date: '',
-    pt_photo_task: '',
-    pt_file_task: '',
-    pt_allocated_budget: '',
+    pt_total_budget:'',
     project_id: '',
     category_id: '',
     resources: []
@@ -56,8 +54,8 @@ export class AddtaskComponent {
 
     ngOnInit(): void {
       // Extract projectId from the current URL
-      this.route.paramMap.subscribe(params => {
-        this.projectId = params.get('projectId');
+      this.route.queryParams.subscribe(params => {
+        this.projectId = params['projectId'] || '';
         console.log ('Project ID:', this.projectId);
         if (this.projectId) {
           this.apiUrl = this.getAddTaskUrl(this.projectId);
@@ -66,6 +64,7 @@ export class AddtaskComponent {
           console.error('Project ID is not available in the URL');
         }
       });
+
     }
 
 
@@ -131,17 +130,25 @@ export class AddtaskComponent {
       console.log('Task payload:', payload);
       
       console.log('Token:', token);
-
+      Swal.fire({
+        title: 'Loading...',
+        text: 'Submitting...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(null);
+        }
+      });
       this.http.post(this.apiUrl, payload, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       }).subscribe(response => {
         console.log('Task added successfully', response);
+        Swal.close();
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "successfully added successfully.",
+          title: "Task added successfully.",
           showConfirmButton: true,
           timer: 2000
         }).then(() => {

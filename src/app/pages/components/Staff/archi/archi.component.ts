@@ -1,6 +1,6 @@
 import { Component, EventEmitter,Input,OnInit,Output} from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormsModule, RequiredValidator,ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormGroup, FormsModule, FormControl, Validators, RequiredValidator,ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { RouterOutlet, Router, RouterModule, ActivatedRoute } from '@angular/router';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-archi',
@@ -30,13 +31,18 @@ export class ArchiComponent {
     this.close.emit();
   }
 
-  constructor(private route: ActivatedRoute, private router: Router , private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private router: Router , private http: HttpClient) {
+  
+
+}
 
 
 
 
   user:any = {};
   tasks: any = {};
+  description: string = '';
+  budget: number | null = null;
   selectedTaskId: number | null = null;
   private baseUrl = 'http://127.0.0.1:8000/'
   private updateTaskUrl = this.baseUrl+'api/updatetask/';
@@ -52,6 +58,9 @@ export class ArchiComponent {
   selectedResource: any;
   resource_id: number | null = null;
   staffId: number | null = null;
+  images: any[] = [{}];
+
+
 
   toggleChecklist(event: Event): void {
     this.isChecklistChecked = (event.target as HTMLInputElement).checked;
@@ -109,6 +118,17 @@ export class ArchiComponent {
     this.validateQty(index);
   }
 
+  addImage() {
+    this.images.push({ file: null });
+  }
+
+  removeImage(index: number) {
+    this.images.splice(index, 1);
+  }
+
+
+
+
   addResource() {
     this.selectedResources.push({ resourceId: null, quantity: 0, isValid: true });
   }
@@ -129,11 +149,17 @@ export class ArchiComponent {
   }
 
   isFormValid(): boolean {
-    const allTasksUsed = this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
-    const statusOngoing = this.status === 'OG';
-    
-    return this.isFileSelected && (allTasksUsed || statusOngoing);
-}
+    const allTasksUsed = this.selectedResources.length === 0 || this.selectedResources.every(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0 && resource.isValid);
+    const hasSelectedFiles = Object.keys(this.tasks).some(key => this.tasks[key]); // Check if there is any file content in tasks
+  
+    // Check if description and budgetUsed are not empty
+    const isDescriptionValid = this.description.trim() !== '';
+    const isBudgetUsedValid = this.budget !== null && this.budget > 0;
+  
+    const isValid = (hasSelectedFiles || allTasksUsed) && isDescriptionValid && isBudgetUsedValid;
+    return isValid;
+  }
+  
 
   ngOnInit(): void {
     Swal.fire({
@@ -145,8 +171,8 @@ export class ArchiComponent {
       }
     });
    
-    this.route.paramMap.subscribe(params => {
-      this.taskId = Number(params.get('taskId')) || null;
+    this.route.queryParams.subscribe(params => {
+      this.taskId = params['taskId']|| '' ;
       const taskIdNumber = Number(this.taskId);
       console.log('Task ID:', this.taskId);
       const userData = localStorage.getItem('user');
@@ -163,7 +189,6 @@ export class ArchiComponent {
       if (!isNaN(taskIdNumber)) {
         this.selectedTaskId = taskIdNumber;
         this.fetchResource(taskIdNumber);
-        this.fetchStatus(taskIdNumber);
       }
     });
     this.apiUrl = this.updateTaskUrl + this.taskId;
@@ -175,10 +200,9 @@ export class ArchiComponent {
 
   
 
-  onFileChange(event: any, field: string): void {
+  onFileChange(event: any, field: string, index: number): void {
     const file = event.target.files[0];
     if (file) {
-      this.isFileSelected = true;
       console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
       const reader = new FileReader();
       reader.onload = () => {
@@ -188,7 +212,10 @@ export class ArchiComponent {
             const base64Content = base64String.split(',')[1];
   
             // Ensure tasks is an object with string keys and string values
-            this.tasks[field] = base64Content;
+              if (!this.tasks[field]) {
+                this.tasks[field] = [];
+            }
+            this.tasks[field][index] = base64Content;
             console.log(`Base64 content for ${field} stored successfully.`);
           } else {
             console.error('The file content is not a valid base64 encoded string.');
@@ -196,27 +223,11 @@ export class ArchiComponent {
         }
       };
       reader.readAsDataURL(file);
-    } else {
-      this.isFileSelected = false;
-      console.error('No file selected.');
-    }
+    } 
   }
 
 
-  fetchStatus(taskId: number):void{
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
-    }
-    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-
-    this.http.get(this.task + `/${taskId}/resources`, { headers }).subscribe((response: any) => {
-        this.status = response.tasks.pt_status;
-        console.log('Status:', this.status);
-    }
-  );
-  }
+ 
 
 
   fetchResource(taskId: number): void {
@@ -270,35 +281,52 @@ export class ArchiComponent {
   }
 
 
-  onSubmit(): void {
-    const token = localStorage.getItem('token');
+    onSubmit(): void {
+      const token = localStorage.getItem('token');
 
-    if (!token) {
-      console.error('No token found in local storage');
-      return;
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+
+      if (!this.isFormValid()) {
+        console.error('Form is not valid');
+        return;
     }
 
-    if (this.selectedResources.length === 0 || this.selectedResources.some(resource => resource.resourceId === null || resource.quantity === null || resource.quantity === 0)) {
-      console.error('Resource ID or used quantity is missing');
-      return;
-    }
-
-    const resources = this.selectedResources.map(resource => ({
-      resource_id: resource.resourceId,
-      used_qty: resource.quantity
+    const validResources = this.selectedResources
+    .filter(resource => resource.resourceId !== null && resource.quantity !== null && resource.quantity > 0)
+    .map(resource => ({
+        resource_id: resource.resourceId,
+        used_qty: resource.quantity
     }));
 
-    const formData = {
-      task_id: this.selectedTaskId,
-      resources: resources,
-    };
+      // Filter out invalid placeholder images
+      const validPlaceholderImages = Object.values(this.tasks)
+          .flat()
+          .filter(image => image !== null && image !== '');
 
-    const payload = { ...this.tasks, ...formData, staff: this.staffId };
-    console.log('Payload:', payload);
+      const formData: any = {
+          task_id: this.selectedTaskId,
+          description: this.description,
+          estimated_resource_value: this.budget
+      };
 
+      if (validResources.length > 0) {
+          formData.resources = validResources;
+      }
 
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    Swal.fire({
+      if (validPlaceholderImages.length > 0) {
+          formData.placeholder_images = validPlaceholderImages;
+      }
+
+      const payload = { ...formData, staff: this.staffId };
+      console.log('Payload:', payload);
+
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+   
+      this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
+        Swal.fire({
           position: "center",
           icon: "success",
           title: "Task updated successfully",
@@ -308,14 +336,13 @@ export class ArchiComponent {
           // window.location.reload();
           this.closeModal();
         });
-    this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
-        console.log('Task updated successfully', response);
+          console.log('Task updated successfully', response);
+          this.closeModal();
+      },error => {
+        console.error('Error updating task', error);
         this.closeModal();
-    },error => {
-      console.error('Error updating task', error);
-      this.closeModal();
-    }
-  );
+      }
+    );
 
 
   }

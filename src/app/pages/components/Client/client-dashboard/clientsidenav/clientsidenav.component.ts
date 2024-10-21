@@ -15,11 +15,14 @@ import { MatMenuModule } from "@angular/material/menu";
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
+import { ClientguideComponent } from "../clientguide/clientguide.component";
+import { UserService } from '../../../../../user.service';
+
 
 @Component({
   selector: 'app-clientsidenav',
   standalone: true,
-  imports: [CommonModule,HttpClientModule,MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent],
+  imports: [CommonModule, HttpClientModule, MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, RouterLink, RouterLinkActive, MatToolbarModule, RouterModule, RouterOutlet, CreateClientAcctComponent, CreateStaffAcctComponent, ClientguideComponent],
   templateUrl: './clientsidenav.component.html',
   styleUrl: './clientsidenav.component.css'
 })
@@ -37,9 +40,16 @@ export class ClientsidenavComponent {
   private logoutUrl = this.baseUrl+'api/logout';
   private userUrl = 'http://127.0.0.1:8000/api/user/details';
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient,private userService: UserService) { }
 
   ngOnInit(): void {
+    console.log('Component initialized'); // Check if this logs
+  if (this.userService.isFirstLogin()) {
+    console.log('First login detected'); // Check if this logs
+    this.openModalI2(); // Automatically open the modal
+    this.userService.setFirstLogin(); // Mark that the user has logged in
+  }
+
     this.loadMessages();
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -167,5 +177,23 @@ export class ClientsidenavComponent {
   toggleSidebar(){
     this.toggleSidebarForMe.emit();
   }
+
+  
+isModalVisible = false;
+sideBarOpen: boolean= false;
+  
+ 
+
+  openModalI2(): void {
+    this.isModalVisible = true;
+  }
+  
+  closeModalI2(): void {
+    this.isModalVisible = false;
+    this.sideBarOpen = true; 
+    console.log(this.sideBarOpen)
+    
+  }
+
 
 }

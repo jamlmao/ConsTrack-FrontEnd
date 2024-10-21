@@ -37,6 +37,12 @@
       display: block;
     }
     
+    a.disabled {
+      pointer-events: none;
+      cursor: default;
+      opacity: 0.5; /* Optional: to visually indicate the disabled state */
+    }
+
     .example-viewport {
       height: 400px;
       width: 100%;
@@ -152,6 +158,7 @@
         position: relative;
       }
     
+      
     
     
   
@@ -163,15 +170,43 @@
       margin: 0;
     }
     .title h1 span{
-      font-weight: 500;
-      color: #870000;
+      font-weight: bold;
+      color: #f21501;
       font-size: 30px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
     .title h1{
-      font-weight: 500;
+      font-weight: bold;
       color: #000000;
       font-size: 30px;
+      
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .action-icons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 2px; /* Adjust the gap between icons */
+    }
+    
+    .action-icons i {
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    .filters {
+      display: flex;
+      align-items: center;
+    }
+  
   
     .card{
       margin: 10px;
@@ -302,16 +337,20 @@
 
        
       .navbar-nav .nav-item .nav-link {
-        transition: color 0.3s ease, background-color 0.3s ease;
-        margin: 2px;
-        margin-top: 10px;
+        border: 2px solid #ccc; /* Default border color */
+        padding: 7px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333; /* Text color */
+        transition: border-color 0.3s ease; /* Smooth transition */
     }
     
     /* Hover Effect */
     .navbar-nav .nav-item .nav-link:hover {
         color: #fff; /* Change text color on hover */
         background-color: #101010; /* Change background color on hover */
-        border-radius: 4px; /* Optional: adds rounded corners */
+        border-radius: 5px; /* Optional: adds rounded corners */
+        border: 2px solid #0e0e0e; /* Default border color */
     }
     
     /* Active Link Highlight */
@@ -319,6 +358,7 @@
         color: #fff; /* Change text color for active link */
         background-color: #101010; /* Highlight color for active link */
         border-radius: 4px; /* Optional: adds rounded corners */
+        border: 2px solid #0e0e0e; /* Default border color */
     }
      
 

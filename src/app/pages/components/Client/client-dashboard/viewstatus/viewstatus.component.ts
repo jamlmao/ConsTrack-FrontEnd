@@ -19,20 +19,34 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
+import {MatTabsModule} from '@angular/material/tabs';
 
 import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { ClienthistoryComponent } from "../../clienthistory/clienthistory.component";
+import { ClientupdatesComponent } from "../clientupdates/clientupdates.component";
 
 @Component({
   selector: 'app-viewstatus',
   standalone: true,
-  imports: [MatProgressBarModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, ClientsidenavComponent, ClienttoolbarComponent],
+  imports: [MatTabsModule, MatProgressBarModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, ClientsidenavComponent, ClienttoolbarComponent, ClienthistoryComponent, ClientupdatesComponent],
   templateUrl: './viewstatus.component.html',
   styleUrl: './viewstatus.component.css'
 })
 export class ViewstatusComponent {
 
+  selectedTabIndex: number = 0; 
+  
+  tabChanged(event: any) {
+    // When the tab is changed, update the selectedTabIndex
+    this.selectedTabIndex = event.index;
+
+    // Store the new tab index in localStorage
+    localStorage.setItem('selectedTabIndex', this.selectedTabIndex.toString());
+  }
+
+  imageUrl: string= 'http://localhost:8000';
 
   generatePDF() {
     // Temporarily hide elements with the "no-pdf" class before generating the PDF
@@ -107,10 +121,15 @@ export class ViewstatusComponent {
   
 
   categorizedTasks: { [key: string]: any[] } = {};
-  SortedTask: any = {};
+  Total: number = 0;
 
 
   ngOnInit(){
+
+    const storedIndex = localStorage.getItem('selectedTabIndex');
+    
+    // If there's a stored value, set it as the selected tab index, otherwise default to 0
+    this.selectedTabIndex = storedIndex ? +storedIndex : 0;
 
       Swal.fire({
         title: 'Loading...',
@@ -121,11 +140,7 @@ export class ViewstatusComponent {
         }
       });
 
-      
-
-    
-
-
+     
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
@@ -156,8 +171,6 @@ export class ViewstatusComponent {
   }
 
 
-
-
  
 
   constructor(
@@ -177,10 +190,6 @@ export class ViewstatusComponent {
 
 
 
-
-
-
-
   sideBarOpen=true;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
@@ -189,18 +198,6 @@ export class ViewstatusComponent {
   
  
 
-  openTaskModal() {
-    this.isTaskOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isTaskOpen);
-    this.sideBarOpen = false; 
-  }
-
-  closeTaskModal() {
-    this.isTaskOpen = false;
-    console.log('xd');
-    this.sideBarOpen = true; 
-  }
 
   
   openGeneralModal() {
@@ -227,6 +224,7 @@ export class ViewstatusComponent {
     this.isArchiOpen = true;
     console.log('Opening Task Modal');
     console.log(this.isArchiOpen);
+    
   }
 
   closeArchiModal() {
@@ -252,16 +250,8 @@ export class ViewstatusComponent {
 
   }
 
-  totalBudget: number = 100; // Example value
-  totalUsedBudget: number = 75; // Example value
-  radius: number = 45; // Circle's radius
-  circumference: number = 0; // Will be calculated
-  usedBudgetPercentage: number = 0;
-  strokeDashOffset: number = 0;
-
  
 
-  
   fetchProjectDetails(projectId: number) {
     const token = localStorage.getItem('token');
 
@@ -276,15 +266,16 @@ export class ViewstatusComponent {
     this.http.get(this.projectDetailsUrl + `${projectId}`, { headers }).subscribe(
       (response: any) => {
         this.projectDetails = response.project;
+        this.currentUserId = response.project.staff_id
+        console.log('Current User ID:', this.currentUserId);
         console.log('Project Details:', this.projectDetails);
         this.circumference = 2 * Math.PI * this.radius;
         
-      // Calculate the used percentage
-      this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
-
-      // Calculate the stroke-dashoffset based on the percentage
-      this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
-    Swal.close();
+        // Calculate the used percentage
+        this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
+          console.log('Used Budget Percentage:', this.usedBudgetPercentage);
+        // Calculate the stroke-dashoffset based on the percentage
+        this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
       },
       (error) => {
         console.error('Failed to fetch project details', error);
@@ -292,8 +283,12 @@ export class ViewstatusComponent {
     );
   }
 
-  
-
+  totalBudget: number = 100; // Example value
+  totalUsedBudget: number = 75; // Example value
+  radius: number = 45; // Circle's radius
+  circumference: number = 0; // Will be calculated
+  usedBudgetPercentage: number = 0;
+  strokeDashOffset: number = 0;
 
   fetchProjectTasks(projectId: number) {
     const token = localStorage.getItem('token');
@@ -326,7 +321,7 @@ export class ViewstatusComponent {
 
 
   
-
+  
     
 
   fetchTaskByCategory(projectId: number) {
@@ -341,9 +336,9 @@ export class ViewstatusComponent {
 
     this.http.get(this.taskByCategoryUrl + `${projectId}`, { headers }).subscribe(
     (response: any) => {
-      if (response && response.totalAllocatedBudgetPerCategory) {
-        this.SortedTask = response.totalAllocatedBudgetPerCategory;
-        console.log('Budget:', this.SortedTask);
+      if (response && response.totalAllocatedBudget) {
+        this.Total = response.totalAllocatedBudget;
+        console.log('Budget:', this.Total);
       
         
         
@@ -382,12 +377,17 @@ export class ViewstatusComponent {
             if (category.tasks) {
               this.sortedTask.push({
                 id:category.category_id,
+                c_allocated_budget: category.c_allocated_budget,
                 name: categoryName,
                 tasks: category.tasks,
                 totalAllocatedBudget: category.totalAllocatedBudget,
-                previousCost: category.previous,
-                thisPeriodCost: category.thisperiod,
-                toDateCost: category.todate,
+                previousCost: category.previousCost,
+                thisPeriodCost: category.thisPeriodCost,
+                toDateCost: category.toDateCost,
+                previousCostT: category.previousCostTask,
+                thisPeriodCostT: category.thisPeriodCostTask,
+                toDateCostT: category.toDateCostTask,
+                
                 progress: category.progress
               });
             }
@@ -406,7 +406,6 @@ export class ViewstatusComponent {
 
 
   }
-
 
   
 
@@ -447,7 +446,7 @@ export class ViewstatusComponent {
   }
   
   selecttask(task: any) {
-    this.router.navigate(['/task-details', task.id]);
+    this.router.navigate(['/task-details'], { queryParams: { taskId: task.id } });
   }
  
   
@@ -503,20 +502,58 @@ export class ViewstatusComponent {
 }
 
 isCreateProjectModalOpen = false;
+isEditCategModalOpen = false;
+isEditSubModalOpen = false;
 selectedTaskId: number | null = null;
 selectedCategoryId: number | null = null;
 
-openCreateProjectModal(categoryId: number){
-  this.selectedCategoryId = categoryId;
-  this.isCreateProjectModalOpen = true;
-  console.log('Selected Category ID:', this.selectedCategoryId);
-  this.sideBarOpen = false;
-}
 
-closeCreateProjectModal() {
-   this.isCreateProjectModalOpen = false;
-    this.selectedTaskId = null;
-    this.selectedCategoryId = null;
-}
 
-}
+
+
+    removeCategory(categoryId: number): void {
+
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+
+      this.selectedCategoryId = categoryId;
+      const payload = { project_id: this.projectId };
+
+
+      console.log('Selected Category ID:', this.selectedCategoryId, payload);
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+        Swal.fire({
+          title: 'Loading...',
+          text: 'Submitting...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading(null);
+          }
+        });
+      this.http.put(this.url+'/api/category/remove/'+`${this.selectedCategoryId}`, payload, { headers }).subscribe(response =>{
+        console.log('Category removed successfully', response);
+        Swal.close();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Category removed successfully.",
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          window.location.reload();
+        });
+      },  error => {
+        console.error('Error adding task', error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error adding task. over the budget",
+        });
+      });
+    }
+
+
+  }

@@ -2,7 +2,7 @@ import { Component, EventEmitter,Input,OnInit,Output} from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormsModule, RequiredValidator,ReactiveFormsModule, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { RouterOutlet, Router, RouterModule, ActivatedRoute } from '@angular/router';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
@@ -10,10 +10,14 @@ import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+
 @Component({
   selector: 'app-general',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet,MatAutocompleteModule, CommonModule, ReactiveFormsModule],
   templateUrl: './general.component.html',
   styleUrl: './general.component.css'
 })
@@ -27,6 +31,21 @@ export class GeneralComponent {
  
    }
 
+   categoryOptions: string[] =[
+          'GENERAL REQUIREMENTS',
+          'SITE WORKS',
+          'CONCRETE & MASONRY WORKS',
+          'METAL REINFORCEMENT WORKS',
+          'FORMS & SCAFFOLDINGS',
+          'STEEL FRAMING WORKS',
+          'TINSMITHRY WORKS',
+          'PLASTERING WORKS',
+          'PAINTS WORKS',
+          'PLUMBING WORKS',
+          'ELECTRICAL WORKS',
+          'CEILING WORKS',
+          'ARCHITECTURAL',
+   ]
    projectId: string | null = null;
 
 
@@ -35,8 +54,8 @@ export class GeneralComponent {
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute) {}
    
   ngOnInit():void {
-    this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId');
+    this.route.queryParams.subscribe(params => {
+      this.projectId = params['projectId'];
       console.log ('Project ID:', this.projectId);
     } );
   }
@@ -76,7 +95,7 @@ export class GeneralComponent {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "successfully added successfully.",
+            title: "category added successfully.",
             showConfirmButton: true,
             timer: 2000
           }).then(() => {
@@ -88,7 +107,7 @@ export class GeneralComponent {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Error adding task. over the budget",
+            text: "Error adding Category. over the budget",
           });
         }
       );

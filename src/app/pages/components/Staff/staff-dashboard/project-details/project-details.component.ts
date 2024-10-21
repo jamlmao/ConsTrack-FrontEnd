@@ -30,12 +30,21 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
 
+import {MatTabsModule} from '@angular/material/tabs';
+import { SowaComponent } from "../../sowa/sowa.component";
+import { ResourcetableComponent } from "../../resourcetable/resourcetable.component";
+
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdatesComponent } from "../../updates/updates.component";
+import { HistoryComponent } from "../../history/history.component";
+
 
 
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [MatProgressSpinnerModule,MatProgressBarModule,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, ArchiComponent,MatTooltipModule],
+  imports: [MatTabsModule, MatProgressSpinnerModule, MatProgressBarModule, MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent, AdddetailsComponent, AddtaskComponent, GeneralComponent, ArchiComponent, MatTooltipModule, SowaComponent, ResourcetableComponent, UpdatesComponent, HistoryComponent],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css'
 })
@@ -62,7 +71,7 @@ export class ProjectDetailsComponent {
   projectIdNumber2: number = 0;
   user: any = {};
   profileId: number =0;
-
+  imageUrl: string= 'http://localhost:8000';
   private url ="http://127.0.0.1:8000";
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
   private SortedUrl =`${this.url}`+'/api/sortedTask/'
@@ -91,8 +100,22 @@ export class ProjectDetailsComponent {
     
   }
 
+  selectedTabIndex: number = 0; 
   
+  tabChanged(event: any) {
+    // When the tab is changed, update the selectedTabIndex
+    this.selectedTabIndex = event.index;
+
+    // Store the new tab index in localStorage
+    localStorage.setItem('selectedTabIndex', this.selectedTabIndex.toString());
+  }
+
 ngOnInit(){
+
+    const storedIndex = localStorage.getItem('selectedTabIndex');
+    
+    // If there's a stored value, set it as the selected tab index, otherwise default to 0
+    this.selectedTabIndex = storedIndex ? +storedIndex : 0;
     
     Swal.fire({
       title: 'Loading...',
@@ -113,8 +136,8 @@ ngOnInit(){
 
     }
 
-    this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId') || ''; 
+    this.route.queryParams.subscribe(params => {
+      this.projectId =params['projectId'] || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
       console.log('Project ID:', this.projectId);
@@ -133,9 +156,12 @@ ngOnInit(){
   }
 
 
- 
+  closeSidenav() {
+    this.sideBarOpen = false;  // Close sidenav when modal opens
+  }
 
   constructor(
+        private dialog: MatDialog,
         private router: Router, 
         private route: ActivatedRoute,
         private http: HttpClient,) { }
@@ -154,6 +180,7 @@ ngOnInit(){
   }
 
   
+
   
   fetchAllTask() { 
     const token = localStorage.getItem('token'); 
@@ -193,7 +220,7 @@ ngOnInit(){
         
       // Calculate the used percentage
       this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
-
+        console.log('Used Budget Percentage:', this.usedBudgetPercentage);
       // Calculate the stroke-dashoffset based on the percentage
       this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
     Swal.close();
@@ -246,6 +273,20 @@ ngOnInit(){
 
   get progressPercentage(): number {
     return (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
+  }
+
+
+  openTaskModal() {
+    this.isTaskOpen = true;
+    console.log('Opening Task Modal');
+    console.log(this.isTaskOpen);
+    this.sideBarOpen = false; 
+  }
+
+  closeTaskModal() {
+    this.isTaskOpen = false;
+    console.log('xd');
+    this.sideBarOpen = true; 
   }
 
 }

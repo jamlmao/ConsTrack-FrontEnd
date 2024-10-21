@@ -1,4 +1,4 @@
-import { Component,Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Component,Directive, ElementRef, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -29,6 +29,7 @@ import html2canvas from 'html2canvas';
 import { GeneralComponent } from "../general/general.component";
 import { EditsubcategComponent } from "../editsubcateg/editsubcateg.component";
 import { EditcategoryComponent } from "../editcategory/editcategory.component";
+
 
 @Component({
   selector: 'app-sowa',
@@ -113,7 +114,7 @@ export class SowaComponent {
   
 
   categorizedTasks: { [key: string]: any[] } = {};
-  SortedTask: any = {};
+  Total: number = 0;
 
 
   ngOnInit(){
@@ -127,8 +128,8 @@ export class SowaComponent {
         }
       });
 
-    this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId') || ''; 
+      this.route.queryParams.subscribe(params => {
+        this.projectId = params['projectId'] || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
       console.log('Project ID:', this.projectIdNumber2);
@@ -157,8 +158,6 @@ export class SowaComponent {
   }
 
 
-
-
  
 
   constructor(
@@ -176,9 +175,9 @@ export class SowaComponent {
 
 
 
+  @Output() openModal: EventEmitter<void> = new EventEmitter();
 
-
-
+  @Output() closeModal: EventEmitter<void> = new EventEmitter();
 
 
 
@@ -194,13 +193,14 @@ export class SowaComponent {
     this.isTaskOpen = true;
     console.log('Opening Task Modal');
     console.log(this.isTaskOpen);
-    this.sideBarOpen = false; 
+    this.openModal.emit();
   }
 
   closeTaskModal() {
     this.isTaskOpen = false;
     console.log('xd');
-    this.sideBarOpen = true; 
+    this.sideBarOpen = true;
+    this.closeModal.emit();  
   }
 
   
@@ -311,7 +311,7 @@ export class SowaComponent {
 
 
   
-
+  
     
 
   fetchTaskByCategory(projectId: number) {
@@ -326,9 +326,9 @@ export class SowaComponent {
 
     this.http.get(this.taskByCategoryUrl + `${projectId}`, { headers }).subscribe(
     (response: any) => {
-      if (response && response.totalAllocatedBudgetPerCategory) {
-        this.SortedTask = response.totalAllocatedBudgetPerCategory;
-        console.log('Budget:', this.SortedTask);
+      if (response && response.totalAllocatedBudget) {
+        this.Total = response.totalAllocatedBudget;
+        console.log('Budget:', this.Total);
       
         
         
@@ -367,12 +367,17 @@ export class SowaComponent {
             if (category.tasks) {
               this.sortedTask.push({
                 id:category.category_id,
+                c_allocated_budget: category.c_allocated_budget,
                 name: categoryName,
                 tasks: category.tasks,
                 totalAllocatedBudget: category.totalAllocatedBudget,
-                previousCost: category.previous,
-                thisPeriodCost: category.thisperiod,
-                toDateCost: category.todate,
+                previousCost: category.previousCost,
+                thisPeriodCost: category.thisPeriodCost,
+                toDateCost: category.toDateCost,
+                previousCostT: category.previousCostTask,
+                thisPeriodCostT: category.thisPeriodCostTask,
+                toDateCostT: category.toDateCostTask,
+                
                 progress: category.progress
               });
             }
@@ -391,7 +396,6 @@ export class SowaComponent {
 
 
   }
-
 
   
 
@@ -432,7 +436,7 @@ export class SowaComponent {
   }
   
   selecttask(task: any) {
-    this.router.navigate(['/task-details', task.id]);
+    this.router.navigate(['/task-details'], { queryParams: { taskId: task.id } });
   }
  
   
@@ -498,14 +502,126 @@ openCreateProjectModal(categoryId: number){
   this.isCreateProjectModalOpen = true;
   console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
+  this.openModal.emit();
   
 }
+
+
+
+    removeCategory(categoryId: number): void {
+
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found in local storage');
+        return;
+      }
+
+      this.selectedCategoryId = categoryId;
+      const payload = { project_id: this.projectId };
+
+
+      console.log('Selected Category ID:', this.selectedCategoryId, payload);
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+        Swal.fire({
+          title: 'Loading...',
+          text: 'Submitting...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading(null);
+          }
+        });
+      this.http.put(this.url+'/api/category/remove/'+`${this.selectedCategoryId}`, payload, { headers }).subscribe(response =>{
+        console.log('Category removed successfully', response);
+        Swal.close();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Category removed successfully.",
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          window.location.reload();
+        });
+      },  error => {
+        console.error('Error adding task', error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error adding task. over the budget",
+        });
+      });
+    }
+
+      removeTask(taskId: number): void {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('No token found in local storage');
+            return;
+        }
+    
+        this.selectedTaskId = taskId;
+        const payload = { project_id: this.projectId };
+    
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to remove this task?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, remove it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+                Swal.fire({
+                    title: 'Loading...',
+                    text: 'Submitting...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading(null);
+                    }
+                });
+                this.http.put(this.url + '/api/task/remove/' + `${this.selectedTaskId}`, payload, { headers }).subscribe(response => {
+                    console.log('Task removed successfully', response);
+                    Swal.close();
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Task removed successfully.",
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                }, error => {
+                    console.error('Error removing task', error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Error",
+                    });
+                });
+            }
+        });
+    }
+
+
+
+    logTaskId(taskId: number): void {
+      console.log('Task ID:', taskId);
+  }
+
+
+
+
+
+
 
 closeCreateProjectModal() {
    this.isCreateProjectModalOpen = false;
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
     this.sideBarOpen = true; 
+    this.closeModal.emit();
 }
 
 openEditCategModal(categoryId: number):void{
@@ -513,6 +629,7 @@ openEditCategModal(categoryId: number):void{
   this.isEditCategModalOpen = true;
   console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
+  this.openModal.emit();
 }
 
 closeEditCategModal() :void {
@@ -520,6 +637,7 @@ closeEditCategModal() :void {
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
     this.sideBarOpen = true; 
+    this.closeModal.emit();
 }
 
 
@@ -529,6 +647,7 @@ openEditSubModal(taskId: number){
   this.isEditSubModalOpen = true;
   console.log('Selected Task ID:', this.selectedTaskId);
   this.sideBarOpen = false;
+  this.openModal.emit();
 }
 
 closeEditSubModal() {
@@ -536,6 +655,7 @@ closeEditSubModal() {
     this.selectedTaskId = null;
     this.selectedCategoryId = null;
     this.sideBarOpen = true; 
+    this.closeModal.emit();
 }
 
 

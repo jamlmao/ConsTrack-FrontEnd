@@ -12,11 +12,14 @@ import { Observable, tap, take } from 'rxjs';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-create-project',
   standalone: true,
-  imports: [SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [MatFormFieldModule,MatFormFieldModule,MatIconModule,SweetAlert2Module,FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './create-project.component.html',
   styleUrl: './create-project.component.css'
 })
@@ -189,14 +192,14 @@ export class CreateProjectComponent {
         };
         try {
             reader.readAsDataURL(file);
-        } catch (error) {
+
+         } catch (error) {
             console.error('Error starting file read:', error);
         }
     } else {
         console.warn('No file selected or file is not accessible');
     }
 }
- 
 
   onSubmit(): void {
     const token = localStorage.getItem('token');
@@ -209,7 +212,7 @@ export class CreateProjectComponent {
 
     const formData = new FormData();
     for (const key in this.project) {
-      if (this.project.hasOwnProperty(key)) {
+      if (this.project.hasOwnProperty(key) && this.project[key] !== null) {
         formData.append(key, this.project[key]);
       }
     }
@@ -224,7 +227,7 @@ export class CreateProjectComponent {
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
-          window.location.reload();
+          // window.location.reload();
         });
 
         this.closeModal();

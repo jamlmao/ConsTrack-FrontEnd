@@ -37,7 +37,7 @@
                                   <input class="form-control me-5" type="search" placeholder="Search for appointments" [(ngModel)]="searchText">
                                 </div>
                                 <div class="col-sm-2">
-                                  <button (click)="openTaskModal()"  class="btn btn-outline-dark">Add Schedule</button>
+                                  <button class="btn-grad" (click)="openTaskModal()">Add Schedule</button>
                                       <app-notavailable 
                                       *ngIf="isTaskOpen"  (close)="closeTaskModal()">
                                       </app-notavailable>
@@ -66,7 +66,9 @@
                 
                 
                 <div class="scheduler">
-                  <h1 style="font-size: 40px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Monthly Schedule for {{ currentDate | date: 'MMMM yyyy' }}</h1> 
+                  <h1 style="font-size: 40px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    Monthly Schedule for {{ currentDate | date: 'MMMM yyyy' }}
+                  </h1>
                   <table class="schedule-table">
                     <thead>
                       <tr>
@@ -77,24 +79,30 @@
                       <tr *ngFor="let week of calendarDaysInMonth">
                         <td *ngFor="let day of week">
                           <div class="day-cell">
-                         
                             <div class="day-number">{{ day.date | date: 'd' }}</div>
-                            <ng-container *ngIf="(day.date | date: 'yyyy-MM-dd') as dayKey; weeklySchedule[dayKey]?.length > 0; else noAppointments">
-                              <ul class="appointment-list" >
-                                <li *ngFor="let appointment of weeklySchedule[dayKey]">
-                                  <ng-container>{{ appointment.client_first_name }} {{ appointment.client_last_name }} <div>{{ appointment.client_phone_number || 'N/A' }}</div> </ng-container>
-                                </li>
-                              </ul>
+                            <ng-container *ngIf="(day.date | date: 'yyyy-MM-dd') as dayKey">
+                              <ng-container *ngIf="day.isAvailable; else notAvailable">
+                                <ng-container *ngIf="day.appointments.length > 0; else noAppointments">
+                                  <ul class="appointment-list">
+                                    <li *ngFor="let appointment of day.appointments">
+                                      {{ appointment.client_first_name }} {{ appointment.client_last_name }}
+                                      <div>0{{ appointment.client_phone_number || 'N/A' }}</div>
+                                    </li>
+                                  </ul>
+                                </ng-container>
+                              </ng-container>
                             </ng-container>
                             <ng-template #noAppointments>
                               <span class="no-appointments">No appointments</span>
+                            </ng-template>
+                            <ng-template #notAvailable>
+                              <span class="not-available">Not Available</span>
                             </ng-template>
                           </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
-
               </div>
 
 
@@ -133,7 +141,7 @@
                                     <td>{{ appointment.site_address || 'N/A' }},
                                         {{ appointment.site_city || 'N/A' }},
                                         {{ appointment.site_province || 'N/A' }}</td>
-                                        <td>{{ appointment.client_phone_number || 'N/A' }},
+                                        <td>0{{ appointment.client_phone_number || 'N/A' }}
                                     <td>{{ formatDateTime(appointment.appointment_datetime) }}</td>
                                     <td>{{ appointment.description }}</td>
                     

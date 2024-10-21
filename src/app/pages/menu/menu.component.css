@@ -27,7 +27,7 @@
    
 
 
-    button {
+    .btn {
     
     font-weight: 500;
     width: 200px; /* Your width */
@@ -35,7 +35,7 @@
     cursor: pointer;
 }
 
-button:hover {
+.btn:hover {
     transform: translateY(-2px); /* Hover effect for subtle lift */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
 }
@@ -70,8 +70,8 @@ input.mat-input-element:hover {
 
 /* Specifically target the Chrome/Edge light blue focus ring */
 input:-webkit-autofill {
-    box-shadow: 0 0 0px 1000px #e9e9eb inset !important; /* Removes autofill shadow */
-    -webkit-box-shadow: 0 0 0px 1000px #e9e9eb inset !important; /* Removes autofill shadow in webkit browsers */
+    box-shadow: 0 0 0px 1000px #ffffff inset !important; /* Removes autofill shadow */
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important; /* Removes autofill shadow in webkit browsers */
 }
 
 /* Remove focus background from Angular Material focus state */

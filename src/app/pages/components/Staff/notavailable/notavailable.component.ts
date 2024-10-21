@@ -5,7 +5,7 @@ import { RouterOutlet, Router, RouterModule, ActivatedRoute } from '@angular/rou
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -13,9 +13,10 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-notavailable',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule,HttpClientModule,RouterModule,FontAwesomeModule, RouterOutlet, CommonModule, ReactiveFormsModule,DatePipe],
   templateUrl: './notavailable.component.html',
-  styleUrl: './notavailable.component.css'
+  styleUrl: './notavailable.component.css',
+  providers: [DatePipe]
 })
 export class NotavailableComponent {
 
@@ -23,42 +24,41 @@ export class NotavailableComponent {
   isLoading = false; 
   @Output() close = new EventEmitter<void>();
    private baseUrl = 'http://127.0.0.1:8000';
-   category: any = {
-      category_name: '',
-      category_allocated_budget: '',
- 
-   }
-
-   projectId: string | null = null;
 
 
-  isCheckAll: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,private router: Router) {}
- 
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,private router: Router, private datePipe: DatePipe) {}
+
+  minDate: string= '';
   
-  private appointmentUrl = this.baseUrl + "api/staffappointments";
-  user: any;
-  staffList: any[] = [];
-  staff_id: number = 0;
-  description: string ="";
+
+  selectedDate: string = '';
+  selectedDates: string[] = [];
   appointment_datetime: string ="";
-  minDateTime: string = ''; 
+
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
 
 
   ngOnInit(): void {
     
-    
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
 
-    const now = new Date();
-    now.setDate(now.getDate() + 1); 
-    this.minDateTime = now.toISOString().slice(0, 16); 
+   
 
   }
 
 
+  addDate() {
+    if (this.selectedDate && !this.selectedDates.includes(this.selectedDate)) {
+      const formattedDate = this.datePipe.transform(this.selectedDate, 'MM-dd-yyyy'); // Format the date
+      if (formattedDate) {
+        this.selectedDates.push(formattedDate);
+      }
+      this.selectedDate = ''; // Clear the input field
+    }
+  }
 
 
   closeModal() {
@@ -67,102 +67,54 @@ export class NotavailableComponent {
 
 
 
-  isValidAppointment(dateTime: string): boolean {
-    const date = new Date(dateTime);
-    const hour = date.getHours();
-    const minutes = date.getMinutes();
-
-    // Check if the selected time falls within the allowed ranges
-    const isMorningTime = hour >= 7 && hour < 11; // 7 AM to 11 AM
-    const isAfternoonTime = hour >= 13 && hour < 17; // 1 PM to 5 PM
-
-    return isMorningTime || isAfternoonTime;
-  }
+  
 
 
-  onSubmit() {
-    if (this.isValidAppointment(this.appointment_datetime)) {
-      // Proceed with your submission logic
-      console.log('Appointment valid:', this.appointment_datetime);
-      // Add your appointment submission logic here
-    } else 
-    this.isLoading = true;
+  onSubmit() {  
     const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No token found');
-      this.isLoading = false;
+
+    if(!token) {
+      this.router.navigate(['/']);
       return;
     }
-  
-    // Validate form fields
-    if (!this.appointment_datetime) {
-      this.isLoading = false;
-      Swal.fire({
-        icon: 'warning',
-        title: 'Incomplete Form',
-        text: 'Please complete all fields before submitting.',
-        showConfirmButton: true
-      });
-      return;
-    }
-  
+
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+      'Authorization': `Bearer ${token}`
     });
+
+    if (!this.selectedDates || !Array.isArray(this.selectedDates)) {
+      console.error('selectedDates is not an array or is undefined');
+      return;
+    }
+
   
-    const appointmentDate = new Date(this.appointment_datetime);
-    const formattedDate = `${appointmentDate.getFullYear()}-${String(appointmentDate.getMonth() + 1).padStart(2, '0')}-${String(appointmentDate.getDate()).padStart(2, '0')} ${String(appointmentDate.getHours()).padStart(2, '0')}:${String(appointmentDate.getMinutes()).padStart(2, '0')}:${String(appointmentDate.getSeconds()).padStart(2, '0')}`;
+
+    const days = this.selectedDates.map(date => new Date(date).getDate());
+    console.log('Days:', days);
+
+    const payload = { dates: days };
+    console.log('Payload:', payload);
+
+    this.http.post(`${this.baseUrl}/api/insert-available-dates`,payload, { headers }).subscribe((response:any) => {
+      console.log(response);
+      Swal.fire({
+        title: 'Success',
+        text: 'Added successfully',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        this.closeModal();
+        window.location.reload();
+        this.router.navigate(['staff/appointment']);
+      });
+
+    }, (error) => {
+      console.error(error);
+    }
+  ); 
+
   
-    const appointmentData = {
-      appointment_datetime: formattedDate,
-    };
+
   
-    // Show loading Swal immediately
-    Swal.fire({
-      title: 'Submitting...',
-      text: 'Please wait while we process your request.',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
-    });
-  
-    this.http.post(this.appointmentUrl, appointmentData, { headers })
-      .subscribe(
-        response => {
-          console.log('Appointment request sent successfully', response);
-          this.isLoading = false;
-          this.router.navigateByUrl('/staff/shome').then(() => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Appointment request sent successfully.',
-              showConfirmButton: false,
-              timer: 2000
-            });
-          });
-          },
-          error => {
-            console.error('Error creating appointment', error);
-            this.isLoading = false;
-          
-            // Handle specific error messages
-            if (error.status === 400 && error.error.message.includes('The appointment date conflicts with another appointment in the same company')) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Duplicate Date',
-                text: 'Please pick another date for the appointment.',
-                showConfirmButton: true
-              });
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Failed to create appointment. Please try again.',
-                showConfirmButton: true
-              });
-            }
-          }
-      );
   }
 }

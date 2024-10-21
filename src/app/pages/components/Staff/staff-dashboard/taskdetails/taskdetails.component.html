@@ -56,6 +56,8 @@
                                     <strong>Completion Date:</strong>
                                     <span>{{tasks.pt_completion_date | date:'MM-dd-yyyy'}}</span>
                                 </div>
+                                
+                                
                                 <div class="info-item">
                                     <strong>Status:</strong>
                                     <span [ngClass]="{
@@ -66,37 +68,59 @@
                                     
                                 </div>
                             </div>
-                        </div>
-                    
-                        <!-- Estimated Materials Section -->
-                        <div class="table-wrapper card p-4 mb-4">
-                            <h2 >Estimated Resources <button class="btn btn-outline-dark" *ngIf="tasks.pt_status !=='C'" style="margin-left: 20px;"  (click)="openTaskModal(tasks.id)" >
-                                Update Task </button>
-                                  <app-archi *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-archi>
-                                  
-                                <button class="btn btn-outline-dark" *ngIf="tasks.percentage >= 95 && tasks.pt_status !== 'C'" style="margin-left: 20px;" (click)="CompleteTask(tasks.id)">
-                                   Complete Task </button>
+                            <div class="task-info-grid" style="margin-top: 10px;">
+                                <div class="info-item">
+                                    <strong>Budget:</strong>
+                                    <span>&#8369;{{budget | number: '1.2-2'}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Remaining Budget:</strong>
+                                    <span>&#8369;{{budget -remaining | number: '1.2-2'}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Percentage:</strong>
+                                    <div>{{ percentage | number: '1.2-2' }}%</div>
+                                    <mat-progress-bar mode="determinate" [value]="percentage" color="accent"></mat-progress-bar>
+                                </div>
+                                <div class="info-item">
+                                    <button class="btn btn-outline-dark ml-4 my-4" *ngIf="tasks.percentage >= 98 && tasks.pt_status !== 'C'"  (click)="CompleteTask(tasks.id)">
+                                        Complete Task </button>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <button class="btn btn-outline-dark  my-4" *ngIf="tasks.pt_status !=='C'" (click)="openTaskModal(tasks.id)" >
+                                        Update Task </button>
+                                    <app-archi *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-archi>
+                                          
+                                </div>
+
+                                
+                                
+                            </div>
+                            <h2 >
+                              
                         
                             </h2>
+                            <hr>
                          
-                            <table class="table modern-table">
+                            <table>
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Resources Name</th>
+                                  
+                                        <th>Resources</th>
                                         <th>Quantity</th>
-                                        <th>Resources Left</th>
-                                        <th *ngIf="tasks.pt_status !=='C'">Action</th>
+                                        <th>Remaining</th>
+                                        <th *ngIf="tasks.pt_status !=='C'" width="5"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let resource of resources; let i =index">
-                                        <td>{{i + 1}}</td>
+                                   
                                         <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
                                         <td>{{resource.qty}}</td>
                                         <td>{{resource.left_qty}}</td>
-                                        <td style="text-align: center;"> 
-                                            <a class="btn btn-outline-dark" (click)="openEditSubModal(resource.id)" class="view" *ngIf="tasks.pt_status !=='C'">Edit</a>
+                                        <td style="text-align: center;" *ngIf="tasks.pt_status !=='C'"> 
+                                            <a class="btn btn-dark" (click)="openEditSubModal(resource.id)" >Edit</a>
                                             <app-editresource *ngIf="isEditSubModalOpen"
                                             [resourceId]="selectedResource!"
                                             (close)="closeEditSubModal()"></app-editresource>
@@ -107,52 +131,52 @@
                             </table>
                         </div>
 
-                        <div class="container">
-                            <div class="cards-container d-flex flex-wrap justify-content-center">
-                              <div class="cards project-item card-custom m-3" *ngFor="let task of task_image" (click)="openModal(task.images)">
-                                <img [src]="'http://localhost:8000' + task.mainImage" alt="Project Image" class="card-image">
-                                <div class="project-details">
-                                  <h3><strong>{{task.uploaded_at}}</strong></h3>
-                                  <h3><strong>{{task.day}}</strong></h3>
-                                  <h3 style="margin-top: -30px; margin-bottom: -10px;"><strong>Completed</strong></h3>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModal()"></app-image-modal>
-                    
-                        <!-- Used Materials Section -->
-                        <div class="table-wrapper card p-4 mb-4">
-                            <h2>History Logs</h2>   
-                            
+                        <div class="col-12"><div class="table-wrapper card p-4 mb-4">
+                            <h2 >Resources Accomplishments 
+                             
+                        
+                            </h2>
+                         
                             <table class="table modern-table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Resources Name</th>
-                                        <th>Resources Used</th>
+                                        <th>Description</th>
+                                        <th>Resources</th>
                                         <th>Staff</th>
-                                        <th>Used At</th>
-                                     
+                                        <th>Date</th>
+                                        <th>Day</th>
+                                        <th>Picture</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let use of used_resources; let i =index">
+                                    <tr *ngFor="let task of task_image; let i = index">
                                         <td>{{i + 1}}</td>
-                                        <td style="text-transform: uppercase;">{{use.used_resource_name}}</td>
-                                        <td>{{use.resource_qty}}</td>
-                                        <td style="text-transform: uppercase;">{{use.first_name}} {{use.last_name}}</td>
-                                        <td>{{use.created_at | date:'MM-dd-yyyy'}}</td>
-                                        
-                                    </tr>
+                                        <td style="text-transform: uppercase;">
+                                          <div>{{task.description}}</div>
+                                          <div>&#8369;{{task.used_budget}}</div>
+                                        </td>
+                                        <td>
+                                          <ul>
+                                            <li *ngFor="let key of getObjectKeys(task.resources)" style="text-align: left;">
+                                              {{task.resources[key].name}} - {{task.resources[key].qty}}
+                                            </li>
+                                          </ul>
+                                        </td>
+                                        <td>{{task.staff_name}}</td>
+                                        <td>{{task.uploaded_at}}</td>
+                                        <td>{{task.day}}</td>
+                                        <td class="image-cell" (click)="openModal(task.images)">
+                                          <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="image">
+                                        </td>
+                                          
+                                        </tr>
+                                    <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModal()"></app-image-modal>
                                 </tbody>
                             </table>
-                        </div>
+                        </div></div>
 
-
-
-
+                 
 
 
 

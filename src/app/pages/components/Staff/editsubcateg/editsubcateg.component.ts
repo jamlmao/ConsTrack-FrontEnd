@@ -36,7 +36,7 @@ export class EditsubcategComponent {
     pt_task_name: '',
     pt_completion_date: '',
     pt_starting_date: '',
-    pt_photo_task: '',
+    pt_allocated_budget: '',
   };
 
 
@@ -48,35 +48,12 @@ export class EditsubcategComponent {
     this.close.emit();
   }
 
-  onFileChange(event: any, field: string): void {
-    const file = event.target.files[0];
-    if (file) {
-      console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === FileReader.DONE) {
-          // console.log(`File read successfully: ${file.name}`);
-          const base64String = reader.result as string;
-          if (base64String.startsWith('data:')) {
-            const base64Content = base64String.split(',')[1];
-            // console.log(`Base64 Encoded String: ${base64Content}`);
-            this.task[field] = base64Content;
-          } else {
-            console.error('The file content is not a valid base64 encoded string.');
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    } else {
-      console.warn('No file selected or file is not accessible');
-    }
-  }
-
+  
 
 
 
   onSubmit() {
-    if (!this.task.pt_task_name && !this.task.pt_starting_date && !this.task.pt_completion_date && !this.task.pt_photo_task) {
+    if (!this.task.pt_task_name && !this.task.pt_starting_date && !this.task.pt_completion_date && !this.task.pt_allocated_budget) {
       console.error('Form is invalid');
       return;
     }
@@ -89,17 +66,20 @@ export class EditsubcategComponent {
 
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
-    const formData = new FormData();
-    formData.append('pt_task_name', this.task.pt_task_name);
-    formData.append('pt_starting_date', this.task.pt_starting_date);
-    formData.append('pt_completion_date', this.task.pt_completion_date);
-    if (this.task.pt_photo_task) {
-      formData.append('pt_photo_task', this.task.pt_photo_task);
-    }
+  
 
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Submitting...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
 
-
-    this.http.put(`${this.editUrl}${this.taskId}`, formData, { headers }).subscribe(response => {
+    console.log('Form data:', this.task);
+    this.http.put(`${this.editUrl}${this.taskId}`, this.task, { headers }).subscribe(response => {
+      Swal.close();
       Swal.fire({
         position: "center",
         icon: "success",

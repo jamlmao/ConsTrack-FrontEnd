@@ -23,25 +23,32 @@
                         <div class="info-item">
                             <strong>Project Name:</strong>
                             <span style="text-transform: uppercase;margin-bottom: 30px;">{{ project.project_name }}</span>
-                            <strong>Project Status:</strong>
-                            <span>{{ project.status }}</span>
+                            <strong>Starting Date:</strong>
+                            <span>{{ project.starting_date }}</span>
                             
                         </div>
                         
-                        <div class="info-item">
-                            <strong>Starting Date:</strong>
-                            <span style="margin-bottom: 30px;">{{ project.starting_date }}</span>
+                        <div class="info-item" >
+                            
+                            <strong>Project Status:</strong>
+                            <span style="margin-bottom: 30px;">{{ project.status }}</span>
                             <strong>Completion Date:</strong>
                             <span>{{ project.completion_date }}</span>
                         </div>
+                      
+                    </div>
+                  
                        
-                        <div class="info-item">
-                            <strong>Project Image:</strong>
+                        
+                       
+                        <div class="info-item" style="margin-bottom: 50px;">
+                           
                             <span><img [src]="'http://localhost:8000' + project.pj_image" alt="project_image" style="width: 100%;" /> </span>
                             
                         </div>
-                    </div>
+            
                 </div>
+                
             
                 <!-- Estimated Materials Section -->
                
