@@ -15,8 +15,8 @@ import { MatMenuModule } from "@angular/material/menu";
 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
-import { ClientguideComponent } from "../clientguide/clientguide.component";
 import { UserService } from '../../../../../user.service';
+import { ClientguideComponent } from "../clientguide/clientguide.component";
 
 
 @Component({

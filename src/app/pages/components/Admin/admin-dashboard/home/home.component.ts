@@ -19,7 +19,6 @@ import { FormsModule } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-acct.component";
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
-import { CreateComponent } from "../create/create.component";
 
 import { Chart,registerables } from 'chart.js';
 import { first, last, take, tap } from 'rxjs';
@@ -30,7 +29,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, SidenavComponent, CreateComponent, HeaderComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CreateStaffAcctComponent, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, SidenavComponent, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

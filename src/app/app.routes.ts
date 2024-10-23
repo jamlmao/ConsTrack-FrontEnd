@@ -10,10 +10,8 @@ import { AccountComponent } from './pages/components/Admin/admin-dashboard/accou
 import { HeaderComponent } from './pages/components/Admin/admin-dashboard/header/header.component';
 import { SidenavComponent } from './pages/components/Admin/admin-dashboard/sidenav/sidenav.component';
 import { TaskComponent } from './pages/components/Admin/admin-dashboard/task/task.component';
-import { DocumentsComponent } from './pages/components/Admin/admin-dashboard/documents/documents.component';
 import { ShomeComponent } from './pages/components/Staff/staff-dashboard/shome/shome.component';
 import { ChomeComponent } from './pages/components/Client/client-dashboard/chome/chome.component';
-import { AddComponent } from './pages/components/Admin/admin-dashboard/add/add.component';
 import { FeedbackComponent } from './pages/components/Client/client-dashboard/feedback/feedback.component';
 import { ViewstatusComponent } from './pages/components/Client/client-dashboard/viewstatus/viewstatus.component';
 import { ViewprojectComponent } from './pages/components/Client/client-dashboard/viewproject/viewproject.component';
@@ -24,7 +22,6 @@ import { StaffdocumentsComponent } from './pages/components/Staff/staff-dashboar
 import { StaffprofileComponent } from './pages/components/Staff/staff-dashboard/staffprofile/staffprofile.component';
 import { TimelineComponent } from './pages/components/Staff/staff-dashboard/timeline/timeline.component';
 import { ClientprofileComponent } from './pages/components/Client/client-dashboard/clientprofile/clientprofile.component';
-import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
 import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
 import { TaskdetailsComponent } from './pages/components/Staff/staff-dashboard/taskdetails/taskdetails.component';
 import { WebsiteComponent } from './website/website.component';
@@ -88,11 +85,7 @@ export const routes: Routes = [
         component: TaskComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'admin/document',
-        component: DocumentsComponent,
-        canActivate: [AuthGuard]
-    },
+    
     
     {
         path: 'staff/shome',
@@ -109,11 +102,7 @@ export const routes: Routes = [
         component: ChomeComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'admin/add',
-        component: AddComponent,
-        canActivate: [AuthGuard]
-    },
+    
     {
         path: 'client/feedback',
         component: FeedbackComponent,
@@ -173,11 +162,7 @@ export const routes: Routes = [
         component: ClientprofileComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'admin/profile',
-        component: AdminprofileComponent,
-        canActivate: [AuthGuard]
-    },
+    
     {
         path: 'project-details',
         component: ProjectDetailsComponent,
