@@ -14,7 +14,6 @@ import { ShomeComponent } from './pages/components/Staff/staff-dashboard/shome/s
 import { ChomeComponent } from './pages/components/Client/client-dashboard/chome/chome.component';
 import { FeedbackComponent } from './pages/components/Client/client-dashboard/feedback/feedback.component';
 import { ViewstatusComponent } from './pages/components/Client/client-dashboard/viewstatus/viewstatus.component';
-import { ViewprojectComponent } from './pages/components/Client/client-dashboard/viewproject/viewproject.component';
 import { StaffclientaccComponent } from './pages/components/Staff/staff-dashboard/staffclientacc/staffclientacc.component';
 import { StaffaddComponent } from './pages/components/Staff/staff-dashboard/staffadd/staffadd.component';
 import { StafftaskComponent } from './pages/components/Staff/staff-dashboard/stafftask/stafftask.component';
@@ -26,7 +25,6 @@ import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboar
 import { TaskdetailsComponent } from './pages/components/Staff/staff-dashboard/taskdetails/taskdetails.component';
 import { WebsiteComponent } from './website/website.component';
 import { ClientupdatesComponent } from './pages/components/Client/client-dashboard/clientupdates/clientupdates.component';
-import { TaskclientupdateComponent } from './pages/components/Client/client-dashboard/taskclientupdate/taskclientupdate.component';
 import { SowaComponent } from './pages/components/Staff/sowa/sowa.component';
 import { ResourcetableComponent } from './pages/components/Staff/resourcetable/resourcetable.component';
 import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
@@ -119,11 +117,6 @@ export const routes: Routes = [
         component: ViewstatusComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'client/viewproject/:projectId',
-        component: ViewprojectComponent,
-        canActivate: [AuthGuard]
-    },
     
     {
         path: 'staff/users',
@@ -205,11 +198,6 @@ export const routes: Routes = [
     {
         path: 'updates',
         component: ClientupdatesComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'client/task-details/:taskId',
-        component: TaskclientupdateComponent,
         canActivate: [AuthGuard]
     },
 ];
