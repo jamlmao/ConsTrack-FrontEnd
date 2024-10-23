@@ -9,17 +9,14 @@ import { HomeComponent } from './pages/components/Admin/admin-dashboard/home/hom
 import { AccountComponent } from './pages/components/Admin/admin-dashboard/account/account.component';
 import { HeaderComponent } from './pages/components/Admin/admin-dashboard/header/header.component';
 import { SidenavComponent } from './pages/components/Admin/admin-dashboard/sidenav/sidenav.component';
-import { TaskComponent } from './pages/components/Admin/admin-dashboard/task/task.component';
 import { ShomeComponent } from './pages/components/Staff/staff-dashboard/shome/shome.component';
 import { ChomeComponent } from './pages/components/Client/client-dashboard/chome/chome.component';
 import { FeedbackComponent } from './pages/components/Client/client-dashboard/feedback/feedback.component';
 import { ViewstatusComponent } from './pages/components/Client/client-dashboard/viewstatus/viewstatus.component';
 import { StaffclientaccComponent } from './pages/components/Staff/staff-dashboard/staffclientacc/staffclientacc.component';
 import { StaffaddComponent } from './pages/components/Staff/staff-dashboard/staffadd/staffadd.component';
-import { StafftaskComponent } from './pages/components/Staff/staff-dashboard/stafftask/stafftask.component';
 import { StaffdocumentsComponent } from './pages/components/Staff/staff-dashboard/staffdocuments/staffdocuments.component';
 import { StaffprofileComponent } from './pages/components/Staff/staff-dashboard/staffprofile/staffprofile.component';
-import { TimelineComponent } from './pages/components/Staff/staff-dashboard/timeline/timeline.component';
 import { ClientprofileComponent } from './pages/components/Client/client-dashboard/clientprofile/clientprofile.component';
 import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
 import { TaskdetailsComponent } from './pages/components/Staff/staff-dashboard/taskdetails/taskdetails.component';
@@ -78,12 +75,6 @@ export const routes: Routes = [
         component: SidenavComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'admin/task',
-        component: TaskComponent,
-        canActivate: [AuthGuard]
-    },
-    
     
     {
         path: 'staff/shome',
@@ -127,11 +118,6 @@ export const routes: Routes = [
         path: 'staff/add',
         component: StaffaddComponent,
         canActivate: [AuthGuard]
-    },
-    {
-        path: 'staff/task',
-        component: StafftaskComponent,
-        canActivate: [AuthGuard]
     }
     ,
     {
@@ -144,12 +130,7 @@ export const routes: Routes = [
         component: StaffprofileComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'staff/timeline',
-        component: TimelineComponent,
-        canActivate: [AuthGuard]
-    }
-    ,
+   
     {
         path: 'client/profile',
         component: ClientprofileComponent,
@@ -177,11 +158,6 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     
-    {
-        path: 'timeline/:id',
-        component: TimelineComponent,
-        canActivate: [AuthGuard]
-    },
 
     {
         path: 'Constrack/website',
