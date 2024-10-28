@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth } from 'date-fns';
 import { ClientappointComponent } from "../clientappoint/clientappoint.component";
-
+import { AppConfig } from '../../../../../app.config'; 
 @Component({
   selector: 'app-feedback',
   standalone: true,
@@ -33,8 +33,8 @@ import { ClientappointComponent } from "../clientappoint/clientappoint.component
   styleUrl: './feedback.component.css'
 })
 export class FeedbackComponent {
-  private baseUrl = "http://127.0.0.1:8000/";
-  private appointmentUrl = this.baseUrl + "api/appointments";
+  private baseUrl = AppConfig.baseUrl;
+  private appointmentUrl = this.baseUrl + "/api/appointments";
   user: any;
   staffList: any[] = [];
   staff_id: number = 0;
@@ -64,7 +64,7 @@ export class FeedbackComponent {
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
-      console.log(this.user);
+   //   console.log(this.user);
     } else {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
@@ -102,9 +102,9 @@ export class FeedbackComponent {
 
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
 
-    this.http.get<any>(this.baseUrl+"api/fetchstaff", { headers })
+    this.http.get<any>(this.baseUrl+"/api/fetchstaff", { headers })
       .subscribe((response: any) => {
-        console.log('Staff fetched successfully', response);
+       // console.log('Staff fetched successfully', response);
         if (response && Array.isArray(response.staff)) {
           this.staffList = response.staff; // Assuming the array is in response.data
         } else {
@@ -128,11 +128,11 @@ export class FeedbackComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(`${this.baseUrl}api/staff/appointments`, { headers }).subscribe(
+    this.http.get(`${this.baseUrl}/api/staff/appointments`, { headers }).subscribe(
       (response: any) => {
         if (response && Array.isArray(response.appointments)) {
           this.appointments = response.appointments;
-        console.log('Appointmentss:', this.appointments);
+       // console.log('Appointmentss:', this.appointments);
           this.organizeAppointmentsByMonth();
           this.generateCalendarDays(new Date().getFullYear(), new Date().getMonth());
         } else {
@@ -149,24 +149,24 @@ export class FeedbackComponent {
         console.error('No token found');
         return;
     }
-    console.log(token)
+ //   console.log(token)
     const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(`${this.baseUrl}api/client/available-dates`, { headers }).subscribe(
+    this.http.get(`${this.baseUrl}/api/client/available-dates`, { headers }).subscribe(
         (response: any) => {
-            console.log(response);
+         //   console.log(response);
             const availableDates = response.available_dates
                 .filter((dateObj: any) => dateObj.status === 'Available')
                 .map((dateObj: any) => dateObj.available_date);
 
             this.available_dates = availableDates;
-            console.log('Available Dates:', this.available_dates);
+         //   console.log('Available Dates:', this.available_dates);
 
             if (response.available_dates && response.available_dates.length > 0) {
                 this.appointments2 = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
-                console.log('Appointments:', this.appointments2);
+           //     console.log('Appointments:', this.appointments2);
             } else {
                 console.error('No appointments found in response');
             }
@@ -194,7 +194,7 @@ export class FeedbackComponent {
           week.push({ date: null, isAvailable: false, appointments: [] });
       }
 
-      const formatter = new Intl.DateTimeFormat('en-CA', {
+      const formatter = new Intl.DateTimeFormat('en-US', {
           timeZone: 'Asia/Manila',
           year: 'numeric',
           month: '2-digit',
@@ -299,7 +299,7 @@ export class FeedbackComponent {
       }
     });
 
-    this.http.put(this.baseUrl + `api/appointments/${appointmentId}/status`, { status }, { headers }).subscribe((response: any) => {
+    this.http.put(this.baseUrl + `/api/appointments/${appointmentId}/status`, { status }, { headers }).subscribe((response: any) => {
       if (response && response.status) {
         Swal.close();
         const appointment = this.appointments.find(a => a.id === appointmentId);
@@ -328,24 +328,24 @@ export class FeedbackComponent {
 
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
+//    console.log('Opening Create Staff Modal');
+   // console.log(this.isCreateStaffModalOpen);
   }
 
   closeCreateStaffModal() {
     this.isCreateStaffModalOpen = false;
-    console.log('xd');
+  //  console.log('xd');
   }
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
+  //  console.log('Opening Create Staff Modal');
+  //  console.log(this.isCreateClientModalOpen);
   }
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
-    console.log('xd');
+  //  console.log('xd');
   }
 
   sideBarOpen=true;
@@ -358,14 +358,14 @@ export class FeedbackComponent {
 
   openTaskModal() {
     this.isTaskOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isTaskOpen);
+ //   console.log('Opening Task Modal');
+ //   console.log(this.isTaskOpen);
     this.sideBarOpen = false; 
   }
 
   closeTaskModal() {
     this.isTaskOpen = false;
-    console.log('xd');
+   // console.log('xd');
     this.sideBarOpen = true; 
   }
 
@@ -374,7 +374,7 @@ export class FeedbackComponent {
   onSubmit() {
     if (this.isValidAppointment(this.appointment_datetime)) {
       // Proceed with your submission logic
-      console.log('Appointment valid:', this.appointment_datetime);
+   //   console.log('Appointment valid:', this.appointment_datetime);
       this.invalidTimeSelected = false; // Reset the invalid time flag
       // Add your appointment submission logic here
     } else {
@@ -426,7 +426,7 @@ export class FeedbackComponent {
     this.http.post(this.appointmentUrl, appointmentData, { headers })
       .subscribe(
         response => {
-          console.log('Appointment request sent successfully', response);
+        // console.log('Appointment request sent successfully', response);
           this.isLoading = false;
           this.router.navigateByUrl('/client/chome').then(() => {
             Swal.fire({

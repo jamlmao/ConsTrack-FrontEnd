@@ -25,7 +25,7 @@ import { Chart,registerables } from 'chart.js';
 import { first, forkJoin, last, take, tap } from 'rxjs';
 Chart.register(...registerables);
 import Swal from 'sweetalert2';
-
+import { AppConfig } from '../../../../../app.config';
 @Component({
   selector: 'app-shome',
   standalone: true,
@@ -54,15 +54,15 @@ export class ShomeComponent implements OnInit {
     }
   }
   chart : any;
-  private baseUrl ='http://127.0.0.1:8000/'
-  private staffUrl = this.baseUrl+'api/staff-with-extension';
-  private clientsUrl = this.baseUrl+'api/clients';
-  private projectsUrl = this.baseUrl+ 'api/staff/projects';
-  private userUrl = this.baseUrl+'api/user/details';
-  private companyProjectsUrl = this.baseUrl+'api/CompanyProjects';
-  private projectCountUrl = this.baseUrl+'api/projectsPM';
-  private ProjectYearUrl = this.baseUrl+'api/projectsY';
-  private clientCountUrl = this.baseUrl+'api/clients-count-by-month';
+  private baseUrl =AppConfig.baseUrl
+  private staffUrl = this.baseUrl+'/api/staff-with-extension';
+  private clientsUrl = this.baseUrl+'/api/clients';
+  private projectsUrl = this.baseUrl+ '/api/staff/projects';
+  private userUrl = this.baseUrl+'/api/user/details';
+  private companyProjectsUrl = this.baseUrl+'/api/CompanyProjects';
+  private projectCountUrl = this.baseUrl+'/api/projectsPM';
+  private ProjectYearUrl = this.baseUrl+'/api/projectsY';
+  private clientCountUrl = this.baseUrl+'/api/clients-count-by-month';
  
   projects: any[] = [];
   staff: any[] = [];

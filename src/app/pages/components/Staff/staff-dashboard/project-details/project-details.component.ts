@@ -38,7 +38,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdatesComponent } from "../../updates/updates.component";
 import { HistoryComponent } from "../../history/history.component";
-
+import { AppConfig } from '../../../../../app.config';
 
 
 @Component({
@@ -71,15 +71,15 @@ export class ProjectDetailsComponent {
   projectIdNumber2: number = 0;
   user: any = {};
   profileId: number =0;
-  imageUrl: string= 'http://localhost:8000';
-  private url ="http://127.0.0.1:8000";
+  imageUrl = AppConfig.imageUrl;
+  private url =AppConfig.baseUrl;
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
   private SortedUrl =`${this.url}`+'/api/sortedTask/'
   private allTask = `${this.url}`+'/api/Alltask';
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
   private updateProjectUrl = `${this.url}`+'/api/projects/';
-  private userUrl = this.url+'api/user/details';
+  private userUrl = this.url+'/api/user/details';
 
   projectDetails: any = {};
 
@@ -140,8 +140,8 @@ ngOnInit(){
       this.projectId =params['projectId'] || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
-      console.log('Project ID:', this.projectId);
-      console.log('Project ID2:',  this.projectIdNumber2);
+     // console.log('Project ID:', this.projectId);
+      //console.log('Project ID2:',  this.projectIdNumber2);
 
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectDetails(projectIdNumber);
@@ -193,7 +193,7 @@ ngOnInit(){
     this.http.get(this.allTask, { headers }).subscribe(
       (response: any) => {
         this.alltask = response.alltasks;
-        console.log('All tasks:', this.alltask);
+     //   console.log('All tasks:', this.alltask);
       }
     );
 
@@ -215,12 +215,12 @@ ngOnInit(){
     this.http.get(this.projectDetailsUrl + `${projectId}`, { headers }).subscribe(
       (response: any) => {
         this.projectDetails = response.project;
-        console.log('Project Details:', this.projectDetails);
+       // console.log('Project Details:', this.projectDetails);
         this.circumference = 2 * Math.PI * this.radius;
         
       // Calculate the used percentage
       this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
-        console.log('Used Budget Percentage:', this.usedBudgetPercentage);
+      //  console.log('Used Budget Percentage:', this.usedBudgetPercentage);
       // Calculate the stroke-dashoffset based on the percentage
       this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
     Swal.close();
@@ -251,7 +251,7 @@ ngOnInit(){
 
     this.http.put(this.updateProjectUrl + `${projectId}/update-status`,{},  { headers }).subscribe(
       (response: any) => {
-        console.log('Project updated:', response);
+     //   console.log('Project updated:', response);
         Swal.fire({
           icon: 'success',
           title: 'Project updated successfully',
@@ -278,14 +278,14 @@ ngOnInit(){
 
   openTaskModal() {
     this.isTaskOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isTaskOpen);
+  //  console.log('Opening Task Modal');
+  //  console.log(this.isTaskOpen);
     this.sideBarOpen = false; 
   }
 
   closeTaskModal() {
     this.isTaskOpen = false;
-    console.log('xd');
+  //  console.log('xd');
     this.sideBarOpen = true; 
   }
 

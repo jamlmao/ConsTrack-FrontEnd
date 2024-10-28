@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-
+import { AppConfig } from '../../../../app.config';
 @Component({
   selector: 'app-general',
   standalone: true,
@@ -24,7 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 export class GeneralComponent {
 
   @Output() close = new EventEmitter<void>();
-   private baseUrl = 'http://127.0.0.1:8000';
+   private baseUrl : string;
    category: any = {
       category_name: '',
       category_allocated_budget: '',
@@ -51,12 +51,14 @@ export class GeneralComponent {
 
   isCheckAll: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute) {
+    this.baseUrl= `${AppConfig.baseUrl}`;
+  }
    
   ngOnInit():void {
     this.route.queryParams.subscribe(params => {
       this.projectId = params['projectId'];
-      console.log ('Project ID:', this.projectId);
+      //console.log ('Project ID:', this.projectId);
     } );
   }
   
@@ -87,7 +89,7 @@ export class GeneralComponent {
     
     const payload = this.category;
   
-    console.log
+  
     
     this.http.post(`${this.baseUrl}/api/addCategory/${this.projectId}`, payload, { headers })
       .subscribe(

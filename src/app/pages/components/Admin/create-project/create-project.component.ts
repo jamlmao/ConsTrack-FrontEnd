@@ -15,7 +15,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-
+import { AppConfig } from '../../../../app.config'; 
 @Component({
   selector: 'app-create-project',
   standalone: true,
@@ -53,10 +53,10 @@ export class CreateProjectComponent {
   loggedInUser: any = null;
 
 
-  private addUrl = 'http://127.0.0.1:8000/api/addproject';
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
-  private staffUrl = 'http://127.0.0.1:8000/api/staff-with-extension';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private addUrl = AppConfig.baseUrl+'/api/addproject';
+  private clientsUrl = AppConfig.baseUrl+'/api/clients';
+  private staffUrl = AppConfig.baseUrl+'/api/staff-with-extension';
+  private userUrl = AppConfig.baseUrl+'/api/user/details';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
@@ -65,7 +65,7 @@ export class CreateProjectComponent {
     this.fetchClients(); // Fetch clients when the component is initialized
     this.fetchStaff(); // Fetch staff when the component is initialized
     this.getLoggedInUserNameAndId(); // Fetch logged-in user information
-    console.log('Project data on init:', this.project);
+    // console.log('Project data on init:', this.project);
     
   }
 
@@ -76,7 +76,7 @@ export class CreateProjectComponent {
   getLoggedInUserNameAndId(): void {
     const token = localStorage.getItem('token');
     if (!token) {
-      console.error('No token found in local storage');
+      // console.error('No token found in local storage');
       return;
     }
 
@@ -87,10 +87,10 @@ export class CreateProjectComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.loggedInUser = response.staff;
-        console.log('Logged in user:', this.loggedInUser);
+        // console.log('Logged in user:', this.loggedInUser);
       },
       error => {
-        console.error('Error fetching user details', error);
+        // console.error('Error fetching user details', error);
       }
     );
   }
@@ -102,21 +102,21 @@ export class CreateProjectComponent {
     fetchStaff(): void {
       const token = localStorage.getItem('token');
       if (!token) {
-        console.error('No token found in local storage');
+        // console.error('No token found in local storage');
         return;
       }
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
       this.http.get(this.staffUrl, { headers }).subscribe(
         (response: any) => {
           if (response.status) {
-            console.log('Staff fetched successfully:', response.staff_with_extension);
+            // console.log('Staff fetched successfully:', response.staff_with_extension);
             this.staff = response.staff_with_extension;
           } else {
-            console.error('Failed to fetch staff');
+            // console.error('Failed to fetch staff');
           }
         },
         error => {
-          console.error('Error fetching staff', error);
+          // console.error('Error fetching staff', error);
         }
       );
     
@@ -126,7 +126,7 @@ export class CreateProjectComponent {
   fetchClients(): void {
     const token = localStorage.getItem('token');
     if (!token) {
-      console.error('No token found in local storage');
+      // console.error('No token found in local storage');
       return;
     }
   
@@ -137,7 +137,7 @@ export class CreateProjectComponent {
     this.http.get<any>(this.clientsUrl, { headers })
     .pipe(
       tap(response => {
-        console.log('Full response:', response);
+        // console.log('Full response:', response);
         if (response && Array.isArray(response.clients)) {
           // Filter out duplicate clients based on the 'id' property
           const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
@@ -145,17 +145,17 @@ export class CreateProjectComponent {
           );
           this.clients = uniqueClients;
         } else {
-          console.error('Unexpected response format:', response);
+          // console.error('Unexpected response format:', response);
           this.clients = [];
         }
-        console.log('Fetched clients:', this.clients);
+        // console.log('Fetched clients:', this.clients);
       }),
       take(1) // This will ensure the observable completes after the first emission
     )
     .subscribe(
       () => {},
       error => {
-        console.error('Error fetching clients:', error);
+        // console.error('Error fetching clients:', error);
       }
     );
   }
@@ -164,7 +164,7 @@ export class CreateProjectComponent {
   onFileChange(event: any, field: string): void {
     const file = event.target.files[0];
     if (file) {
-        console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
+        // console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
         const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === FileReader.DONE) {
@@ -219,7 +219,7 @@ export class CreateProjectComponent {
 
     this.http.post(this.addUrl, formData, { headers }).subscribe(
       response => {
-        console.log('Project added successfully', response);
+        // console.log('Project added successfully', response);
         Swal.fire({
           position: "center",
           icon: "success",

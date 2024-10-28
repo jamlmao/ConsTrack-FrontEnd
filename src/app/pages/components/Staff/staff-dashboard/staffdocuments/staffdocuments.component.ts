@@ -23,6 +23,7 @@ import { CreateProjectComponent } from "../../../Admin/create-project/create-pro
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from '../../../../../filter.pipe';
+import { AppConfig } from '../../../../../app.config';
 @Component({
   selector: 'app-staffdocuments',
   standalone: true,
@@ -41,13 +42,13 @@ export class StaffdocumentsComponent {
 
   openCreateProjectModal() {
     this.isCreateProjectModalOpen = true;
-    console.log('Opening Create Staff Project');
-    console.log(this.isCreateProjectModalOpen);
+   // console.log('Opening Create Staff Project');
+   // console.log(this.isCreateProjectModalOpen);
   }
 
   closeCreateProjectModal() {
     this.isCreateProjectModalOpen = false;
-    console.log('xd');
+   // console.log('xd');
   }
  
 
@@ -96,9 +97,10 @@ export class StaffdocumentsComponent {
   clients: any[] = [];
 
 
-
-  private clientsUrl = 'http://127.0.0.1:8000/api/clients';
-  
+  private baseUrl= AppConfig.baseUrl;
+  private clientsUrl = this.baseUrl+'/api/clients';
+  private projectsUrl = this.baseUrl+'/api/staff/projects';
+  private userUrl = this.baseUrl+'/api/user/details';
   
 
   openForm(): void {
@@ -119,7 +121,7 @@ export class StaffdocumentsComponent {
     this.http.get(this.clientsUrl, { headers }).subscribe(
       (response: any) => {
         this.clients = response;
-        console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
+      //  console.log('Fetched clients:', this.clients); // Assuming the response has a 'clients' field
       },
       error => {
         console.error('Error fetching clients', error);
@@ -138,8 +140,7 @@ export class StaffdocumentsComponent {
 
 
   
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+ 
 
   selectedProject: any;
   userS: any = {};
@@ -159,7 +160,7 @@ export class StaffdocumentsComponent {
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
         this.projects = response;
-        console.log('Fetched projects:', this.projects);
+      //  console.log('Fetched projects:', this.projects);
         
       },
       error => {
@@ -190,7 +191,7 @@ export class StaffdocumentsComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+     //   console.log('Logged in user:', this.user);
       },
       error => {
         console.error('Error fetching user details', error);

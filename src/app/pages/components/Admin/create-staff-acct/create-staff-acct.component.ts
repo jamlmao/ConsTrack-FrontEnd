@@ -10,7 +10,7 @@ import intlTelInput from 'intl-tel-input';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+import { AppConfig } from '../../../../app.config'; 
 
 @Component({
   selector: 'app-create-staff-acct',
@@ -23,9 +23,9 @@ export class CreateStaffAcctComponent implements OnInit {
       @Output() close = new EventEmitter<void>();
 
       staff: StaffObj;
-      private baseUrl = 'http://127.0.0.1:8000/';
-      private registerStaffUrl = this.baseUrl+'api/registerS';
-      private companyUrl = this.baseUrl+'api/companies';
+      private baseUrl = AppConfig.baseUrl;
+      private registerStaffUrl = this.baseUrl+'/api/registerS';
+      private companyUrl = this.baseUrl+'/api/companies';
       selectedCompany: string = '';
       companies:any[]= []
 
@@ -34,7 +34,7 @@ export class CreateStaffAcctComponent implements OnInit {
       }
       
       ngOnInit():void {
-        console.log('Component initialized');
+
         const inputElement = document.getElementById('phone_number');
         if(inputElement){
           intlTelInput(inputElement,{
@@ -133,8 +133,8 @@ export class CreateStaffAcctComponent implements OnInit {
 
       onSubmit() {
         this.formSubmitted = true;
-        console.log('Form Data:', this.staff);
-      console.log('Phone Number Length:', this.staff.phone_number.length);
+        // console.log('Form Data:', this.staff);
+      // console.log('Phone Number Length:', this.staff.phone_number.length);
         const token = localStorage.getItem('token');
         if (!token) {
           console.error('No auth token found');
@@ -143,7 +143,7 @@ export class CreateStaffAcctComponent implements OnInit {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         this.http.post(this.registerStaffUrl, this.staff, { headers }).subscribe(
           response => {
-            console.log('Staff created successfully', response);
+            // console.log('Staff created successfully', response);
             Swal.fire({
               position: "center",
               icon: "success",

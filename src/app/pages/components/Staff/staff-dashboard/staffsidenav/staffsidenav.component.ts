@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
 import { GuidemodalComponent } from "../../guidemodal/guidemodal.component";
 import { UserService } from '../../../../../user.service';
+import { AppConfig } from '../../../../../app.config';
 
 
 
@@ -45,9 +46,9 @@ export class StaffsidenavComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private logoutUrl = this.baseUrl+'api/logout';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private baseUrl = AppConfig.baseUrl;
+  private logoutUrl = this.baseUrl+'/api/logout';
+  private userUrl = this.baseUrl+'/api/user/details';
 
   constructor(private router: Router, private http: HttpClient,private userService: UserService) { }
 
@@ -56,7 +57,7 @@ export class StaffsidenavComponent {
     if (this.userService.isFirstLogin()) {
       this.openModalI2(); // Automatically open the modal
       this.userService.setFirstLogin();
-      console.log('First time login'); // Mark that the user has logged in
+    //  console.log('First time login'); // Mark that the user has logged in
     }
 
     this.loadMessages();
@@ -83,7 +84,7 @@ export class StaffsidenavComponent {
       Authorization: `Bearer ${token}`
     });
 
-    this.http.get<any>(this.baseUrl+'api/notifications', { headers }).subscribe(
+    this.http.get<any>(this.baseUrl+'/api/notifications', { headers }).subscribe(
       (response) => {
 
         this.clientCount = response.client_count;
@@ -91,7 +92,7 @@ export class StaffsidenavComponent {
           id: index + 1,
           text: `Client ${appointment.first_name} ${appointment.last_name} requested a meeting on ${this.formatDate(appointment.appointment_datetime)}`
         }));
-        console.log('Messages loaded successfully', this.messages);
+      //  console.log('Messages loaded successfully', this.messages);
       },
       (error) => {
         console.error('Error fetching notifications', error);
@@ -125,7 +126,7 @@ export class StaffsidenavComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+      //  console.log('Logged in user:', this.user);
         
       },
       error => {
@@ -162,7 +163,7 @@ export class StaffsidenavComponent {
 
     this.http.get(this.baseUrl + 'api/notifications', { headers }).subscribe(
       (response: any) => {
-        console.log('Notifications fetched successfully', response);
+     //   console.log('Notifications fetched successfully', response);
       },
       error => {
         console.error('Error fetching notifications', error);
@@ -186,7 +187,7 @@ export class StaffsidenavComponent {
 
     this.http.post(this.logoutUrl, {}, { headers }).subscribe(
       (response: any) => {
-        console.log('Logout response:', response);
+    //    console.log('Logout response:', response);
       },
       error => {
         console.error('Error logging out', error);
@@ -216,13 +217,13 @@ sideBarOpen: boolean= false;
   closeModalI2(): void {
     this.isModalVisible = false;
     this.sideBarOpen = true; 
-    console.log(this.sideBarOpen)
+    //console.log(this.sideBarOpen)
     
   }
   
   resetLoginStatus(): void {
     this.userService.resetFirstLogin();
-    console.log('First login status reset.'); // Log for confirmation
+   // console.log('First login status reset.'); // Log for confirmation
   }
 
 

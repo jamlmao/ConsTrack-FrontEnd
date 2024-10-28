@@ -23,6 +23,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from '../../../../../filter.pipe';
 import { SidenavComponent } from "../sidenav/sidenav.component";
 import { HeaderComponent } from "../header/header.component";
+import { AppConfig } from '../../../../../app.config'; 
 
 @Component({
   selector: 'app-add',
@@ -38,10 +39,9 @@ export class AddComponent {
   searchText:any;
   user: any;
 
-  private baseUrl = 'http://127.0.0.1:8000';
-  private clientsUrl = this.baseUrl+'/api/clients';
-  private projectsUrl = this.baseUrl + '/api/admin/projects';
-  private userUrl = this.baseUrl +'/api/user/details';
+ 
+  private projectsUrl :string;
+  private userUrl :string;
   isCreateProjectModalOpen = false;
   
 
@@ -58,7 +58,11 @@ export class AddComponent {
   }
  
 
-  constructor(private router: Router , public dialog: MatDialog,private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private router: Router , public dialog: MatDialog,private fb: FormBuilder, private http: HttpClient) { 
+    this.projectsUrl = AppConfig.baseUrl + '/api/admin/projects';
+    this.userUrl = AppConfig.baseUrl +'/api/user/details';
+    
+  }
 
 
   

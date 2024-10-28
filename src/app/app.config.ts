@@ -5,5 +5,12 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync()]
+  providers: [provideRouter(routes), provideAnimationsAsync()],
+ 
+};
+
+export const AppConfig = {
+  baseUrl: 'http://127.0.0.1:8000',
+  imageUrl: 'http://localhost:8000'
+
 };

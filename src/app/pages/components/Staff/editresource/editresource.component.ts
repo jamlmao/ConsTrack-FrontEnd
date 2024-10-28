@@ -8,6 +8,9 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import Swal from 'sweetalert2';
+import { AppConfig } from '../../../../app.config';
+
+
 @Component({
   selector: 'app-editresource',
   standalone: true,
@@ -22,8 +25,8 @@ export class EditresourceComponent {
     
     this.close.emit();
   }
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private editUrl = this.baseUrl+'api/tasks/';
+ 
+  private editUrl:string;
 
   taskId :string = '';
 
@@ -33,14 +36,16 @@ export class EditresourceComponent {
     unit_cost:'',
   }
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+    this.editUrl = `${AppConfig.baseUrl}/api/tasks/`;
+  }
   
   ngOnInit(): void {
-    console.log('Fetched resourceId:', this.resourceId);
+  //  console.log('Fetched resourceId:', this.resourceId);
    this.route.paramMap.subscribe(params => {
       this.taskId = params.get('taskId')|| '';
       const taskIdNumber = Number(this.taskId);
-      console.log('Task ID:', this.taskId);
+    //  console.log('Task ID:', this.taskId);
 
     });
 

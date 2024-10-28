@@ -26,7 +26,7 @@ import { FilterPipe } from '../../../../../filter.pipe';
 import { TimelineModule } from "primeng/timeline";
 
 import { CardModule } from "primeng/card";
-
+import { AppConfig } from '../../../../../app.config';
 @Component({
   selector: 'app-timeline',
   standalone: true,

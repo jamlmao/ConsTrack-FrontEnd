@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AppConfig } from '../../../../../app.config'; 
 @Component({
   selector: 'app-clientappoint',
   standalone: true,
@@ -23,9 +24,9 @@ export class ClientappointComponent {
   @Output() close = new EventEmitter<void>();
 
 
-  private baseUrl = "http://127.0.0.1:8000/";
+  private baseUrl = AppConfig.baseUrl;
 
-  private appointmentUrl = this.baseUrl + "api/appointments";
+  private appointmentUrl = this.baseUrl + "/api/appointments";
   user: any;
   staffList: any[] = [];
   staff_id: number = 0;
@@ -55,7 +56,7 @@ export class ClientappointComponent {
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData);
-      console.log(this.user);
+      // console.log(this.user);
     } else {
       // If no user data is found, redirect to login
       this.router.navigateByUrl('/');
@@ -71,7 +72,7 @@ export class ClientappointComponent {
     });
 
     const now = new Date();
-    now.setDate(now.getDate() + 1); 
+    now.setDate(now.getDate() - 1); 
     this.minDateTime = now.toISOString().slice(0, 16); 
     this.fetchAvailableDates();
   }
@@ -81,7 +82,7 @@ export class ClientappointComponent {
   onSubmit() {
     if (this.isValidAppointment(this.appointment_datetime)) {
       // Proceed with your submission logic
-      console.log('Appointment valid:', this.appointment_datetime);
+      // console.log('Appointment valid:', this.appointment_datetime);
       this.invalidTimeSelected = false; // Reset the invalid time flag
       // Add your appointment submission logic here
     } else {
@@ -135,7 +136,7 @@ export class ClientappointComponent {
     this.http.post(this.appointmentUrl, appointmentData, { headers })
       .subscribe(
         response => {
-          console.log('Appointment request sent successfully', response);
+          // console.log('Appointment request sent successfully', response);
           this.isLoading = false;
           this.router.navigateByUrl('/client/chome').then(() => {
             Swal.fire({
@@ -181,20 +182,20 @@ export class ClientappointComponent {
 
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
 
-    this.http.get(`${this.baseUrl}api/client/available-dates`, { headers }).subscribe(
+    this.http.get(`${this.baseUrl}/api/client/available-dates`, { headers }).subscribe(
       (response: any) => {
         Swal.close();
-          console.log(response);
+        //  console.log(response);
           const availableDates = response.available_dates
               .filter((dateObj: any) => dateObj.status === 'Available')
               .map((dateObj: any) => dateObj.available_date);
 
           this.available_dates = availableDates;
-          console.log('Available Dates:', this.available_dates);
+        //  console.log('Available Dates:', this.available_dates);
 
           if (response.available_dates && response.available_dates.length > 0) {
               this.appointments2 = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
-              console.log('Appointments:', this.appointments2);
+             // console.log('Appointments:', this.appointments2);
           } else {
               console.error('No appointments found in response');
           }
@@ -208,33 +209,37 @@ export class ClientappointComponent {
 
 
   dateFilter = (date: Date | null): boolean => {
-    const dateString = date ? date.toISOString().split('T')[0] : '';
-    return this.available_dates.includes(dateString);
+    if (!date) return false;
+    const formattedDate = this.formatDateToDatetimeLocal(date).split('T')[0];
+    return this.available_dates.includes(formattedDate);
   };
-
-
+  
   dateClass = (date: Date): string => {
-    const dateString = date.toISOString().split('T')[0];
-    return this.available_dates.includes(dateString) ? 'available-date' : '';
+    const formattedDate = this.formatDateToDatetimeLocal(date).split('T')[0];
+    return this.available_dates.includes(formattedDate) ? 'available-date' : '';
   };
 
   formatted_appointment_datetime: string | null = null;
   onDateChange(event: any): void {
     const date = event.value;
     if (date) {
-      this.formatted_appointment_datetime = this.formatDateToDatetimeLocal(date);
+        // Convert the date to Manila timezone
+        const manilaDate = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
+        // Subtract one day
+        manilaDate.setDate(manilaDate.getDate() - 1);
+        // Format the adjusted date
+        this.formatted_appointment_datetime = this.formatDateToDatetimeLocal(manilaDate);
     }
-  }
+}
 
-  formatDateToDatetimeLocal(date: Date): string {
+formatDateToDatetimeLocal(date: Date): string {
     const pad = (n: number) => n < 10 ? '0' + n : n;
     return date.getFullYear() + '-' +
            pad(date.getMonth() + 1) + '-' +
            pad(date.getDate()) + 'T' +
            pad(date.getHours()) + ':' +
            pad(date.getMinutes());
-  }
-
+}
 
   isValidAppointment(dateTime: string): boolean {
     const date = new Date(dateTime);
@@ -258,9 +263,9 @@ export class ClientappointComponent {
 
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
 
-    this.http.get<any>(this.baseUrl+"api/fetchstaff", { headers })
+    this.http.get<any>(this.baseUrl+"/api/fetchstaff", { headers })
       .subscribe((response: any) => {
-        console.log('Staff fetched successfully', response);
+     //   console.log('Staff fetched successfully', response);
         if (response && Array.isArray(response.staff)) {
           this.staffList = response.staff; // Assuming the array is in response.data
         } else {

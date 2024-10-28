@@ -16,6 +16,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AppConfig } from '../../../../app.config'; 
 
 @Component({
   selector: 'app-create-client-acct',
@@ -27,18 +28,19 @@ import { MatInputModule } from '@angular/material/input';
 export class CreateClientAcctComponent implements OnInit {
     faYoutube = faYoutube;
     @Output() close = new EventEmitter<void>();
-    private baseUrl = 'http://127.0.0.1:8000/';
-    private addClient = this.baseUrl+'api/registerC';
+   
+    private addClient :string;
     registerForm!:FormGroup;
     client: ClientObj; 
 
     constructor(private http: HttpClient) {
       this.client = new ClientObj();
+      this.addClient = AppConfig.baseUrl + '/api/registerC';
     }
 
 
     ngOnInit():void {
-      console.log('Component initialized');
+ //     console.log('Component initialized');
       const inputElement = document.getElementById('phone_number');
       if(inputElement){
         intlTelInput(inputElement,{
@@ -78,7 +80,7 @@ export class CreateClientAcctComponent implements OnInit {
 
         this.http.post(this.addClient, this.client, { headers }).subscribe(
           response => {
-            console.log('Client created successfully', response);
+        //    console.log('Client created successfully', response);
             Swal.close();
             Swal.fire({
               position: "center",
