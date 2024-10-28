@@ -61,7 +61,7 @@ export class MenuComponent {
           localStorage.setItem('token', token);
          //  console.log('Token:', token);
         } else {
-          console.error('Token not found in the response');
+       //   console.error('Token not found in the response');
         }
     
         const storedUser = localStorage.getItem('user');
@@ -111,7 +111,7 @@ export class MenuComponent {
         }
       },
       (error) => {
-        console.error('API call error:', error); // Log any errors from the API call
+      //  console.error('API call error:', error); // Log any errors from the API call
         Swal.fire({
           icon: "error",
           title: "Oops...",
