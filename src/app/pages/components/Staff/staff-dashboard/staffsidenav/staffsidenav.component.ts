@@ -161,7 +161,7 @@ export class StaffsidenavComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(this.baseUrl + 'api/notifications', { headers }).subscribe(
+    this.http.get(this.baseUrl + '/api/notifications', { headers }).subscribe(
       (response: any) => {
      //   console.log('Notifications fetched successfully', response);
       },
