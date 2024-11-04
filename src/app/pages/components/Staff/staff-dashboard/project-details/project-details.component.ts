@@ -77,7 +77,7 @@ export class ProjectDetailsComponent {
   private SortedUrl =`${this.url}`+'/api/sortedTask/'
   private allTask = `${this.url}`+'/api/Alltask';
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
-  private projectDetailsUrl = `${this.url}`+'/api/projectD/';
+  private projectDetailsUrl = `${this.url}`+'/api ';
   private updateProjectUrl = `${this.url}`+'/api/projects/';
   private userUrl = this.url+'/api/user/details';
 
@@ -113,7 +113,7 @@ export class ProjectDetailsComponent {
 ngOnInit(){
 
     const storedIndex = localStorage.getItem('selectedTabIndex');
-    
+   
     // If there's a stored value, set it as the selected tab index, otherwise default to 0
     this.selectedTabIndex = storedIndex ? +storedIndex : 0;
     

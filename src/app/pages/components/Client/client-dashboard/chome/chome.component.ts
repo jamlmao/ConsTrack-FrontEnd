@@ -128,7 +128,8 @@ export class ChomeComponent {
 
 
   selectProject(project: any) {
-    this.router.navigate(['client/viewstatus', project.id]);
+    console.log('Selected project:', project.id);
+    this.router.navigate(['client/viewstatus', project.id]); // make this if click make it update the column for isPSeen to 1 in the database 
   }
  
 

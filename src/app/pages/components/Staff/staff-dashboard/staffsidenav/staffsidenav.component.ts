@@ -46,9 +46,11 @@ export class StaffsidenavComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
+  imageUrl = AppConfig.imageUrl;
   private baseUrl = AppConfig.baseUrl;
   private logoutUrl = this.baseUrl+'/api/logout';
   private userUrl = this.baseUrl+'/api/user/details';
+
 
   constructor(private router: Router, private http: HttpClient,private userService: UserService) { }
 
@@ -126,7 +128,7 @@ export class StaffsidenavComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-      //  console.log('Logged in user:', this.user);
+      console.log('Logged in user:', this.user);
         
       },
       error => {
