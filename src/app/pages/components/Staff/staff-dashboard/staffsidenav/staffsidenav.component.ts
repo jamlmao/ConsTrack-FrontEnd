@@ -128,7 +128,7 @@ export class StaffsidenavComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-      console.log('Logged in user:', this.user);
+     // console.log('Logged in user:', this.user);
         
       },
       error => {
