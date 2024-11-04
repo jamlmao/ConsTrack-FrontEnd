@@ -337,7 +337,8 @@ export class ArchiComponent {
      //     console.log('Task updated successfully', response);
           this.closeModal();
       },error => {
-        console.error('Error updating task', error);
+        console.clear();
+        // console.error('Error updating task', error);
         this.closeModal();
       }
     );

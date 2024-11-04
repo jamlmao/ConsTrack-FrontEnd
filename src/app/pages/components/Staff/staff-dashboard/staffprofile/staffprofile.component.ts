@@ -90,6 +90,7 @@ export class StaffprofileComponent {
       //  console.log('Fetched projects:', this.projects);
       },
       error => {
+        console.clear();
         console.error('Error fetching projects', error);
       }
     );
@@ -118,6 +119,7 @@ export class StaffprofileComponent {
         
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );

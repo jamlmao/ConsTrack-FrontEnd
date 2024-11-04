@@ -307,6 +307,9 @@ export class AppointmentComponent {
           confirmButtonText: 'OK'
         });
       }
-    }, error => { Swal.close();});
+    }, error => { 
+      console.clear();
+      Swal.close();
+    });
   }
 }

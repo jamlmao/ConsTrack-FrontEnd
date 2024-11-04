@@ -159,6 +159,7 @@ export class ShomeComponent implements OnInit {
 
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );
@@ -225,6 +226,7 @@ export class ShomeComponent implements OnInit {
           
         },
         error => {
+          console.clear();
           console.error('Error fetching projects:', error);
         }
       );
@@ -270,6 +272,7 @@ export class ShomeComponent implements OnInit {
         .subscribe(
           () => {},
           error => {
+            console.clear();
             console.error('Error fetching clients:', error);
           }
         );
@@ -413,6 +416,7 @@ export class ShomeComponent implements OnInit {
         .subscribe(
           () => {},
           error => {
+            console.clear();
             console.error('Error fetching projects per year:', error);
           }
         );
@@ -492,6 +496,7 @@ export class ShomeComponent implements OnInit {
         .subscribe(
           () => {},
           error => {
+            console.clear();
             console.error('Error fetching projects per month:', error);
           }
         );
@@ -566,6 +571,7 @@ export class ShomeComponent implements OnInit {
             }
           },
           error => {
+            console.clear();
             // console.error('Error fetching clients per month:', error);
           }
         );

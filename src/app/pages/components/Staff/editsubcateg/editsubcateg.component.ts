@@ -91,7 +91,8 @@ export class EditsubcategComponent {
       });
       this.closeModal();
     }, (error) => {
-      console.error('Error:', error);
+      console.clear();
+      // console.error('Error:', error);
     });
   }
 }

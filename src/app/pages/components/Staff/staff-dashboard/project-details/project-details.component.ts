@@ -147,6 +147,7 @@ ngOnInit(){
         this.fetchProjectDetails(projectIdNumber);
         
       } else {
+        console.clear();
         console.error('Project ID is not set or is not a number');
       }
     });
@@ -226,7 +227,8 @@ ngOnInit(){
     Swal.close();
       },
       (error) => {
-        console.error('Failed to fetch project details', error);
+        console.clear();
+        // console.error('Failed to fetch project details', error);
       }
     );
   }
@@ -261,6 +263,7 @@ ngOnInit(){
         });
       },
       error => {
+        console.clear();
         console.error('Error updating project', error);
         Swal.fire({
           icon: 'error',

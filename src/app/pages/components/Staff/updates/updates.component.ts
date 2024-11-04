@@ -146,6 +146,7 @@ constructor( private http: HttpClient, private router: Router,
        // console.log('Task Image:', this.task_image);
       }
     },(error: any) => {
+      console.clear();
       console.error('Error fetching task images:', error);
     }
   );

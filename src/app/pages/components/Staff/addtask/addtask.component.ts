@@ -164,6 +164,7 @@ export class AddtaskComponent {
         this.closeModal();
       },  error => {
         console.error('Error adding task', error);
+        console.clear();
         Swal.fire({
           icon: "error",
           title: "Oops...",

@@ -201,6 +201,7 @@ export class ClientappointComponent {
           }
       },
       (error: any) => {
+        console.clear();
           console.error('Error fetching available dates:', error);
       }
   );
@@ -272,6 +273,7 @@ formatDateToDatetimeLocal(date: Date): string {
           console.error('No staff found or response format is incorrect');
         }
       }, error => {
+        console.clear();
         console.error('Error fetching staff', error);
       });
   }

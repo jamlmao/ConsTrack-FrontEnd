@@ -98,7 +98,8 @@ export class EditprofileComponent {
 
         },
         error => {
-          console.error('Error fetching user details', error);
+          console.clear();
+          // console.error('Error fetching user details', error);
         }
       );
     }
@@ -154,7 +155,8 @@ export class EditprofileComponent {
         this.closeModal();
       },
       error => {
-        console.error('Error updating client account', error);
+        console.clear();
+        // console.error('Error updating client account', error);
         Swal.fire({
           icon: "error",
           title: "Oops...",

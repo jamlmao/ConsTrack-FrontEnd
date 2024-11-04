@@ -106,6 +106,7 @@ export class GeneralComponent {
           this.closeModal();
         },
         error => {
+          console.clear();
           Swal.fire({
             icon: "error",
             title: "Oops...",

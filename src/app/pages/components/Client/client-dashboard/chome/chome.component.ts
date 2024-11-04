@@ -88,6 +88,7 @@ export class ChomeComponent {
         // console.log('Logged in user:', this.user);
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );
@@ -118,6 +119,7 @@ export class ChomeComponent {
         }
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );

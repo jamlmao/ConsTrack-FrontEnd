@@ -95,7 +95,8 @@ export class CreateClientAcctComponent implements OnInit {
             this.closeModal();
           },
           error => {
-            console.error('Error creating client account', error);
+            console.clear();
+            // console.error('Error creating client account', error);
             Swal.fire({
               icon: "error",
               title: "Oops...",

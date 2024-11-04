@@ -340,6 +340,7 @@ pageSize: number = 1; // Example page siz
      //   console.log('Logged in user:', this.user);
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );

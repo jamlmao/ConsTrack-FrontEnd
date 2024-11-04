@@ -101,7 +101,8 @@ export class ClientprofileComponent {
         this.projects = response;
        // console.log('Fetched projects:', this.projects);
       },
-      error => {
+      error => { 
+         console.clear();
         console.error('Error fetching projects', error);
       }
     );
@@ -128,6 +129,7 @@ export class ClientprofileComponent {
       //  console.log('Logged in user:', this.user);
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );

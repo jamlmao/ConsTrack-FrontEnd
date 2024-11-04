@@ -177,6 +177,7 @@ export class StafftoolbarComponent {
      //   console.log('Logout response:', response);
       },
       error => {
+        console.clear();
         console.error('Error logging out', error);
       }
     );

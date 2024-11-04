@@ -222,7 +222,8 @@ getStatusText(status: string): string {
      //   console.log('Project Details:', this.projectDetails);
       },
       (error) => {
-        console.error('Failed to fetch project details', error);
+        console.clear();
+        // console.error('Failed to fetch project details', error);
       }
     );
   }
@@ -273,7 +274,8 @@ getStatusText(status: string): string {
 
       },
       (error) => {
-        console.error('Failed to fetch project tasks', error);
+        console.clear();
+        // console.error('Failed to fetch project tasks', error);
       }
     );
   }

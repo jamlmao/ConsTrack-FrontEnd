@@ -148,7 +148,8 @@ fetchHistory(projectId: number){
    //   console.log('Task Image:', this.task_image);
     }
   },(error: any) => {
-    console.error('Error fetching task images:', error);
+    console.clear();
+    // console.error('Error fetching task images:', error);
   }
 );
 }

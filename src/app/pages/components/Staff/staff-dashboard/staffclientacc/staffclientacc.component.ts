@@ -103,6 +103,7 @@ export class StaffclientaccComponent {
     .subscribe(
       () => {},
       error => {
+        console.clear();
         console.error('Error fetching clients:', error);
       }
     );
