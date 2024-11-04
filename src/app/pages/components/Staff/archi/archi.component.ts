@@ -331,13 +331,13 @@ export class ArchiComponent {
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
-          // window.location.reload();
+           window.location.reload();
           this.closeModal();
         });
      //     console.log('Task updated successfully', response);
           this.closeModal();
       },error => {
-        console.clear();
+        // console.clear();
         // console.error('Error updating task', error);
         this.closeModal();
       }

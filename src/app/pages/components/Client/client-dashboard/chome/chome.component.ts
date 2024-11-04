@@ -129,7 +129,26 @@ export class ChomeComponent {
 
   selectProject(project: any) {
     console.log('Selected project:', project.id);
-    this.router.navigate(['client/viewstatus', project.id]); // make this if click make it update the column for isPSeen to 1 in the database 
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    const payload = { project_id: project.id };
+
+    this.http.post(this.baseUrl + '/api/ClientTaskisSeen', payload,{ headers }).subscribe((response: any) => {
+      this.router.navigate(['client/viewstatus', project.id]); 
+    }, error => {
+      console.error('Failed to fetch project details', error);
+    });
+   
+// make this if click make it update the column for isPSeen to 1 in the database 
+
+
+
+
+    
   }
  
 

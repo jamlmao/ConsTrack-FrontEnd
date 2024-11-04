@@ -73,7 +73,7 @@
                                     'inactive': client?.user_status === 'Not Active'
                                   }">{{client.user_status}}</span></td>
                                 
-                                <td>{{client.last_logged_in_at}}</td>
+                                <td>{{client.last_logged_in_at}} - {{client.viewed_project}}</td>
                                 <td style="text-align: center;">
                                     
                                         <a (click)="openEditModal(client.id)" class="view">Edit</a>
