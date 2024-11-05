@@ -19,17 +19,19 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
+import { EditpassComponent } from "../../editpass/editpass.component";
+import { AppConfig } from '../../../../../app.config';
 @Component({
   selector: 'app-staffprofile',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditpassComponent],
   templateUrl: './staffprofile.component.html',
   styleUrl: './staffprofile.component.css'
 })
 export class StaffprofileComponent {
 
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private projectsUrl = AppConfig.baseUrl+'/api/staff/projects';
+  private userUrl = AppConfig.baseUrl+'/api/user/details';
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
@@ -49,6 +51,19 @@ export class StaffprofileComponent {
     this.getLoggedInUserNameAndId(); //Fetch logged in user
   }
 
+  isEditSubModalOpen = false;
+
+  openEditSubModal(){
+   
+    this.isEditSubModalOpen = true;
+   // console.log('Selected Category ID:');
+    this.sideBarOpen = false;
+  }
+  
+  closeEditSubModal() {
+     this.isEditSubModalOpen = false;
+      this.sideBarOpen = true; 
+  }
 
   sideBarOpen=true;
   sideBarToggler(){
@@ -62,7 +77,7 @@ export class StaffprofileComponent {
       return;
     }
 
-    console.log('Token:', token);
+    //console.log('Token:', token);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -70,11 +85,12 @@ export class StaffprofileComponent {
 
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
-        console.log('Full response:', response);
+        //console.log('Full response:', response);
         this.projects = response;
-        console.log('Fetched projects:', this.projects);
+      //  console.log('Fetched projects:', this.projects);
       },
       error => {
+        console.clear();
         console.error('Error fetching projects', error);
       }
     );
@@ -99,9 +115,11 @@ export class StaffprofileComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+       //console.log('Logged in user:', this.user);
+        
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );

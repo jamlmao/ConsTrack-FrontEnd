@@ -1,31 +1,66 @@
 <app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
 <mat-drawer-container>
-    <mat-drawer mode="over" [opened]="sideBarOpen">
+    <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-clientsidenav></app-clientsidenav>
     </mat-drawer>
     <mat-drawer-content>
         
         <router-outlet></router-outlet>
-        
-           <div>
-            <main>
-                <h1>Dashboard</h1>
-                <div class="date">
-                    <input type="date">
-                </div>
 
+        
+
+        <div class="scheduler">
+            
+            <div class="d-flex justify-content-between align-items-center " style="margin-bottom: 20px;">
+                <h1 style="font-size: 40px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; margin: 0;">
+                  Monthly Schedule for {{ currentDate | date: 'MMMM yyyy' }}
+                </h1>
                 <div>
-                    <div>
-                        <span><mat-icon>home</mat-icon></span>
-                        <div class="middle"></div>
-                            <div class="left">
-                                <h3>total users</h3>
-                                <h1>123123</h1>
-                            </div>
-                    </div>
+                  <button (click)="openTaskModal()" class="btn btn-danger">Appoint</button>
+                  <app-clientappoint *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-clientappoint>
                 </div>
-            </main>
-           </div>
+            </div>
+              
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th *ngFor="let dayName of dayNames" style="font-size: 20px; vertical-align: middle;">{{ dayName }}</th> <!-- Display day names (Sun, Mon, etc.) -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let week of calendarDaysInMonth">
+                  <td *ngFor="let day of week">
+                    <div class="day-cell">
+                      <div class="day-number">{{ day.date | date: 'd' }}</div>
+                      <ng-container *ngIf="(day.date | date: 'yyyy-MM-dd') as dayKey">
+                        <ng-container *ngIf="day.isAvailable; else notAvailable">
+                          <ng-container *ngIf="day.appointments.length > 0; else noAppointments">
+                            <ul class="appointment-list">
+                              <li *ngFor="let appointment of day.appointments">
+                                {{ appointment.client_first_name }} {{ appointment.client_last_name }}
+                                <div>0{{ appointment.client_phone_number || 'N/A' }}</div>
+                              </li>
+                            </ul>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #noAppointments>
+                        <span class="no-appointments">Available</span>
+                      </ng-template>
+                      <ng-template #notAvailable>
+                        <span class="not-available">Not Available</span>
+                      </ng-template>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        
+        
+      
+        
+
         
             
 

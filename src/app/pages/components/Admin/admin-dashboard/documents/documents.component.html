@@ -4,25 +4,53 @@
         <app-sidenav></app-sidenav>
     </mat-drawer>
     <mat-drawer-content>
+        
         <router-outlet></router-outlet>
-        <div class="d-flex align-items-center justify-content-between py-3 ">
-           
-            <button (click)="openCreateStaffModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Staff</button>
-            <app-create-staff-acct 
-                    *ngIf="isCreateStaffModalOpen" (close)="closeCreateStaffModal()">
-            </app-create-staff-acct>
-            <button (click)="openCreateClientModal()"  type="button"  class="btn-grad btn-outline-dark mx-md-4">Create Client</button>
-                <app-create-client-acct 
-                        *ngIf="isCreateClientModalOpen" (close)="closeCreateClientModal()">
-                </app-create-client-acct> 
-            
+        <div class="row">
+            <div class="container-fluid align-items-center">
 
-                
-          </div>
-
-       
-          <div class="d-flex align-items-center justify-content-center pb-4">
+                <div class="title">
+                    <p>Welcome to your Projects</p>
+                    <h1><span>PROJECT</span> LISTS</h1>      
                 </div>
+                <div class="align-items-center">         
+                </div>
+                  
+                <div class="col-12 col-xl-6">
+                    
+                    
+                  </div>
+                </div>
+
+            
+          
+         
+          
+          
+        </div>
+        
+
+        <div class="projects-container">
+
+        
+        <div class="cards project-item" *ngFor="let project of completeItems">
+            <div *ngIf="project.status === 'C'">
+                <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
+                <p>Project Type: {{ project.project_name }} </p>
+              <p>Status: {{ project.status }}</p>
+            
+                 
+                    <p>Starting Date: {{ project.starting_date }} </p>
+                    <p>Completion Date: {{ project.completion_date }} </p>
+                    <p>Total Budget: {{ project.totalBudget }} </p>
+                   
+            </div>
+          </div>
+        </div>
+          
+            
+                
+                <router-outlet></router-outlet>
             
         
         <router-outlet></router-outlet>

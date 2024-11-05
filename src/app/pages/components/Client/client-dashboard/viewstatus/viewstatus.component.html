@@ -1,130 +1,219 @@
+
 <app-clienttoolbar (toggleSidebarForMe)="sideBarToggler()"></app-clienttoolbar>
 <mat-drawer-container>
-    <mat-drawer mode="over" [opened]="sideBarOpen">
+    <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-clientsidenav></app-clientsidenav>
     </mat-drawer>
     <mat-drawer-content>
-        
         <router-outlet></router-outlet>
         
            <section class="">
-            <div class="containers">
-                <div class="title">
-                    <p>Welcome to your Project</p>
-                    <h1><span>PROJECT</span> UPDATE</h1>
+            <div class="container">
 
-                </div>
-                <div class="row row-cols-1">
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    
-
-                </div>
-                <div class="row row-cols-1">
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            
-                              
-                                    <img src="assets/cons.png" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h1 class="card-title">Update 1</h1>
-                                        <p class="card-text">asdhasdhjadh</p>
-
-                                    </div>
-                            
-
-                        </div>
-
-                    </div>
-                    
-
-                </div>
                 
                 
 
-            </div>
+                <body >
+                    <div class="d-flex justify-content-center" style="background-color: rgb(148, 144, 144); margin-top: 0px;margin-left: -20px; margin-right: -20px;">
+                        <div class="carousel slide carousel-fade" id="carouselExampleIndicators" data-bs-ride="carousel" data-bs-interval="4000">
+                            
+                            <div class="carousel-inner">
+                              <div class="carousel-item active scrollable-image">
+                                  <img [src]="imageUrl + projectDetails.pj_image" alt="Clickable Image" class="clickable-image">
+                              </div>
+                              <div class="carousel-item scrollable-image">
+                                  <img [src]="imageUrl + projectDetails.pj_image1" alt="Project Image" class="clickable-image">
+                              </div>
+                              <div class="carousel-item scrollable-image">
+                                  <img [src]="imageUrl + projectDetails.pj_image2" alt="Project Image" class="clickable-image">
+                              </div>
+                          </div>
+                           
+                        </div>
+                    </div>
+                      
+                      <nav class="navbar navbar-expand-lg navbar-light bg-white py-5">
+                        
+                        <div class="container">
+                            
+                            
 
-           </section>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 0px;margin-top: -90px;">
+                               
+                            </div>
+                            <div class="circle" style="margin-right: -20px; margin-top: -900px;">
+                                <svg>
+                                  <circle cx="50" cy="50" r="45" [ngStyle]="{'stroke-dasharray': circumference + 'px'}"></circle>
+                                  <circle cx="50" cy="50" r="45" class="progress" [style.stroke-dashoffset]="strokeDashOffset + 'px'"></circle>
+                                </svg>
+                                <div class="percentage" style="font-weight: bold; font-size: 25px; margin-top: 15px; margin-right: 10px;">
+                                  {{ usedBudgetPercentage | number: '1.0-0' }}%
+                                </div>
+                              </div>
+                              
+                        </div>
+                    </nav>
+                 
+                    <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="tabChanged($event)" class="custom-tab-group" style="margin-top: -100px;" >
+                        <mat-tab label="SOWA"> 
+                      
+                        
+                       
+                           
+                         
+                              
+                 
+    
+                        <div class="containers">
+                            <div class="table-wrapper">
+                                <div class="row">
+                                <div class="col-sm-8">      
+                                
+                            
+                            </div> 
+                            <div class="col-2">
+                                <button (click)="generatePDF()" class="btn btn-outline-dark">Download PDF</button> 
+                            </div>
+                            
+                            
+                        </div>
+                
+                        <div id="pdfContent">
+    
+                            <h2 style="margin-bottom: 0px;" class="text-center">
+                                <a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_name}}</a>
+                              </h2>
+                            
+                            <div class="d-flex justify-content-between">
+                                <!-- Left Column -->
+                                <div>
+                                  
+                                  <h4 style="margin-bottom: 0px;">
+                                    Project Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.project_type}}</a>
+                                  </h4>
+                                  <h4 style="margin-bottom: 0px;">
+                                    Owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">MR/MRS. {{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</a>
+                                  </h4>
+                                </div>
+                              
+                                <!-- Right Column -->
+                                <div>
+                                  <h4 style="margin-bottom: 0px;">
+                                    Budget:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{ projectDetails.totalBudget | number: '1.2-2' }}</a>
+                                  </h4>
+                                  <h4 style="margin-bottom: 0px;">
+                                    Location:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="text-transform: uppercase; font-weight: bold;">{{projectDetails.site_address}}, {{projectDetails.site_city}}, {{projectDetails.site_province}}</a>
+                                  </h4>
+                                </div>
+                              </div>
+                              
+                            <table class="table table-bordered">
+                                <thead class="thead-dark" >
+                                  <tr style="vertical-align: center;">
+                                    <th style="text-align: center;  vertical-align: middle;" [width]="50">Item No.</th>
+                                    <th style="text-align: center;  vertical-align: middle;" [width]="300">Description</th>
+                                    <th style="text-align: center;  vertical-align: middle;">Project Actual Cost</th>
+                                    <th style="text-align: center; vertical-align: middle;">Previous</th>
+                                    <th style="text-align: center; vertical-align: middle;">This Period</th>
+                                    <th style="text-align: center; vertical-align: middle;">To Date</th>
+                                    <th style="text-align: center;  vertical-align: middle; white-space: normal; padding: 5px; line-height: 1.2;" [width]="600">Percentage</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <ng-container *ngFor="let category of sortedTask; let i = index">
+                                    <tr>
+                                      <td>{{ toRoman(i + 1) }}</td>
+                                      <td>{{ category.name }}</td>
+                                      <td style="text-align: right;">{{ category.c_allocated_budget | number: '1.2-2' }}</td>
+                                      <td style="text-align: right;">{{ category.previousCost ?? '0.00'| number: '1.2-2' }}</td>
+                                      <td style="text-align: right;">{{ category.thisPeriodCost?? '0.00' | number: '1.2-2' }}</td>
+                                      <td style="text-align: right;">{{ category.toDateCost ?? '0.00'| number: '1.2-2' }}</td>
+                                      <td style="text-align: right;">
+                                        <div>{{category.progress | number: '1.2-2' }}%</div>
+                                        <mat-progress-bar mode="determinate" [value]="category.progress" color="accent"></mat-progress-bar>
+                                      </td>
+                                      
+                               
+                                    </tr>
+                                    <ng-container *ngIf="category.tasks && category.tasks.length">
+                                      <tr *ngFor="let task of category.tasks; let j = index">
+                                        <td></td>
+                                        <td class="sub-item">{{ generateSubItemLabel(j) }}. {{ task.pt_task_name }}</td>
+                                        <td style="text-align: right;">{{ task.pt_allocated_budget?? '0.00' | number: '1.2-2' }}</td>
+                                        <td style="text-align: right;">{{ task.previousCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                        <td style="text-align: right;">{{ task.thisPeriodCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                        <td style="text-align: right;">{{ task.toDateCostTask?? '0.00' | number: '1.2-2' || '-' }}</td>
+                                        <!-- <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td> -->
+                                        <td style="text-align: right;">
+                                        <div>{{ task.percentage | number: '1.2-2' }}%</div>
+                                        <mat-progress-bar mode="determinate" [value]="task.percentage" color="accent"></mat-progress-bar>
+                                        </td>
+                                        
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                  <tr>
+                                    <td colspan="2" style="text-align: right;"><strong>TOTAL</strong></td>
+                                    <td style="text-align: right;"><strong>{{ Total | number: '1.2-2' }}</strong></td>
+                                   <td></td>
+                                   <td></td>
+                                   <td style="text-align: right;"><strong>{{ totalAllocatedBudget | number: '1.2-2' }}</strong></td>
+                                   <td></td>
+                                
+                                  </tr>
+                                </tbody>
+                              </table>
+                        
+                            <div class="signature-section">
+                                <div>
+                                    <div class="signature-line"></div>
+                                    
+                                    <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.extension_name === 'Civil Engineer' || projectDetails.extension_name === 'Engineer' ? 'Engr. ' + projectDetails.staff_first_name : projectDetails.staff_first_name }} 
+                                        {{ projectDetails.staff_last_name }} 
+                                        {{ projectDetails.extension_name ===   'Architect' ? 'UAP' : '' }}</span></div>
+                                    <div style="margin-left: 50px;"> Registered {{ projectDetails.extension_name }}</div>
+                                    <div style="margin-left: 50px;">License No. {{ projectDetails.license_number }}
+                                </div>
+                                </div>
+                                <div>
+                                    <div class="signature-line"></div>
+                                    <div style="margin-left: 50px;"><span style="font-weight: bold; text-transform:uppercase">{{ projectDetails.client_first_name }} {{ projectDetails.client_last_name }}</span></div>
+                                    <div style="margin-left: 50px;">Owner</div>
+                                </div>
+                                
+                            </div>
+                        </div>
         
-            
-
                 
+                    </div>
+                
+                        </div> </mat-tab>
+                       
+             
+                        <mat-tab label="UPDATES"> <app-clientupdates (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-clientupdates> </mat-tab>
+                        <mat-tab label="HISTORY"> <app-clienthistory (openModal)="sideBarOpen = false" (closeModal)="sideBarOpen = true"></app-clienthistory> </mat-tab>
+                      </mat-tab-group>
+                    
+                    
+                 
+                 
+                </body>
+               
+                
+               
+             
+            </div>
+            
+          
+           </section>
           
 
-       
+        
+   
           
             
         

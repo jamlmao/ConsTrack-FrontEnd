@@ -1,123 +1,265 @@
+/*style.css */
+@import url(
+'https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+
+.textup {
+    text-align: center;
+    color: rgb(214, 36, 36);
+    font-weight: 700;
+}
+
+i {
+    margin-right: 3px;
+}
+
+.form-box {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(36, 67, 40, 0.8);
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.radio-group {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 17px;
+    color: rgb(128, 27, 27);
+    font-weight: 600;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+}
+
+
+h1 {
+    color: #e22a2a;
+}
+
+
+
+
 .mat-drawer{
-  width: 200px;
-}
+    width: 200px;
+    border-radius: 0px 0px 10px;
+    box-shadow: 0 0 10px #000000;
+  }
+    .mat-drawer-container{
+      height: 100%;
+    }
+    
+    
+    
+  
+  .projects-container {
+   
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px;
+    padding: 20px;
+  
+  }
+  
+  .cards {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 0; /* Remove margin to use gap instead */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center; /* Center the content */
+    width: 330px; /* Set the width of the card */
+    height: 290px; /* Set the height of the card */
+    margin: 10px;
+  }
+  
+  .card-image {
+    width: 300px;  /* Set the width of the image */
+    height: 230px; /* Set the height of the image */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .project-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  
+  }
+  p{
+    margin: 0px;
+  }
+  
+  .title{
+    margin-top: 20px;
+    padding-bottom: 40px;
+    text-align: center;
+    position: relative;
+  
+  
+  }
+  
+  .title::before{
+    content: '';
+    width: 200px;
+    height: 3px;
+    background: rgb(40, 40, 40);
+    opacity: .6;
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .title::after{
+    content: '\f005';
+    color: rgb(238, 234, 234);
+    width: 50px;
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    background: rgb(155, 151, 151);
+    transform: translateX(-50%);
+    font-size: 15px;
+  }
+  
+  .title p{
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+  .title h1 span {
+    font-weight: 500;
+    color: #870000;
+    font-size: 30px;
+  }
+  .title h1{
+    font-weight: 500;
+    color: #000000;
+    font-size: 30px;
+  }
+  
+  .item
+  {
+    align-items: end;
+    text-align: center;
+  }
+  
+  
+  
+  .item{
+    align-items: center;
+    text-align: center;
+    background-color: #eee;
+  }
+  .card{
+   margin-left: 20px;
+   margin-bottom: 20px;
+  }
 
-.mat-drawer-container{
-  height: 100%;
-}
 
-.btn-grad {
-  background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
- width: 150px;
- padding: 5px;
- margin: 2px;
-  text-align: center;
-  transition: 0.5s;
-  font-size: 15px;
-  background-size: 200% auto;
-  color: white;            
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
-  display: block;
-}
-
-.btn-grad:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-}
-
-.containers{
-  width: 90%;
-  margin: 0 auto;
-}
-.title{
-  margin-bottom: 50px;
-  margin-top: 20px;
-  padding-bottom: 40px;
-  text-align: center;
-  position: relative;
   
 
+  .scheduler {
+    max-width: 1200px; /* Set a max width for the schedule */
+    margin: 20px auto; /* Center the schedule */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .scheduler-title {
+    font-size: 24px; /* Font size for title */
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Spacing below the title */
+    color: #333; /* Dark text color */
+  }
+  
+  .schedule-table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+  }
+  
+  .schedule-table th,
+.schedule-table td {
+border: 1px solid #ddd; /* Add border to cells */
+text-align: center; /* Center the text */
+padding: 10px; /* Add padding for spacing */
+height: 80px; /* Set a fixed height for all cells */
+width: 100px; /* Set a fixed width for all cells */
+vertical-align: top; /* Align content to the top */
 }
-
-.title::before{
-  content: '';
-  width: 200px;
-  height: 3px;
-  background: rgb(40, 40, 40);
-  opacity: .6;
-  position: absolute;
-  bottom: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.title::after{
-  content: '\f005';
-  color: rgb(238, 234, 234);
-  width: 50px;
-  height: 20px;
-  line-height: 20px;
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
-  background: rgb(155, 151, 151);
-  transform: translateX(-50%);
-  font-size: 15px;
-}
-
-.title p{
-  font-style: italic;
-  font-weight: 700;
-  margin: 0;
-}
-.title h1 span{
-  font-weight: 500;
-  color: #870000;
-  font-size: 30px;
-}
-.title h1{
-  font-weight: 500;
-  color: #000000;
-  font-size: 30px;
-}
-
-.card{
-  margin: 10px;
-}
-
-.card-main{
-  position: relative;
-  height: 250px;
-  background: #dbdbdb;
-  border-radius: 3px;
-}
-.p{
-  position: relative;
-  height: 215px;
-}
-
-.status{
-  position: relative;
-  background: #870000;
-  color: rgb(122, 116, 116);
-  font-weight: 400;
-  display: block;
-  text-transform: uppercase;
-  height: 20px;
-  width: 70px;
-  border-radius: 0 15px 15px 0;
-  line-height: 30px;
-  font-style: italic;
-  left: -9px;
-  top: 10px;
-}
-.status::after{
-  border-top: 6px solid #870000;
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  border-left: 8px solid transparent;
-  border-right: 0px solid transparent;
-}
+  
+  .day-cell {
+    min-height: 80px; /* Minimum height for cells */
+    position: relative; /* Position relative for absolute children */
+    background-color: #ffffff; /* Default background */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .day-number {
+    font-weight: bold; /* Bold day number */
+    font-size: 18px; /* Font size for day number */
+    color: #007bff; /* Blue color for day number */
+  }
+  
+  .appointment-list {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin-top: 10px; /* Spacing above the appointment list */
+  }
+  
+  .has-appointment {
+    background-color: #d1e7dd; /* Light green background for days with appointments */
+    border: 2px solid #198754; /* Darker border for highlighted cells */
+  }
+  
+  .no-appointments {
+    font-style: italic; /* Italic for no appointments */
+    color: green; 
+    position: absolute; /* Position absolute to center */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Translate for exact center */
+  }
+  
+  .not-available {
+    font-style: italic; /* Italic for no appointments */
+    color: gray; /* Gray color */
+    position: absolute; /* Position absolute to center */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Translate for exact center */
+  }
+  

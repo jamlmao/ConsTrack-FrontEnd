@@ -1,40 +1,47 @@
-
-
 <mat-nav-list>
     
+    <div *ngIf="user && user.staff" class="avatar avatar-xl position-relative" >
+        <img [src]="imageUrl +'/'+ user.staff.company_logo" alt="profile_image" class="user-image">
+    </div>
+
+ 
+    <!-- <button mat-button (click)="resetLoginStatus()">Reset First Login Status</button> -->
+
+   
+        <div class="example-button-container">
+            <a mat-fab extended color="warn" routerLink="." (click)="openModalI2()">
+              <mat-icon style="color: white;">launch</mat-icon>
+              Guide
+            </a>
+            <app-guidemodal [isVisible]="isModalVisible" (close)="closeModalI2()"></app-guidemodal>
+          </div>
+        
     <mat-divider></mat-divider>
-    <img class="user-image" src="assets/cons.png" alt="Card image cap">
-    <h2 matSubheader class="text-center text-dark">ConsTrack</h2>
-    
-    
-   <a mat-list-item routerLink="/staff/profile" routerLinkActive="list-item-active">
-    <button type="button"  class="btn-grad btn-outline-light mx-md-2 d-flex text-light items"><mat-icon style="margin-left: 5px; color: white;">account_circle</mat-icon> Profile</button>
-</a><mat-divider></mat-divider>
-<a mat-list-item class="item" routerLink="/staff/shome" routerLinkActive="list-item-active">
-    <div class="d-flex me-5 items"><mat-icon>home</mat-icon>Home</div>
-</a><mat-divider></mat-divider>
-<a mat-list-item class="item" routerLink="/staff/users" routerLinkActive="list-item-active">
-<div class="d-flex me-5 items"><mat-icon>recent_actors</mat-icon>Accounts</div>
-</a><mat-divider></mat-divider>
-<a mat-list-item class="item" routerLink="/staff/add" routerLinkActive="list-item-active">
-<div class="d-flex me-4 items"><mat-icon>add_box</mat-icon>Add Project</div>
-</a><mat-divider></mat-divider>
-   <a mat-list-item class="item"  routerLink="/staff/timeline" routerLinkActive="list-item-active">
-    <div class="d-flex me-5 items"><mat-icon>assignment</mat-icon>Tasks</div>
-</a><mat-divider></mat-divider>
-<a mat-list-item class="item"  routerLink="/staff/documents" routerLinkActive="list-item-active">
-<div class="d-flex me-4 items"><mat-icon>description</mat-icon>Documents</div>
-</a><mat-divider class="divider"></mat-divider>
-<div class="profile-logo dropdown profile">
-    
 
+    <a mat-list-item class="item" routerLink="/staff/shome" routerLinkActive="list-item-active">
+        <div class="d-flex items"><mat-icon>home</mat-icon>Dashboard</div>
+    </a>
+    <mat-divider></mat-divider>
 
-</div>
+    <a mat-list-item class="item" routerLink="/staff/users" routerLinkActive="list-item-active">
+        <div class="d-flex items"><mat-icon>recent_actors</mat-icon>Accounts</div>
+    </a>
+    <mat-divider></mat-divider>
 
+    <a mat-list-item class="item" routerLink="/staff/add" routerLinkActive="list-item-active">
+        <div class="d-flex items"><mat-icon>add_box</mat-icon>Manage Projects</div>
+    </a>
+    <mat-divider></mat-divider>
 
-    
+    <a mat-list-item class="item" routerLink="/staff/documents" routerLinkActive="list-item-active">
+        <div class="d-flex items"><mat-icon>description</mat-icon>Portfolio</div>
+    </a>
+    <mat-divider class="divider"></mat-divider>
+
+    <a mat-list-item class="item" routerLink="/staff/appointment" routerLinkActive="list-item-active">
+        <div class="d-flex items"><mat-icon>calendar_today</mat-icon>Appointment</div>
+    </a>
+    <mat-divider class="divider"></mat-divider>
 </mat-nav-list>
-
-
 
 <router-outlet></router-outlet>

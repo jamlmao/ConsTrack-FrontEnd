@@ -32,8 +32,9 @@ export class HeaderComponent implements OnInit{
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  constructor(private router: Router) { }
-
+  constructor(private http: HttpClient, private router: Router) { }
+  private baseUrl = 'http://127.0.0.1:8000/';
+  private logoutUrl = this.baseUrl+'api/logout';
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -45,10 +46,32 @@ export class HeaderComponent implements OnInit{
   }
 
   logout(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post(this.logoutUrl, {}, { headers }).subscribe(
+      (response: any) => {
+        console.log('Logout response:', response);
+      },
+      error => {
+        console.error('Error logging out', error);
+      }
+    );
+
+
+
+
     localStorage.removeItem('user'); // Remove user data from local storage
     this.router.navigateByUrl('/'); // Redirect to login page
-  }
 
+  }
   
   
   

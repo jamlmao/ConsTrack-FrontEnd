@@ -1,0 +1,37 @@
+
+
+        
+<body>
+    
+
+
+            <div class="projects-container" style="margin-top: 0px;">
+
+        
+                <div *ngFor="let task of task_image; let i = index" class="cards project-details" >
+                    <div (click)="openModalI2(task.images)">
+                        <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="card-image">
+                        
+                        <p>{{task.description}}</p>
+                        <p>{{task.day}}</p>
+                       
+                   
+                        
+                    
+                         
+                    </div>
+                </div>
+                
+                <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModalI2()"></app-image-modal>
+                
+             
+               
+            </div>
+            
+             
+                  
+        </body>
+
+            
+        
+      

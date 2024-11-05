@@ -25,18 +25,21 @@ import { EditprofileComponent } from "../../editprofile/editprofile.component";
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { take, tap } from 'rxjs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { FilterPipe } from '../../../../../filter.pipe';
+import { AppConfig } from '../../../../../app.config';
 
 @Component({
   selector: 'app-staffclientacc',
   standalone: true,
-  imports: [SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
+  imports: [FilterPipe,MatPaginatorModule,SweetAlert2Module,MatTableModule, MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, StaffsidenavComponent, StafftoolbarComponent, EditprofileComponent],
   templateUrl: './staffclientacc.component.html',
   styleUrl: './staffclientacc.component.css'
 })
 export class StaffclientaccComponent {
 
-  
-  private fetchClientUrl = 'http://127.0.0.1:8000/api/clients';
+  private baseUrl= AppConfig.baseUrl;
+  private fetchClientUrl = this.baseUrl+'/api/clients';
   user: any;
   clients: any[] = [];
   isCreateClientModalOpen = false;
@@ -55,6 +58,14 @@ export class StaffclientaccComponent {
     this.fetchClients(); // Fetch projects when the component is initialized
   }
 
+  paginatedUsers: any[] = []; // Holds the data for the current page
+  currentPage = 1;
+  rowsPerPage = 10; // Number of rows per page
+  totalPages = 1;
+  filteredProjects: any[] = [];
+  
+  searchText: any;
+  
 
   
   fetchClients(): void {
@@ -71,50 +82,94 @@ export class StaffclientaccComponent {
     this.http.get<any>(this.fetchClientUrl, { headers })
     .pipe(
       tap(response => {
-        console.log('Full response:', response);
+      //  console.log('Full response:', response);
         if (response && Array.isArray(response.clients)) {
           // Filter out duplicate clients based on the 'id' property
           const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
             index === self.findIndex((c) => c.id === client.id)
           );
           this.clients = uniqueClients;
+          this.totalPages = Math.ceil(this.clients.length / this.rowsPerPage);
+          this.filteredProjects = this.clients;
+      this.updatePaginatedUsers();
         } else {
           console.error('Unexpected response format:', response);
           this.clients = [];
         }
-        console.log('Fetched clients:', this.clients);
+      //  console.log('Fetched clients:', this.clients);
       }),
       take(1) // This will ensure the observable completes after the first emission
     )
     .subscribe(
       () => {},
       error => {
+        console.clear();
         console.error('Error fetching clients:', error);
       }
     );
   }
 
-  
+  getRowsWithEmptySpaces() {
+    const rows = [...this.paginatedUsers]; // Clone the paginated users
+    while (rows.length < this.rowsPerPage) {
+      rows.push(null); // Add empty rows if needed
+    }
+    return rows;
+  }
+
+
+  updatePaginatedUsers() {
+    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+    const endIndex = startIndex + this.rowsPerPage;
+    this.paginatedUsers = this.clients.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedUsers();
+    }
+  }
+
+  // Go to the previous page
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedUsers();
+    }
+  }
+
+  SelectedClientId:number | null = null;
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
+  //  console.log('Opening Create Staff Modal');
+   // console.log(this.isCreateClientModalOpen);
+    this.sideBarOpen = false; 
   }
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
-    console.log('xd');
+   // console.log('xd');
+    this.sideBarOpen = true; 
   }
-  openEditModal() {
+
+
+
+  openEditModal(clientId: number){
+    this.SelectedClientId =clientId;
+   // console.log('Selected Client ID:', this.SelectedClientId);
     this.isEditModalOpen = true;
-    console.log('Opening Edit Modal');
-    console.log(this.isEditModalOpen);
+    //console.log('Opening Edit Modal');
+  //  console.log(this.isEditModalOpen);
+    this.sideBarOpen = false; 
   }
 
   closeEditModal() {
+    this.SelectedClientId = null;
     this.isEditModalOpen = false;
-    console.log('xd');
+   // console.log('xd');
+    this.sideBarOpen = true; 
   }
 
   sideBarOpen=true;

@@ -5,5 +5,12 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync()]
+  providers: [provideRouter(routes), provideAnimationsAsync()],
+ 
+};
+
+export const AppConfig = {
+  baseUrl: 'https://magenta-chinchilla-572784.hostingersite.com',
+  imageUrl: 'https://magenta-chinchilla-572784.hostingersite.com'
+
 };

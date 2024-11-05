@@ -1,7 +1,7 @@
 
 .mat-toolbar {
     height: 1px;
-    background-image: linear-gradient(to right, #870000 0%, #190A05  51%, #870000  100%);
+    background-image: linear-gradient(to right, #e22a2a 0%, #190A05  51%, #e22a2a  100%);
 }
 .toolBarButton{
 padding: 5px;
@@ -61,6 +61,13 @@ form{
 margin: 50px;
 }
 
+.text{
+    font-size: 30px;
+    font-weight: bolder;
+    color: #d4c8c8;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
 
         
         

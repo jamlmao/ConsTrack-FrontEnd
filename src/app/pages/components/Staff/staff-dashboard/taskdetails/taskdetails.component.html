@@ -1,0 +1,207 @@
+
+<app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-staffsidenav></app-staffsidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+        
+           <section class="">
+            <div class="container">
+
+                
+               
+
+                <body >
+                    <main>
+                      
+                        
+                      
+                
+                       
+                       
+                        
+                        
+                        
+                       
+                      <div class="title" style="margin-top: 10px;">
+                        <h1><span>ACCOMPLISHMENTS</span> TABLE</h1>
+                        
+
+                        
+                    </div>
+                     
+                          
+                    </main>
+
+                    <div class="container" style="margin-top: -70px;">
+                        <!-- Task Details Header -->
+                        <div class="task-header card p-4 mb-4">
+                          
+                            <div class="task-info-grid">
+                                <div class="info-item">
+                                    <strong>Task Name:</strong>
+                                    <span style="text-transform: uppercase;">{{tasks.pt_task_name}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Task Category:</strong>
+                                    <span style="text-transform: uppercase;">{{categoryName}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Starting Date:</strong>
+                                    <span>{{tasks.pt_starting_date | date:'MM-dd-yyyy'}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Completion Date:</strong>
+                                    <span>{{tasks.pt_completion_date | date:'MM-dd-yyyy'}}</span>
+                                </div>
+                                
+                                
+                                <div class="info-item">
+                                    <strong>Status:</strong>
+                                    <span [ngClass]="{
+                                        'badge-ongoing': getStatusText(tasks.pt_status) === 'Ongoing',
+                                        'badge-complete': getStatusText(tasks.pt_status) === 'Complete',
+                                        'badge-due': getStatusText(tasks.pt_status) === 'Due'
+                                    }" class="badge">{{getStatusText(tasks.pt_status)}}</span>
+                                    
+                                </div>
+                            </div>
+                            <div class="task-info-grid" style="margin-top: 10px;">
+                                <div class="info-item">
+                                    <strong>Budget:</strong>
+                                    <span>&#8369;{{budget | number: '1.2-2'}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Remaining Budget:</strong>
+                                    <span>&#8369;{{budget -remaining | number: '1.2-2'}}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Percentage:</strong>
+                                    <div>{{ percentage | number: '1.2-2' }}%</div>
+                                    <mat-progress-bar mode="determinate" [value]="percentage" color="accent"></mat-progress-bar>
+                                </div>
+                                <div class="info-item">
+                                    <button class="btn btn-outline-dark ml-4 my-4" *ngIf="tasks.percentage >= 98 && tasks.pt_status !== 'C'"  (click)="CompleteTask(tasks.id)">
+                                        Complete Task </button>
+                                </div>
+                                
+                                <div class="info-item">
+                                    <button class="btn btn-outline-dark  my-4" *ngIf="tasks.pt_status !=='C'" (click)="openTaskModal(tasks.id)" >
+                                        Update Task </button>
+                                    <app-archi *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-archi>
+                                          
+                                </div>
+
+                                
+                                
+                            </div>
+                            <h2 >
+                              
+                        
+                            </h2>
+                            <hr>
+                         
+                            <table>
+                                <thead>
+                                    <tr>
+                                  
+                                        <th>Resources</th>
+                                        <th>Quantity</th>
+                                        <th>Remaining</th>
+                                        <th *ngIf="tasks.pt_status !=='C'" width="5"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let resource of resources; let i =index">
+                                   
+                                        <td style="text-transform: uppercase;">{{resource.resource_name}}</td>
+                                        <td>{{resource.qty}}</td>
+                                        <td>{{resource.left_qty}}</td>
+                                        <td style="text-align: center;" *ngIf="tasks.pt_status !=='C'"> 
+                                            <a class="btn btn-dark" (click)="openEditSubModal(resource.id)" >Edit</a>
+                                            <app-editresource *ngIf="isEditSubModalOpen"
+                                            [resourceId]="selectedResource!"
+                                            (close)="closeEditSubModal()"></app-editresource>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-12"><div class="table-wrapper card p-4 mb-4">
+                            <h2 >Resources Accomplishments 
+                             
+                        
+                            </h2>
+                         
+                            <table class="table modern-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Description</th>
+                                        <th>Resources</th>
+                                        <th>Staff</th>
+                                        <th>Date</th>
+                                        <th>Day</th>
+                                        <th>Picture</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let task of task_image; let i = index">
+                                        <td>{{i + 1}}</td>
+                                        <td style="text-transform: uppercase;">
+                                          <div>{{task.description}}</div>
+                                          <div>&#8369;{{task.used_budget}}</div>
+                                        </td>
+                                        <td>
+                                          <ul>
+                                            <li *ngFor="let key of getObjectKeys(task.resources)" style="text-align: left;">
+                                              {{task.resources[key].name}} - {{task.resources[key].qty}}
+                                            </li>
+                                          </ul>
+                                        </td>
+                                        <td>{{task.staff_name}}</td>
+                                        <td>{{task.uploaded_at}}</td>
+                                        <td>{{task.day}}</td>
+                                        <td class="image-cell" (click)="openModal(task.images)">
+                                          <img *ngIf="task.mainImage" [src]="imageUrl + task.mainImage" alt="Project Image" class="image">
+                                        </td>
+                                          
+                                        </tr>
+                                    <app-image-modal [images]="selectedImages" [isVisible]="isModalVisible" (close)="closeModal()"></app-image-modal>
+                                </tbody>
+                            </table>
+                        </div></div>
+
+                 
+
+
+
+
+                    </div>
+                    
+                    
+                    
+                 
+                 
+                </body>
+               
+                
+               
+             
+            </div>
+            
+          
+           </section>
+           
+
+       
+          
+            
+        
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

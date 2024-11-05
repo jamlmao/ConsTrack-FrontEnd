@@ -1,0 +1,12 @@
+<div class="modal" *ngIf="isVisible">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()" style="color: rgb(255, 0, 0);">&times;</span>
+      <div class="image-slider">
+        <button class="prev" (click)="prevImage()" style="color: rgb(255, 255, 255); background-color: black;">&#10094;</button>
+        <div class="image-container">
+          <img *ngFor="let image of images; let i = index" [src]="imageUrl + image" alt="Image" class="modal-image" [class.active]="i === currentIndex">
+        </div>
+        <button class="next" (click)="nextImage()" style="color: rgb(255, 255, 255); background-color: black;">&#10095;</button>
+      </div>
+    </div>
+  </div>

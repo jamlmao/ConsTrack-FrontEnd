@@ -1,0 +1,86 @@
+
+  <div class="container"  >
+
+      
+     
+
+      <body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+          <main>
+            
+              
+
+             
+          
+         
+            <div class="title" style="margin-top: -80px;">
+              
+              <!-- <div class="title">
+                  <label for="example-text-input" class="form-control-label" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"
+                    ></label
+                  >
+                  <input class="form-control" type="search" placeholder="Search for Tasks"  [(ngModel)]="searchText" 
+                  (input)="filterTasks()" >
+                </div>
+                <div *ngIf="totalPages > 1" class="pagination-controls">
+                  <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1" class="pagination-btn">Previous</button>
+                
+                  <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                
+                  <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="pagination-btn">Next</button>
+                </div> -->
+
+
+          </div>
+           
+                
+          </main>
+         
+
+         
+    
+          <div class="timeline-container" style="margin-top: 0px;">
+            <div class="timeline">
+              <div class="container">
+                <div class="card-gallery-container">
+                  <button style="font-size: larger; color: white;" (click)="scrollLeft()" [disabled]="startIndex === 0"><</button>
+          
+                  <div class="card-gallery">
+                    <ng-container class="task" *ngFor="let task of displayedCards | filter:searchText; let i = index">
+                      <div (click)="selecttask(task)"
+                        class="card task"
+                        [ngClass]="{
+                          'large-card': i === centerIndex,
+                          'small-card': i !== centerIndex,
+                          'complete': task?.pt_status === 'C',
+                          'ongoing': task?.pt_status === 'OG',
+                          'due': task?.pt_status === 'D'
+                        }"
+                      >
+                        <div class="content">
+                          <h2>{{ task.pt_task_name }}</h2>
+                          <p class="date">{{ task.pt_starting_date | date: 'yyyy-MM-dd' }} - {{ task.pt_completion_date | date: 'yyyy-MM-dd' }}</p>
+                          <p>{{ task.category?.category_name }}</p>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+          
+                  <button style="font-size: larger; color: white;" (click)="scrollRight()" [disabled]="isAtEnd()">></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+          
+       
+       
+      </body>
+     
+    
+     
+   
+  </div>
+  

@@ -1,144 +1,47 @@
-
 <app-stafftoolbar (toggleSidebarForMe)="sideBarToggler()"></app-stafftoolbar>
 <mat-drawer-container>
-
     <mat-drawer mode="side" [opened]="sideBarOpen">
         <app-staffsidenav></app-staffsidenav>
     </mat-drawer>
     <mat-drawer-content>
+        
         <router-outlet></router-outlet>
         
-           <section class="">
-            <div class="containers">
-                <div class="title">
-                    <p>Welcome to your Project</p>
-                    <h1><span>PROJECT</span> DOCUMENTS</h1>
 
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-main">
-                                <div class="status"></div>
-                                <div class="project-picture">
-                                    <img class="p" src="assets/cons.png" alt="Card image cap">
-                                </div>
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-
-                </div>
-                
-                
-
-            </div>
-
-           </section>
         
+        
+
+        <iframe 
+        src="https://drive.google.com/file/d/1KPNcdwdiklgq2sRx5g3TzECANLfebIT4/preview?autoplay=1" 
+        width="100%" 
+        height="100%" 
+        allow="autoplay" 
+        scrolling="yes">
+      </iframe>
+
             
+        
+      <div class="projects-container">
 
+        
+        <div class="cards project-item" *ngFor="let project of completeItems">
+            <div *ngIf="project.status === 'Complete'">
+                <img [src]="'http://localhost:8000' + project.pj_image" alt="Project Image" class="card-image">
+                <p>Project Type: {{ project.project_name }} </p>
+              <p>Status: {{ project.status }}</p>
+            
+                 
+                    <p>Starting Date: {{ project.starting_date }} </p>
+                    <p>Completion Date: {{ project.completion_date }} </p>
+                    <p>Total Budget: {{ project.totalBudget }} </p>
+                   
+            </div>
+          </div>
+        </div>
+          
+            
                 
-          
-
-       
-          
+                <router-outlet></router-outlet>
             
         
         <router-outlet></router-outlet>

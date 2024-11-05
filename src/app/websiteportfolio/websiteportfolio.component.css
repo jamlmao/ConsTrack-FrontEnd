@@ -1,0 +1,53 @@
+
+    
+  
+   
+
+  p{
+    margin: 0px;
+  }
+  
+  .title{
+    margin-top: 20px;
+    padding-bottom: 40px;
+    text-align: center;
+    position: relative;
+  
+  
+  }
+  
+  .title p{
+    font-style: italic;
+    font-weight: 700;
+    margin: 0;
+  }
+  .title h1 span {
+    font-weight: 500;
+    color: #870000;
+    font-size: 30px;
+  }
+  .title h1{
+    font-weight: 500;
+    color: #000000;
+    font-size: 30px;
+  }
+  
+  .item
+  {
+    align-items: end;
+    text-align: center;
+  }
+  
+  
+  
+  .item{
+    align-items: center;
+    text-align: center;
+    background-color: #eee;
+  }
+  .card{
+   margin-left: 20px;
+   margin-bottom: 20px;
+  }
+
+  

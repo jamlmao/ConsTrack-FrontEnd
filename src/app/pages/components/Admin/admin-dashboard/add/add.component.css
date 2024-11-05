@@ -1,22 +1,37 @@
 .mat-drawer{
-    width: 200px;
-  }
-  
+  width: 200px;
+  border-radius: 0px 0px 10px;
+  box-shadow: 0 0 10px #000000;
+}
   .mat-drawer-container{
     height: 100%;
   }
+  .btn-grad1 {
+    background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
+
+    transition: 0.5s;
+    font-size: 15px;
+    background-size: 200% auto;
+    color: white;  
+    height: 40px;
+    color: white;         
+  }
+  
+  .btn-grad1:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+}
   
   .btn-grad {
     background-image: linear-gradient(to right, #af0707 0%, #190A05  51%, #870000  100%);
    width: 150px;
    padding: 5px;
-   margin: 2px;
+   margin: 5px;
     text-align: center;
     transition: 0.5s;
     font-size: 15px;
     background-size: 200% auto;
     color: white;            
-    box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     display: block;
   }
@@ -24,4 +39,136 @@
   .btn-grad:hover {
     background-position: right center; /* change the direction of the change here */
     color: #fff;
-  }
+}
+
+.projects-container {
+ 
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px;
+  padding: 20px;
+
+}
+
+.cards {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 0; /* Remove margin to use gap instead */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-align: center; /* Center the content */
+  width: 330px; /* Set the width of the card */
+  height: 470px; /* Set the height of the card */
+  margin: 10px;
+}
+
+.card-image {
+  width: 300px;  /* Set the width of the image */
+  height: 230px; /* Set the height of the image */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+}
+p{
+  margin: 0px;
+}
+
+.title{
+  margin-top: 20px;
+  padding-bottom: 40px;
+  text-align: center;
+  position: relative;
+
+
+}
+
+.title::before{
+  content: '';
+  width: 200px;
+  height: 3px;
+  background: rgb(40, 40, 40);
+  opacity: .6;
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.title::after{
+  content: '\f005';
+  color: rgb(238, 234, 234);
+  width: 50px;
+  height: 20px;
+  line-height: 20px;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  background: rgb(155, 151, 151);
+  transform: translateX(-50%);
+  font-size: 15px;
+}
+
+.title p{
+  font-style: italic;
+  font-weight: 700;
+  margin: 0;
+}
+.title h1 span {
+  font-weight: 500;
+  color: #870000;
+  font-size: 30px;
+}
+.title h1{
+  font-weight: 500;
+  color: #000000;
+  font-size: 30px;
+}
+
+.item
+{
+  align-items: end;
+  text-align: center;
+}
+
+
+
+.item{
+  align-items: center;
+  text-align: center;
+  background-color: #eee;
+}
+.card{
+ margin-left: 20px;
+ margin-bottom: 20px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+  
+}
+
+button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

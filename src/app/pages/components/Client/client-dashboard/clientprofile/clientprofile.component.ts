@@ -19,18 +19,19 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
-
+import { EditpassComponent } from "../../../Staff/editpass/editpass.component";
+import { AppConfig } from '../../../../../app.config'; 
 @Component({
   selector: 'app-clientprofile',
   standalone: true,
-  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, ClientsidenavComponent, ClienttoolbarComponent],
+  imports: [MatListModule, MatSidenavModule, MatIconModule, RouterLink, RouterLinkActive, MatButtonModule, MatToolbarModule, RouterModule, RouterOutlet, CommonModule, HttpClientModule, FormsModule, FontAwesomeModule, CreateClientAcctComponent, CreateStaffAcctComponent, ClientsidenavComponent, ClienttoolbarComponent, EditpassComponent],
   templateUrl: './clientprofile.component.html',
   styleUrl: './clientprofile.component.css'
 })
 export class ClientprofileComponent {
   
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private projectsUrl = AppConfig.baseUrl+ '/api/staff/projects';
+  private userUrl = AppConfig.baseUrl+'/api/user/details';
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
@@ -56,27 +57,27 @@ export class ClientprofileComponent {
   }
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
+  //  console.log('Opening Create Staff Modal');
+   // console.log(this.isCreateStaffModalOpen);
   }
 
   closeCreateStaffModal() {
     this.isCreateStaffModalOpen = false;
-    console.log('xd');
+  //  console.log('xd');
   }
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
+  //  console.log('Opening Create Staff Modal');
+  //  console.log(this.isCreateClientModalOpen);
   }
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
-    console.log('xd');
+  //  console.log('xd');
   }
 
-  sideBarOpen=true;
+  sideBarOpen=false;
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
@@ -88,7 +89,7 @@ export class ClientprofileComponent {
       return;
     }
 
-    console.log('Token:', token);
+   // console.log('Token:', token);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -96,11 +97,12 @@ export class ClientprofileComponent {
 
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
-        console.log('Full response:', response);
+       // console.log('Full response:', response);
         this.projects = response;
-        console.log('Fetched projects:', this.projects);
+       // console.log('Fetched projects:', this.projects);
       },
-      error => {
+      error => { 
+         console.clear();
         console.error('Error fetching projects', error);
       }
     );
@@ -124,11 +126,26 @@ export class ClientprofileComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+      //  console.log('Logged in user:', this.user);
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );
+  }
+
+  isEditSubModalOpen = false;
+
+  openEditSubModal(){
+   
+    this.isEditSubModalOpen = true;
+    //console.log('Selected Category ID:');
+    this.sideBarOpen = false;
+  }
+  
+  closeEditSubModal() {
+     this.isEditSubModalOpen = false;
+      this.sideBarOpen = true; 
   }
 }

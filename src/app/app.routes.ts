@@ -26,12 +26,22 @@ import { TimelineComponent } from './pages/components/Staff/staff-dashboard/time
 import { ClientprofileComponent } from './pages/components/Client/client-dashboard/clientprofile/clientprofile.component';
 import { AdminprofileComponent } from './pages/components/Admin/admin-dashboard/adminprofile/adminprofile.component';
 import { ProjectDetailsComponent } from './pages/components/Staff/staff-dashboard/project-details/project-details.component';
+import { TaskdetailsComponent } from './pages/components/Staff/staff-dashboard/taskdetails/taskdetails.component';
+import { WebsiteComponent } from './website/website.component';
+import { ClientupdatesComponent } from './pages/components/Client/client-dashboard/clientupdates/clientupdates.component';
+import { TaskclientupdateComponent } from './pages/components/Client/client-dashboard/taskclientupdate/taskclientupdate.component';
+import { SowaComponent } from './pages/components/Staff/sowa/sowa.component';
+import { ResourcetableComponent } from './pages/components/Staff/resourcetable/resourcetable.component';
+import { WebsiteportfolioComponent } from './websiteportfolio/websiteportfolio.component';
+import { AppointmentComponent } from './pages/components/Staff/staff-dashboard/appointment/appointment.component';
+import { GoalComponent } from './website/goal/goal.component';
+import { ClientprojectComponent } from './pages/components/Client/clientproject/clientproject.component';
 
 
 
 export const routes: Routes = [
     {
-        path: '', redirectTo: 'Constrack',pathMatch: 'full'
+        path: '', redirectTo: 'Constrack/website',pathMatch: 'full'
 
     },
     {
@@ -83,9 +93,15 @@ export const routes: Routes = [
         component: DocumentsComponent,
         canActivate: [AuthGuard]
     },
+    
     {
         path: 'staff/shome',
         component: ShomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'staff/appointment',
+        component: AppointmentComponent,
         canActivate: [AuthGuard]
     },
     {
@@ -105,16 +121,21 @@ export const routes: Routes = [
     }
     ,
     {
-        path: 'client/viewstatus',
+        path: 'client/clientproject/:projectId',
+        component: ClientprojectComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/viewstatus/:projectId',
         component: ViewstatusComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'client/viewproject',
+        path: 'client/viewproject/:projectId',
         component: ViewprojectComponent,
         canActivate: [AuthGuard]
-    }
-    ,
+    },
+    
     {
         path: 'staff/users',
         component: StaffclientaccComponent,
@@ -158,14 +179,52 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'project-details/:projectId',
+        path: 'project-details',
         component: ProjectDetailsComponent,
         canActivate: [AuthGuard]
     },
     {
+        path: 'sowa',
+        component: SowaComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'resources',
+        component: ResourcetableComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'task-details',
+        component: TaskdetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    
+    {
         path: 'timeline/:id',
         component: TimelineComponent,
         canActivate: [AuthGuard]
-    }
+    },
 
+    {
+        path: 'Constrack/website',
+        component: WebsiteComponent,
+    },
+    {
+        path: 'Constrack/website/portfolio',
+        component: WebsiteportfolioComponent,
+    },
+    {
+        path: 'Constrack/website/goal',
+        component: GoalComponent,
+    },
+    {
+        path: 'updates',
+        component: ClientupdatesComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'client/task-details/:taskId',
+        component: TaskclientupdateComponent,
+        canActivate: [AuthGuard]
+    },
 ];
