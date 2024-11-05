@@ -10,7 +10,7 @@ export const appConfig: ApplicationConfig = {
 };
 
 export const AppConfig = {
-  baseUrl: 'http://127.0.0.1:8000',
-  imageUrl: 'http://localhost:8000'
+  baseUrl: 'https://magenta-chinchilla-572784.hostingersite.com',
+  imageUrl: 'https://magenta-chinchilla-572784.hostingersite.com'
 
 };
