@@ -4,9 +4,10 @@
 <mat-nav-list>
     
     <mat-divider></mat-divider>
-    <div *ngIf="user && user.client_details"  class="avatar avatar-xl position-relative" >
-        <img [src]="imageUrl + '/'+ user.client_details.company_logo" alt="profile_image"  class="user-image">
-      </div>
+      <div *ngIf="user && user.staff" class="avatar avatar-xl position-relative" >
+        <img [src]="imageUrl +'/'+ user.staff.company_logo" alt="profile_image" class="user-image">
+    </div>
+
 
       <div class="example-button-container">
         <a mat-fab extended color="warn" routerLink="." (click)="openModalI2()">
