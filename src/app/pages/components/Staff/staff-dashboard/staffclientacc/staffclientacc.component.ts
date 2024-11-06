@@ -82,7 +82,7 @@ export class StaffclientaccComponent {
     this.http.get<any>(this.fetchClientUrl, { headers })
     .pipe(
       tap(response => {
-      //  console.log('Full response:', response);
+          console.log('Full response:', response);
         if (response && Array.isArray(response.clients)) {
           // Filter out duplicate clients based on the 'id' property
           const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
