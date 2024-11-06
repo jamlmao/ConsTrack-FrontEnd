@@ -162,11 +162,11 @@ export class FeedbackComponent {
                 .map((dateObj: any) => dateObj.available_date);
 
             this.available_dates = availableDates;
-         //   console.log('Available Dates:', this.available_dates);
+         //  console.log('Available Dates:', this.available_dates);
 
             if (response.available_dates && response.available_dates.length > 0) {
-                this.appointments2 = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
-           //     console.log('Appointments:', this.appointments2);
+                this.appointments = response.available_dates.flatMap((dateObj: any) => dateObj.appointments || []);
+          //  console.log('Appointments:', this.appointments);
             } else {
                 console.error('No appointments found in response');
             }
@@ -184,49 +184,55 @@ export class FeedbackComponent {
 
 
 
-    generateCalendarDays(year: number, month: number): void {
-      const date = new Date(year, month, 1);
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      const calendarDays = [];
+  generateCalendarDays(year: number, month: number): void {
+    const date = new Date(year, month, 1);
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const calendarDays = [];
 
-      let week = [];
-      for (let i = 0; i < date.getDay(); i++) {
-          week.push({ date: null, isAvailable: false, appointments: [] });
-      }
+    let week = [];
+    for (let i = 0; i < date.getDay(); i++) {
+        week.push({ date: null, isAvailable: false, appointments: [] });
+    }
 
-      const formatter = new Intl.DateTimeFormat('en-US', {
-          timeZone: 'Asia/Manila',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit'
-      });
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Manila',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
 
-      for (let day = 1; day <= daysInMonth; day++) {
-          const currentDate = new Date(year, month, day);
-          const dayKey = formatter.format(currentDate).split('/').reverse().join('-');
-          const appointmentsForDay = this.appointments.filter(appointment => {
-              const appointmentDate = new Date(appointment.appointment_datetime);
-              const appointmentDayKey = formatter.format(appointmentDate).split('/').reverse().join('-');
-              return appointmentDayKey === dayKey && appointment.status === 'A';
-          });
-          const isAvailable = this.available_dates.includes(dayKey) || appointmentsForDay.length > 0;
-          // console.log(`Date: ${dayKey}, Is Available: ${isAvailable}, Appointments: ${appointmentsForDay.length}`);
-          week.push({ date: currentDate, isAvailable: isAvailable, appointments: appointmentsForDay });
+    for (let day = 1; day <= daysInMonth; day++) {
+        const currentDate = new Date(year, month, day);
+        const dayKey = formatter.format(currentDate); // This will format the date as YYYY-MM-DD
+        const appointmentsForDay = this.appointments.filter(appointment => {
+            const appointmentDate = new Date(appointment.appointment_datetime);
+            const appointmentDayKey = formatter.format(appointmentDate);
+            return appointmentDayKey === dayKey && appointment.status === 'A';
+        });
+        const isAvailable = this.available_dates.includes(dayKey) || appointmentsForDay.length > 0;
+        
+        // Debug logs
+        // console.log(`Checking date: ${dayKey}`);
+        // console.log(`Is Available: ${isAvailable}`);
+        // console.log(`Appointments for day: ${appointmentsForDay.length}`);
+        // console.log(`Available dates: ${this.available_dates}`);
 
-          if (week.length === 7) {
-              calendarDays.push(week);
-              week = [];
-          }
-      }
+        week.push({ date: currentDate, isAvailable: isAvailable, appointments: appointmentsForDay });
 
-      if (week.length > 0) {
-          while (week.length < 7) {
-              week.push({ date: null, isAvailable: false, appointments: [] });
-          }
-          calendarDays.push(week);
-      }
+        if (week.length === 7) {
+            calendarDays.push(week);
+            week = [];
+        }
+    }
 
-      this.calendarDaysInMonth = calendarDays;
+    if (week.length > 0) {
+        while (week.length < 7) {
+            week.push({ date: null, isAvailable: false, appointments: [] });
+        }
+        calendarDays.push(week);
+    }
+
+    this.calendarDaysInMonth = calendarDays;
   }
 
 

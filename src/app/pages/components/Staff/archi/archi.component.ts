@@ -162,7 +162,7 @@ export class ArchiComponent {
   ngOnInit(): void {
     Swal.fire({
       title: 'Loading...',
-      text: 'Please wait while we load the tasks.',
+      text: 'Please wait while we load.',
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading(null);
@@ -322,8 +322,16 @@ export class ArchiComponent {
     //  console.log('Payload:', payload);
 
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-   
+      Swal.fire({
+        title: 'Loading...',
+        text: 'Submitting...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(null);
+        }
+      });
       this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
+        Swal.close();
         Swal.fire({
           position: "center",
           icon: "success",

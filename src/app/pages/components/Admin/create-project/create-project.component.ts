@@ -216,10 +216,18 @@ export class CreateProjectComponent {
         formData.append(key, this.project[key]);
       }
     }
+    Swal.fire({
+      title: 'Loading...',
+      text: 'Submitting...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading(null);
+      }
+    });
 
     this.http.post(this.addUrl, formData, { headers }).subscribe(
       response => {
-        // console.log('Project added successfully', response);
+       Swal.close();
         Swal.fire({
           position: "center",
           icon: "success",
@@ -227,7 +235,7 @@ export class CreateProjectComponent {
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
-          // window.location.reload();
+          window.location.reload();
         });
 
         this.closeModal();

@@ -62,7 +62,7 @@ export class CreateStaffAcctComponent implements OnInit {
         }
     
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
+        
         this.http.get<any>(this.companyUrl, { headers }).subscribe(
           (response: any) => {
             if (response && Array.isArray(response.companies)) {
@@ -129,7 +129,7 @@ export class CreateStaffAcctComponent implements OnInit {
 
 
     formSubmitted: boolean = false;
-
+  
 
       onSubmit() {
         this.formSubmitted = true;
@@ -141,8 +141,18 @@ export class CreateStaffAcctComponent implements OnInit {
           return;
         }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        Swal.fire({
+          title: 'Loading...',
+          text: 'Submitting...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading(null);
+          }
+        });
         this.http.post(this.registerStaffUrl, this.staff, { headers }).subscribe(
           response => {
+            Swal.close();
             // console.log('Staff created successfully', response);
             Swal.fire({
               position: "center",

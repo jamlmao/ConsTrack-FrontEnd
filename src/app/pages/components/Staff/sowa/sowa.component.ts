@@ -128,7 +128,7 @@ export class SowaComponent {
 
       Swal.fire({
         title: 'Loading...',
-        text: 'Please wait while we load the tasks.',
+        text: 'Please wait while we load.',
         allowOutsideClick: false,
         didOpen: () => {
           Swal.showLoading(null);
