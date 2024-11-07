@@ -17,7 +17,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
 import { MatBadgeModule } from '@angular/material/badge';
-
+import { AppConfig } from '../../../../../app.config'; 
 
 @Component({
   selector: 'app-clienttoolbar',
@@ -29,7 +29,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 export class ClienttoolbarComponent {
 
   messages: any[] = []; // Adjust type according to your JSON structure
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private userUrl = AppConfig.baseUrl+'/api/user/details';
 
   // Example JSON array
   private initialMessages = [
@@ -56,8 +56,8 @@ export class ClienttoolbarComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private logoutUrl = this.baseUrl+'api/logout';
+  private baseUrl = AppConfig.baseUrl;
+  private logoutUrl = this.baseUrl+'/api/logout';
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -87,7 +87,7 @@ export class ClienttoolbarComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+     //   console.log('Logged in user:', this.user);
       },
       error => {
         console.error('Error fetching user details', error);
@@ -108,7 +108,7 @@ export class ClienttoolbarComponent {
 
     this.http.post(this.logoutUrl, {}, { headers }).subscribe(
       (response: any) => {
-        console.log('Logout response:', response);
+    //    console.log('Logout response:', response);
       },
       error => {
         console.error('Error logging out', error);

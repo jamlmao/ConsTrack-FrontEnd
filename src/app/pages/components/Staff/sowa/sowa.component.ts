@@ -29,7 +29,7 @@ import html2canvas from 'html2canvas';
 import { GeneralComponent } from "../general/general.component";
 import { EditsubcategComponent } from "../editsubcateg/editsubcateg.component";
 import { EditcategoryComponent } from "../editcategory/editcategory.component";
-
+import { AppConfig } from '../../../../app.config';
 
 @Component({
   selector: 'app-sowa',
@@ -99,13 +99,20 @@ export class SowaComponent {
   currentUserId: number = 0;
   projectIdNumber2: number = 0;
 
-  private url ="http://127.0.0.1:8000";
+  private url = AppConfig.baseUrl;
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
   private SortedUrl =`${this.url}`+'/api/sortedTask2/'
   private allTask = `${this.url}`+'/api/Alltask';
   private taskByCategoryUrl = `${this.url}`+'/api/tasksBycategory/';
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
   private updateProjectUrl = `${this.url}`+'/api/projects/';
+
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute,
+    private http: HttpClient,) {
+      
+     }
 
 
   projectDetails: any = {};
@@ -121,7 +128,7 @@ export class SowaComponent {
 
       Swal.fire({
         title: 'Loading...',
-        text: 'Please wait while we load the tasks.',
+        text: 'Please wait while we load.',
         allowOutsideClick: false,
         didOpen: () => {
           Swal.showLoading(null);
@@ -132,7 +139,7 @@ export class SowaComponent {
         this.projectId = params['projectId'] || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
-      console.log('Project ID:', this.projectIdNumber2);
+     // console.log('Project ID:', this.projectIdNumber2);
       
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
@@ -160,10 +167,7 @@ export class SowaComponent {
 
  
 
-  constructor(
-        private router: Router, 
-        private route: ActivatedRoute,
-        private http: HttpClient,) { }
+
       
   isCreateClientModalOpen = false;
   
@@ -191,14 +195,14 @@ export class SowaComponent {
 
   openTaskModal() {
     this.isTaskOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isTaskOpen);
+  //  console.log('Opening Task Modal');
+  //  console.log(this.isTaskOpen);
     this.openModal.emit();
   }
 
   closeTaskModal() {
     this.isTaskOpen = false;
-    console.log('xd');
+  //  console.log('xd');
     this.sideBarOpen = true;
     this.closeModal.emit();  
   }
@@ -206,34 +210,34 @@ export class SowaComponent {
   
   openGeneralModal() {
     this.isGeneralOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isGeneralOpen);
+ //  console.log('Opening Task Modal');
+  //  console.log(this.isGeneralOpen);
   }
 
   closeGeneralModal() {
     this.isGeneralOpen = false;
-    console.log('xd');
+ //   console.log('xd');
   }
   openSiteModal() {
     this.isSiteOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isSiteOpen);
+   // console.log('Opening Task Modal');
+   // console.log(this.isSiteOpen);
   }
 
   closeSiteModal() {
     this.isSiteOpen = false;
-    console.log('xd');
+   // console.log('xd');
   }
   openArchiModal() {
     this.isArchiOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isArchiOpen);
+   // console.log('Opening Task Modal');
+  //  console.log(this.isArchiOpen);
     
   }
 
   closeArchiModal() {
     this.isArchiOpen = false;
-    console.log('xd');
+  // console.log('xd');
   }
   
   
@@ -271,8 +275,8 @@ export class SowaComponent {
       (response: any) => {
         this.projectDetails = response.project;
         this.currentUserId = response.project.staff_id
-        console.log('Current User ID:', this.currentUserId);
-        console.log('Project Details:', this.projectDetails);
+     //   console.log('Current User ID:', this.currentUserId);
+      //  console.log('Project Details:', this.projectDetails);
       },
       (error) => {
         console.error('Failed to fetch project details', error);
@@ -297,9 +301,9 @@ export class SowaComponent {
       (response: any) => {
         this.tasks = response.tasks;
         Swal.close();
-        console.log('Project tasks:', this.tasks);
+     //   console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
-        console.log('Total Allocated Budget:', this.totalAllocatedBudget);
+      //  console.log('Total Allocated Budget:', this.totalAllocatedBudget);
        
        
       },
@@ -328,7 +332,7 @@ export class SowaComponent {
     (response: any) => {
       if (response && response.totalAllocatedBudget) {
         this.Total = response.totalAllocatedBudget;
-        console.log('Budget:', this.Total);
+    //    console.log('Budget:', this.Total);
       
         
         
@@ -356,7 +360,7 @@ export class SowaComponent {
 
   this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
     (response: any) => { 
-      console.log('Full Response:', response); // Log the entire response
+     // console.log('Full Response:', response); // Log the entire response
       if (response && response.Category) {
         const categories = response.Category;
         this.sortedTask = [];
@@ -384,7 +388,7 @@ export class SowaComponent {
           }
         }
 
-        console.log('Sorted Task:', this.sortedTask);
+        //console.log('Sorted Task:', this.sortedTask);
       } else {
         console.error('Category not found in the response');
       }
@@ -459,7 +463,7 @@ export class SowaComponent {
 
     this.http.put(this.updateProjectUrl + `${projectId}/update-status`,{},  { headers }).subscribe(
       (response: any) => {
-        console.log('Project updated:', response);
+       // console.log('Project updated:', response);
         Swal.fire({
           icon: 'success',
           title: 'Project updated successfully',
@@ -500,7 +504,7 @@ selectedCategoryId: number | null = null;
 openCreateProjectModal(categoryId: number){
   this.selectedCategoryId = categoryId;
   this.isCreateProjectModalOpen = true;
-  console.log('Selected Category ID:', this.selectedCategoryId);
+//  console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
   this.openModal.emit();
   
@@ -520,7 +524,7 @@ openCreateProjectModal(categoryId: number){
       const payload = { project_id: this.projectId };
 
 
-      console.log('Selected Category ID:', this.selectedCategoryId, payload);
+     // console.log('Selected Category ID:', this.selectedCategoryId, payload);
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
         Swal.fire({
           title: 'Loading...',
@@ -531,7 +535,7 @@ openCreateProjectModal(categoryId: number){
           }
         });
       this.http.put(this.url+'/api/category/remove/'+`${this.selectedCategoryId}`, payload, { headers }).subscribe(response =>{
-        console.log('Category removed successfully', response);
+      //  console.log('Category removed successfully', response);
         Swal.close();
         Swal.fire({
           position: "center",
@@ -581,7 +585,7 @@ openCreateProjectModal(categoryId: number){
                     }
                 });
                 this.http.put(this.url + '/api/task/remove/' + `${this.selectedTaskId}`, payload, { headers }).subscribe(response => {
-                    console.log('Task removed successfully', response);
+                //    console.log('Task removed successfully', response);
                     Swal.close();
                     Swal.fire({
                         position: "center",
@@ -607,7 +611,7 @@ openCreateProjectModal(categoryId: number){
 
 
     logTaskId(taskId: number): void {
-      console.log('Task ID:', taskId);
+    //  console.log('Task ID:', taskId);
   }
 
 
@@ -627,7 +631,7 @@ closeCreateProjectModal() {
 openEditCategModal(categoryId: number):void{
   this.selectedCategoryId = categoryId;
   this.isEditCategModalOpen = true;
-  console.log('Selected Category ID:', this.selectedCategoryId);
+ // console.log('Selected Category ID:', this.selectedCategoryId);
   this.sideBarOpen = false;
   this.openModal.emit();
 }
@@ -645,7 +649,7 @@ closeEditCategModal() :void {
 openEditSubModal(taskId: number){
   this.selectedTaskId = taskId;
   this.isEditSubModalOpen = true;
-  console.log('Selected Task ID:', this.selectedTaskId);
+ // console.log('Selected Task ID:', this.selectedTaskId);
   this.sideBarOpen = false;
   this.openModal.emit();
 }

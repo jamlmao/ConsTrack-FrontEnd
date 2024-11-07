@@ -26,7 +26,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ClienthistoryComponent } from "../../clienthistory/clienthistory.component";
 import { ClientupdatesComponent } from "../clientupdates/clientupdates.component";
-
+import { AppConfig } from '../../../../../app.config'; 
 @Component({
   selector: 'app-viewstatus',
   standalone: true,
@@ -46,7 +46,7 @@ export class ViewstatusComponent {
     localStorage.setItem('selectedTabIndex', this.selectedTabIndex.toString());
   }
 
-  imageUrl: string= 'http://localhost:8000';
+  imageUrl= AppConfig.imageUrl;
 
   generatePDF() {
     // Temporarily hide elements with the "no-pdf" class before generating the PDF
@@ -106,7 +106,7 @@ export class ViewstatusComponent {
   currentUserId: number = 0;
   projectIdNumber2: number = 0;
 
-  private url ="http://127.0.0.1:8000";
+  private url = AppConfig.baseUrl;
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
   private SortedUrl =`${this.url}`+'/api/sortedTask2/'
   private allTask = `${this.url}`+'/api/Alltask';
@@ -145,7 +145,7 @@ export class ViewstatusComponent {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
-      console.log('Project ID:', this.projectIdNumber2);
+       //console.log('Project ID:', this.projectIdNumber2);
       
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
@@ -202,34 +202,34 @@ export class ViewstatusComponent {
   
   openGeneralModal() {
     this.isGeneralOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isGeneralOpen);
+  //   console.log('Opening Task Modal');
+  //   console.log(this.isGeneralOpen);
   }
 
   closeGeneralModal() {
     this.isGeneralOpen = false;
-    console.log('xd');
+  //   console.log('xd');
   }
   openSiteModal() {
     this.isSiteOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isSiteOpen);
+ //    console.log('Opening Task Modal');
+ //    console.log(this.isSiteOpen);
   }
 
   closeSiteModal() {
     this.isSiteOpen = false;
-    console.log('xd');
+ //    console.log('xd');
   }
   openArchiModal() {
     this.isArchiOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isArchiOpen);
-    
+  //   console.log('Opening Task Modal');
+  //   console.log(this.isArchiOpen);
+  //   
   }
 
   closeArchiModal() {
     this.isArchiOpen = false;
-    console.log('xd');
+  //   console.log('xd');
   }
   
   
@@ -267,13 +267,13 @@ export class ViewstatusComponent {
       (response: any) => {
         this.projectDetails = response.project;
         this.currentUserId = response.project.staff_id
-        console.log('Current User ID:', this.currentUserId);
-        console.log('Project Details:', this.projectDetails);
+    //     console.log('Current User ID:', this.currentUserId);
+    //     console.log('Project Details:', this.projectDetails);
         this.circumference = 2 * Math.PI * this.radius;
         
         // Calculate the used percentage
         this.usedBudgetPercentage = (this.projectDetails.total_used_budget / this.projectDetails.totalBudget) * 100;
-          console.log('Used Budget Percentage:', this.usedBudgetPercentage);
+     //      console.log('Used Budget Percentage:', this.usedBudgetPercentage);
         // Calculate the stroke-dashoffset based on the percentage
         this.strokeDashOffset = this.circumference * (1 - this.usedBudgetPercentage / 100);
       },
@@ -307,9 +307,9 @@ export class ViewstatusComponent {
       (response: any) => {
         this.tasks = response.tasks;
         Swal.close();
-        console.log('Project tasks:', this.tasks);
+      //   console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
-        console.log('Total Allocated Budget:', this.totalAllocatedBudget);
+     //    console.log('Total Allocated Budget:', this.totalAllocatedBudget);
        
        
       },
@@ -338,7 +338,7 @@ export class ViewstatusComponent {
     (response: any) => {
       if (response && response.totalAllocatedBudget) {
         this.Total = response.totalAllocatedBudget;
-        console.log('Budget:', this.Total);
+     //    console.log('Budget:', this.Total);
       
         
         
@@ -366,7 +366,7 @@ export class ViewstatusComponent {
 
   this.http.get(this.SortedUrl + `${projectId}`, { headers }).subscribe(
     (response: any) => { 
-      console.log('Full Response:', response); // Log the entire response
+   //    console.log('Full Response:', response); // Log the entire response
       if (response && response.Category) {
         const categories = response.Category;
         this.sortedTask = [];
@@ -394,7 +394,7 @@ export class ViewstatusComponent {
           }
         }
 
-        console.log('Sorted Task:', this.sortedTask);
+    //     console.log('Sorted Task:', this.sortedTask);
       } else {
         console.error('Category not found in the response');
       }
@@ -469,7 +469,7 @@ export class ViewstatusComponent {
 
     this.http.put(this.updateProjectUrl + `${projectId}/update-status`,{},  { headers }).subscribe(
       (response: any) => {
-        console.log('Project updated:', response);
+    //     console.log('Project updated:', response);
         Swal.fire({
           icon: 'success',
           title: 'Project updated successfully',
@@ -523,7 +523,7 @@ selectedCategoryId: number | null = null;
       const payload = { project_id: this.projectId };
 
 
-      console.log('Selected Category ID:', this.selectedCategoryId, payload);
+    //   console.log('Selected Category ID:', this.selectedCategoryId, payload);
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
         Swal.fire({
           title: 'Loading...',
@@ -534,7 +534,7 @@ selectedCategoryId: number | null = null;
           }
         });
       this.http.put(this.url+'/api/category/remove/'+`${this.selectedCategoryId}`, payload, { headers }).subscribe(response =>{
-        console.log('Category removed successfully', response);
+     //    console.log('Category removed successfully', response);
         Swal.close();
         Swal.fire({
           position: "center",

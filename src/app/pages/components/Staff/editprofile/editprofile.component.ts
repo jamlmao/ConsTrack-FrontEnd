@@ -8,6 +8,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import Swal from 'sweetalert2';
+import { AppConfig } from '../../../../app.config';
 @Component({
   selector: 'app-editprofile',
   standalone: true,
@@ -19,8 +20,10 @@ export class EditprofileComponent {
   @Input() clientId!: number;
   @Output() close = new EventEmitter<void>();
   uniqueId: string;
+  private baseUrl: string;
   constructor(private http: HttpClient,private router: Router) {
     this.uniqueId = this.generateUniqueId();
+    this.baseUrl = AppConfig.baseUrl;
   }
   closeModal() {
     
@@ -31,7 +34,7 @@ export class EditprofileComponent {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
-  private baseUrl = 'http://127.0.0.1:8000/';
+  
   user:any;
   extensionName: string = '';
   licenseNumber: string = '';
@@ -78,16 +81,16 @@ export class EditprofileComponent {
         console.error('No token found in local storage');
         return;
       }
-      console.log('Token:', token);
+     // console.log('Token:', token);
 
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
 
-      this.http.get(this.baseUrl +'api/user/details', { headers }).subscribe(
+      this.http.get(this.baseUrl +'/api/user/details', { headers }).subscribe(
         (response: any) => {
           this.user = response;
-          console.log('Logged in user:', this.user);
+        //  console.log('Logged in user:', this.user);
           if (this.user && this.user.staff) {
             this.extensionName = this.user.staff.extension_name;
             this.licenseNumber = this.user.staff.license_number;
@@ -95,7 +98,8 @@ export class EditprofileComponent {
 
         },
         error => {
-          console.error('Error fetching user details', error);
+          console.clear();
+          // console.error('Error fetching user details', error);
         }
       );
     }
@@ -125,7 +129,7 @@ export class EditprofileComponent {
   
     // Add user_id to the payload
     payload['client_id'] = this.clientId;
-    console.log('Payload:', payload);
+  //  console.log('Payload:', payload);
     Swal.fire({
       title: 'Loading...',
       text: 'Submitting...',
@@ -134,10 +138,10 @@ export class EditprofileComponent {
         Swal.showLoading(null);
       }
     });
-    this.http.post(this.baseUrl + 'api/admin/update-password', payload, { headers }).subscribe(
+    this.http.post(this.baseUrl + '/api/admin/update-password', payload, { headers }).subscribe(
       response => {
         Swal.close();
-        console.log('Client updated successfully', response);
+      //  console.log('Client updated successfully', response);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -151,7 +155,8 @@ export class EditprofileComponent {
         this.closeModal();
       },
       error => {
-        console.error('Error updating client account', error);
+        console.clear();
+        // console.error('Error updating client account', error);
         Swal.fire({
           icon: "error",
           title: "Oops...",

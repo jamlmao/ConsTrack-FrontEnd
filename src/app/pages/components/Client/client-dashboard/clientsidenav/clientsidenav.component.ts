@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders , HttpClientModule } from '@angular/common/http';
 import { ClientguideComponent } from "../clientguide/clientguide.component";
 import { UserService } from '../../../../../user.service';
-
+import { AppConfig } from '../../../../../app.config'; 
 
 @Component({
   selector: 'app-clientsidenav',
@@ -36,16 +36,16 @@ export class ClientsidenavComponent {
   user: any;
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private logoutUrl = this.baseUrl+'api/logout';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  imageUrl = AppConfig.imageUrl;
+  private baseUrl = AppConfig.baseUrl;
+  private logoutUrl = this.baseUrl+'/api/logout';
+  private userUrl = this.baseUrl+'/api/user/details';
 
   constructor(private router: Router, private http: HttpClient,private userService: UserService) { }
 
   ngOnInit(): void {
-    console.log('Component initialized'); // Check if this logs
   if (this.userService.isFirstLogin()) {
-    console.log('First login detected'); // Check if this logs
+  //  console.log('First login detected'); // Check if this logs
     this.openModalI2(); // Automatically open the modal
     this.userService.setFirstLogin(); // Mark that the user has logged in
   }
@@ -104,7 +104,7 @@ export class ClientsidenavComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+       console.log('Logged in user:', this.user);
       },
       error => {
         console.error('Error fetching user details', error);
@@ -131,9 +131,9 @@ export class ClientsidenavComponent {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get(this.baseUrl + 'api/notifications', { headers }).subscribe(
+    this.http.get(this.baseUrl + '/api/notifications', { headers }).subscribe(
       (response: any) => {
-        console.log('Notifications fetched successfully', response);
+     //   console.log('Notifications fetched successfully', response);
       },
       error => {
         console.error('Error fetching notifications', error);
@@ -157,7 +157,7 @@ export class ClientsidenavComponent {
 
     this.http.post(this.logoutUrl, {}, { headers }).subscribe(
       (response: any) => {
-        console.log('Logout response:', response);
+       // console.log('Logout response:', response);
       },
       error => {
         console.error('Error logging out', error);

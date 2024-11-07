@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-
+import { AppConfig } from '../../../../app.config'; 
 
 @Component({
   selector: 'app-editcategory',
@@ -27,11 +27,15 @@ export class EditcategoryComponent {
     
     this.close.emit();
   }
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
-  
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private editUrl = this.baseUrl+'api/editCategory/';
 
+  
+
+  private editUrl :string;
+
+
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+    this.editUrl = `${AppConfig.baseUrl}/api/editCategory/`;
+  }
 
   category: any = {
     category_name: '',
@@ -39,8 +43,8 @@ export class EditcategoryComponent {
   };
 
   ngOnInit(): void {
-    console.log('Fetched categoryId:', this.categoryId);
-    console.log(this.editUrl)
+   // console.log('Fetched categoryId:', this.categoryId);
+  //  console.log(this.editUrl)
   }
 
 
@@ -81,7 +85,8 @@ export class EditcategoryComponent {
           this.closeModal();
         },
         (error) => {
-          console.error('Error:', error);
+          console.clear();
+          // console.error('Error:', error);
         }
       );
 

@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
-
+import { AppConfig } from '../../../../app.config'; 
 
 @Component({
   selector: 'app-archi',
@@ -31,24 +31,16 @@ export class ArchiComponent {
     this.close.emit();
   }
 
-  constructor(private route: ActivatedRoute, private router: Router , private http: HttpClient) {
-  
-
-}
-
-
-
-
   user:any = {};
   tasks: any = {};
   description: string = '';
   budget: number | null = null;
   selectedTaskId: number | null = null;
-  private baseUrl = 'http://127.0.0.1:8000/'
-  private updateTaskUrl = this.baseUrl+'api/updatetask/';
-  private resourceUrl = this.baseUrl+'api/tasks/';
-  private userUrl = this.baseUrl+'api/user/details';
-  private task = `${this.baseUrl}`+'api/tasks';
+
+  private updateTaskUrl: string;
+  private resourceUrl: string;
+  private userUrl : string;
+  private task : string;
   status: string = '';
   apiUrl: string ='';
   resources: any[] = [];  
@@ -61,6 +53,12 @@ export class ArchiComponent {
   images: any[] = [{}];
 
 
+  constructor(private route: ActivatedRoute, private router: Router , private http: HttpClient) {
+    this.updateTaskUrl = `${AppConfig.baseUrl}/api/updatetask/`;
+    this.resourceUrl = `${AppConfig.baseUrl}/api/tasks/`;
+    this.userUrl = `${AppConfig.baseUrl}/api/user/details`;
+    this.task = `${AppConfig.baseUrl}/api/tasks/`; //not used
+  }
 
   toggleChecklist(event: Event): void {
     this.isChecklistChecked = (event.target as HTMLInputElement).checked;
@@ -164,7 +162,7 @@ export class ArchiComponent {
   ngOnInit(): void {
     Swal.fire({
       title: 'Loading...',
-      text: 'Please wait while we load the tasks.',
+      text: 'Please wait while we load.',
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading(null);
@@ -174,25 +172,25 @@ export class ArchiComponent {
     this.route.queryParams.subscribe(params => {
       this.taskId = params['taskId']|| '' ;
       const taskIdNumber = Number(this.taskId);
-      console.log('Task ID:', this.taskId);
+ //     console.log('Task ID:', this.taskId);
       const userData = localStorage.getItem('user');
       if (!userData) {
         console.error('No user data found in local storage');
         return;
       }
       this.user = JSON.parse(userData);
-      console.log('User data:', this.user);
+    //  console.log('User data:', this.user);
      this.getLoggedInUserNameAndId();
    
      this.staffId = this.user.profile_id;
-     console.log('Staff ID:', this.staffId);
+  //   console.log('Staff ID:', this.staffId);
       if (!isNaN(taskIdNumber)) {
         this.selectedTaskId = taskIdNumber;
         this.fetchResource(taskIdNumber);
       }
     });
     this.apiUrl = this.updateTaskUrl + this.taskId;
-    console.log('API URL:', this.apiUrl);
+//    console.log('API URL:', this.apiUrl);
    
   }
 
@@ -203,7 +201,7 @@ export class ArchiComponent {
   onFileChange(event: any, field: string, index: number): void {
     const file = event.target.files[0];
     if (file) {
-      console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
+      //console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === FileReader.DONE) {
@@ -216,7 +214,7 @@ export class ArchiComponent {
                 this.tasks[field] = [];
             }
             this.tasks[field][index] = base64Content;
-            console.log(`Base64 content for ${field} stored successfully.`);
+           // console.log(`Base64 content for ${field} stored successfully.`);
           } else {
             console.error('The file content is not a valid base64 encoded string.');
           }
@@ -245,9 +243,9 @@ export class ArchiComponent {
         this.resources = response.resources;
         Swal.close();
         
-        console.log('Resources:', this.resources);
+      //  console.log('Resources:', this.resources);
         this.resources.forEach(resource => {
-          console.log('Resource ID:', resource.id);
+      //    console.log('Resource ID:', resource.id);
         });
 
       }
@@ -271,11 +269,11 @@ export class ArchiComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+     //   console.log('Logged in user:', this.user);
 
       },
       error => {
-        console.error('Error fetching user details', error);
+     //   console.error('Error fetching user details', error);
       }
     );
   }
@@ -321,11 +319,19 @@ export class ArchiComponent {
       }
 
       const payload = { ...formData, staff: this.staffId };
-      console.log('Payload:', payload);
+    //  console.log('Payload:', payload);
 
       const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-   
+      Swal.fire({
+        title: 'Loading...',
+        text: 'Submitting...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(null);
+        }
+      });
       this.http.post(this.apiUrl, payload, { headers }).subscribe(response => { 
+        Swal.close();
         Swal.fire({
           position: "center",
           icon: "success",
@@ -333,13 +339,14 @@ export class ArchiComponent {
           showConfirmButton: true,
           timer: 2000
         }).then(() => {
-          // window.location.reload();
+           window.location.reload();
           this.closeModal();
         });
-          console.log('Task updated successfully', response);
+     //     console.log('Task updated successfully', response);
           this.closeModal();
       },error => {
-        console.error('Error updating task', error);
+        // console.clear();
+        // console.error('Error updating task', error);
         this.closeModal();
       }
     );

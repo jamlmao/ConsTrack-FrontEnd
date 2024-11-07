@@ -19,7 +19,7 @@ import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/cre
 import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/create-staff-acct.component";
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
-
+import { AppConfig } from '../../../../../app.config'; 
 @Component({
   selector: 'app-chome',
   standalone: true,
@@ -34,9 +34,10 @@ export class ChomeComponent {
   isCreateClientModalOpen = false;
   clientId: number | null = null;
   projects: any[] = [];
-  private baseUrl ='http://127.0.0.1:8000/'
-  private userUrl = this.baseUrl+'api/user/details';
-  private fetchUrl = this.baseUrl+'api/clients/';
+  imageUrl = AppConfig.imageUrl; 
+  private baseUrl =AppConfig.baseUrl
+  private userUrl = this.baseUrl+'/api/user/details';
+  private fetchUrl = this.baseUrl+'/api/clients/';
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -84,9 +85,10 @@ export class ChomeComponent {
         this.user = response;
       
        
-        console.log('Logged in user:', this.user);
+        // console.log('Logged in user:', this.user);
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );
@@ -111,12 +113,13 @@ export class ChomeComponent {
       (response: any) => {
         if (response && Array.isArray(response.projects)) {
           this.projects = response.projects;
-          console.log('Fetched projects:', this.projects);
+          // console.log('Fetched projects:', this.projects);
         } else {
           console.error('Expected an array for projects');
         }
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );
@@ -125,7 +128,27 @@ export class ChomeComponent {
 
 
   selectProject(project: any) {
-    this.router.navigate(['client/viewstatus', project.id]);
+    console.log('Selected project:', project.id);
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      console.error('No token found in local storage');
+      return;
+    }
+    const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    const payload = { project_id: project.id };
+
+    this.http.post(this.baseUrl + '/api/ClientTaskisSeen', payload,{ headers }).subscribe((response: any) => {
+      this.router.navigate(['client/viewstatus', project.id]); 
+    }, error => {
+      console.error('Failed to fetch project details', error);
+    });
+   
+// make this if click make it update the column for isPSeen to 1 in the database 
+
+
+
+
+    
   }
  
 
@@ -134,24 +157,24 @@ export class ChomeComponent {
 
   openCreateStaffModal() {
     this.isCreateStaffModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateStaffModalOpen);
+    // console.log('Opening Create Staff Modal');
+    // console.log(this.isCreateStaffModalOpen);
   }
 
   closeCreateStaffModal() {
     this.isCreateStaffModalOpen = false;
-    console.log('xd');
+    // console.log('xd');
   }
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
+    // console.log('Opening Create Staff Modal');
+    // console.log(this.isCreateClientModalOpen);
   }
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
-    console.log('xd');
+    // console.log('xd');
   }
 
   sideBarOpen=true;

@@ -9,7 +9,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import { Observable, tap } from 'rxjs';
 import Swal from 'sweetalert2';
-
+import { AppConfig } from '../../../../app.config';
 @Component({
   selector: 'app-notavailable',
   standalone: true,
@@ -23,11 +23,13 @@ export class NotavailableComponent {
   
   isLoading = false; 
   @Output() close = new EventEmitter<void>();
-   private baseUrl = 'http://127.0.0.1:8000';
+   private baseUrl : string;
 
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,private router: Router, private datePipe: DatePipe) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,private router: Router, private datePipe: DatePipe) {
+    this.baseUrl =`${AppConfig.baseUrl}`;
+  }
 
   minDate: string= '';
   
@@ -90,13 +92,13 @@ export class NotavailableComponent {
   
 
     const days = this.selectedDates.map(date => new Date(date).getDate());
-    console.log('Days:', days);
-
+   // console.log('Days:', days);
+//
     const payload = { dates: days };
-    console.log('Payload:', payload);
+  //  console.log('Payload:', payload);
 
     this.http.post(`${this.baseUrl}/api/insert-available-dates`,payload, { headers }).subscribe((response:any) => {
-      console.log(response);
+     // console.log(response);
       Swal.fire({
         title: 'Success',
         text: 'Added successfully',
