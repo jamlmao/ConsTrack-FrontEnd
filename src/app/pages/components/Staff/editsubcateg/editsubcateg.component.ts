@@ -8,7 +8,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
 import Swal from 'sweetalert2';
-
+import { AppConfig } from '../../../../app.config';
 @Component({
   selector: 'app-editsubcateg',
   standalone: true,
@@ -21,12 +21,15 @@ export class EditsubcategComponent {
   @Output() close = new EventEmitter<void>();
 
 
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private editUrl = this.baseUrl+'api/Etasks/';
 
+  private editUrl:string;
+
+  constructor(private http: HttpClient) {
+    this.editUrl= `${AppConfig.baseUrl}/api/Etasks/`;
+  }
   ngOnInit(): void {
-    console.log('Fetched taskId:', this.taskId);
-    console.log(this.editUrl)
+   // console.log('Fetched taskId:', this.taskId);
+  //  console.log(this.editUrl)
   }
 
 
@@ -40,9 +43,6 @@ export class EditsubcategComponent {
   };
 
 
-  constructor(private http: HttpClient) {
-    
-  }
   closeModal() {
     
     this.close.emit();
@@ -77,7 +77,7 @@ export class EditsubcategComponent {
       }
     });
 
-    console.log('Form data:', this.task);
+   // console.log('Form data:', this.task);
     this.http.put(`${this.editUrl}${this.taskId}`, this.task, { headers }).subscribe(response => {
       Swal.close();
       Swal.fire({
@@ -91,7 +91,8 @@ export class EditsubcategComponent {
       });
       this.closeModal();
     }, (error) => {
-      console.error('Error:', error);
+      console.clear();
+      // console.error('Error:', error);
     });
   }
 }

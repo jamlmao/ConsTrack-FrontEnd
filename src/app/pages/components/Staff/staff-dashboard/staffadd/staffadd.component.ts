@@ -30,6 +30,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditprojectComponent } from "../../editproject/editproject.component";
 import Swal from 'sweetalert2';
+import { AppConfig } from '../../../../../app.config';
+
 
 @Component({
   selector: 'app-staffadd',
@@ -47,9 +49,9 @@ export class StaffaddComponent {
 
   isCreateProjectModalOpen = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  private baseUrl = 'http://127.0.0.1:8000/';
-  private projectsUrl = `${this.baseUrl}api/staff/projects`;
-  private userUrl = `${this.baseUrl}api/user/details`;
+  private baseUrl = AppConfig.baseUrl;
+  private projectsUrl = `${this.baseUrl}/api/staff/projects`;
+  private userUrl = `${this.baseUrl}/api/user/details`;
   
   clients: any[] = [];
   isCreateClientModalOpen = false;
@@ -104,14 +106,14 @@ export class StaffaddComponent {
 
   openCreateProjectModal() {
     this.isCreateProjectModalOpen = true;
-    console.log('Opening Create Staff Project');
-    console.log(this.isCreateProjectModalOpen);
+   // console.log('Opening Create Staff Project');
+  //  console.log(this.isCreateProjectModalOpen);
     this.sideBarOpen = false;
   }
 
   closeCreateProjectModal() {
     this.isCreateProjectModalOpen = false;
-    console.log('xd');
+   // console.log('xd');
     this.sideBarOpen = true;
   }
  
@@ -123,7 +125,7 @@ export class StaffaddComponent {
       
     Swal.fire({
       title: 'Loading...',
-      text: 'Please wait while we load the tasks.',
+      text: 'Please wait while we load.',
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading(null);
@@ -183,14 +185,14 @@ export class StaffaddComponent {
 
   openEditModal() {
     this.isEditModalOpen = true;
-    console.log('Opening Edit Modal');
-    console.log(this.isEditModalOpen);
+  //  console.log('Opening Edit Modal');
+  //  console.log(this.isEditModalOpen);
     this.sideBarOpen = false; 
   }
 
   closeEditModal() {
     this.isEditModalOpen = false;
-    console.log('xd');
+ //   console.log('xd');
     this.sideBarOpen = true; 
   }
 
@@ -335,9 +337,10 @@ pageSize: number = 1; // Example page siz
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+     //   console.log('Logged in user:', this.user);
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );

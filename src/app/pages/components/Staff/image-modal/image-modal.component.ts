@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-
+import { AppConfig } from '../../../../app.config';
 @Component({
   selector: 'app-image-modal',
   standalone: true,
@@ -15,7 +15,7 @@ export class ImageModalComponent {
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<void>();
   currentIndex: number = 0;
-  imageUrl: string= 'http://localhost:8000';
+  imageUrl = AppConfig.imageUrl;
   closeModal(): void {
     this.isVisible = false;
     this.close.emit();

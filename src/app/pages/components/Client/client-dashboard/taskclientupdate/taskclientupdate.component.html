@@ -76,7 +76,7 @@
                         <div class="cards-container d-flex flex-wrap justify-content-center">
                             <!-- Project Item 1 -->
                             <div class="cards project-item card-custom m-3" *ngIf="task_image.week1_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week1_img" alt="Project Image" class="card-image">
+                                <img [src]="imageUrl + task_image.week1_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week1_img_uploaded_at}}</strong></h3>
                                 </div>
@@ -84,7 +84,7 @@
                     
                             <!-- Project Item 2"  -->
                             <div class="cards project-item card-custom m-3"*ngIf="task_image.week2_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week2_img" alt="Project Image" class="card-image">
+                                <img [src]="imageUrl + task_image.week2_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week2_img_uploaded_at}}</strong></h3>
                                 </div>
@@ -92,7 +92,7 @@
                     
                             <!-- Project Item 3 -->
                             <div class="cards project-item card-custom m-3" *ngIf="task_image.week3_img">
-                                <img [src]="'http://localhost:8000' + task_image.week3_img" alt="Project Image" class="card-image">
+                                <img [src]="imageUrl + task_image.week3_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week3_img_uploaded_at}}</strong></h3>
                                 </div>
@@ -101,7 +101,7 @@
 
 
                             <div class="cards project-item card-custom m-3" *ngIf="task_image.week4_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week4_img" alt="Project Image" class="card-image">
+                                <img [src]="imageUrl + task_image.week4_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week4_img_uploaded_at}}</strong></h3>
                                 </div>
@@ -110,7 +110,7 @@
 
 
                             <div class="cards project-item card-custom m-3" *ngIf="task_image.week5_img ">
-                                <img [src]="'http://localhost:8000' + task_image.week5_img" alt="Project Image" class="card-image">
+                                <img [src]="imageUrl + task_image.week5_img" alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.week5_img_uploaded_at}}</strong></h3>
                                 </div>
@@ -119,7 +119,7 @@
 
 
                             <div class="cards project-item card-custom m-3" *ngIf="task_image.update_img ">
-                                <img [src]="'http://localhost:8000' + task_image.update_img"  alt="Project Image" class="card-image">
+                                <img [src]="imageUrl + task_image.update_img"  alt="Project Image" class="card-image">
                                 <div class="project-details">
                                     <h3><strong>{{task_image.update_img_uploaded_at}}</strong></h3>
                                 </div>

@@ -20,6 +20,7 @@ import { CreateStaffAcctComponent } from "../../../Admin/create-staff-acct/creat
 import { StaffsidenavComponent } from "../staffsidenav/staffsidenav.component";
 import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { EditpassComponent } from "../../editpass/editpass.component";
+import { AppConfig } from '../../../../../app.config';
 @Component({
   selector: 'app-staffprofile',
   standalone: true,
@@ -29,8 +30,8 @@ import { EditpassComponent } from "../../editpass/editpass.component";
 })
 export class StaffprofileComponent {
 
-  private projectsUrl = 'http://127.0.0.1:8000/api/staff/projects';
-  private userUrl = 'http://127.0.0.1:8000/api/user/details';
+  private projectsUrl = AppConfig.baseUrl+'/api/staff/projects';
+  private userUrl = AppConfig.baseUrl+'/api/user/details';
   projects: any[] = [];
   selectedProject: any;
   user: any = {};
@@ -55,7 +56,7 @@ export class StaffprofileComponent {
   openEditSubModal(){
    
     this.isEditSubModalOpen = true;
-    console.log('Selected Category ID:');
+   // console.log('Selected Category ID:');
     this.sideBarOpen = false;
   }
   
@@ -76,7 +77,7 @@ export class StaffprofileComponent {
       return;
     }
 
-    console.log('Token:', token);
+    //console.log('Token:', token);
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -84,11 +85,12 @@ export class StaffprofileComponent {
 
     this.http.get(this.projectsUrl, { headers }).subscribe(
       (response: any) => {
-        console.log('Full response:', response);
+        //console.log('Full response:', response);
         this.projects = response;
-        console.log('Fetched projects:', this.projects);
+      //  console.log('Fetched projects:', this.projects);
       },
       error => {
+        console.clear();
         console.error('Error fetching projects', error);
       }
     );
@@ -113,10 +115,11 @@ export class StaffprofileComponent {
     this.http.get(this.userUrl, { headers }).subscribe(
       (response: any) => {
         this.user = response;
-        console.log('Logged in user:', this.user);
+       //console.log('Logged in user:', this.user);
         
       },
       error => {
+        console.clear();
         console.error('Error fetching user details', error);
       }
     );

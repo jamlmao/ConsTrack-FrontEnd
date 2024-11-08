@@ -9,6 +9,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AppConfig } from '../../app.config'; 
+import { catchError , tap} from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 
@@ -16,8 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 
 
 
-const baseUrl = 'http://127.0.0.1:8000';
-const loginApi = `${baseUrl}/api/loginA`;
 
 @Component({
   selector: 'app-menu',
@@ -32,7 +33,7 @@ const loginApi = `${baseUrl}/api/loginA`;
 
 export class MenuComponent {
 
-
+  private loginApi: string = `${AppConfig.baseUrl}/api/loginA`;
   hide = signal(true);
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
@@ -52,75 +53,81 @@ export class MenuComponent {
 
 
   onLogin() {
-    this.http.post(loginApi, this.loginObj).subscribe(
-      (res: any) => {
-        console.log('API Response:', res); // Log the full response // should delete after development
-        const token = res.token;
-        if (token) {
-          localStorage.setItem('user', JSON.stringify(res));
-          localStorage.setItem('token', token);
-          console.log('Token:', token);
-        } else {
-          console.error('Token not found in the response');
-        }
-    
-        const storedUser = localStorage.getItem('user');
-        console.log('Stored User:', storedUser);
-        if (res.role) {
-          if (res.role === 'admin') {
-            console.log('Login successful, admin');
-            
-            this.router.navigateByUrl('/admin/home').then(success => {
-              if (success) {
-                console.log('Navigation to admin dashboard successful');
-              } else {
-                console.log('Navigation to admin dashboard failed');
-              }
-            });
-          } else if (res.role === 'staff') {
-            console.log('Login successful, staff');
-            
-            this.router.navigateByUrl('/staff/shome').then(success => {
-              if (success) {
-                console.log('Navigation to staff dashboard successful');
-              } else {
-                console.log('Navigation to staff dashboard failed');
-              }
-            });
-          } else if (res.role === 'client') {
-            console.log('Login successful, client');
-            
-            this.router.navigateByUrl('client/chome').then(success => {
-              if (success) {
-                console.log('Navigation to client dashboard successful');
-              } else {
-                console.log('Navigation to client dashboard failed');
-              }
-            });
-          } else {
-            console.log('Login successful, but role is not recognized');
-            // Handle other roles if needed
-          }
-        } else {
-          console.log('Login failed:', res.message);
+    this.http.post(this.loginApi, this.loginObj).pipe(
+      tap({
+        error: (error) => {
+         //  console.log('Error occurred during login:', error);
+         console.clear();
           Swal.fire({
             icon: "error",
             title: "Oops... Log in Unsuccessful",
-            text: "Something went wrong!",
+            text: "Unauthorized access. Please check your credentials.",
           });
+          return of(null);
+        }
+      }),
+      catchError((error) => {
+        // console.log('Catching error in catchError:', error);
+        console.clear();
+        return of(null);
+      })
+    ).subscribe(
+      (res: any) => {
+        if (res && res.token) {
+          localStorage.setItem('user', JSON.stringify(res));
+          localStorage.setItem('token', res.token);
+
+          const storedUser = localStorage.getItem('user');
+          if (storedUser) {
+            const user = JSON.parse(storedUser);
+            
+            if (user.role === 'admin') {
+              this.router.navigateByUrl('/admin/home').then(success => {
+                if (success) {
+               //    console.log('Navigation to admin dashboard successful');
+                } else {
+                 //  console.log('Failed to navigate to admin dashboard');
+                }
+              });
+            } else if (user.role === 'staff') {
+              this.router.navigateByUrl('/staff/shome').then(success => {
+                if (success) {
+                  //console.log('Navigation to staff dashboard successful');
+                } else {
+                //   console.log('Failed to navigate to staff dashboard');
+                }
+              });
+            } else if (user.role === 'client') {
+              this.router.navigateByUrl('client/chome').then(success => {
+                if (success) {
+                 //  console.log('Navigation to client dashboard successful');
+                } else {
+                  // console.log('Failed to navigate to client dashboard');
+                }
+              });
+            } else {
+              // console.log('Unknown role detected');
+            }
+          } else {
+            // console.log('No user information found in local storage');
+          }
+        } else {
+          // console.log('Invalid response received from server');
         }
       },
       (error) => {
-        console.error('API call error:', error); // Log any errors from the API call
+        // console.log('Error occurred after subscribe:', error);
+        console.clear();
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oops... Log in Unsuccessful",
           text: "Something went wrong!",
         });
       }
+      
     );
+    
   }
-
 }
 export class Login {
   username: string;

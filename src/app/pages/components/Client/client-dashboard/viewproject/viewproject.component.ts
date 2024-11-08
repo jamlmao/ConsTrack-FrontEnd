@@ -20,7 +20,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
 
-
+import { AppConfig } from '../../../../../app.config'; 
 import Swal from 'sweetalert2';
 import { FilterPipe } from '../../../../../filter.pipe';
 
@@ -50,8 +50,8 @@ export class ViewprojectComponent {
   alltask: any[] = [];
   currentUserId: number = 0;
   projectIdNumber2: number = 0;
-
-  private url ="http://127.0.0.1:8000";
+  imageUrl=AppConfig.imageUrl;
+  private url =AppConfig.baseUrl;
   private TaskUrl = `${this.url}`+'/api/projectsTasks/'; 
   private projectDetailsUrl = `${this.url}`+'/api/projectD/';
 
@@ -81,7 +81,7 @@ export class ViewprojectComponent {
       this.projectId = params.get('projectId') || ''; 
       const projectIdNumber = Number(this.projectId);
       this.projectIdNumber2 = Number(this.projectId);
-      console.log('Project ID:', this.projectIdNumber2);
+      // console.log('Project ID:', this.projectIdNumber2);
       if (!isNaN(projectIdNumber)) {
         this.fetchProjectTasks(projectIdNumber);
         this.fetchProjectDetails(projectIdNumber);
@@ -154,8 +154,8 @@ getStatusText(status: string): string {
       (response: any) => {
         this.projectDetails = response.project;
         this.currentUserId = response.project.staff_id
-        console.log('Current User ID:', this.currentUserId);
-        console.log('Project Details:', this.projectDetails);
+     //    console.log('Current User ID:', this.currentUserId);
+      //   console.log('Project Details:', this.projectDetails);
       },
       (error) => {
         console.error('Failed to fetch project details', error);
@@ -195,10 +195,10 @@ getStatusText(status: string): string {
         this.tasks = response.tasks;
 
      
-        console.log('Project tasks:', this.tasks);
+      //   console.log('Project tasks:', this.tasks);
         this.totalAllocatedBudget = response.totalAllocatedBudget;
 
-        console.log('Total Allocated Budget:', this.totalAllocatedBudget);
+      //   console.log('Total Allocated Budget:', this.totalAllocatedBudget);
   
         // Apply filter and update pagination
         this.filterTasks();
@@ -240,7 +240,7 @@ getStatusText(status: string): string {
     const endIndex = startIndex + this.rowsPerPage;
   
     this.paginatedTasks = this.filteredTasks.slice(startIndex, endIndex);
-    console.log('Paginated Tasks:', this.paginatedTasks);
+     //console.log('Paginated Tasks:', this.paginatedTasks);
   }
   
   // For changing pages

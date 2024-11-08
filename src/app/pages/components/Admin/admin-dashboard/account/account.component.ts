@@ -20,7 +20,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CreateStaffAcctComponent } from "../../create-staff-acct/create-staff-acct.component";
 import { CreateClientAcctComponent } from "../../../Staff/create-client-acct/create-client-acct.component";
 import { EditprofileComponent } from "../../../Staff/editprofile/editprofile.component";
-
+import { AppConfig } from '../../../../../app.config'; 
 
 
 
@@ -38,10 +38,11 @@ export class AccountComponent {
   isCreateStaffModalOpen = false;
   isCreateClientModalOpen = false;
   isEditModalOpen = false;
-  private baseUrl = 'http://127.0.0.1:8000';
-  private fetchUserUrl = this.baseUrl + '/api/admin/users';
+  private fetchUserUrl: string;
 
-  constructor(private router: Router,private http: HttpClient) { }
+  constructor(private router: Router,private http: HttpClient) {
+    this.fetchUserUrl = AppConfig.baseUrl + '/api/admin/users';
+   }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');

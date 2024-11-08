@@ -23,7 +23,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FilterPipe } from '../../../../../filter.pipe';
 import { ClientsidenavComponent } from "../clientsidenav/clientsidenav.component";
 import { ClienttoolbarComponent } from "../clienttoolbar/clienttoolbar.component";
-
+import { AppConfig } from '../../../../../app.config'; 
 @Component({
   selector: 'app-taskclientupdate',
   standalone: true,
@@ -44,7 +44,8 @@ export class TaskclientupdateComponent {
 
   taskId :string = '';
   task_image: any= {};
-  private url ="http://127.0.0.1:8000";
+  imageUrl = AppConfig.imageUrl;
+  private url =AppConfig.baseUrl;
   private allTask = `${this.url}`+'/api/tasks';
   private ImagesUrl = `${this.url}`+'/api/taskImages/';
   
@@ -57,7 +58,7 @@ export class TaskclientupdateComponent {
     this.route.paramMap.subscribe(params => {
       this.taskId = params.get('taskId')|| '';
       const taskIdNumber = Number(this.taskId);
-      console.log('Task ID:', this.taskId);
+     // console.log('Task ID:', this.taskId);
       if (!isNaN(taskIdNumber)) {
         this.fetchAllTask(taskIdNumber);
         this.fetchTaskImages(taskIdNumber);
@@ -108,16 +109,16 @@ getStatusText(status: string): string {
 
   openTaskModal(taskId: number) {
     this.selectedTaskId = taskId;
-    console.log('Selected task ID:', this.selectedTaskId);
+    // console.log('Selected task ID:', this.selectedTaskId);
     this.isTaskOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isTaskOpen);
+    // console.log('Opening Task Modal');
+    // console.log(this.isTaskOpen);
   }
 
   closeTaskModal() {
     this.selectedTaskId = null;
     this.isTaskOpen = false;
-    console.log('xd');
+     //console.log('xd');
   }
 
   
@@ -131,16 +132,16 @@ getStatusText(status: string): string {
 
     const url = `${this.allTask}/${taskId}/resources`;
 
-    console.log('URL:', url);
+  //   console.log('URL:', url);
 
     this.http.get(this.allTask + `/${taskId}/resources`, { headers }).subscribe(
       (response: any) => {
        this.tasks = response.tasks;
        this.categoryName = response.category_name;  
-       console.log('Category Name:', this.categoryName);
-       console.log('Tasks:', this.tasks);
+     //   console.log('Category Name:', this.categoryName);
+      //  console.log('Tasks:', this.tasks);
        this.resources = response.resources;
-       console.log('Resources:', this.resources);
+      //  console.log('Resources:', this.resources);
       }
     );
 

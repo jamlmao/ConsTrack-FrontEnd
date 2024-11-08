@@ -27,7 +27,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { take, tap } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FilterPipe } from '../../../../../filter.pipe';
-
+import { AppConfig } from '../../../../../app.config';
 
 @Component({
   selector: 'app-staffclientacc',
@@ -38,8 +38,8 @@ import { FilterPipe } from '../../../../../filter.pipe';
 })
 export class StaffclientaccComponent {
 
-  private baseUrl="http://127.0.0.1:8000/";
-  private fetchClientUrl = this.baseUrl+'api/clients';
+  private baseUrl= AppConfig.baseUrl;
+  private fetchClientUrl = this.baseUrl+'/api/clients';
   user: any;
   clients: any[] = [];
   isCreateClientModalOpen = false;
@@ -82,7 +82,7 @@ export class StaffclientaccComponent {
     this.http.get<any>(this.fetchClientUrl, { headers })
     .pipe(
       tap(response => {
-        console.log('Full response:', response);
+          console.log('Full response:', response);
         if (response && Array.isArray(response.clients)) {
           // Filter out duplicate clients based on the 'id' property
           const uniqueClients = response.clients.filter((client: any, index: number, self: any[]) =>
@@ -96,13 +96,14 @@ export class StaffclientaccComponent {
           console.error('Unexpected response format:', response);
           this.clients = [];
         }
-        console.log('Fetched clients:', this.clients);
+      //  console.log('Fetched clients:', this.clients);
       }),
       take(1) // This will ensure the observable completes after the first emission
     )
     .subscribe(
       () => {},
       error => {
+        console.clear();
         console.error('Error fetching clients:', error);
       }
     );
@@ -142,14 +143,14 @@ export class StaffclientaccComponent {
 
   openCreateClientModal() {
     this.isCreateClientModalOpen = true;
-    console.log('Opening Create Staff Modal');
-    console.log(this.isCreateClientModalOpen);
+  //  console.log('Opening Create Staff Modal');
+   // console.log(this.isCreateClientModalOpen);
     this.sideBarOpen = false; 
   }
 
   closeCreateClientModal() {
     this.isCreateClientModalOpen = false;
-    console.log('xd');
+   // console.log('xd');
     this.sideBarOpen = true; 
   }
 
@@ -157,17 +158,17 @@ export class StaffclientaccComponent {
 
   openEditModal(clientId: number){
     this.SelectedClientId =clientId;
-    console.log('Selected Client ID:', this.SelectedClientId);
+   // console.log('Selected Client ID:', this.SelectedClientId);
     this.isEditModalOpen = true;
-    console.log('Opening Edit Modal');
-    console.log(this.isEditModalOpen);
+    //console.log('Opening Edit Modal');
+  //  console.log(this.isEditModalOpen);
     this.sideBarOpen = false; 
   }
 
   closeEditModal() {
     this.SelectedClientId = null;
     this.isEditModalOpen = false;
-    console.log('xd');
+   // console.log('xd');
     this.sideBarOpen = true; 
   }
 

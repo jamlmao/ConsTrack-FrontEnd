@@ -50,9 +50,24 @@
  form{
   margin: 50px;
  }
- .user-image{
-  width: 180px;
- }
+
+ 
+ .user-image {
+  border-radius: 50%;
+  margin-top: 15px;
+  border: 2px solid #2c2b2b98;
+  margin-bottom: 15px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+ .avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
 
 
           

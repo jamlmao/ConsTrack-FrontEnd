@@ -13,6 +13,8 @@ import { Observable, tap } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { AppConfig } from '../../../../app.config'; 
+
 
 @Component({
   selector: 'app-addtask',
@@ -29,9 +31,13 @@ export class AddtaskComponent {
   faTrashAlt = faTrashAlt;
   faPlus = faAdd;
 
-  private url='http://127.0.0.1:8000/';
-  private baseUrl = `${this.url}api/addtask2/`;
+
+  private baseUrl: string;
   apiUrl: string ='';
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+    this.baseUrl= `${AppConfig.baseUrl}/api/addtask2/`;
+  }
+
 
   task: any = {
     pt_task_name: '',
@@ -50,13 +56,13 @@ export class AddtaskComponent {
 
 
 
-    constructor(private route: ActivatedRoute, private http: HttpClient) {}
+ 
 
     ngOnInit(): void {
       // Extract projectId from the current URL
       this.route.queryParams.subscribe(params => {
         this.projectId = params['projectId'] || '';
-        console.log ('Project ID:', this.projectId);
+      //  console.log ('Project ID:', this.projectId);
         if (this.projectId) {
           this.apiUrl = this.getAddTaskUrl(this.projectId);
           // console.log('Full API URL:', this.apiUrl); // Log the full API UR
@@ -92,7 +98,7 @@ export class AddtaskComponent {
     onFileChange(event: any, field: string): void {
       const file = event.target.files[0];
       if (file) {
-        console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
+      //  console.log(`File selected: ${file.name}, size: ${file.size}, type: ${file.type}`);
         const reader = new FileReader();
         reader.onload = () => {
           if (reader.readyState === FileReader.DONE) {
@@ -124,12 +130,12 @@ export class AddtaskComponent {
       // Set the project_id in the task object
       this.task.project_id = this.projectId;
       this.task.category_id = this.categoryId;
-      console.log('Task:', this.task);
+   //   console.log('Task:', this.task);
       // Example payload for the POST request
       const payload = this.task;
-      console.log('Task payload:', payload);
+    //  console.log('Task payload:', payload);
       
-      console.log('Token:', token);
+    //  console.log('Token:', token);
       Swal.fire({
         title: 'Loading...',
         text: 'Submitting...',
@@ -143,7 +149,7 @@ export class AddtaskComponent {
           Authorization: `Bearer ${token}`
         }
       }).subscribe(response => {
-        console.log('Task added successfully', response);
+       // console.log('Task added successfully', response);
         Swal.close();
         Swal.fire({
           position: "center",
@@ -158,6 +164,7 @@ export class AddtaskComponent {
         this.closeModal();
       },  error => {
         console.error('Error adding task', error);
+        console.clear();
         Swal.fire({
           icon: "error",
           title: "Oops...",

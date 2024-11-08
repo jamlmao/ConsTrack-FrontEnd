@@ -16,7 +16,7 @@
                   Monthly Schedule for {{ currentDate | date: 'MMMM yyyy' }}
                 </h1>
                 <div>
-                  <button (click)="openTaskModal()" class="btn btn-danger">Add Schedule</button>
+                  <button (click)="openTaskModal()" class="btn btn-danger">Appoint</button>
                   <app-clientappoint *ngIf="isTaskOpen" (close)="closeTaskModal()"></app-clientappoint>
                 </div>
             </div>

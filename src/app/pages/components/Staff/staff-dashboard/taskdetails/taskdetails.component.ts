@@ -25,7 +25,7 @@ import { StafftoolbarComponent } from "../stafftoolbar/stafftoolbar.component";
 import { ArchiComponent } from "../../archi/archi.component";
 import { EditresourceComponent } from "../../editresource/editresource.component";
 import { ImageModalComponent } from "../../image-modal/image-modal.component";
-
+import { AppConfig } from '../../../../../app.config';
 @Component({
   selector: 'app-taskdetails',
   standalone: true,
@@ -49,8 +49,8 @@ export class TaskdetailsComponent {
   remaining: number = 0;
   budget: number = 0;
   task_image: any[] = []; 
-  imageUrl: string= 'http://localhost:8000';
-  private url ="http://127.0.0.1:8000";
+  imageUrl= AppConfig.imageUrl;
+  private url =AppConfig.baseUrl;
   private allTask = `${this.url}`+'/api/tasks';
   private ImagesUrl = `${this.url}`+'/api/taskImages/';
   private usedResourcesUrl = `${this.url}`+'/api/tasks/';
@@ -131,17 +131,17 @@ getStatusText(status: string): string {
 
   openTaskModal(taskId: number) {
     this.selectedTaskId = taskId;
-    console.log('Selected task ID:', this.selectedTaskId);
+  //  console.log('Selected task ID:', this.selectedTaskId);
     this.isTaskOpen = true;
-    console.log('Opening Task Modal');
-    console.log(this.isTaskOpen);
+   // console.log('Opening Task Modal');
+    //console.log(this.isTaskOpen);
     this.sideBarOpen = false;
   }
 
   closeTaskModal() {
     this.selectedTaskId = null;
     this.isTaskOpen = false;
-    console.log('xd');
+  //  console.log('xd');
     this.sideBarOpen = true;
   }
 
@@ -156,21 +156,21 @@ getStatusText(status: string): string {
 
     const url = `${this.allTask}/${taskId}/resources`;
 
-    console.log('URL:', url);
+    //console.log('URL:', url);
 
     this.http.get(this.allTask + `/${taskId}/resources`, { headers }).subscribe(
       (response: any) => {
         this.hideLoading();
-        console.log('Response:', response);
+       // console.log('Response:', response);
        this.tasks = response.task;
        this.remaining = response.estimated_resource_value_sum;
        this.budget = response.task.pt_allocated_budget;
        this.percentage = response.task.percentage;
        this.categoryName = response.category_name;  
-       console.log('Category Name:', this.categoryName);
-       console.log('Tasks:', this.tasks);
+      // console.log('Category Name:', this.categoryName);
+     //  console.log('Tasks:', this.tasks);
        this.resources = response.resources;
-       console.log('Resources:', this.resources);
+     //  console.log('Resources:', this.resources);
       }
     );
 
@@ -203,14 +203,14 @@ toggleImages(task: any) {
         if (response.data && response.data.images && response.data.images.length > 0) {
           this.task_image = response.data.images.map((task: any) => {
             const mainImage = task.images[0]; 
-            console.log('Main Image:', mainImage);
+        //    console.log('Main Image:', mainImage);
             return {
               ...task,
               showImages: false,
               mainImage: mainImage
             };
           });
-          console.log('Task Image:', this.task_image);
+         // console.log('Task Image:', this.task_image);
         } else {
           console.error('No images found in response');
         }
@@ -245,7 +245,7 @@ isEditSubModalOpen = false;
 
   openEditSubModal(resourceId: number) {
     this.selectedResource = resourceId;
-    console.log('Selected Resource ID:', this.selectedResource);
+  //  console.log('Selected Resource ID:', this.selectedResource);
     this.isEditSubModalOpen = true;
   
     this.sideBarOpen = false;
@@ -261,7 +261,7 @@ isEditSubModalOpen = false;
 
 
   CompleteTask(taskId: number) {
-    console.log('Task ID:', taskId);
+   // console.log('Task ID:', taskId);
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -277,7 +277,7 @@ isEditSubModalOpen = false;
     const data ={task_id: taskId}; 
 
     this.http.post(this.completeTaskUrl, data, { headers }).subscribe((response: any) => {
-      console.log('Task Completed:', response);
+    //  console.log('Task Completed:', response);
       this.hideLoading();
       Swal.fire({
         title: 'Task Completed',

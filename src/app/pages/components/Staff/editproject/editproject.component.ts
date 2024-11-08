@@ -7,6 +7,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { CommonModule } from '@angular/common';
 import intlTelInput from 'intl-tel-input';
+import { AppConfig } from '../../../../app.config';
+
 
 @Component({
   selector: 'app-editproject',
