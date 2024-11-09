@@ -90,6 +90,7 @@ nav ul li a {
     color: #ffffff;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    background: black;
     text-shadow: 
         -1px -1px 0 black,
         1px -1px 0 black,
@@ -98,7 +99,7 @@ nav ul li a {
 }
 
 .quote-btn:hover {
-    background-color: #000;
+    background-color: #5c5a5a;
     color: #fff;
 }
 
